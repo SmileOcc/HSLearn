@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "CatAppAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "CatAppAbility_label",
+      "value": "label"
+    }
+  ]
+}

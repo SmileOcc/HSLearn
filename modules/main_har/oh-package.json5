@@ -1,0 +1,13 @@
+{
+  "name": "main_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/common_har": "file:../common_har",
+    "@learn/base_har": "file:../base_har",
+    "@learn/tiger_har": "file:../../tiger_har"
+  }
+}

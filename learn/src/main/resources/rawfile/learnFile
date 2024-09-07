@@ -1,0 +1,37 @@
+安装HAP时提示“code:9568332 error: install sign info inconsistent”
+问题现象
+
+在启动调试或运行应用/服务时，安装HAP出现错误，提示“error: install sign info inconsistent”错误信息。
+
+点击放大
+
+解决措施
+
+该问题是由于设备上已安装的应用与新安装的应用中签名不一致。如果在Edit Configurations中勾选了“Keep Application Data”（不卸载应用，覆盖安装），并且重新进行了签名，将导致该报错。
+
+请卸载设备上已安装的应用，或取消勾选“Keep Application Data”后，重新安装新的应用。
+
+
+
+
+#======== 存储：LocalStorage、AppStorage、PersistentStorage
+ArkTS提供了以下几种应用状态管理的能力：
+
+LocalStorage：使用范围在同一页面，页面与卡片和页面与UIAbility内部，负责UI状态存储。
+AppStorage：运行时存储，保存在内存中，应用范围全局共享，提供统一的存储供所有页面访问。
+PersistentStorage：持久化存储，保存在硬盘上，在应用退出或重启后，数据依旧保留。
+
+let storage = LocalStorage.GetShared()
+@LocalStorageProp('localprop')
+
+AppStorage.SetOrCreate('appcount', 10);
+@StorageProp('appcount') appValue: number = 0;
+
+PersistentStorage.PersistProp('persistentcount', 100);
+@StorageProp('persistentcount') persistentValue: number = 0;
+AppStorage.Set('persistentcount', this.textPersistent);
+
+
+PersistentStorage的持久化变量最好是小于2kb的数据，不要大量的数据持久化，因为PersistentStorage写入磁盘的操作是同步的，大量的数据本地化读写会同步在UI线程中执行，影响UI渲染性能。如果开发者需要存储大量的数据，建议使用数据库api。
+
+PersistentStorage和UIContext相关联，需要在UIContext明确的时候才可以调用,如果没有在UIContext明确的地方调用，将导致无法持久化数据。

@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "CatAppAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "CatAppAbility_label",
+      "value": "label"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "LearnDemo"
+    },
+    {
+      "name": "DocAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "DocAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "SavedAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "SavedAbility_label",
+      "value": "label"
+    },
+
+    {
+      "name": "search_box_placeholder",
+      "value": "搜索..."
+    },
+    {
+      "name": "normal_font_family",
+      "value": "HarmonyHeiTi"
+    },
+    {
+      "name": "medium_font_family",
+      "value": "HarmonyHeiTi-Medium"
+    },
+    {
+      "name": "bold_font_family",
+      "value": "HarmonyHeiTi-Bold"
+    },
+    {
+      "name": "fortune_pick",
+      "value": "财富精选"
+    },
+    {
+      "name": "personal_receive_money",
+      "value": "个人收钱"
+    },
+    {
+      "name": "slogan",
+      "value": "你敢收，我敢赔"
+    },
+    {
+      "name": "user_name",
+      "value": "森瑾的猫（**玉）"
+    },
+    {
+      "name": "set_amount",
+      "value": "设置金额"
+    },
+    {
+      "name": "save_image",
+      "value": "保存图片"
+    },
+    {
+      "name": "receive_and_pay_money",
+      "value": "收付款"
+    },
+    {
+      "name": "scan_reason",
+      "value": "允许Scan能力"
+    },
+    {
+      "name": "scan_text",
+      "value": "扫一扫"
+    },
+    {
+      "name": "search_text",
+      "value": "Children's dining chair"
+    },
+    {
+      "name": "footer_text",
+      "value": "It's been to the end."
+    },
+    {
+      "name": "grid_work",
+      "value": "智慧办公"
+    },
+    {
+      "name": "grid_sport",
+      "value": "运动健康"
+    },
+    {
+      "name": "grid_life",
+      "value": "智联"
+    },
+    {
+      "name": "grid_phone",
+      "value": "手机"
+    },
+    {
+      "name": "grid_play",
+      "value": "影音娱乐"
+    },
+    {
+      "name": "nav_index",
+      "value": "首页"
+    },
+    {
+      "name": "nav_shopping_cart",
+      "value": "购物车"
+    },
+    {
+      "name": "nav_mine",
+      "value": "我的"
+    },
+    {
+      "name": "loading",
+      "value": "正在加载"
+    },
+    {
+      "name": "no_interested_button_text",
+      "value": "不感兴趣"
+    },
+    {
+      "name": "low_quality_button_text",
+      "value": "图片质量差"
+    },
+    {
+      "name": "seen_button_text",
+      "value": "看过了"
+    },
+    {
+      "name": "want_to_eat",
+      "value": "想吃榜"
+    },
+    {
+      "name": "distance",
+      "value": "位置距离"
+    },
+    {
+      "name": "less_1km",
+      "value": "<1km"
+    },
+    {
+      "name": "less_5km",
+      "value": "<5km"
+    },
+    {
+      "name": "more_5km",
+      "value": ">5km"
+    },
+    {
+      "name": "classify",
+      "value": "分类"
+    },
+    {
+      "name": "food",
+      "value": "餐饮"
+    },
+    {
+      "name": "leisure",
+      "value": "休闲"
+    },
+    {
+      "name": "entertainment",
+      "value": "娱乐"
+    },
+    {
+      "name": "sort",
+      "value": "排序"
+    },
+    {
+      "name": "one",
+      "value": "1"
+    },
+    {
+      "name": "two",
+      "value": "2"
+    },
+    {
+      "name": "three",
+      "value": "3"
+    },
+    {
+      "name": "title_bar_homepage",
+      "value": "Home"
+    },
+    {
+      "name": "title_bar_phone",
+      "value": "Phone"
+    },
+    {
+      "name": "title_bar_computer",
+      "value": "Computers"
+    },
+    {
+      "name": "title_bar_foods",
+      "value": "Food"
+    },
+    {
+      "name": "title_bar_men_wear",
+      "value": "Menswear"
+    },
+    {
+      "name": "title_bar_fresh",
+      "value": "Fresh"
+    },
+    {
+      "name": "title_bar_furniture_kitchenware",
+      "value": "Furniture"
+    },
+    {
+      "name": "title_bar_classification",
+      "value": "Classifieds"
+    }
+  ]
+}

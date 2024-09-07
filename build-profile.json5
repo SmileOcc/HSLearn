@@ -1,0 +1,107 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/odd/.ohos/config/default_HMOS_LEARN__qIoBdr3i5BUuyJtZrGDPwV7Y6jCcDt4HyZjUiXFjN4=.cer",
+          "storePassword": "0000001BC8F4B4DDC8FBDB79769301CBD191FE48D271CFD0E9318AE2F9E874F45D3E224A38F16FD8914F20",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B8C7E164B33B0FF42CE46D291E9C52C2C33838A3F20E47DF88F6BA2BA459FC8E8145D9658988438",
+          "profile": "/Users/odd/.ohos/config/default_HMOS_LEARN__qIoBdr3i5BUuyJtZrGDPwV7Y6jCcDt4HyZjUiXFjN4=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/odd/.ohos/config/default_HMOS_LEARN__qIoBdr3i5BUuyJtZrGDPwV7Y6jCcDt4HyZjUiXFjN4=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "4.1.0(11)",
+        "compatibleSdkVersion": "4.1.0(11)",
+        "targetSdkVersion": "4.1.0(11)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "learn",
+      "srcPath": "./learn",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ShareHarLib",
+      "srcPath": "./ShareHarLib",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "TestFeatureAbility",
+      "srcPath": "./TestFeatureAbility",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "main_har",
+      "srcPath": "./modules/main_har"
+    },
+    {
+      "name": "base_har",
+      "srcPath": "./modules/base_har"
+    },
+    {
+      "name": "common_har",
+      "srcPath": "./modules/common_har"
+    },
+    {
+      "name": "request_har",
+      "srcPath": "./modules/request_har"
+    },
+    {
+      "name": "tiger_har",
+      "srcPath": "./tiger_har"
+    },
+    {
+      "name": "catapp",
+      "srcPath": "./modules/catapp",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

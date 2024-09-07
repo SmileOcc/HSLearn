@@ -1,0 +1,26 @@
+{
+  "module": {
+    "name": "catapp",
+    "type": "feature",
+    "description": "$string:module_desc",
+    "mainElement": "CatAppAbility",
+    "deviceTypes": [
+      "phone"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "CatAppAbility",
+        "srcEntry": "./ets/catappability/CatAppAbility.ets",
+        "description": "$string:CatAppAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:CatAppAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true
+      }
+    ]
+  }
+}

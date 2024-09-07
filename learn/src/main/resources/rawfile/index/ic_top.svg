@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_top</title>
+    <defs>
+        <path d="M16.9997286,10.1529538 L11.347547,22.9543802 C10.9351014,23.8885138 11.907434,24.8313903 12.8243093,24.3864049 L18,21.8744965 L23.1756907,24.3864049 C24.092566,24.8313903 25.0648986,23.8885138 24.652453,22.9543802 L19.0002714,10.1529538 C18.6158753,9.28234874 17.3841247,9.28234874 16.9997286,10.1529538 Z"
+              id="path-1"></path>
+    </defs>
+    <g id="ic_top" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="椭圆形" fill="#E92F4F" cx="18" cy="18" r="18"></circle>
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"
+                 transform="translate(18.000000, 17.000000) rotate(-360.000000) translate(-18.000000, -17.000000) "></use>
+        </mask>
+        <use id="路径" fill-opacity="0.8" fill="#FFFFFF" fill-rule="nonzero"
+             transform="translate(18.000000, 17.000000) rotate(-360.000000) translate(-18.000000, -17.000000) "
+             xlink:href="#path-1"></use>
+    </g>
+</svg>

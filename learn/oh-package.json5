@@ -1,0 +1,19 @@
+{
+  "name": "learn",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "STHarLib": "file:../learn/libs/STHarLib.har",
+    "ShareHarLibs": "file:../ShareHarLib",
+    "@learn/common_har": "file:../modules/common_har",
+    "@learn/base_har": "file:../modules/base_har",
+    "@learn/main_har": "file:../modules/main_har",
+    "@learn/request_har": "file:../modules/request_har",
+    "@learn/tiger_har": "file:../tiger_har",
+
+    "@abner/refresh": "^1.1.7"
+  }
+}

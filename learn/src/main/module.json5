@@ -1,0 +1,134 @@
+{
+  "module": {
+    "name": "learn",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "phone"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET"
+        //申请网络权限
+      },
+      {
+        // 允许应用获取数据网络信息
+        "name": "ohos.permission.GET_NETWORK_INFO"
+      },
+      {
+        "name": "ohos.permission.CAMERA",
+        "reason": "$string:app_name",
+        "usedScene": {
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.MEDIA_LOCATION",
+        "reason": "$string:app_name",
+        "usedScene": {
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.WRITE_MEDIA",
+        "reason": "$string:app_name",
+        "usedScene": {
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.READ_MEDIA",
+        "reason": "$string:app_name",
+        "usedScene": {
+          "when": "always"
+        }
+      },
+//      {//需要申请ACL权限
+//        "name": "ohos.permission.READ_IMAGEVIDEO",//允许应用读取媒体库的图片和视频媒体文件信息
+//        "reason": "$string:app_name",
+//        "usedScene": {
+//          "when": "always"
+//        }
+//      },
+//      {
+//        "name": "ohos.permission.WRITE_IMAGEVIDEO",//允许应用读写媒体库的图片和视频媒体文件信息。
+//        "reason": "$string:app_name",
+//        "usedScene": {
+//          "when": "always"
+//        }
+//      }
+
+//      {
+//        "name": "ohos.permission.SYSTEM_FLOAT_WINDOW",
+//        "usedScene": {
+//          "abilities": [
+//            "FloatWindowAbility"
+//          ],
+//          "when": "always"
+//        }
+//      }
+    ],
+
+
+    "abilities": [
+      {
+        "name": "EntryAbility",
+//        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "srcEntry": "./ets/entryability/LearnEntryAbility.ets",
+
+        "description": "$string:EntryAbility_desc",
+        "icon": "$media:logo",
+        "label": "$string:EntryAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DocAbility",
+        "srcEntry": "./ets/docability/DocAbility.ets",
+        "description": "$string:DocAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:DocAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "launchType": "specified"
+      },
+      {
+        "name": "SavedAbility",
+        "srcEntry": "./ets/savedability/SavedAbility.ets",
+        "description": "$string:SavedAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:SavedAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "launchType": "multiton"
+
+      },
+      {
+        "name": "TestFeatureAbilityAbility",
+        "srcEntry": "./ets/savedability/SavedAbility.ets",
+        "description": "$string:SavedAbility_desc",
+        "icon": "$media:layered_image",
+        "label": "$string:SavedAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "launchType": "multiton"
+
+      }
+    ]
+  }
+}
