@@ -1,5 +1,7 @@
+import { ITigerAppServer } from './ITigerAppServer'
+import { TigerServerType } from './launchexecute/TigerServerType'
 
-export interface ITigerAppContext {
+export interface ITigerAppContext extends ITigerAppServer {
   getAppID():string
 
   getUIContext():UIContext | undefined
@@ -7,4 +9,14 @@ export interface ITigerAppContext {
   // getMainServer()
 
   getAppConfig():Object
+
+
+  registerAppServer(key:TigerServerType, context:ITigerAppServer):void
+
+  unRegisterAppServer(key:TigerServerType, context:ITigerAppServer):void
+
+  onGetMainAppServer<T extends ITigerAppServer>(key:TigerServerType):T
+
+  onGetOtherAppServer<T extends ITigerAppServer>(key:TigerServerType):T | undefined
+
 }

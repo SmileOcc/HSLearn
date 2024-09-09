@@ -1,10 +1,16 @@
-import { LaunchDataReader } from './LaunchDataWrite'
+import { ITigerAppServer } from '../ITigerAppServer'
+import { LaunchStepState } from './LaunchStepState'
+import { LaunchStoreDataManager } from './LaunchStoreDataManager'
 
-export interface ILaunchServer {
+export interface ILaunchServer extends ITigerAppServer{
 
-  //
+  registerServer(server:ILaunchListener):void
 
-  //
+  unRegisterServer(server:ILaunchListener): void
 
-  // getStoreReader():LaunchDataReader
+  getLaunchStoreDataReader():LaunchStoreDataManager
+}
+
+export interface ILaunchListener {
+  onEntry:(state:LaunchStepState) => Promise<void>
 }

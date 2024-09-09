@@ -2,11 +2,11 @@ import { Size, window } from '@kit.ArkUI'
 import { Rect } from '@ohos.UiTest';
 
 export interface YWAvoidAreas {
-  system:window.AvoidArea;
-  cutout:window.AvoidArea;
-  system_gesture:window.AvoidArea;
-  keyboard:window.AvoidArea;
-  navigation_indicator:window.AvoidArea;
+  system:window.Rect
+  cutout:window.Rect
+  system_gesture:window.Rect
+  keyboard:window.Rect
+  navigation_indicator:window.Rect
 };
 
 function getEmptyRect():window.Rect {
@@ -21,38 +21,34 @@ function getEmptyRect():window.Rect {
 function getEmptyAreas():YWAvoidAreas {
   return {
     system: getEmptyRect(),
+    cutout: getEmptyRect(),
+    system_gesture: getEmptyRect(),
+    keyboard:getEmptyRect(),
+    navigation_indicator: getEmptyRect()
   }
 }
-function getDefaultAvoidPadding(tWindow:window.Window):YWAvoidAreas {
+function getDefaultAvoidPadding(tWindow:window.Window):window.AvoidArea {
   return {
-
-    system: tWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM),
-    cutout: tWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_CUTOUT),
-    system_gesture: tWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM_GESTURE),
-    keyboard: tWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_KEYBOARD),
-    navigation_indicator: tWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR)
+    visible: true,
+    leftRect: getEmptyRect(),
+    rightRect: getEmptyRect(),
+    topRect: getEmptyRect(),
+    bottomRect:getEmptyRect()
   }
 }
 
-
-
-function getEmptySize():window.Size {
-  return {
-    width:0,
-    height:0
-  }
-}
 
 export function getAvoidPadding(avoidAreas:YWAvoidAreas):Padding {
 
   let bottom = 0
-  if (avoidAreas.navigation_indicator.bottomRect.height > avoidAreas.keyboard.bottomRect.height) {
-   //todo
-    bottom = avoidAreas.navigation_indicator.bottomRect.height
-  }
+  let top = 0
+  // if (avoidAreas.navigation_indicator.height > avoidAreas.keyboard.bottomRect.height) {
+  //  //todo
+  //   bottom = avoidAreas.navigation_indicator.bottomRect.height
+  // }
 
   return {
-    top:`${avoidAreas.navigation_indicator.topRect.top}px`,
+    top:`${top}px`,
     bottom:`${bottom}px`
   }
 }
@@ -63,18 +59,13 @@ export async function initListerWindow(windowObj: window.Window) {
   let area = windowObj.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
   windowObj.setWindowLayoutFullScreen(true)
 
-  // let size = windowObj
-  AppStorage.set("window","1")
+  AppStorage.set("window",area)
 
   windowObj.on("windowSizeChange", (value)=>{
-    AppStorage.set("window",value)
+
+    let newArea = windowObj.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
+    AppStorage.set("window",newArea)
 
   })
-  // if (area.topRect.height > 0) {
-  //   // 2.设置导航栏、状态栏不显示。
-  //   windowObj.setWindowSystemBarEnable([], (err) => {
-  //
-  //   });
-  // }
 
 }

@@ -51,6 +51,10 @@ export class TigerGlobalThis {
     this._appContext = appContext
   }
 
+  getAppContext():ITigerAppContext {
+    return this._appContext
+  }
+
   getContext(key: string): common.UIAbilityContext | undefined {
     return this._uiContexts.get(key);
   }

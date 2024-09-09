@@ -18,6 +18,9 @@ export class StepLauncherExecute {
 
     //任务状态开始 标识处理
     const startState = task.getStartState()
+    if (startState) {
+      this.stateMachine.onChangeState(startState)
+    }
 
     const taskKey = task.getDataKey()
     const taskData = await task.run()
@@ -30,5 +33,8 @@ export class StepLauncherExecute {
 
     //任务状态结束 标识处理
     const endState = task.getEndState()
+    if (endState) {
+      this.stateMachine.onChangeState(endState)
+    }
   }
 }
