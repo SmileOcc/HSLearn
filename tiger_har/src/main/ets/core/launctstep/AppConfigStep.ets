@@ -17,7 +17,7 @@ export class AppConfigStep extends LaunchStep {
     this.stateTo = stateTo
   }
   async run(): Promise<LaunchStepData> {
-    return new AppConfigModel()
+    return {data:new AppConfigModel()}
   }
   getDataKey(): TaskType {
     return TaskType.kAppConfigStep;

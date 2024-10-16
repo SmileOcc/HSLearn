@@ -5,5 +5,8 @@ export enum LaunchStepState {
   onAppConfigEnd = "app-config-end",
   onThirdInit = "app-third-init",
   onThirdInitEnd = "app-third-init-end",
-  onFinish = "app-finish"
+  onFinish = "app-finish",
+  onLoadError = "app-load-error",
+  onCommonError = "app-common-error",
+  onUnknown = "app-unknown"
 }

@@ -1,5 +1,5 @@
 import { ITigerAppContext } from '../ITigerAppContext';
-import { LaunchStep } from '../task/LaunchStep';
+import { ExecuteInfo, LaunchStep, LaunchStepData } from '../task/LaunchStep';
 import { ILaunchStateMachine } from './ILaunchStateMachine';
 import { LaunchDataWrite } from './LaunchDataWrite';
 
@@ -25,16 +25,26 @@ export class StepLauncherExecute {
     const taskKey = task.getDataKey()
     const taskData = await task.run()
 
-    if (taskKey && taskData) {
-      //存储
-      this.dataWrite.setData(taskKey,taskData)
+    if (taskData) {
+      const resultData:ExecuteInfo = {launchSetpData:{data:taskData.data,error:taskData.error}}
+      if (resultData.launchSetpData.error) {
+        this.stateMachine.onChangeState(startState,resultData)
+        throw Error("启动任务出错，终止：" + JSON.stringify(resultData))
+      }
+
+      if (resultData.launchSetpData.data) {
+        if (taskKey) {
+          //存储
+          this.dataWrite.setData(taskKey,resultData.launchSetpData.data)
+        }
+      }
+
+      //任务状态结束 标识处理
+      const endState = task.getEndState()
+      if (endState) {
+        this.stateMachine.onChangeState(endState,resultData)
+      }
     }
 
-
-    //任务状态结束 标识处理
-    const endState = task.getEndState()
-    if (endState) {
-      this.stateMachine.onChangeState(endState)
-    }
   }
 }

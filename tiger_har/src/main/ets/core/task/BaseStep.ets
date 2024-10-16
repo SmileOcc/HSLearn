@@ -1,5 +1,6 @@
 import { LaunchStepState } from '../launchexecute/LaunchStepState';
 import { IBaseStep } from './IBaseStep';
+import { LaunchStepData } from './LaunchStep';
 
 export enum TaskType  {
   kAppConfigStep = "kAppConfigStep",
@@ -12,7 +13,7 @@ export class BaseStep implements IBaseStep {
     return TAG
   }
 
-  async run():Promise<object | undefined> {
+  async run():Promise<LaunchStepData | void> {
 
     await new Promise<void>((relo)=>{
       //测试请求完成任务
@@ -28,12 +29,12 @@ export class BaseStep implements IBaseStep {
     return undefined
   }
 
-  getStartState():LaunchStepState | undefined {
-    return undefined
+  getStartState():LaunchStepState {
+    return LaunchStepState.onUnknown
   }
 
-  getEndState(): LaunchStepState | undefined {
-    return undefined
+  getEndState(): LaunchStepState {
+    return LaunchStepState.onUnknown
   }
 
   getDataKey(): string | undefined {

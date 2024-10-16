@@ -15,6 +15,10 @@ export class Constants {
 
   static readonly kStatusBarHeight = 'statusBarHeight'
 
+  static readonly kStorageAreas = "kStorageAreas"
+  static readonly kStorageWidth = "kStorageWidth"
+  static readonly kStorageHeight = "kStorageHeight"
+
   //这里获取有问题,待优化，改成方法,
   static readonly screenHeight = px2vp(display.getDefaultDisplaySync().height);
   static readonly screenWidth = px2vp(display.getDefaultDisplaySync().width);

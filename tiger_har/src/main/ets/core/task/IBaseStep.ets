@@ -1,8 +1,9 @@
 import { LaunchStepState } from '../launchexecute/LaunchStepState'
+import { LaunchStepData } from './LaunchStep'
 
 export interface IBaseStep {
 
-  run():Promise<object|undefined>
+  run():Promise<LaunchStepData|void>
 
   getStartState():LaunchStepState | undefined
 

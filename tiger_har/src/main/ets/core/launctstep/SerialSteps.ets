@@ -31,7 +31,7 @@ export class SerialSteps extends LaunchStep {
   }
 
 
-  async run(): Promise<LaunchStepData | undefined> {
+  async run(): Promise<void> {
 
     if (this.taskSteps.length == 0) {
       if (this.stateTo) {
@@ -52,7 +52,6 @@ export class SerialSteps extends LaunchStep {
       }
     }
 
-    return undefined
   }
 
   getDataKey(): TaskType | undefined {

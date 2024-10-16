@@ -3,6 +3,8 @@ import QDImageCompressionUtils from './src/main/ets/utils/QDImageCompressionUtil
 import RouterUtils from './src/main/ets/utils/RouterUtils'
 import ToastUtils from './src/main/ets/utils/ToastUtils'
 import UserAgentUtils from './src/main/ets/utils/UserAgentUtils'
+import YWBaseModel from './src/main/ets/model/YWBaseModel'
+export { getDefaultAvoidAreas, getAvoidPadding } from './src/main/ets/windowUtils/YWAvoidAreas'
 
 export { MainPage } from './src/main/ets/components/mainpage/MainPage'
 

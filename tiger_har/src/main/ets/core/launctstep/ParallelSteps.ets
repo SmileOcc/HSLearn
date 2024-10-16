@@ -6,21 +6,19 @@ import { TaskType } from '../task/BaseStep'
 import { LaunchStepData, LaunchStep } from '../task/LaunchStep'
 
 export class ParallelSteps extends LaunchStep {
-
-  readonly appContext:ITigerAppContext
-  readonly launcherExecute:StepLauncherExecute
-  private taskSteps:Array<LaunchStep>
-  readonly stateForm?:LaunchStepState | null
-  readonly stateTo?:LaunchStepState | null
-
+  readonly appContext: ITigerAppContext
+  readonly launcherExecute: StepLauncherExecute
+  private taskSteps: Array<LaunchStep>
+  readonly stateForm?: LaunchStepState | null
+  readonly stateTo?: LaunchStepState | null
   private launcherStateMachine: ILaunchStateMachine
 
-  constructor(context:ITigerAppContext,
-              stateForm:LaunchStepState | null,
-              stateTo:LaunchStepState | null,
+  constructor(context: ITigerAppContext,
+              stateForm: LaunchStepState | null,
+              stateTo: LaunchStepState | null,
               execute: StepLauncherExecute,
               launcherStateMachine: ILaunchStateMachine,
-              steps:Array<LaunchStep>) {
+              steps: Array<LaunchStep>) {
     super()
     this.appContext = context
     this.launcherExecute = execute
@@ -31,7 +29,7 @@ export class ParallelSteps extends LaunchStep {
     this.stateTo = stateTo
   }
 
-  async run(): Promise<LaunchStepData | undefined> {
+  async run(): Promise<void> {
     if (this.taskSteps.length == 0) {
       if (this.stateTo) {
         this.launcherStateMachine.onChangeState(this.stateTo)
@@ -39,16 +37,22 @@ export class ParallelSteps extends LaunchStep {
       return
     }
 
-    return Promise.all(this.taskSteps.map(async (value)=>{
-      try {
-        await this.launcherExecute.run(value)
-        if (this.stateTo) {
-          this.launcherStateMachine.onChangeState(this.stateTo)
-        }
-      } catch (error) {
-        throw Error("启动任务出错，终止："  + JSON.stringify(error))
-      }
-    }))
+    try {
+      await Promise.all(
+        this.taskSteps.map(async (value) => {
+          try {
+            await this.launcherExecute.run(value)
+            if (this.stateTo) {
+              this.launcherStateMachine.onChangeState(this.stateTo)
+            }
+          } catch (error) {
+            throw Error("启动任务出错，终止：" + JSON.stringify(error))
+          }
+        }))
+    } catch (error) {
+
+    }
+
 
   }
 

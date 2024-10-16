@@ -1,35 +1,29 @@
 import { OsRouterUrls } from '@learn/common_har/Index';
+import { IUState } from '@learn/common_har/src/main/ets/model/YWBaseModel';
 import { ITigerAppContext } from '../../core/ITigerAppContext';
 import { ILaunchListener, ILaunchServer } from '../../core/launchexecute/ILaunchServer';
 import { LaunchStepState } from '../../core/launchexecute/LaunchStepState';
 import { TigerServerType } from '../../core/launchexecute/TigerServerType';
 import { TigerGlobalThis } from '../../core/TigerGlobalThis';
 import { LaunchLoadingView } from '../loading/LaunchLoadingView';
+import { MainUIState, MainViewModel } from './MainViewModel';
 
 @Entry({routeName:OsRouterUrls.TIGER_APP})
 @Component
 export struct MainPage {
   @State message: string = 'Hello Tiger';
 
-  @State isLoading: boolean = true
   private appContext: ITigerAppContext = TigerGlobalThis.getInstance().getAppContext()
 
-  lauchListener:ILaunchListener = {
-    onEntry:(async (state:LaunchStepState) =>{
-      switch (state) {
-        case LaunchStepState.onInit:
-          console.debug("====== init on ===a")
-          break;
-        case LaunchStepState.onFinish:
-          this.isLoading = false
-          break;
-      }
-    })
-  }
+  private viewModel:MainViewModel = new MainViewModel(this.appContext)
+
+  @State iuState: MainUIState = this.viewModel.iuState
+
+
 
   build() {
     Row() {
-      if (this.isLoading) {
+      if (this.iuState.isLoading) {
         LaunchLoadingView()
       } else {
         Column() {
@@ -46,11 +40,6 @@ export struct MainPage {
 
   aboutToAppear(): void {
 
-    //启动任务
-    let launchServer = this.appContext.onGetMainAppServer<ILaunchServer>(TigerServerType.launcher)
-    launchServer.registerServer(this.lauchListener)
-
-    launchServer.onStart()
   }
 
   aboutToDisappear(): void {

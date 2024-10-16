@@ -1,4 +1,5 @@
 import { ITigerAppServer } from '../ITigerAppServer'
+import { ExecuteInfo, LaunchStepData } from '../task/LaunchStep'
 import { LaunchStepState } from './LaunchStepState'
 import { LaunchStoreDataManager } from './LaunchStoreDataManager'
 
@@ -12,5 +13,5 @@ export interface ILaunchServer extends ITigerAppServer{
 }
 
 export interface ILaunchListener {
-  onEntry:(state:LaunchStepState) => Promise<void>
+  onEntry:(state:LaunchStepState,info?:LaunchStepData) => Promise<void>
 }
