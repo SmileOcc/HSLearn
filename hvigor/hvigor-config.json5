@@ -1,9 +1,9 @@
 {
   "modelVersion": "5.0.0",
-  "hvigorVersion": "4.1.2",
+//  "hvigorVersion": "4.1.2",
   //  "hvigorVersion": "file:../dependencies/hvigor-4.1.1.tgz",
   "dependencies": {
-    "@ohos/hvigor-ohos-plugin": "4.1.2"
+//    "@ohos/hvigor-ohos-plugin": "4.1.2"
   },
   "execution": {
     "analyze": "default",

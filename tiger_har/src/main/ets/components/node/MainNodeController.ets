@@ -16,7 +16,6 @@ export class BuilderWrapData<T>{
 export class MainNodeController extends NodeController implements INodeComponentDelegate{
 
   private uiContent?:UIContext
-
   // 置为null方便后续进行更新组件的时候的控制
   private rootNode?: FrameNode
   private componentQueue = new Queue<BuilderWrapData<object>>()
@@ -24,15 +23,13 @@ export class MainNodeController extends NodeController implements INodeComponent
   // 在挂载时触发的逻辑, 需要提供一个具体的node
   makeNode(uiContext: UIContext): FrameNode | null {
     this.uiContent = uiContext
-
     if (!this.rootNode) {
-      this.rootNode = new FrameNode(uiContext) //new BuilderNode<[BuilderWrapData<MainNodeConfig>]>(uiContext)
+      this.rootNode = new FrameNode(uiContext)
     }
 
     while (this.componentQueue.length > 0) {
       const builderWrap = this.componentQueue.pop()
-      // this.rootNode.appnedchild
-
+      this.rootNode.appendChild(this.buildComponent(uiContext,builderWrap).getFrameNode())
     }
 
     // 后续被rebuild调用时, 不会触发上面的if逻辑
@@ -42,31 +39,27 @@ export class MainNodeController extends NodeController implements INodeComponent
   buildComponent(uiContext:UIContext, buildWrap:BuilderWrapData<object>): BuilderNode<[ComponentParams<object>,ICustomComponentDelegate]> {
 
     const builder = new BuilderNode<[ComponentParams<object>,ICustomComponentDelegate]>(uiContext)
-
     const builderParams:ComponentParams<object> = {
       controller:buildWrap.controller,
       params: buildWrap.params,
 
     }
-    const frameNode = builder.getFrameNode()
-    if (frameNode) {
-      buildWrap.controller?.attach(frameNode,this)
-    }
+    buildWrap.controller?.attach(builder,this)
     builder.build(buildWrap.builderNode,builderParams)
     return builder
   }
 
-  addComponent<T extends  object>(component:WrappedBuilder<[ComponentParams<T>]>, params:T): void {
+  addComponent<T extends  object>(component:WrappedBuilder<[T]>, params:T): void {
 
     const controller = new CustomComponentController()
     const builderParams:BuilderWrapData<T> = {
-      builderNode:component,
+      builderNode:component as WrappedBuilder<[ComponentParams<T>]>,
       controller: controller,
       params:params
     }
 
     if (this.uiContent && this.rootNode) {
-      // this.rootNode.appnedchild
+      this.rootNode.appendChild(this.buildComponent(this.uiContent,builderParams).getFrameNode())
     } else {
       this.componentQueue.add(builderParams)
     }
@@ -74,15 +67,18 @@ export class MainNodeController extends NodeController implements INodeComponent
   }
 
   remove(frameNode:FrameNode):void {
+    const parentNode = frameNode.getParent()
+    if (parentNode && parentNode.getUniqueId() == frameNode.getUniqueId()) {
+      parentNode.removeChild(frameNode)
+    }
 
   }
 
 
   // 外部调用的更新的方法
-  update<MainNodeConfig>(newData: BuilderWrapData<MainNodeConfig>): void {
+  update(params: object): void {
 
     // update的数据类型要和builder一致
-    // this.rootNode?.update(newData)
 
   }
 }
@@ -100,37 +96,43 @@ export interface INodeComponentDelegate {
 
 export interface ICustomComponentDelegate {
 
-  attach(frameNode:FrameNode, controllerDelegate:INodeComponentDelegate): void
+  attach(node:BuilderNode<[object]>, controllerDelegate:INodeComponentDelegate): void
 
-  // addComponent<T extends  object>(component:WrappedBuilder<[ComponentParams<T>]>): void
 
   getRootNodeNumber():number
 
   hidden(): void
+
+  update(param:object):void
 }
 
 
 export class CustomComponentController implements ICustomComponentDelegate {
 
-  private rootNode?: FrameNode
+  private rootNode?: BuilderNode<[object]>
   private controllerDelegate?:INodeComponentDelegate
 
-  attach(frameNode:FrameNode, controllerDelegate:INodeComponentDelegate): void {
-    this.rootNode = frameNode
+  attach(node:BuilderNode<[object]>, controllerDelegate:INodeComponentDelegate): void {
+    this.rootNode = node
     this.controllerDelegate = controllerDelegate
   }
 
   getRootNodeNumber():number {
-    // return this.rootNode.ge
-    return -1
+    return this.rootNode?.getFrameNode()?.getUniqueId() ?? -1
   }
 
   hidden():void {
-    if (this.rootNode) {
-      this.controllerDelegate?.remove(this.rootNode)
+    const fromNode = this.rootNode?.getFrameNode()
+    if (fromNode) {
+      this.controllerDelegate?.remove(fromNode)
     }
-    // this.rootNode?.dispose
+    this.rootNode?.dispose()
     this.rootNode = undefined
   }
+
+  update(param:object):void {
+    this.rootNode?.update(param)
+  }
+
 
 }

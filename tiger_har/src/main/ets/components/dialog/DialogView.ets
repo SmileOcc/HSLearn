@@ -13,7 +13,8 @@ export enum DialogShowType {
 }
 
 
-export const dialogViewNodeBuilder = wrapBuilder<[DialogConfig]>(dialogViewNodeView)
+// export const dialogViewNodeBuilder = wrapBuilder<[DialogConfig]>(dialogViewNodeView)
+export const dialogViewNodeBuilder = wrapBuilder(dialogViewNodeView)
 
 @Builder
 function dialogViewNodeView(params:DialogConfig) {

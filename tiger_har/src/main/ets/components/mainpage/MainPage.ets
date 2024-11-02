@@ -7,6 +7,7 @@ import { TigerServerType } from '../../core/launchexecute/TigerServerType';
 import { TigerGlobalThis } from '../../core/TigerGlobalThis';
 import { LaunchLoadingView } from '../loading/LaunchLoadingView';
 import { MainUIState, MainViewModel } from './MainViewModel';
+import { promptAction } from '@kit.ArkUI';
 
 @Entry({routeName:OsRouterUrls.TIGER_APP})
 @Component
@@ -22,20 +23,29 @@ export struct MainPage {
 
 
   build() {
-    Row() {
-      if (this.iuState.isLoading) {
-        LaunchLoadingView()
-      } else {
-        Column() {
-          Text(this.message)
-            .fontSize(50)
-            .fontWeight(FontWeight.Bold)
+    Stack(){
+      Row() {
+        if (this.iuState.isLoading) {
+          LaunchLoadingView()
+        } else {
+          Column() {
+            Text(this.message)
+              .fontSize(50)
+              .fontWeight(FontWeight.Bold)
+          }
+          .width('100%')
         }
-        .width('100%')
       }
+      .width('100%')
+      .height('100%')
 
+      NodeContainer(this.viewModel.getMainNodeControl())
+        .id('nodeContainer')
+        .onClick(() => {
+          promptAction.showToast({ message: '哎呦' })
+        })
     }
-    .height('100%')
+
   }
 
   aboutToAppear(): void {

@@ -4,11 +4,18 @@ import { ILaunchListener, ILaunchServer } from '../../core/launchexecute/ILaunch
 import { LaunchStepState } from '../../core/launchexecute/LaunchStepState';
 import { TigerServerType } from '../../core/launchexecute/TigerServerType';
 import { ExecuteInfo, LaunchStepData } from '../../core/task/LaunchStep';
-import { DialogConfig, DialogShowType, DialogView } from '../dialog/DialogView';
+import { DialogConfig, DialogShowType, DialogView, dialogViewNodeBuilder } from '../dialog/DialogView';
+import { MainNodeController } from '../node/MainNodeController';
 
 export class MainViewModel extends YWBaseModel<MainUIState> {
   iuState: MainUIState = new MainUIState()
   private appContext:ITigerAppContext
+
+  private _MainNodeController:MainNodeController = new MainNodeController()
+
+  getMainNodeControl():MainNodeController {
+    return this._MainNodeController
+  }
 
   private lauchListener:ILaunchListener = {
     onEntry:(async (state:LaunchStepState,info?:LaunchStepData) =>{
@@ -50,7 +57,10 @@ export class MainViewModel extends YWBaseModel<MainUIState> {
       title:"title",
       content:"content"}
     let alert = new DialogView({config:config})
+
+    this._MainNodeController.addComponent<DialogConfig>(dialogViewNodeBuilder,config)
   }
+
 
 }
 
