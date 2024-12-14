@@ -6,7 +6,7 @@ import KLogger from '../common/KLogger';
  * AlertDialog 操作确认类弹出框，触发一个将产生严重后果的不可逆操作时，如删除、重置、取消编辑、停止等。
  */
 @Component
-export struct AlertControlDialog {
+export struct YWAlertControlDialog {
 
   //监听visible变量，visible值发生变化时触发onChange回调函数
   @Watch("onChange") @Link visible: boolean;

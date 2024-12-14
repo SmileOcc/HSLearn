@@ -97,9 +97,17 @@ struct SettingPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
+      ["基础数据"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
-      ["docAbility-specified", "savedAbility-docAbility-multition",
-        "TestHarPage 通过routerName跳转", "TestHarTwoPg 通过routerName跳转","Share_Har 页面跳转", "网页打开","浏览器打开", "登录页"],
+      ["docAbility-specified",
+        "savedAbility-docAbility-multition",
+        "TestHarPage 通过routerName跳转",
+        "TestHarTwoPg 通过routerName跳转",
+        "Share_Har 页面跳转",
+        "网页打开",
+        "浏览器打开",
+        "登录页",
+        "登录注册页1"],
       ["TaskPoolPage", "TaskPoolCpuPage", "TaskPoolSyncTaskPage","worker Test", "其他"],
       ["消息列表 MessageListPage","scroll集合","layoutWeight","PullRefreshPage","PullRefreshLazyPage","PullRefreshListPage","SwiperStackPage","TopSlideMenuTestPage"],
       ["图片相册PhotoCameraPage", "保存图片相册", "window悬浮弹窗", "buildParams Page","ProvideConsumPage祖孙","showLoading全局"],
@@ -230,6 +238,12 @@ struct SettingPage {
       })
       .onClick((event) => {
         console.log(subModel.title + "ccc")
+        if (subModel.title.includes("基础数据")) {
+          router.pushUrl({
+            url:'pages/base/TestDataHandlePage',
+            params:{}
+          })
+        }
         if (subModel.title.startsWith('请求调试')) {
           router.pushUrl({
             url: 'pages/base/TestRequestPage',
@@ -327,6 +341,12 @@ struct SettingPage {
 
         if (subModel.title.startsWith('浏览器')) {
           RouterUtils.openBrowser(this.context,'https://www.baidu.com')
+        }
+
+        // if (subModel.title.includes('登录注册页1')) {
+        if (subModel.title.startsWith('登录注册页1')) {
+          RouterUtils.jumpRouter('pages/base/registerlogin/LoginPageOne')
+          return
         }
 
         if (subModel.title.startsWith('登录')) {

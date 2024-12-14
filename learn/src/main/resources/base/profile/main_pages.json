@@ -18,6 +18,7 @@
     "pages/message/MessageListPage",
     "pages/accountInfo/ScrollVisibleAreaPage",
     "pages/calculator/CalculatorPage",
+    "pages/base/TestDataHandlePage",
     "pages/base/TestRequestPage",
     "pages/base/DBPage",
     "pages/base/TestPreferencesPage",
@@ -63,6 +64,8 @@
     "pages/paymentHomePage/ReceivePaymentPage",
     "pages/paymentHomePage/ScanQRCodePage",
     "pages/base/HardwareInfoPage",
-    "pages/FlashPage"
+    "pages/FlashPage",
+    "pages/base/registerlogin/RegisterPageOne",
+    "pages/base/registerlogin/LoginPageOne"
   ]
 }

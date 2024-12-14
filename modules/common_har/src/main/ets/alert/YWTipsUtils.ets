@@ -1,7 +1,7 @@
 import { TipsDialog } from '@kit.ArkUI';
 
 @Component
-export struct TipsUtil {
+export struct YWTipsUtil {
   @Prop @Watch("change") options: TipsOptions = new TipsOptions();
   private isChecked: boolean = true;
   /**

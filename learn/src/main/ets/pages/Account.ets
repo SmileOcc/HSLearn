@@ -90,6 +90,13 @@ export struct Account {
 
 
     }, 3000)
+
+    // 重复执行内容，可设置时间延迟间隔（执行多次）
+    // let intervalID = setInterval(() => {
+    //   console.log('do after 2s delay.')
+    //
+    // }, 2000)
+    // clearInterval(intervalID)  // 手动取消定时器
   }
 
   async getUserLogin() {

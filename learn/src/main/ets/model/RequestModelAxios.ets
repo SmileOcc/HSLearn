@@ -8,11 +8,20 @@ import { OrderItemInfo } from '../pages/accountInfo/model/OrderItemInfo';
 import { ReviewModel } from '../pages/accountInfo/model/ReviewModel';
 import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
 import { taskpool } from '@kit.ArkTS';
+import { YWShowToast } from '@learn/common_har';
+import { router } from '@kit.ArkUI';
 
+interface ApiResponse<T> {
+  data: T;
+  message?: string;
+  code?: number;
+}
 
 // 创建实例时配置默认值
 const instance = axios.create({
-  baseURL: HttpConstants.baseUrl
+  baseURL: HttpConstants.baseUrl,
+  timeout: 10000,//超时
+  headers: { 'Content-Type': 'application/json' },
 });
 
 // 创建实例后修改默认值
@@ -26,8 +35,16 @@ instance.defaults.timeout = 2500;
 // 添加请求拦截器
 instance.interceptors.request.use((config:InternalAxiosRequestConfig) => {
   // 对请求数据做点什么
+  let tokens = ""
+
+  if (tokens != '') {
+    config.headers['authorization'] = tokens //设置token
+  }
+
   KLogger.debug('=========0 添加请求拦截器')
   KLogger.debug(`========= ${JSON.stringify(config)}`)
+
+
   return config;
 }, (error:AxiosError) => {
   // 对请求错误做些什么
@@ -39,11 +56,39 @@ instance.interceptors.response.use((response:AxiosResponse)=> {
   // 对响应数据做点什么
 
   KLogger.debug('=========1 添加响应拦截器')
+
+  // 对响应数据做点什么
+  // 因为 我们后台返回的 数据结构是统一的例如{code:2001,massage:'用户信息不能为空',data:{}}
+  // 所以下面配置根据系统返回来配置的，不同的系统配置不同
+  if (response.data.code == '2001') { //这里是举例 要根据自己项目的实际情况进行处理
+    YWShowToast(response.data.massage)
+    return Promise.reject(response.data);
+  }
+  if (response.data.code == '4001') { //这里是举例 要根据自己项目的实际情况进行处理
+    router.pushUrl({ //用到了 @ohos.router 进行页面跳转
+      url: "pages/LoginPage"
+    })
+    return Promise.reject(response.data);
+  }
+
   KLogger.debug(`========= ${JSON.stringify(response.data)}`)
   AlertDialog.show({message:JSON.stringify(response.data)})
   return response;
 }, (error:AxiosError)=> {
   // 对响应错误做点什么
+  console.log("AxiosError", JSON.stringify(error.response))
+  const status = error.response?.status;
+  switch (status) {
+    case 401: //无权限未登录
+      router.pushUrl({ //用到了 @ohos.router 进行页面跳转
+        url: "pages/LoginPage"
+      })
+      break;
+    default:
+      YWShowToast("系统异常，请稍后再试！")
+      break
+  }
+
   return Promise.reject(error);
 });
 

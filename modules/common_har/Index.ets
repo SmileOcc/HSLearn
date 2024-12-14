@@ -4,6 +4,8 @@ import RouterUtils from './src/main/ets/utils/RouterUtils'
 import ToastUtils from './src/main/ets/utils/ToastUtils'
 import UserAgentUtils from './src/main/ets/utils/UserAgentUtils'
 import YWBaseModel from './src/main/ets/model/YWBaseModel'
+import YWShowToast from './src/main/ets/alert/YWToastUtils'
+
 export { getDefaultAvoidAreas, getAvoidPadding } from './src/main/ets/windowUtils/YWAvoidAreas'
 
 export { MainPage } from './src/main/ets/components/mainpage/MainPage'
@@ -35,6 +37,11 @@ export { GlobalThis } from './src/main/ets/global/GlobalThis'
 export { OsRouterUrls } from './src/main/ets/route/OsRouterURL'
 export { osRouter, OsRouter } from './src/main/ets/route/OsRouter'
 
+export { YWTipsUtil } from  './src/main/ets/alert/YWTipsUtils'
+export { YWToastUtils } from  './src/main/ets/alert/YWToastUtils'
+export { YWDialogUtils } from  './src/main/ets/alert/YWDialogUtils'
+export { YWAlertControlDialog } from  './src/main/ets/alert/YWAlertControlDialog'
+export { YWActionUtils } from  './src/main/ets/alert/YWActionUtils'
 
 
 
@@ -82,3 +89,4 @@ export {RouterUtils}
 export { ThemeManager } from './src/main/ets/utils/ThemeManager'
 export { ToastUtils }
 export { UserAgentUtils }
+export { YWShowToast }

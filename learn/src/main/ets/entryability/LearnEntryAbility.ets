@@ -6,6 +6,7 @@ import { GlobalThis } from '@learn/common_har/Index'
 import { TigerRouteUtils } from '@learn/tiger_har/Index'
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@kit.BasicServicesKit'
+import { MMKV } from '@tencent/mmkv';
 
 const KEY_APP_PRIVACY = 'nutsusKey';
 const PREFERENCES_NAME = 'nutsusPreferences';
@@ -14,6 +15,11 @@ export abstract  class LearnEntryAbility extends MainAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onCreate(want, launchParam)
+
+    let appCtx = this.context.getApplicationContext();
+    let mmkvRootDir = MMKV.initialize(appCtx);
+    console.info('mmkv rootDir: ', mmkvRootDir);
+
 
     //全局持有
     GlobalThis.getInstance().setContext("MainContext", this.context);

@@ -1,4 +1,4 @@
-import { apiRequest } from './AxiosRequest'
+import { axiosInstance } from './AxiosRequest'
 
 interface User {
   /** token令牌 */
@@ -35,36 +35,22 @@ export class TestViewModel {
 
   // 登录并返回用户数据
   async login(data: LoginParams) {
-    const resData = await apiRequest<User, LoginParams>({ url: '/login', method: 'post', data })
+    const resData = await axiosInstance<User, LoginParams>({ url: '/login', method: 'post', data })
     return resData
   }
 
   async reqHotelList():Promise<HotelListItemModel[]>{
     return await new Promise((resolve, reject) =>{
-      apiRequest<HotelListItemModel[]>({ url: '/roomList', method: 'get' })
+      axiosInstance<HotelListItemModel[]>({ url: '/roomList', method: 'get' })
     })
 
-    // return await new Promise((resolve, reject) => {
-    //   axios.get(
-    //     `${this.baseUrl}/hotelList`,
-    //   )
-    //     // .then((resp:AxiosResponse) => {
-    //     .then((resp:AxiosResponse<HotelListItemModel[]>) => {
-    //       if (resp.status === 200) {
-    //         console.log('===== success reqHotelRoomList')
-    //         resolve(resp.data)
-    //       } else {
-    //         console.log('===== failure reqHotelRoomList')
-    //         console.log('===== axios--失败',JSON.stringify(resp))
-    //         reject('查询失败')
-    //       }
-    //
-    //     }).catch((err:AxiosError)=> {
-    //     console.log('===== axios--失败 cat ',JSON.stringify(err))
-    //
-    //     reject('查询失败')
-    //
-    //   })
-    // })
   }
+
+
+}
+
+export interface IServerResponse {
+  data: User;
+  errorCode: number;
+  errorMsg: string;
 }

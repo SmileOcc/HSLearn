@@ -337,8 +337,21 @@ export class YWStrUtils {
 
 
 
+  //手机号
+  static validatePhoneNumber(phoneNumber: string): boolean {
+    const pattern: string = '^1[3-9]\\d{9}$';
+    const regexObj = new RegExp(pattern);
+    return regexObj.test(phoneNumber);
+  }
 
-
+  /*正则校验: 密码*/
+  static  regTestPassword(value: string): boolean {
+    // const reg: RegExp = new RegExp('^\\d{8}$')
+    const reg: RegExp = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$')
+    const res = reg.test(value)
+    console.info('[正则校验] - pwd:', res)
+    return res
+  }
 
 
 
