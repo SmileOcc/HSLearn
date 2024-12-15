@@ -11,6 +11,39 @@ export class YWWindowUtils {
 
   private constructor() {}
 
+  private static windowStage: window.WindowStage;
+
+  static getWindowStage() {
+    return YWWindowUtils.windowStage
+  }
+
+  static setWindowStage(windowStage: window.WindowStage): void {
+    YWWindowUtils.windowStage = windowStage;
+  }
+
+  /*
+    * 设置横竖屏
+    * @Params orientation: 旋转方向
+    */
+  static setWindowOrientation(windowStage: window.WindowStage, orientation: number): void {
+    windowStage.getMainWindow((error, win: window.Window) => {
+      win.setPreferredOrientation(orientation).then((data) => {
+        // do some log
+      }).catch((err: Error) => {
+      });
+    })
+  }
+
+  /**
+   * 设置隐藏状态栏
+   * @param windowStage
+   */
+  static hideSystemBar (windowStage: window.WindowStage) {
+    windowStage.getMainWindow((error, win: window.Window) => {
+      win.setWindowSystemBarEnable([])
+    })
+  }
+
 
   /**
    * 缓存窗体,关闭时需要

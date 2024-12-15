@@ -47,6 +47,13 @@
           "when": "always"
         }
       },
+      {//录音
+        "name": "ohos.permission.MICROPHONE",
+        "reason": "$string:app_name",
+        "usedScene": {
+          "when": "always"
+        }
+      },
 //      {//需要申请ACL权限
 //        "name": "ohos.permission.READ_IMAGEVIDEO",//允许应用读取媒体库的图片和视频媒体文件信息
 //        "reason": "$string:app_name",
@@ -76,7 +83,7 @@
 
     "abilities": [
       {
-        "name": "EntryAbility",
+        "name": "LearnEntryAbility",
 //        "srcEntry": "./ets/entryability/EntryAbility.ets",
         "srcEntry": "./ets/entryability/LearnEntryAbility.ets",
 
@@ -86,6 +93,7 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        "orientation": "auto_rotation_restricted",//横竖屏
         "skills": [
           {
             "entities": [

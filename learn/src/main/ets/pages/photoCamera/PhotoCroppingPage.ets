@@ -6,6 +6,7 @@ import { fileUri } from '@kit.CoreFileKit';
 import { router } from '@kit.ArkUI';
 import { ImageRouterModel } from './ImageRouterModel';
 import { fileIo } from '@kit.CoreFileKit';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
 
 
 const TAG = 'PhotoCroppingPage';
@@ -94,6 +95,33 @@ struct PhotoCroppingPage {
     });
   }
 
+  // 图片压缩
+  async  compressImage(uri:string,qualityParam:number){
+    // 先获取相册中的图片
+    // await this.example()
+
+    // 根据 uri 打开图片文件
+    const file = fileIo.openSync(uri)
+    // 创建图片源实例（根据文件 fd 创建）
+    const imageSource = image.createImageSource(file.fd)
+    // 图片打包器（主要用于图片压缩）
+    const imagePacker = image.createImagePacker()
+    // 图片压缩核心 API： imagePacker.packing()
+    // arrayBuffer 二进制文件数据流信息，quality 控制压缩的质量（值越大图片越大，值小->图片文件小）
+    const arrayBuffer = await imagePacker.packing(imageSource, {format:'image/jpeg',quality:qualityParam})
+    // AlertDialog.show({ message:JSON.stringify({ arrayBufferByteLength: arrayBuffer.byteLength },null,2) })
+    AlertDialog.show({message:'压缩后大小（单位字节）：' + arrayBuffer.byteLength})
+    // ————————————————————————————————————————————————————————————————————————
+    const phAccessHelper = photoAccessHelper.getPhotoAccessHelper(getContext())
+    // 创建新的图片资源，返回图片资源的 uri
+    const assetUri = await phAccessHelper.createAsset(photoAccessHelper.PhotoType.IMAGE,'jpg')
+    // 根据Uri打开文件，注意：由于需要写入图片 arrayBuffer，所以在打开时，还需要设置打开模式为可写 READ_WRITE
+    const assetFile = fileIo.openSync(assetUri, fileIo.OpenMode.WRITE_ONLY)
+    // 往打开的文件写入arrayBuffer
+    fileIo.writeSync(assetFile.fd,arrayBuffer)
+    // 写完后，主动关闭文件
+    fileIo.close(assetFile.fd)
+  }
 }
 
 /**

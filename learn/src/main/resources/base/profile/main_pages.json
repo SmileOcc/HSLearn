@@ -66,6 +66,13 @@
     "pages/base/HardwareInfoPage",
     "pages/FlashPage",
     "pages/base/registerlogin/RegisterPageOne",
-    "pages/base/registerlogin/LoginPageOne"
+    "pages/base/registerlogin/LoginPageOne",
+    "pages/base/audio/TestAudioSearchCompPage",
+    "pages/photoCamera/UpdateImagePage",
+    "pages/base/autoflexshrink/AutoFlexShrinkPage",
+    "pages/base/TestTabBarPage",
+    "pages/base/relativelayout/TestRelativeContainerPage",
+    "pages/base/relativelayout/TestWindowOrientationPage",
+    "pages/base/listscroll/TestListScrollPage"
   ]
 }

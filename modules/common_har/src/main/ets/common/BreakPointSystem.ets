@@ -65,6 +65,7 @@ export class BreakpointSystem {
     }
   }
 
+  // 设备横屏
   public register() {
     this.breakpoints.forEach((breakpoint: Breakpoint, index) => {
       let condition: string;
@@ -75,7 +76,7 @@ export class BreakpointSystem {
       }
       breakpoint.mediaQueryListener = mediaquery.matchMediaSync(condition);
       breakpoint.mediaQueryListener.on('change', (mediaQueryResult) => {
-        if (mediaQueryResult.matches) {
+        if (mediaQueryResult.matches) {// 若设备为横屏状态，更改相应的页面布局
           this.updateCurrentBreakpoint(breakpoint.name);
         }
       })

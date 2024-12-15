@@ -97,7 +97,7 @@ struct SettingPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["基础数据"],
+      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
         "savedAbility-docAbility-multition",
@@ -108,9 +108,10 @@ struct SettingPage {
         "浏览器打开",
         "登录页",
         "登录注册页1"],
+      ["录音转文字"],
       ["TaskPoolPage", "TaskPoolCpuPage", "TaskPoolSyncTaskPage","worker Test", "其他"],
-      ["消息列表 MessageListPage","scroll集合","layoutWeight","PullRefreshPage","PullRefreshLazyPage","PullRefreshListPage","SwiperStackPage","TopSlideMenuTestPage"],
-      ["图片相册PhotoCameraPage", "保存图片相册", "window悬浮弹窗", "buildParams Page","ProvideConsumPage祖孙","showLoading全局"],
+      ["消息列表 MessageListPage","list分组红点","scroll集合","自动缩放适配","layoutWeight","PullRefreshPage","PullRefreshLazyPage","PullRefreshListPage","SwiperStackPage","TopSlideMenuTestPage"],
+      ["图片相册PhotoCameraPage", "保存图片相册","图片上传", "window悬浮弹窗", "buildParams Page","ProvideConsumPage祖孙","showLoading全局"],
       ["Emitter组件间的通信和数据传递", "通知NotificationPage"],
       ["文件路径FilePagePage"],
       ["MarginPaddingPage"],
@@ -463,6 +464,33 @@ struct SettingPage {
           this.tigerOpenApi.openTigerApp("tiger_id","123")
         }
 
+        if (subModel.title.includes('录音转文字')) {
+          RouterUtils.jumpRouter('pages/base/audio/TestAudioSearchCompPage')
+        }
+
+        if (subModel.title.includes('图片上传')) {
+          RouterUtils.jumpRouter('pages/photoCamera/UpdateImagePage')
+        }
+
+        if (subModel.title.includes('自动缩放适配')) {
+          RouterUtils.jumpRouter('pages/base/autoflexshrink/AutoFlexShrinkPage')
+        }
+
+        if (subModel.title.includes('自定义tab')) {
+          RouterUtils.jumpRouter('pages/base/TestTabBarPage')
+        }
+
+        if (subModel.title.includes('相对布局Relative')) {
+          RouterUtils.jumpRouter('pages/base/relativelayout/TestRelativeContainerPage')
+        }
+
+        if (subModel.title.includes('横竖屏旋转')) {
+          RouterUtils.jumpRouter('pages/base/relativelayout/TestWindowOrientationPage')
+        }
+
+        if (subModel.title.includes('list分组红点')) {
+          RouterUtils.jumpRouter('pages/base/listscroll/TestListScrollPage')
+        }
       })
 
     })

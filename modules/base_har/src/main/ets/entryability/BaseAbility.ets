@@ -160,6 +160,10 @@ abstract  class BaseAbility extends UIAbility {
     this.loadContent(windowStage)
 
 
+    //自动旋转
+    window.getLastWindow(getContext(this)).then((win) => {
+      win.setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED)
+    })
 
   }
 

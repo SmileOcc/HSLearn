@@ -204,6 +204,10 @@ export default class EntryAbility extends UIAbility {
 
       hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
     });
+
+    window.getLastWindow(getContext(this)).then((win) => {
+      win.setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED)
+    })
   }
 
   onWindowStageDestroy(): void {
