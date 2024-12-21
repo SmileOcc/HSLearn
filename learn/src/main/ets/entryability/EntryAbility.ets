@@ -13,11 +13,11 @@ import { display, window } from '@kit.ArkUI';
 import distributedKVStore from '@ohos.data.distributedKVStore'
 // import KeyStorageManager from '../../../../../modules/common_har/src/main/ets/common/KeyStorageManager'
 
-import { KeyStorageManager } from '@learn/common_har'
+import { kyStoreManger } from '@learn/common_har'
 import { HWTTLogger } from 'STHarLib';
 import Logger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
 import { PreferencesUtil } from '../../../../../modules/common_har/src/main/ets/utils/PreferencesUtil';
-import { Constants } from '../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../pages/accountInfo/model/UserInfoModel';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { GlobalContext } from '../../../../../modules/common_har/src/main/ets/common/GlobalContext'
@@ -28,7 +28,6 @@ import { process } from '@kit.ArkTS';
 import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
 import { BreakpointSystem } from '../../../../../modules/common_har/src/main/ets/common/BreakPointSystem';
 
-export let KSManager: KeyStorageManager
 
 const permissions: Array<Permissions> = ['ohos.permission.SYSTEM_FLOAT_WINDOW'];
 
@@ -80,13 +79,13 @@ export default class EntryAbility extends UIAbility {
       context: this.context
     }
 
-    KSManager = new KeyStorageManager(config,'myHMStore')
+    kyStoreManger.init(config,'myHMStore')
 
-    // console.log(`=========${Constants.screenWidth}`)//1260
+    // console.log(`=========${YWConstants.screenWidth}`)//1260
     // console.log(`=========${px2vp(display.getDefaultDisplaySync().width)}`)//1260
     //
     // //这个造成上面错误
-    let localUseInf = AppStorage.get<UserInfoModel>(Constants.kStorageLocalUser)
+    let localUseInf = AppStorage.get<UserInfoModel>(YWConstants.kStorageLocalUser)
     if (localUseInf == undefined) {
       localUseInf = new UserInfoModel()
       localUseInf.name = 'occ'
@@ -97,8 +96,8 @@ export default class EntryAbility extends UIAbility {
       localUseInf.avatar = 'https://www.keaidian.com/uploads/allimg/191208/2019030707555443178.jpg'
 
       //这里暂时有个现象， AppStorage、PersistentStorage 存的key不一样，对象是同一个，修改一个另一个也修改了
-      AppStorage.setOrCreate(Constants.kAppStorageStorageLocalUser,localUseInf)
-      PersistentStorage.persistProp(Constants.kStorageLocalUser,localUseInf);
+      AppStorage.setOrCreate(YWConstants.kAppStorageStorageLocalUser,localUseInf)
+      PersistentStorage.persistProp(YWConstants.kStorageLocalUser,localUseInf);
 
       let localUseInfTwo = new UserInfoModel()
       localUseInfTwo.name = 'offf'
@@ -107,7 +106,7 @@ export default class EntryAbility extends UIAbility {
       localUseInfTwo.nickName = '一杯水'
       localUseInfTwo.tel = '13122223333'
       localUseInfTwo.avatar = 'https://www.keaidian.com/uploads/allimg/191208/2019030707555443178.jpg'
-      PersistentStorage.persistProp(Constants.kAppStorageStorageLocalThreeUser,localUseInfTwo);
+      PersistentStorage.persistProp(YWConstants.kAppStorageStorageLocalThreeUser,localUseInfTwo);
 
 
     }
@@ -140,21 +139,6 @@ export default class EntryAbility extends UIAbility {
         // navigationBarContentColor: '#2B3141'
       } as window.SystemBarProperties;
       data.setWindowSystemBarProperties(sysBarProps)
-      // 获取状态栏高度
-      let avoidArea = data.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      Logger.info("statusBarHeight===", avoidArea.topRect.height.toString())
-
-      let isFullScreen = data.getWindowProperties().isFullScreen
-      //获取不对
-      let screen_w = data.getWindowProperties().windowRect.width
-      let screen_h = data.getWindowProperties().windowRect.height
-
-      Logger.debug(screen_w + '====')
-      Logger.debug(screen_h + '====')
-
-      Logger.debug('===== aaaaa')
-      AppStorage.setOrCreate<number>(Constants.kStatusBarHeight, px2vp(avoidArea.topRect.height))
-      GlobalContext.getContext().setObject(Constants.kStatusBarHeight, px2vp(avoidArea.topRect.height))
     })
 
     //获取分辨率, 将获取到的分辨率存放在GlobalContext这个文件中的Map变量中

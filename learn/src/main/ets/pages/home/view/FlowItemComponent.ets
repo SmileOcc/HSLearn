@@ -16,7 +16,7 @@
 // import { CommonConstants, CommonConstants as Const } from '../common/constants/CommonConstants';
 import ProductItem, { FlowItemCardType } from '../model/ProductItem';
 import { waterFlowData } from '../model/HomeViewModel';
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 /**
  * Flow item component.
@@ -25,11 +25,11 @@ import { Constants } from '../../../../../../../modules/common_har/src/main/ets/
 @Component
 export default struct FlowItemComponent {
   @State showMenu: boolean = false;
-  @State flowHeight: Length = Constants.FLOW_HEIGHT;
+  @State flowHeight: Length = YWConstants.FLOW_HEIGHT;
   item: ProductItem = waterFlowData[0];
 
   aboutToAppear(): void {
-    getContext(this).eventHub.on(Constants.EVENT_HIDE_ITEM_MENU, (): void => {
+    getContext(this).eventHub.on(YWConstants.EVENT_HIDE_ITEM_MENU, (): void => {
       this.hideMenu();
     })
   }
@@ -48,7 +48,7 @@ export default struct FlowItemComponent {
         Column() {
           Image(this.item?.image_url)
             .aspectRatio(this.item?.img_ratio)
-            .width(Constants.FULL_WIDTH)
+            .width(YWConstants.FULL_WIDTH)
             .objectFit(ImageFit.Contain)
             .backgroundColor($r('app.color.flow_image_bg_color'))
             .borderRadius({
@@ -70,7 +70,7 @@ export default struct FlowItemComponent {
             .fontSize($r('app.float.smaller_font_size'))
             .fontColor(Color.Black)
             .fontWeight(FontWeight.Normal)
-            .opacity(Constants.SIXTY_OPACITY)
+            .opacity(YWConstants.SIXTY_OPACITY)
             .alignSelf(ItemAlign.Start)
             .margin({
               left: $r('app.float.product_layout_margin_left'),
@@ -94,7 +94,7 @@ export default struct FlowItemComponent {
                   .height($r('app.float.promotion_text_height'))
                   .fontSize($r('app.float.promotion_font_size'))
                   .fontColor(Color.White)
-                  .fontWeight(Constants.FONT_WEIGHT_FIVE)
+                  .fontWeight(YWConstants.FONT_WEIGHT_FIVE)
                   .borderRadius($r('app.float.promotion_radius'))
                   .backgroundColor($r('app.color.focus_color'))
                   .padding({
@@ -114,7 +114,7 @@ export default struct FlowItemComponent {
                   .height($r('app.float.promotion_text_height'))
                   .fontSize($r('app.float.promotion_font_size'))
                   .fontColor($r('app.color.focus_color'))
-                  .fontWeight(Constants.FONT_WEIGHT_FIVE)
+                  .fontWeight(YWConstants.FONT_WEIGHT_FIVE)
                   .borderRadius($r('app.float.promotion_radius'))
                   .borderWidth($r('app.float.bonus_points_radius_width'))
                   .borderColor($r('app.color.focus_color'))
@@ -130,7 +130,7 @@ export default struct FlowItemComponent {
               }
             }
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .justifyContent(FlexAlign.Start)
         }
         .borderRadius($r('app.float.product_layout_radius'))
@@ -152,7 +152,7 @@ export default struct FlowItemComponent {
         if (event) {
           if (event.type === TouchType.Down) {
             if (!this.showMenu) {
-              getContext(this).eventHub.emit(Constants.EVENT_HIDE_ITEM_MENU, null);
+              getContext(this).eventHub.emit(YWConstants.EVENT_HIDE_ITEM_MENU, null);
             }
           }
         }
@@ -172,21 +172,21 @@ export default struct FlowItemComponent {
   longPressMenuBuilder() {
     Column() {
       Button($r('app.string.no_interested_button_text'))
-        .width(Constants.EIGHTY_FONT_WIDTH)
+        .width(YWConstants.EIGHTY_FONT_WIDTH)
         .height($r('app.float.flow_press_btn_height'))
         .backgroundColor(Color.White)
         .fontColor(Color.Black)
         .onClick(() => {
-          getContext(this).eventHub.emit(Constants.EVENT_REMOVE_ITEM, this.item.id);
+          getContext(this).eventHub.emit(YWConstants.EVENT_REMOVE_ITEM, this.item.id);
           this.hideMenu()
         })
       Button($r('app.string.low_quality_button_text'))
-        .width(Constants.EIGHTY_FONT_WIDTH)
+        .width(YWConstants.EIGHTY_FONT_WIDTH)
         .height($r('app.float.flow_press_btn_height'))
         .backgroundColor(Color.White)
         .fontColor(Color.Black)
       Button($r('app.string.seen_button_text'))
-        .width(Constants.EIGHTY_FONT_WIDTH)
+        .width(YWConstants.EIGHTY_FONT_WIDTH)
         .height($r('app.float.flow_press_btn_height'))
         .backgroundColor(Color.White)
         .fontColor(Color.Black)
@@ -194,7 +194,7 @@ export default struct FlowItemComponent {
     .justifyContent(FlexAlign.SpaceEvenly)
     .borderRadius($r('app.float.product_layout_radius'))
     .backgroundColor($r('app.color.flow_press_foreground_color'))
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .height(this.flowHeight)
     .onClick(() => {
       this.hideMenu();
@@ -206,7 +206,7 @@ export default struct FlowItemComponent {
     Swiper() {
       ForEach(item?.swiper_urls, (item: Resource) => {
         Image(item)
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .aspectRatio(this.item?.img_ratio)
           .borderRadius($r('app.float.product_layout_radius'))
           .backgroundColor($r('app.color.flow_image_bg_color'))
@@ -218,7 +218,7 @@ export default struct FlowItemComponent {
     )
     .autoPlay(true)
     .itemSpace(0)
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .displayCount(1)
   }
 }

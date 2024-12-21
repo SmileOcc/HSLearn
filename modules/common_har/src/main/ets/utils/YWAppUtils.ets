@@ -9,6 +9,7 @@ import { YWDeviceUtils } from './YWDeviceUtils';
 
 /**
  * App相关工具类(使用该工具前请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化)
+ * 一些基础跳转页：设置、商店、网络、蓝牙、want
  */
 export class YWAppUtils{
 
@@ -338,5 +339,100 @@ export class YWAppUtils{
     return YWAppUtils.toAppSetting(YWAppUtils.uri_nfc);
   }
 
+  /**
+   * 跳转到浏览器
+   * @param url
+   */
+  static jumpBrows(url: string) {
+    let want: Want = {
+      action: 'ohos.want.action.viewData',
+      entities: ['entity.system.browsable'],
+      uri: url
+    }
+    YWAppUtils.jumpWant(want)
+  }
 
+  static jumpStore(appId: string) {
+    const want: Want = {
+      uri: `store://appgallery.huawei.com/app/detail?id=${appId}`
+    };
+    YWAppUtils.jumpWant(want)
+  }
+
+  /**
+   * 显式跳转的其他应用
+   * @param bundleName
+   * @param abilityName
+   * @param deviceId 传空时，表示本设备
+   */
+  static jumpApp(bundleName: string, abilityName: string, deviceId?: string) {
+    let want: Want = {
+      deviceId: deviceId, // deviceId为空表示本设备
+      bundleName: bundleName,
+      abilityName: abilityName,
+    };
+
+    YWAppUtils.jumpWant(want)
+  }
+
+  /**
+   * 隐式跳转到其他应用打开内容
+   * @param deviceId
+   * @param bundleName
+   * @param abilityName
+   */
+  static jumpAction(action: string, entities: string, uri: string, type: string) {
+    let want: Want = {
+      action: action,
+      entities: [entities], // entities can be omitted
+      uri: uri,
+      type: type,
+    };
+
+    YWAppUtils.jumpWant(want)
+  }
+
+  static jumpWant(want: Want) {
+    YWAppUtils.getContext().startAbility(want)
+  }
+
+  static jumpUrl(url: string) {
+    if (!url) {
+      return;
+    }
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      YWAppUtils.jumpBrows(url);
+      return;
+    }
+    const data: Record<string, string> = JSON.parse(url);
+    if (data === undefined) {
+      return;
+    }
+    const appId: string = data['appId'];
+    if (appId !== undefined) {
+      YWAppUtils.jumpStore(appId);
+      return;
+    }
+
+    //{"deviceId":"","bundleName":"cn.","abilityName":"EntryAbility"}
+    const deviceId: string = data['deviceId'];
+    const bundleName: string = data['bundleName'];
+    const abilityName: string = data['abilityName'];
+
+    if (bundleName !== undefined && abilityName !== undefined) {
+      YWAppUtils.jumpApp(bundleName, abilityName, deviceId);
+      return;
+    }
+
+    //{"action":"ohos.want.action.search","entities":"entity.system.browsable","uri":"https://www.test.com:8080/query/student","type":"text/plain"}
+    const action: string = data['action'];
+    const entities: string = data['entities'];
+    const uri: string = data['uri'];
+    const type: string = data['type'];
+
+    if (action !== undefined && entities !== undefined && uri !== undefined && type !== undefined) {
+      YWAppUtils.jumpAction(action, entities, uri, type);
+      return;
+    }
+  }
 }

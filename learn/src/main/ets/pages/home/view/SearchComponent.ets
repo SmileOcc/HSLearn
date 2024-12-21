@@ -12,11 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import RouterUtils from '../../../../../../../modules/common_har/src/main/ets/utils/RouterUtils';
 
 @Component
 export default struct SearchComponent {
+
+  @StorageProp(YWConstants.kStatusBarHeight) statusBarHeight: number = 0
+
   build() {
     Row(){
       Row() {
@@ -30,21 +33,24 @@ export default struct SearchComponent {
         Text($r('app.string.search_text'))
           .fontSize($r('app.float.small_font_size'))
           .fontColor(Color.Black)
-          .opacity(Constants.SIXTY_OPACITY)
+          .opacity(YWConstants.SIXTY_OPACITY)
           .fontWeight(FontWeight.Normal)
       }
       .layoutWeight(1)
       .height($r('app.float.search_swiper_height'))
       .borderRadius($r('app.float.search_radius'))
-      .backgroundColor(Color.White)
+      .backgroundColor($r('app.color.home_background_color'))
       .margin({
-        top: $r('app.float.search_margin_top'),
+        // top: $r('app.float.search_margin_top'),
         left: $r('app.float.home_margin_left'),
         right: $r('app.float.home_margin_right')
       })
       .onClick(()=>{
         RouterUtils.jumpRouter('pages/search/SearchPage')
       })
-    }.width(Constants.FULL_WIDTH)
+    }.width(YWConstants.FULL_WIDTH)
+    .padding({top:this.statusBarHeight + 12, bottom:'12vp'})
+    .backgroundColor(Color.White)
+
   }
 }

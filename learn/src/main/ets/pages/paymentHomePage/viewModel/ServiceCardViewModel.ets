@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 export class ServiceCardViewModel {
   private fortunePicks: Array<Resource> = [];
@@ -26,9 +26,9 @@ export class ServiceCardViewModel {
   }
 
   getImagesByBreakpoints(breakpoints: string): Array<Resource> {
-    if (breakpoints === Constants.BREAKPOINTS[0]) {
+    if (breakpoints === YWConstants.BREAKPOINTS[0]) {
       return this.fortunePicks.slice(0, 1);
-    } else if (breakpoints === Constants.BREAKPOINTS[1]) {
+    } else if (breakpoints === YWConstants.BREAKPOINTS[1]) {
       return this.fortunePicks.slice(0, 2);
     } else {
       return this.fortunePicks;

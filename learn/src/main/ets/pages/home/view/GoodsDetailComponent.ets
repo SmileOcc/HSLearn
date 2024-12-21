@@ -12,23 +12,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWNavBar } from '@learn/baseui_har';
+import { YWNavRouterUtils } from '@learn/common_har';
+import { YWConstants } from '@learn/constants_har';
 
 
 @Component
 export struct GoodsDetailComponent {
-  @Consume('pageInfos') pageInfos: NavPathStack;
+  // @Consume('pageInfos') pageInfos: NavPathStack;
 
   build() {
     NavDestination() {
       Column() {
-        Text('xxx' + this.pageInfos.getParamByName('Detail'))
+        YWNavBar({
+          title: '详情',
+          onKeyBack: () => {
+            YWNavRouterUtils.pop()
+          },
+        })
+          .backgroundColor(Color.Blue)
+        Text('xxx' + YWNavRouterUtils.navPathStack.getParamByName('Detail'))
           .fontSize($r('app.float.detail_font_size'))
           .backgroundColor(Color.White)
-          .height(Constants.FULL_HEIGHT)
-          .width(Constants.FULL_WIDTH)
+          .height(YWConstants.FULL_HEIGHT)
+          .width(YWConstants.FULL_WIDTH)
           .textAlign(TextAlign.Center)
       }.justifyContent(FlexAlign.Center)
+      .backgroundColor(Color.Yellow)
     }
   }
 }

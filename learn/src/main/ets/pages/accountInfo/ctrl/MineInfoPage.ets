@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { MineInfoItemModel, MineInfoType } from '../model/MineInfoItemModel';
 import { UserInfoModel } from '../model/UserInfoModel';
 
@@ -7,7 +7,7 @@ import { UserInfoModel } from '../model/UserInfoModel';
 @Component
 struct MineInfoPage {
   @State message: string = 'Hello World';
-  @StorageLink(Constants.kStorageLocalUser) localUseInf: UserInfoModel = new UserInfoModel()
+  @StorageLink(YWConstants.kStorageLocalUser) localUseInf: UserInfoModel = new UserInfoModel()
   @State groupList: Array<Array<MineInfoItemModel>> = [
     [
       {
@@ -92,7 +92,7 @@ struct MineInfoPage {
                 .borderWidth(0.5)
                 .borderColor(Color.White)
                 .borderRadius(20)
-                .backgroundColor(Constants.COLOR_EEEEEE)
+                .backgroundColor(YWConstants.COLOR_EEEEEE)
             } else if (subItem.infoType == MineInfoType.sex) {
               this.sexView(subItem)
             } else if (subItem.isArrow) {
@@ -102,17 +102,17 @@ struct MineInfoPage {
                   Button()
                   {
                     Text(subItem.desc ?? '请选择您的生日')
-                      .fontColor(subItem.desc ? Constants.COLOR_666666 : Constants.COLOR_999999)
+                      .fontColor(subItem.desc ? YWConstants.COLOR_666666 : YWConstants.COLOR_999999)
                       .fontSize(13)
                   }
                   .buttonStyle(ButtonStyleMode.TEXTUAL)
-                  .fontColor(subItem.desc ? Constants.COLOR_666666 : Constants.COLOR_999999)
+                  .fontColor(subItem.desc ? YWConstants.COLOR_666666 : YWConstants.COLOR_999999)
                   .fontSize(13)
                   .align(Alignment.End)
                 } else {
                   Button(subItem.desc??'')
                     .buttonStyle(ButtonStyleMode.TEXTUAL)
-                    .fontColor(subItem.desc ? Constants.COLOR_666666 : Constants.COLOR_999999)
+                    .fontColor(subItem.desc ? YWConstants.COLOR_666666 : YWConstants.COLOR_999999)
                     .fontSize(13)
                     .align(Alignment.End)
 
@@ -131,7 +131,7 @@ struct MineInfoPage {
             } else {
               Text(subItem.desc)
                 .fontSize(13)
-                .fontColor(Constants.COLOR_666666)
+                .fontColor(YWConstants.COLOR_666666)
             }
 
           }
@@ -142,7 +142,7 @@ struct MineInfoPage {
           if (subIndex != items.length - 1) {
             Line()
               .height(0.5)
-              .backgroundColor(Constants.COLOR_EEEEEE)
+              .backgroundColor(YWConstants.COLOR_EEEEEE)
               .width('100%')
           }
         }
@@ -166,13 +166,13 @@ struct MineInfoPage {
 
         }, (item: string): string => item)
       }
-      .backgroundColor(Constants.COLOR_PAGE_BGC)
+      .backgroundColor(YWConstants.COLOR_PAGE_BGC)
       .padding({ left: 13, right: 13, top: 12, bottom: 12 })
 
       Button('保存')
         .width('90%')
         .height(44)
-        .backgroundColor(Constants.COLOR_ffcc33)
+        .backgroundColor(YWConstants.COLOR_ffcc33)
         .margin({top:30})
         .onClick(()=>{
 
@@ -185,7 +185,7 @@ struct MineInfoPage {
     .backButtonIcon($r('app.media.arrow_left_new'))
     .height('100%')
     .width('100%')
-    .backgroundColor(Constants.COLOR_PAGE_BGC)
+    .backgroundColor(YWConstants.COLOR_PAGE_BGC)
 
   }
 }

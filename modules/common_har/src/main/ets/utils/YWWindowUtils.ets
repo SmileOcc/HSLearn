@@ -44,6 +44,18 @@ export class YWWindowUtils {
     })
   }
 
+  static hideWindowSystemBar (win: window.Window) {
+    win.setWindowSystemBarEnable([])
+  }
+
+  /**
+   * 设置全屏
+   * @param windowStage
+   */
+  static setFullScreen (windowStage: window.WindowStage, full:boolean = true) {
+    windowStage.setDefaultDensityEnabled(full)
+  }
+
 
   /**
    * 缓存窗体,关闭时需要

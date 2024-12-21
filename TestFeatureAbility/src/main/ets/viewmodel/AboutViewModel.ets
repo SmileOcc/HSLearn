@@ -13,12 +13,12 @@ class AboutViewModel {
   getAppInfo(): Array<DataItem> {
     let appInfo: Array<DataItem> = [];
     let aboutUsData: DataItem = new DataItem();
-    aboutUsData.id = CommonConstants.ABOUT_US_ID;
+    aboutUsData.id = CommonYWConstants.ABOUT_US_ID;
     aboutUsData.title = $r('app.string.about_us');
     aboutUsData.icon = $r('app.media.ic_arrow');
     appInfo.push(aboutUsData);
     let contactData: DataItem = new DataItem();
-    contactData.id = CommonConstants.CONTACT_ID;
+    contactData.id = CommonYWConstants.CONTACT_ID;
     contactData.title = $r('app.string.contact_customer_service');
     contactData.icon = $r('app.media.ic_arrow');
     appInfo.push(contactData);
@@ -68,7 +68,7 @@ class AboutViewModel {
    */
   getDefaultDetailInfo(): Array<DataItem> {
     let defaultInfo: Array<DataItem> = [];
-    for (let i = 0; i < CommonConstants.DETAIL_DEFAULT_ROW; i++) {
+    for (let i = 0; i < CommonYWConstants.DETAIL_DEFAULT_ROW; i++) {
       let defaultData: DataItem = new DataItem();
       defaultData.title = $r('app.string.detail_item_title');
       defaultData.summary = $r('app.string.arrow_title');

@@ -4,7 +4,7 @@ import { BusinessError, request } from '@kit.BasicServicesKit';
 import { TestInfo } from '../../../../../modules/request_har/src/main/ets/AxiosRequest/TestInfo';
 import { FileConstants } from '../../../../../modules/common_har/src/main/ets/common/FileConstants';
 import fs from '@ohos.file.fs';
-import { Constants } from '../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { FileUtils } from '../../../../../modules/common_har/src/main/ets/utils/FileUtils';
 import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
 
@@ -99,24 +99,24 @@ class HttpRequestModel{
         // await AppHelper.commitEncryptType(encryptType);
         //解析文件
         let result = responseResult.result as ArrayBuffer
-        // let filePath = FileConstants.rootFile + "/verifyCode_" + TimeExUtils.getNowYMDHMS1() + '.jpg'
+        // let filePath = FileYWConstants.rootFile + "/verifyCode_" + TimeExUtils.getNowYMDHMS1() + '.jpg'
         let isHave = fs.accessSync(FileConstants.pathFile) //检查文件目录是否存在
         if (!isHave) fs.mkdirSync(FileConstants.pathFile) //创建目录
         //
-        let filePath = FileConstants.pathFile + "verifyCode_" + Constants.RandomColor() + '.jpg'
+        let filePath = FileConstants.pathFile + "verifyCode_" + YWConstants.RandomColor() + '.jpg'
         let file = fs.openSync(filePath, fs.OpenMode.READ_WRITE | fs.OpenMode.CREATE);
         fs.writeSync(file.fd, result); //将数据写入文件
         fs.closeSync(file); //关闭文件
         //
         KLogger.debug("保存文件成功:\n" + filePath + "\t" + await FileUtils.getPathSize(filePath));
         //结果
-        // responseResultJson.code = ResponseConstants.CODE_SUCCESS
+        // responseResultJson.code = ResponseYWConstants.CODE_SUCCESS
         // responseResultJson.isSuccess = true
         // responseResultJson.status = responseResult.responseCode
         // responseResultJson.serverModel = serverModel
         // responseResultJson.filePath = filePath
       } else {
-        // responseResultJson.code = ResponseConstants.CODE_ERROR;
+        // responseResultJson.code = ResponseYWConstants.CODE_ERROR;
         // responseResultJson.message = "业务异常:" + JSON.stringify(responseResult)
         // responseResultJson.isSuccess = false
       }
@@ -125,7 +125,7 @@ class HttpRequestModel{
 
     //   .catch(((error:BusinessError)) => {
     //   Logger.debug("文件下载请求响应URL：" + url + "\n请求异常:\n" + JSON.stringify(error))
-    //   // responseResultJson.code = ResponseConstants.CODE_ERROR;
+    //   // responseResultJson.code = ResponseYWConstants.CODE_ERROR;
     //   // responseResultJson.message = "请求异常:\n" + JSON.stringify(error)
     //   // responseResultJson.isSuccess = false
     //   // return responseResultJson;

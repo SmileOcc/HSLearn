@@ -1,58 +1,117 @@
-import { OsRouterUrls } from '@learn/common_har/Index';
-import { IUState } from '@learn/common_har/src/main/ets/model/YWBaseModel';
-import { ITigerAppContext } from '../../core/ITigerAppContext';
-import { ILaunchListener, ILaunchServer } from '../../core/launchexecute/ILaunchServer';
-import { LaunchStepState } from '../../core/launchexecute/LaunchStepState';
-import { TigerServerType } from '../../core/launchexecute/TigerServerType';
-import { TigerGlobalThis } from '../../core/TigerGlobalThis';
-import { LaunchLoadingView } from '../loading/LaunchLoadingView';
-import { MainUIState, MainViewModel } from './MainViewModel';
-import { promptAction } from '@kit.ArkUI';
+import { BreakpointSystem, BreakPointType, KLogger } from "@learn/common_har";
+import { CategoryPage } from "../pages/CategoryPage";
+import { HomePage } from "../pages/HomePage";
+import { MinePage } from "../pages/MinePage";
 
-@Entry({routeName:OsRouterUrls.TIGER_APP})
 @Component
 export struct MainPage {
-  @State message: string = 'Hello Tiger';
-
-  private appContext: ITigerAppContext = TigerGlobalThis.getInstance().getAppContext()
-
-  private viewModel:MainViewModel = new MainViewModel(this.appContext)
-
-  @State iuState: MainUIState = this.viewModel.iuState
-
-
-
-  build() {
-    Stack(){
-      Row() {
-        if (this.iuState.isLoading) {
-          LaunchLoadingView()
-        } else {
-          Column() {
-            Text(this.message)
-              .fontSize(50)
-              .fontWeight(FontWeight.Bold)
-          }
-          .width('100%')
-        }
-      }
-      .width('100%')
-      .height('100%')
-
-      NodeContainer(this.viewModel.getMainNodeControl())
-        .id('nodeContainer')
-        .onClick(() => {
-          promptAction.showToast({ message: '哎呦' })
-        })
-    }
-
-  }
+  @State selectIndex: number = 0;
 
   aboutToAppear(): void {
-
+    KLogger.info("======= aboutToAppear")
   }
 
   aboutToDisappear(): void {
     // this.appContext.
+    KLogger.info("======= aboutToDisappear")
+
+  }
+
+  onPageShow(): void {
+    KLogger.info("======= onPageShow")
+
+  }
+  onPageHide(): void {
+    KLogger.info("======= onPageHide")
+
+  }
+
+  onBackPress(): boolean | void {
+    KLogger.info("======= onPageHide")
+
+  }
+
+  @Builder
+  tabBuilder() { //自定义 tab
+    Row() {
+      ForEach(['首页', '工具', '我的'], (item: string, index) => {
+        Column() {//这里可以自己封装图标等
+          Text(item)
+            .fontColor(this.selectIndex === index ? Color.Red : Color.Black)
+            .fontSize(this.selectIndex === index ? 25 : 18)
+        }
+        .height("100%")
+        .layoutWeight(1)
+        .justifyContent(FlexAlign.End)
+        .padding({ top: 5, bottom: 5 })
+        .onClick(() => {
+          this.selectIndex = index;
+        })
+      })
+    }
+    .height(50)
+    .width('100%')
+  }
+
+  @StorageProp('currentBreakpoint') currentBreakpoint: string = 'sm'
+  private breakpointSystem: BreakpointSystem = new BreakpointSystem()
+
+  @Builder
+  bottomBarItemBuilder(name: ResourceStr, icon: Resource, selectIcon:Resource, index: number) {
+    Flex({
+      direction: new BreakPointType({
+        sm: FlexDirection.Column,
+        md: FlexDirection.Row,
+        lg: FlexDirection.Column
+      }).getValue(this.currentBreakpoint),
+      justifyContent: FlexAlign.Center,
+      alignItems: ItemAlign.Center
+    }) {
+      Image(this.selectIndex == index ? selectIcon: icon)
+        .height(24)
+        .width(24)
+        .fillColor(this.getTabBarColor(index))
+      Text(name)
+        .margin(new BreakPointType<Padding>({
+          sm: { top: 4 },
+          md: { left: 8 },
+          lg: { top: 4 }
+        }).getValue(this.currentBreakpoint) as Padding)
+        .fontSize(11)
+        .fontColor(this.getTabBarColor(index))
+    }
+  }
+
+  private getTabBarColor(index: number) {
+    return this.selectIndex == index ? $r('app.color.tab_normal_color') : $r('app.color.tab_bar_normal_color')
+  }
+
+  build() {
+    Stack() {
+      Tabs({ index: this.selectIndex, barPosition: BarPosition.End }) {
+        ForEach(['首页', '分类', '我的'], (item: string, index: number) => {
+          TabContent() {
+            if (index === 0) {
+              HomePage()
+            } else if (index === 1) {
+              CategoryPage()
+            } else if (index === 2) {
+              MinePage()
+            }
+          }.tabBar(this.bottomBarItemBuilder(item, $r("app.media.home_normal"),$r('app.media.home_select'), index))
+          .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+
+
+          // .tabBar(this.buildTabs(item, index))
+        }, (item: string, index?: number) => index + JSON.stringify(item))
+      }
+      .barHeight(50)
+      .onTabBarClick((index: number) => {
+        this.selectIndex = index
+      })
+    }
+    .width('100%')
+    .layoutWeight(1)
+
   }
 }

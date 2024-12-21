@@ -4,7 +4,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { image } from '@kit.ImageKit';
 import { router, window } from '@kit.ArkUI';
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { FunctionCard } from './view/FunctionCard';
 import { QuickFunctionCardSquare } from './view/QuickFunctionCardSquare';
 import { QuickFunctionCardCircle } from './view/QuickFunctionCardCircle';
@@ -26,7 +26,7 @@ export struct PaymentHomePage {
   @State functions: Array<QuickFunctionItem> = new PayHubViewModel().getFunctionsByBreakpoints(this.curBp);
   @State sampleImages: Array<Resource> = new ServiceCardViewModel().getImagesByBreakpoints(this.curBp);
   @State fortunePicks: Array<Resource> = new FortunePicksViewModel().getFortunePicks();
-  private city: string = Constants.CITY_NAME;
+  private city: string = YWConstants.CITY_NAME;
   private scroller: Scroller = new Scroller();
   private commonSpaceObj = new BreakPointType<Length>({
     sm: $r('app.float.space_16'),
@@ -44,13 +44,13 @@ export struct PaymentHomePage {
   }
 
   onBreakpointChange() {
-    if (this.curBp !== Constants.BREAKPOINTS[0] && router.getState().name === 'ReceivePaymentPage') {
+    if (this.curBp !== YWConstants.BREAKPOINTS[0] && router.getState().name === 'ReceivePaymentPage') {
       router.back();
       setTimeout(() => {
         this.isDialogOpen = true;
       }, 1500)
     }
-    if (this.isDialogOpen && this.curBp === Constants.BREAKPOINTS[0]) {
+    if (this.isDialogOpen && this.curBp === YWConstants.BREAKPOINTS[0]) {
       this.isDialogOpen = false;
       router.pushUrl({
         url: "pages/paymentHomePage/ReceivePaymentPage"
@@ -92,7 +92,7 @@ export struct PaymentHomePage {
     alignment: DialogAlignment.Center,
     offset: { dx: 0, dy: 0 },
     customStyle: true,
-    cornerRadius: Constants.CORNER_RADIUS,
+    cornerRadius: YWConstants.CORNER_RADIUS,
     isModal: true,
     cancel: this.onCancel
   });
@@ -103,7 +103,7 @@ export struct PaymentHomePage {
     alignment: DialogAlignment.Center,
     offset: { dx: 0, dy: 0 },
     customStyle: true,
-    cornerRadius: Constants.CORNER_RADIUS,
+    cornerRadius: YWConstants.CORNER_RADIUS,
     isModal: true,
   });
 
@@ -136,7 +136,7 @@ export struct PaymentHomePage {
     Stack({ alignContent: Alignment.TopStart }) {
       Image($r("app.media.header_background"))
         .height($r("app.float.background_image_height"))
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
         .objectFit(ImageFit.Fill)
       Scroll(this.scroller) {
         Column() {
@@ -146,12 +146,12 @@ export struct PaymentHomePage {
                 .width($r("app.float.icon_size"))
                 .height($r("app.float.icon_size"))
                 .fillColor(Color.White)
-                .margin({ right: Constants.CONTENT_SPACE[0] })
+                .margin({ right: YWConstants.CONTENT_SPACE[0] })
               Text(this.city)
                 .fontColor(Color.White)
                 .fontSize($r("app.float.bigger_font_size"))
                 .fontFamily($r("app.string.normal_font_family"))
-                .fontWeight(Constants.FONT_WEIGHT[0])
+                .fontWeight(YWConstants.FONT_WEIGHT[0])
             }
 
             Blank()
@@ -163,18 +163,18 @@ export struct PaymentHomePage {
                 .placeholderFont({
                   family: $r("app.string.normal_font_family"),
                   size: $r("app.float.middle_font_size"),
-                  weight: Constants.FONT_WEIGHT[0]
+                  weight: YWConstants.FONT_WEIGHT[0]
                 })
                 .borderColor($r('app.color.five_percent_white'))
                 .searchIcon({color: Color.White})
                 .fontColor(Color.White)
-                .width(this.curBp === Constants.BREAKPOINTS[0] ?
+                .width(this.curBp === YWConstants.BREAKPOINTS[0] ?
                 $r("app.float.search_box_width_in_small_device") :
                 $r("app.float.search_box_width_in_big_device"))
                 .margin({
-                  right: this.curBp === Constants.BREAKPOINTS[0] ?
-                  Constants.CONTENT_SPACE[5] :
-                  Constants.CONTENT_SPACE[7],
+                  right: this.curBp === YWConstants.BREAKPOINTS[0] ?
+                  YWConstants.CONTENT_SPACE[5] :
+                  YWConstants.CONTENT_SPACE[7],
                 })
 
               Image($r("app.media.ic_public_more"))
@@ -184,9 +184,9 @@ export struct PaymentHomePage {
             }
 
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height($r("app.float.header_height"))
-          .margin({ bottom: Constants.CONTENT_SPACE[6] })
+          .margin({ bottom: YWConstants.CONTENT_SPACE[6] })
           .padding({
             left: this.commonSpaceObj.getValue(this.curBp),
             right: this.commonSpaceObj.getValue(this.curBp)
@@ -203,8 +203,8 @@ export struct PaymentHomePage {
             }
           }) {
             ForEach(this.quickFunctions, (item: QuickFunctionItem) => {
-              GridCol({ span: Constants.GRID_COL_SPAN[0] }) {
-                if (this.curBp === Constants.BREAKPOINTS[0]) {
+              GridCol({ span: YWConstants.GRID_COL_SPAN[0] }) {
+                if (this.curBp === YWConstants.BREAKPOINTS[0]) {
                   QuickFunctionCardCircle({ quickFunctionItem: item })
                 } else {
                   QuickFunctionCardSquare({ quickFunctionItem: item })
@@ -218,7 +218,7 @@ export struct PaymentHomePage {
               })
             }, (item: QuickFunctionItem) => item.getText())
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height(new BreakPointType<Length>({
             sm: $r("app.float.quick_function_card_height_sm"),
             md: $r("app.float.quick_function_card_height_md"),
@@ -242,9 +242,9 @@ export struct PaymentHomePage {
           Column() {
             GridRow({
               columns: {
-                sm: Constants.GRID_ROW_COLUMNS[0],
-                md: Constants.GRID_ROW_COLUMNS[1],
-                lg: Constants.GRID_ROW_COLUMNS[2]
+                sm: YWConstants.GRID_ROW_COLUMNS[0],
+                md: YWConstants.GRID_ROW_COLUMNS[1],
+                lg: YWConstants.GRID_ROW_COLUMNS[2]
               },
               gutter: {
                 x: {
@@ -265,7 +265,7 @@ export struct PaymentHomePage {
                 }
               }, (item: QuickFunctionItem, index: number) => index + JSON.stringify(item))
             }
-            .width(Constants.FULL_WIDTH)
+            .width(YWConstants.FULL_WIDTH)
             .backgroundColor(Color.White)
             .borderRadius($r("app.float.bigger_border_radius"))
             .onBreakpointChange((breakpoints: string) => {
@@ -300,22 +300,22 @@ export struct PaymentHomePage {
             })
 
             GridRow({
-              gutter: { x: { sm: Constants.CONTENT_SPACE[4] } }
+              gutter: { x: { sm: YWConstants.CONTENT_SPACE[4] } }
             }) {
               ForEach(this.sampleImages, (item: Resource) => {
                 GridCol({
                   span: {
-                    sm: Constants.GRID_COL_SPAN[2],
-                    md: Constants.GRID_COL_SPAN[1],
-                    lg: Constants.GRID_COL_SPAN[0]
+                    sm: YWConstants.GRID_COL_SPAN[2],
+                    md: YWConstants.GRID_COL_SPAN[1],
+                    lg: YWConstants.GRID_COL_SPAN[0]
                   }
                 }) {
                   Image(item)
-                    .width(Constants.FULL_WIDTH)
+                    .width(YWConstants.FULL_WIDTH)
                 }
               }, (item: Resource, index: number) => index + JSON.stringify(item))
             }
-            .width(Constants.FULL_WIDTH)
+            .width(YWConstants.FULL_WIDTH)
             .margin({
               top: new BreakPointType<Length>({
                 sm: $r('app.float.space_16'),
@@ -328,42 +328,42 @@ export struct PaymentHomePage {
             })
 
             Text($r("app.string.fortune_pick"))
-              .width(Constants.FULL_WIDTH)
+              .width(YWConstants.FULL_WIDTH)
               .height($r("app.float.fortune_pick_height"))
               .fontFamily($r("app.string.medium_font_family"))
               .fontSize($r("app.float.middle_font_size"))
               .fontColor($r("app.color.fortune_pick_font_color"))
               .textAlign(TextAlign.Start)
               .lineHeight($r("app.float.fortune_pick_height"))
-              .fontWeight(Constants.FONT_WEIGHT[1])
+              .fontWeight(YWConstants.FONT_WEIGHT[1])
               .margin({ top: $r("app.float.fortune_pick_margin"), bottom: $r("app.float.fortune_pick_margin") })
 
             GridRow({
 
               //不设置md的，使用了sm的了
-              // gutter: { x: { sm: Constants.CONTENT_SPACE[4],md:Constants.CONTENT_SPACE[11]}, y: { sm: Constants.CONTENT_SPACE[4] } }
-              gutter: { x: { sm: Constants.CONTENT_SPACE[4]}, y: { sm: Constants.CONTENT_SPACE[4] } }
+              // gutter: { x: { sm: YWConstants.CONTENT_SPACE[4],md:YWConstants.CONTENT_SPACE[11]}, y: { sm: YWConstants.CONTENT_SPACE[4] } }
+              gutter: { x: { sm: YWConstants.CONTENT_SPACE[4]}, y: { sm: YWConstants.CONTENT_SPACE[4] } }
 
             }) {
               ForEach(this.fortunePicks, (item: Resource) => {
                 GridCol({
                   span: {
-                    sm: Constants.GRID_COL_SPAN[2],
-                    md: Constants.GRID_COL_SPAN[1],
-                    lg: Constants.GRID_COL_SPAN[0]
+                    sm: YWConstants.GRID_COL_SPAN[2],
+                    md: YWConstants.GRID_COL_SPAN[1],
+                    lg: YWConstants.GRID_COL_SPAN[0]
                   }
                 }) {
                   Image(item)
-                    .width(Constants.FULL_WIDTH)
+                    .width(YWConstants.FULL_WIDTH)
                 }
               }, (item: Resource, index: number) => index + JSON.stringify(item))
 
             }
-            .width(Constants.FULL_WIDTH)
+            .width(YWConstants.FULL_WIDTH)
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .borderRadius($r("app.float.bigger_border_radius"))
-          .backgroundColor(this.curBp === Constants.BREAKPOINTS[2] ? Color.Transparent : Color.White)
+          .backgroundColor(this.curBp === YWConstants.BREAKPOINTS[2] ? Color.Transparent : Color.White)
           .justifyContent(FlexAlign.Start)
           .alignItems(HorizontalAlign.Center)
           .padding({
@@ -371,12 +371,12 @@ export struct PaymentHomePage {
             right: this.commonSpaceObj.getValue(this.curBp)
           })
         }
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
       }
       .scrollable(ScrollDirection.Vertical)
       .scrollBar(BarState.On)
       .scrollBarColor(Color.Gray)
-      .scrollBarWidth(Constants.SCROLL_BAR_WIDTH)
+      .scrollBarWidth(YWConstants.SCROLL_BAR_WIDTH)
       .edgeEffect(EdgeEffect.Fade)
       .padding({top:36,bottom:24})
     }
@@ -405,8 +405,8 @@ struct ReceivePayment {
     let content: string = (new Date()).valueOf().toString();
     let options: generateBarcode.CreateOptions = {
       scanType: scanCore.ScanType.QR_CODE,
-      height: Constants.QRCODE_SIZE,
-      width: Constants.QRCODE_SIZE
+      height: YWConstants.QRCODE_SIZE,
+      width: YWConstants.QRCODE_SIZE
     };
     generateBarcode.createBarcode(content, options, (error: BusinessError, pixelMap: image.PixelMap) => {
       if (error) {
@@ -429,7 +429,7 @@ struct ReceivePayment {
           .fontFamily($r("app.string.bold_font_family"))
           .fontSize($r("app.float.biggest_font_size"))
           .fontColor(Color.Black)
-          .fontWeight(Constants.FONT_WEIGHT_700)
+          .fontWeight(YWConstants.FONT_WEIGHT_700)
 
         Image($r("app.media.ic_close"))
           .width($r("app.float.icon_close_size"))
@@ -438,7 +438,7 @@ struct ReceivePayment {
             this.isDialogOpen = false;
           })
       }
-      .width(Constants.FULL_WIDTH)
+      .width(YWConstants.FULL_WIDTH)
       .height($r('app.float.title_line_height'))
       .justifyContent(FlexAlign.SpaceBetween)
       .alignItems(VerticalAlign.Center)
@@ -448,20 +448,20 @@ struct ReceivePayment {
         .fontSize($r("app.float.smaller_font_size"))
         .fontColor(Color.Black)
         .textAlign(TextAlign.Center)
-        .fontWeight(Constants.FONT_WEIGHT[0])
+        .fontWeight(YWConstants.FONT_WEIGHT[0])
 
       Text($r("app.string.user_name"))
         .fontFamily("HarmonyHeiTi-Medium")
         .fontSize($r("app.float.middle_font_size"))
         .fontColor(Color.Black)
         .textAlign(TextAlign.Center)
-        .fontWeight(Constants.FONT_WEIGHT[1])
+        .fontWeight(YWConstants.FONT_WEIGHT[1])
 
       Stack({ alignContent: Alignment.Center }) {
         Row() {
           Image(this.pixelMap)
-            .width(Constants.FULL_WIDTH)
-            .height(Constants.FULL_HEIGHT)
+            .width(YWConstants.FULL_WIDTH)
+            .height(YWConstants.FULL_HEIGHT)
         }
         .justifyContent(FlexAlign.Center)
         .alignItems(VerticalAlign.Center)
@@ -484,7 +484,7 @@ struct ReceivePayment {
           .fontSize($r("app.float.smaller_font_size"))
           .fontColor(Color.Black)
           .textAlign(TextAlign.Center)
-          .fontWeight(Constants.FONT_WEIGHT[1])
+          .fontWeight(YWConstants.FONT_WEIGHT[1])
           .width($r("app.float.receive_money_card_bottom_text_width"))
           .height($r("app.float.set_amount_height"))
           .textAlign(TextAlign.Center)
@@ -497,7 +497,7 @@ struct ReceivePayment {
           .fontSize($r("app.float.smaller_font_size"))
           .fontColor(Color.Black)
           .textAlign(TextAlign.Center)
-          .fontWeight(Constants.FONT_WEIGHT[1])
+          .fontWeight(YWConstants.FONT_WEIGHT[1])
           .width($r("app.float.receive_money_card_bottom_text_width"))
           .height($r("app.float.save_image_height"))
           .textAlign(TextAlign.Center)
@@ -509,7 +509,7 @@ struct ReceivePayment {
             Image(item.getImage())
               .width($r("app.float.receive_money_service_card_image_width"))
               .height($r("app.float.receive_money_service_card_image_height"))
-              .margin({ right: Constants.CONTENT_SPACE[6] })
+              .margin({ right: YWConstants.CONTENT_SPACE[6] })
               .objectFit(ImageFit.Contain)
 
             Row() {
@@ -519,18 +519,18 @@ struct ReceivePayment {
                 .fontColor(Color.Black)
                 .textAlign(TextAlign.Start)
                 .lineHeight($r("app.float.receive_money_service_card_text_line_height"))
-                .fontWeight(Constants.FONT_WEIGHT[1])
+                .fontWeight(YWConstants.FONT_WEIGHT[1])
 
               Row() {
                 if (item.getBrief()) {
                   Text(item.getBrief())
-                    .opacity(Constants.OPACITY)
+                    .opacity(YWConstants.OPACITY)
                     .fontFamily($r("app.string.normal_font_family"))
                     .fontSize($r("app.float.smaller_font_size"))
                     .fontColor(Color.Black)
                     .textAlign(TextAlign.End)
                     .lineHeight($r("app.float.brief_line_height"))
-                    .fontWeight(Constants.FONT_WEIGHT[0])
+                    .fontWeight(YWConstants.FONT_WEIGHT[0])
                     .margin({ right: $r("app.float.brief_margin_right") })
                 }
                 Image($r("app.media.right_arrow"))
@@ -538,8 +538,8 @@ struct ReceivePayment {
                   .height($r("app.float.right_arrow_height"))
               }
             }
-            .layoutWeight(Constants.LAYOUT_WEIGHT)
-            .height(Constants.FULL_HEIGHT)
+            .layoutWeight(YWConstants.LAYOUT_WEIGHT)
+            .height(YWConstants.FULL_HEIGHT)
             .justifyContent(FlexAlign.SpaceBetween)
             .alignItems(VerticalAlign.Center)
             .border({
@@ -547,11 +547,11 @@ struct ReceivePayment {
               color: { bottom: $r("app.color.border_divider_color") },
             })
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height($r("app.float.receive_money_bottom_card_height"))
         })
       }
-      .width(Constants.FULL_WIDTH)
+      .width(YWConstants.FULL_WIDTH)
       .margin({ top: $r("app.float.receive_money_bottom_card_margin_top") })
     }
     .width($r("app.float.receive_money_card_width"))
@@ -563,8 +563,8 @@ struct ReceivePayment {
       bottom: $r('app.float.dialog_padding_normal')
     })
     .backgroundColor(Color.White)
-    .opacity(Constants.PERCENT_90_OPACITY)
-    .backdropBlur(Constants.BACK_DROP_BLUR_60)
+    .opacity(YWConstants.PERCENT_90_OPACITY)
+    .backdropBlur(YWConstants.BACK_DROP_BLUR_60)
     .borderRadius($r('app.float.br24'))
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(HorizontalAlign.Center)

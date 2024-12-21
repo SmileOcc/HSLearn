@@ -16,8 +16,8 @@ struct DetailPage {
   aboutToAppear() {
     if (router.getParams()) {
       let param = router.getParams() as Record<string, Object>;
-      this.titleParam = param[CommonConstants.KEY_PARAM_TITLE] as Resource;
-      this.dataParam = param[CommonConstants.KEY_PARAM_DATA] as Array<DataItem>;
+      this.titleParam = param[CommonYWConstants.KEY_PARAM_TITLE] as Resource;
+      this.dataParam = param[CommonYWConstants.KEY_PARAM_DATA] as Array<DataItem>;
     }
   }
 
@@ -27,22 +27,22 @@ struct DetailPage {
 
       GridRow({
         columns: {
-          sm: CommonConstants.GRID_ROW_SM,
-          md: CommonConstants.GRID_ROW_MD,
-          lg: CommonConstants.GRID_ROW_LG
+          sm: CommonYWConstants.GRID_ROW_SM,
+          md: CommonYWConstants.GRID_ROW_MD,
+          lg: CommonYWConstants.GRID_ROW_LG
         },
-        gutter: { x: CommonConstants.GUTTER_X },
-        breakpoints: { value: CommonConstants.BREAK_POINT }
+        gutter: { x: CommonYWConstants.GUTTER_X },
+        breakpoints: { value: CommonYWConstants.BREAK_POINT }
       }) {
         GridCol({
           span: {
-            sm: CommonConstants.SPAN_SM,
-            md: CommonConstants.SPAN_MD,
-            lg: CommonConstants.SPAN_LG
+            sm: CommonYWConstants.SPAN_SM,
+            md: CommonYWConstants.SPAN_MD,
+            lg: CommonYWConstants.SPAN_LG
           },
           offset: {
-            md: CommonConstants.OFFSET_MD,
-            lg: CommonConstants.OFFSET_LG
+            md: CommonYWConstants.OFFSET_MD,
+            lg: CommonYWConstants.OFFSET_LG
           }
         }) {
           DetailListComponent({ detailList: this.dataParam })
@@ -53,8 +53,8 @@ struct DetailPage {
         right: $r('app.float.grid_row_margin_right')
       })
     }
-    .width(CommonConstants.DETAIL_COLUMN_WIDTH_PERCENT)
-    .height(CommonConstants.DETAIL_COLUMN_HEIGHT_PERCENT)
+    .width(CommonYWConstants.DETAIL_COLUMN_WIDTH_PERCENT)
+    .height(CommonYWConstants.DETAIL_COLUMN_HEIGHT_PERCENT)
     .backgroundColor($r('app.color.page_background'))
   }
 
@@ -75,7 +75,7 @@ struct DetailPage {
         .fontColor($r('app.color.title'))
         .fontSize($r('app.float.title_text_font_size'))
     }
-    .width(CommonConstants.FULL_WIDTH_PERCENT)
+    .width(CommonYWConstants.FULL_WIDTH_PERCENT)
     .height($r('app.float.title_height'))
   }
 }

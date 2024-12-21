@@ -1,4 +1,4 @@
-import { YWShowToast } from '@learn/YWRandomUtils'
+import { YWShowToast } from '@learn/common_har'
 
 /**
  * 网络请求
@@ -8,7 +8,7 @@ import axios, { AxiosError, AxiosResponse, AxiosRequestHeaders,InternalAxiosRequ
 import KLogger from '../../../../../common_har/src/main/ets/common/KLogger'
 import { HttpConstants } from '../requestConfig/HttpConstants'
 
-
+const TAG = "AxiosRequest"
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const axiosInstance = axios.create({
@@ -77,7 +77,7 @@ interface InterceptorHooks {
 // request拦截器
 axiosInstance.interceptors.request.use(async (config:HttpRequestConfig) => {
   // 是否需要设置 token
-  // const access_token = await HttpConfigManager.getToken(HttpConstants.authToken)
+  // const access_token = await HttpConfigManager.getToken(HttpYWConstants.authToken)
   // if (access_token != "") {
   //   config.headers['Authorization'] = 'Bearer ' + access_token // 让每个请求携带自定义token 请根据实际情况自行修改
   // }
@@ -141,7 +141,18 @@ function apiRequest<T, D = null>(config: AxiosRequestConfig<D>):Promise<IApiResp
 //   return axiosInstance<null, AxiosResponse<IApiResponse<T>>, D>(config)
 // }
 
-export { axiosInstance, IApiResponse, IApiParams,IApiBodyData, IApiResultData, apiRequest, ApiRequestType}
+/**
+ * 保存请求头
+ * @param header
+ */
+function axiosAddHeader(header: Record<string, string | number | boolean>) {
+  Object.keys(header).forEach((key: string) => {
+    axiosInstance.defaults.headers.common[key] = header[key];
+  })
+  KLogger.info(TAG, 'after addHeader: ' + JSON.stringify(axiosInstance.defaults.headers));
+}
+
+export { axiosInstance, IApiResponse, IApiParams,IApiBodyData, IApiResultData, apiRequest, ApiRequestType, axiosAddHeader}
 
 
 

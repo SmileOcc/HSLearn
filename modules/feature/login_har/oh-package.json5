@@ -1,0 +1,17 @@
+{
+  "name": "login_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/nav_router_har": "file:../../nav_router_har",
+    "@learn/request_har": "file:../../request_har",
+    "@learn/common_har": "file:../../common_har",
+    "@learn/alert_har": "file:../../alert_har",
+    "@learn/loading_har": "file:../../loading_har",
+    "@learn/res_har": 'file:../../res_har',
+    "@learn/baseui_har": 'file:../../baseui_har'
+  }
+}

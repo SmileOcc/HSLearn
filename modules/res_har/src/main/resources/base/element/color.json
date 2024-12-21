@@ -1,0 +1,88 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "theme_1",
+      "value": "#80BEAF"
+    },
+    {
+      "name": "theme_2",
+      "value": "#B3DDD1"
+    },
+    {
+      "name": "theme_3",
+      "value": "#D1DCE2"
+    },
+    {
+      "name": "theme_4",
+      "value": "#F58994"
+    },
+    {
+      "name": "theme_5",
+      "value": "#EE9C6C"
+    },
+    {
+      "name": "theme_light",
+      "value": "#FF101110"
+    },
+    {
+      "name": "theme_default",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "theme_unselect",
+      "value": "#D7D7D7"
+    },
+    {
+      "name": "title_bar",
+      "value": "#00000000"
+    },
+    {
+      "name": "bg_base",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "shadow",
+      "value": "#E8E8E8"
+    },
+    {
+      "name": "title",
+      "value": "#3E3D3D"
+    },
+    {
+      "name": "main",
+      "value": "#4A4A4A"
+    },
+    {
+      "name": "desc",
+      "value": "#9B9B9B"
+    },
+    {
+      "name": "chart",
+      "value": "#FF589AC4"
+    },
+    {
+      "name": "circle_out",
+      "value": "#FFD7EE6F"
+    },
+    {
+      "name": "line_fill",
+      "value": "#FFA2A2"
+    },
+    {
+      "name": "level_green",
+      "value": "#266B29"
+    },
+    {
+      "name": "level_yellow",
+      "value": "#FDD835"
+    },
+    {
+      "name": "level_red",
+      "value": "#E53935"
+    }
+  ]
+}

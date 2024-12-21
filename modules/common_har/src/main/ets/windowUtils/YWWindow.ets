@@ -2,9 +2,9 @@ import { window } from '@kit.ArkUI';
 import { initListerSafeWindow, initListerWindow } from './YWAvoidAreas';
 import { initKeyboardSetting } from './YWKeyboardUtils';
 
-export async function initWindowSetting(twindow: window.WindowStage) {
+export async function initWindowSetting(tWindow: window.WindowStage) {
 
-  let windowObject = twindow.getMainWindowSync()
+  let windowObject = tWindow.getMainWindowSync()
   windowObject.setWindowLayoutFullScreen(true)
   initListerWindow(windowObject)
   initListerSafeWindow(windowObject)

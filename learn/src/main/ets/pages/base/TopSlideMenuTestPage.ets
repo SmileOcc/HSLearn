@@ -1,4 +1,4 @@
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
 
 @Entry
@@ -8,7 +8,7 @@ struct TopSlideMenuTestPage {
   @State menusList: SlideTitle[] = []
   @State currentIndex: number = 0
 
-  private tWidth = Constants.SCREEN_WIDTH()
+  private tWidth = AppStorage.get(YWConstants.kStorageWidth) as number
   aboutToAppear(): void {
     for (let i = 0; i < 4; i++) {
       let tModel: SlideTitle = { titles: 'title' + i, id: i + '' }
@@ -76,7 +76,7 @@ struct TopSlideMenuTestPage {
                 Text(model.titles)
               }
               .width('25%')
-              .backgroundColor(Constants.RandomColor())
+              .backgroundColor(YWConstants.RandomColor())
               .height('100%')
             })
           }

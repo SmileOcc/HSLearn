@@ -42,7 +42,7 @@ struct AgreementPage {
           router.back();
         })
     }
-    .width(CommonConstants.FULL_WIDTH_PERCENT)
+    .width(CommonYWConstants.FULL_WIDTH_PERCENT)
     .height($r('app.float.title_height'))
   }
 }

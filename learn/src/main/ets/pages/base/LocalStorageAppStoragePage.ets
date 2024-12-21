@@ -1,4 +1,4 @@
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../accountInfo/model/UserInfoModel';
 
 let storage = LocalStorage.getShared()
@@ -13,13 +13,13 @@ struct LocalStorageAppStoragePage {
   @LocalStorageLink('PropB') childLinkObject: PropB = new PropB(0);
 
   //这个修改，怎么同步刷新了  tempUserInfo ？？？
-  @StorageLink(Constants.kStorageLocalUser) localUseInf:UserInfoModel = new UserInfoModel()
+  @StorageLink(YWConstants.kStorageLocalUser) localUseInf:UserInfoModel = new UserInfoModel()
 
-  @StorageLink(Constants.kAppStorageStorageLocalThreeUser) localUseInfThree:UserInfoModel = new UserInfoModel()
+  @StorageLink(YWConstants.kAppStorageStorageLocalThreeUser) localUseInfThree:UserInfoModel = new UserInfoModel()
 
 
   //这两个是获取
-  @State appStorageUserInfo:SubscribedAbstractProperty<UserInfoModel> = AppStorage.link(Constants.kAppStorageStorageLocalUser)
+  @State appStorageUserInfo:SubscribedAbstractProperty<UserInfoModel> = AppStorage.link(YWConstants.kAppStorageStorageLocalUser)
   @Prop appStorageUserInfoTwo:SubscribedAbstractProperty<UserInfoModel>
 
 
@@ -32,12 +32,11 @@ struct LocalStorageAppStoragePage {
 
   aboutToAppear(): void {
     console.log('========== LocalStoragePage')
-    console.log(`=========${Constants.screenWidth}`)
 
     storage.setOrCreate('PropB', new PropB(50));
 
 
-    this.appStorageUserInfoTwo = AppStorage.link(Constants.kAppStorageStorageLocalUser)
+    this.appStorageUserInfoTwo = AppStorage.link(YWConstants.kAppStorageStorageLocalUser)
   }
 
   build() {
@@ -99,14 +98,14 @@ struct LocalStorageAppStoragePage {
           .onClick(() => {
             let model = this.appStorageUserInfoTwo.get()
             model.name = 'occ'
-            AppStorage.setOrCreate(Constants.kAppStorageStorageLocalUser,model)//修改了本地数据，UI上是get获取 【tempInfo变得有效】
+            AppStorage.setOrCreate(YWConstants.kAppStorageStorageLocalUser,model)//修改了本地数据，UI上是get获取 【tempInfo变得有效】
           })
           .backgroundColor(Color.Green)
 
         Text('重置name 中间持有: ' + this.message + " " + this.tempUserInfo.name)
           .onClick(() => {
             this.tempUserInfo.name = 'occ01'
-            AppStorage.setOrCreate(Constants.kAppStorageStorageLocalUser,this.tempUserInfo)//修改了本地数据，UI上是get获取
+            AppStorage.setOrCreate(YWConstants.kAppStorageStorageLocalUser,this.tempUserInfo)//修改了本地数据，UI上是get获取
           })
           .backgroundColor(Color.Green)
       }

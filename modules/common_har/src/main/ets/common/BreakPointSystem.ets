@@ -48,6 +48,20 @@ export enum BreakpointTypeEnum {
   XL = 'xl'
 }
 
+export function BreakpointTypeValue(type:BreakpointTypeEnum):number {
+  switch (type) {
+    case BreakpointTypeEnum.SM:
+      return 320
+    case BreakpointTypeEnum.MD:
+      return 600
+    case BreakpointTypeEnum.LG:
+      return 840
+    case BreakpointTypeEnum.XL:
+      return 1500
+  }
+  return 320
+}
+
 export class BreakpointSystem {
   private currentBreakpoint: string = "md";
   private breakpoints: Breakpoint[] = [

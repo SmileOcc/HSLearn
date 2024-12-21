@@ -3,7 +3,6 @@ import Prompt from '@system.prompt';
 import router from '@ohos.router';
 import dataPreferences from '@ohos.data.preferences';
 
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
 import mediaquery from '@ohos.mediaquery';
 import { ConfigurationConstant } from '@kit.AbilityKit';
 import { Callback } from '@kit.BasicServicesKit';
@@ -11,6 +10,7 @@ import { HotWordsModel } from './model/HotWordsModel';
 import { ThinkWordModel } from './model/ThinkWordModel';
 import { HistoryWordModel } from './model/HistoryWordModel';
 import RouterUtils from '../../../../../../modules/common_har/src/main/ets/utils/RouterUtils';
+import { YWConstants } from '@learn/constants_har';
 
 const MAX_LINES: number = 3;
 
@@ -91,15 +91,11 @@ struct SearchResultPage {
   }
 
   configureParamsByScreenDirection() {
-    let w = Constants.SCREEN_WIDTH()
-    let h = Constants.SCREEN_HEIGHT()
-    if (this.screenDirection == 0) {
-      // this.toastBottom = (AppStorage.get(Constants.ScreenHeight) as number) / 2
-      this.toastBottom = h / 2
 
+    if (this.screenDirection == 0) {
+      this.toastBottom = (AppStorage.get(YWConstants.kStorageHeight) as number) / 2
     } else {
-      // this.toastBottom = (AppStorage.get(Constants.ScreenWidth) as number) / 2
-      this.toastBottom = w / 2
+      this.toastBottom = (AppStorage.get(YWConstants.kStorageHeight) as number) / 2
     }
   }
 
@@ -208,8 +204,7 @@ struct SearchResultPage {
     //   this.onPortrait(result)
     // })
 
-    // this.toastBottom = (AppStorage.Get(CommonConstants.ScreenHeight) as number) / 2
-    this.toastBottom = Constants.SCREEN_HEIGHT() / 2
+    // this.toastBottom = (AppStorage.Get(CommonYWConstants.ScreenHeight) as number) / 2
 
     dataPreferences.getPreferences(getContext(this), 'HistoryWord', (err, preferences) => {
       if (err) {
@@ -300,7 +295,7 @@ struct SearchResultPage {
             .padding({ left: '35vp', right: '35vp' })
             .borderStyle(BorderStyle.Solid)
             .borderWidth('1vp')
-            .borderColor(this.currentInputBoxContent.length != 0 ? Constants.COLOR_333333 : Constants.COLOR_EEEEEE)
+            .borderColor(this.currentInputBoxContent.length != 0 ? YWConstants.COLOR_333333 : YWConstants.COLOR_EEEEEE)
             .onChange((currentContent) => {
 
               this.currentInputBoxContent = currentContent
@@ -337,7 +332,7 @@ struct SearchResultPage {
           .fontSize('15fp')
           .borderRadius('10vp')
           .padding('5vp')// .backgroundColor(Color.Red)
-          .fontColor(Constants.COLOR_333333)
+          .fontColor(YWConstants.COLOR_333333)
           .width('15%')
           .textAlign(TextAlign.Center)
           .onClick(() => {
@@ -559,9 +554,6 @@ struct SearchResultPage {
 
     }
     .padding({ top: 10 })
-
-    // .padding({ top: px2vp(AppStorage.get(Constants.kStatusBarHeight)) })
-
   }
 
   @Builder

@@ -1,3 +1,4 @@
+import { learnSleep } from '@learn/common_har/src/main/ets/common/Common';
 import { ITigerAppContext } from '../ITigerAppContext';
 import { LaunchStepState } from '../launchexecute/LaunchStepState';
 import { AppConfigModel } from '../model/AppConfigModel';
@@ -17,6 +18,7 @@ export class AppConfigStep extends LaunchStep {
     this.stateTo = stateTo
   }
   async run(): Promise<LaunchStepData> {
+    await learnSleep(3000)//测试数据，显示加载中
     return {data:new AppConfigModel()}
   }
   getDataKey(): TaskType {

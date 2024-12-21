@@ -22,7 +22,7 @@ export struct DetailListComponent {
                 .fontSize($r('app.float.app_info_sub_title_size'))
                 .fontColor($r('app.color.text_opacity'))
             }
-            .width(CommonConstants.ROW_WIDTH_PERCENT)
+            .width(CommonYWConstants.ROW_WIDTH_PERCENT)
             .height($r('app.float.list_height'))
           }
         }, (dataItem: DataItem, index?: number) => index + JSON.stringify(dataItem))
@@ -32,7 +32,7 @@ export struct DetailListComponent {
         color: $r('app.color.divider')
       })
     }
-    .width(CommonConstants.DETAIL_LIST_WIDTH_PERCENT)
+    .width(CommonYWConstants.DETAIL_LIST_WIDTH_PERCENT)
     .padding({
       top: $r('app.float.list_padding_top'),
       bottom: $r('app.float.list_padding_bottom'),

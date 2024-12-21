@@ -9,7 +9,7 @@ import { connection } from '@kit.NetworkKit'; //网络连接
 import { display } from '@kit.ArkUI'; //屏幕
 import { sensor } from '@kit.SensorServiceKit'; //传感器数组Api
 import { ThemeManager } from '../../../../../../modules/common_har/src/main/ets/utils/ThemeManager';
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 // dayjs.extend(duration)
 
@@ -280,10 +280,10 @@ struct ListRow {
     Row() {
       Text(this.title)
         .fontSize(14)
-        .fontColor(Constants.COLOR_333333)
+        .fontColor(YWConstants.COLOR_333333)
       Text(this.value.toString())
         .fontSize(12)
-        .fontColor(Constants.COLOR_333333)
+        .fontColor(YWConstants.COLOR_333333)
     }
     .padding({ left: 20, right: 20 })
     .height(40)

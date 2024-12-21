@@ -5,5 +5,7 @@
   "main": "Index.ets",
   "author": "",
   "license": "Apache-2.0",
-  "dependencies": {}
+  "dependencies": {
+    "@learn/constants_har": 'file:../constants_har'
+  }
 }

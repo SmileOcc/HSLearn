@@ -1,6 +1,6 @@
+import { YWConstants } from '@learn/constants_har'
 import curves from '@ohos.curves'
 import router from '@ohos.router'
-import { CIRCLE_RADIUS } from '../../../../../modules/common_har/src/main/ets/common/Constants'
 import { BreakPointType } from '../../../../../modules/common_har/src/main/ets/common/BreakPointSystem'
 import { FoodInfo, CategoryId, MealTime, MealTimeId, DietRecord } from '../model/DataModels'
 import { getFoodInfo, initDietRecords, getMileTimes } from '../model/DataUtil'
@@ -206,14 +206,14 @@ struct NutritionPieChart {
     Column() {
       CardTitle({ title: $r('app.string.nutrition_element'), subtitle: $r('app.string.unit_weight') })
       Canvas(this.context)
-        .height(CIRCLE_RADIUS * 2)
+        .height(YWConstants.kRadius_80 * 2)
         .aspectRatio(1)
         .margin({ top: 30, bottom: 32 })
         .onReady(() => {
           this.nutritionElements.forEach((item) => {
             this.context.beginPath()
-            this.context.moveTo(CIRCLE_RADIUS, CIRCLE_RADIUS)
-            this.context.arc(CIRCLE_RADIUS, CIRCLE_RADIUS, CIRCLE_RADIUS, item.beginAngle, item.endAngle)
+            this.context.moveTo(YWConstants.kRadius_80, YWConstants.kRadius_80)
+            this.context.arc(YWConstants.kRadius_80, YWConstants.kRadius_80, YWConstants.kRadius_80, item.beginAngle, item.endAngle)
             this.context.fillStyle = item.color
             this.context.fill()
           })

@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import RouterUtils from '../../../../../../../modules/common_har/src/main/ets/utils/RouterUtils';
 
 import DataModel from '../model/DataModel';
@@ -38,7 +38,7 @@ export struct GridComponent {
                 })
                 .objectFit(ImageFit.Contain)
               Text(item.text)
-                .width(Constants.FULL_WIDTH)
+                .width(YWConstants.FULL_WIDTH)
                 .fontSize($r('app.float.grid_font_size'))
                 .textAlign(TextAlign.Center)
                 .margin({ top: $r('app.float.grid_text_margin_top') })
@@ -53,7 +53,7 @@ export struct GridComponent {
       .columnsTemplate('1fr 1fr 1fr 1fr 1fr')
 
     }
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .height($r('app.float.grid_height'))
     .padding({
       top: $r('app.float.grid_padding_top'),

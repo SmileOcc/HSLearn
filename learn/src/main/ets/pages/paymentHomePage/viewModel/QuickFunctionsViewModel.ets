@@ -14,16 +14,16 @@
  */
 
 import { QuickFunctionItem } from './PayHubViewModel';
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 export class QuickFunctionsViewModel {
   private quickFunctions: QuickFunctionItem[] = [];
 
   constructor() {
-    this.quickFunctions.push(new QuickFunctionItem($r("app.media.scan"), Constants.FUNCTIONS_CARD_NAME[0]));
-    this.quickFunctions.push(new QuickFunctionItem($r("app.media.payment_code"), Constants.FUNCTIONS_CARD_NAME[1]));
-    this.quickFunctions.push(new QuickFunctionItem($r("app.media.travel"), Constants.FUNCTIONS_CARD_NAME[2]));
-    this.quickFunctions.push(new QuickFunctionItem($r("app.media.card_holder"), Constants.FUNCTIONS_CARD_NAME[3]));
+    this.quickFunctions.push(new QuickFunctionItem($r("app.media.scan"), YWConstants.FUNCTIONS_CARD_NAME[0]));
+    this.quickFunctions.push(new QuickFunctionItem($r("app.media.payment_code"), YWConstants.FUNCTIONS_CARD_NAME[1]));
+    this.quickFunctions.push(new QuickFunctionItem($r("app.media.travel"), YWConstants.FUNCTIONS_CARD_NAME[2]));
+    this.quickFunctions.push(new QuickFunctionItem($r("app.media.card_holder"), YWConstants.FUNCTIONS_CARD_NAME[3]));
   }
 
   public getQuickFunctions(): QuickFunctionItem[] {

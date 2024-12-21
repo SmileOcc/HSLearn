@@ -3,11 +3,7 @@ import { AxiosError } from '@ohos/axios';
 import { InternalAxiosRequestConfig } from '@ohos/axios';
 import { AxiosResponse } from '@ohos/axios';
 import { AxiosStatic } from '@ohos/axios';
-// import { ToastUtil } from '../../ui/prompt/ToastUtil';
-// import { OutDTO } from '../base/OutDTO';
-// import { SM2 } from '../crypto/encryption/sm2/SM2';
-// import { SM3 } from '../crypto/encryption/SM3';
-// import { SM4 } from './crypto/encryption/SM4';
+
 import { ArrayList } from '@kit.ArkTS';
 import { YWJsonUtils, YWRandomUtils } from '@learn/YWRandomUtils/Index';
 import { YWToastUtils } from '@learn/YWRandomUtils/src/main/ets/alert/YWToastUtils';

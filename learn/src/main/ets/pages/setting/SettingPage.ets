@@ -1,7 +1,6 @@
 import { NavigationBar } from '../../common/NavigationBar'
 import SetItemModel from './model/SetItemModel'
 import { router, window } from '@kit.ArkUI'
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants'
 import { Want } from '@kit.AbilityKit'
 import common from '@ohos.app.ability.common';
 import RouterUtils from '../../../../../../modules/common_har/src/main/ets/utils/RouterUtils'
@@ -13,9 +12,10 @@ import { PhoneLayoutFactor, TabletLayoutFactor, TestLayoutFactory } from '../bas
 
 import { rcp } from "@kit.RemoteCommunicationKit";
 import { TigerOpenApi, TigerOpenImp } from '@learn/tiger_har/Index'
-import { GlobalThis } from '@learn/common_har/Index'
+import { ENU_PREFS, globalThis } from '@learn/common_har'
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@kit.BasicServicesKit'
+import { YWConstants } from '@learn/constants_har'
 
 //导入har库
 import('STHarLib')
@@ -31,7 +31,6 @@ interface UserInfoInterface {
 @Component
 struct SettingPage {
   private context = getContext(this) as common.UIAbilityContext
-  @State title: string = globalThis?.key
   @State tempGroupList: SetItemModel[][] = new Array
   @State allGroupList: SetItemModel[] = new Array
   @State showLoading: boolean = false
@@ -43,15 +42,19 @@ struct SettingPage {
     //全局数据获取
     const KEY_APP_PRIVACY = 'nutsusKey';
 
-    let author = GlobalThis.getInstance().getAttribute("author");
-    let org = GlobalThis.getInstance().getAttribute("org");
+    let kkk22 = AppStorage.get("aaa") as string
+    let kkk2233 = AppStorage.get("isLoginGG") as string
 
-    let context: common.UIAbilityContext | undefined = GlobalThis.getInstance().getContext("context");
+
+    let author = globalThis.getAttribute("author");
+    let org = globalThis.getAttribute("org");
+
+    let context: common.UIAbilityContext | undefined = globalThis.getContext("context");
     if (context != undefined) {
       let label = context.abilityInfo.bundleName;
     }
 
-    let preferences: Promise<dataPreferences.Preferences> | undefined = GlobalThis.getInstance().getPreferences("preferences")
+    let preferences: Promise<dataPreferences.Preferences> | undefined = globalThis.getPref(ENU_PREFS.Global)
     if (preferences != undefined) {
       preferences.then((result: dataPreferences.Preferences) => {
         result.get(KEY_APP_PRIVACY, "").then((data) => {
@@ -67,11 +70,6 @@ struct SettingPage {
     // Logger.debug(DisplayUtil.getWidth() +' util11')//1260 util11
     // Logger.debug(DisplayUtil.getHeight() +' util11')//2720 util11
 
-    let twww = Constants.SCREEN_WIDTH() //387.6923076923077 loc
-    let thhhh = Constants.SCREEN_HEIGHT() //836.9230769230769 loc
-
-    Logger.debug(twww +' loc')
-    Logger.debug(thhhh +' loc')
 
     // window.getLastWindow(this.context).then((windowClass) => {
     //   windowClass.setWindowSystemBarEnable(["status", "navigation"]).then(() => {
@@ -97,7 +95,7 @@ struct SettingPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转"],
+      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
         "savedAbility-docAbility-multition",
@@ -107,7 +105,7 @@ struct SettingPage {
         "网页打开",
         "浏览器打开",
         "登录页",
-        "登录注册页1"],
+        "登录注册页1","登录注册页2"],
       ["录音转文字"],
       ["TaskPoolPage", "TaskPoolCpuPage", "TaskPoolSyncTaskPage","worker Test", "其他"],
       ["消息列表 MessageListPage","list分组红点","scroll集合","自动缩放适配","layoutWeight","PullRefreshPage","PullRefreshLazyPage","PullRefreshListPage","SwiperStackPage","TopSlideMenuTestPage"],
@@ -349,6 +347,9 @@ struct SettingPage {
           RouterUtils.jumpRouter('pages/base/registerlogin/LoginPageOne')
           return
         }
+        if (subModel.title.startsWith('"登录注册页2"')) {
+
+        }
 
         if (subModel.title.startsWith('登录')) {
           RouterUtils.openLogin().then(()=> {
@@ -491,6 +492,10 @@ struct SettingPage {
         if (subModel.title.includes('list分组红点')) {
           RouterUtils.jumpRouter('pages/base/listscroll/TestListScrollPage')
         }
+
+        if (subModel.title.includes('测试NavDestination')) {
+          RouterUtils.jumpRouter('pages/base/navtest/TestNavigationDestionationPage')
+        }
       })
 
     })
@@ -538,7 +543,7 @@ struct SettingPage {
       //   options: { show: this.showLoading, alignment: DialogAlignment.Center}
       // });
     }
-    .backgroundColor(Constants.COLOR_PAGE_BGC)
+    .backgroundColor(YWConstants.COLOR_PAGE_BGC)
 
   }
 }

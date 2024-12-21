@@ -1,6 +1,3 @@
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
-import Logger from '../../../../../../../modules/common_har/src/main/ets/common/KLogger';
-import RouterUtils from '../../../../../../../modules/common_har/src/main/ets/utils/RouterUtils';
 import { promptAction, router, window } from '@kit.ArkUI';
 import { bundleManager, common } from '@kit.AbilityKit';
 import { HWTTLogger } from 'STHarLib';
@@ -9,16 +6,20 @@ import SwiperComponent from '../view/SwiperComponent';
 import { GridComponent } from '../view/GridComponent';
 import { GoodsTabComponent } from '../view/GoodsTabComponent';
 import { GoodsDetailComponent } from '../view/GoodsDetailComponent';
-import { ThemeManager } from '../../../../../../../modules/common_har/src/main/ets/utils/ThemeManager';
+import { ThemeManager, KLogger, YWAvoidAreas, getDefaultAvoidAreas,
+  getAvoidPadding } from '@learn/common_har';
+import { YWConstants } from '@learn/constants_har';
 
 const SCROLL_OFFSET_FULL: number = 120;
 const BACKGROUND_HEIGHT: Length = 222;
 
+const TAG = 'HomePage'
+
 @Extend(Navigation)
 function setNavStyle() {
   .hideTitleBar(true)
-  .width(Constants.FULL_WIDTH)
-  .height(Constants.FULL_HEIGHT)
+  .width(YWConstants.FULL_WIDTH)
+  .height(YWConstants.FULL_HEIGHT)
 }
 
 @Extend(Tabs)
@@ -27,10 +28,13 @@ function setTabStyle() {
   .scrollable(false)
 }
 
-@Entry
+// @Entry
 @Component
 export struct HomePage {
-  @Provide('NavPathStack') pageInfos: NavPathStack = new NavPathStack();
+
+  @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
+  @StorageProp(YWConstants.kStatusBarHeight) statusBarHeight: number = 0
+  // @Provide('NavPathStack') pageInfos: NavPathStack = new NavPathStack();
   @State message: string = 'Hello World';
   @State isRefreshing: boolean = false;
   @State arr: String[] = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -40,11 +44,12 @@ export struct HomePage {
   private context = getContext(this) as common.UIAbilityContext;
   aboutToAppear(): void {
     //获取版本号
-    //  Constants.getAppVersion().then((ver)=>{
+    //  YWConstants.getAppVersion().then((ver)=>{
     //    this.message = ver
     // })
 
-    Logger.debug("获取版本号1：" )
+    const aaa = this.statusBarHeight
+    KLogger.debug("获取版本号1：" )
 
     //异步方式获取
     bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION)
@@ -53,13 +58,13 @@ export struct HomePage {
         let versionNo: string = bundleInfo.versionCode.toString(); //应用版本号
         this.message = "v" + versionName + "." + versionNo
       }).catch((error:Error) => {
-      Logger.error("获取版本号异常：" + error)
+      KLogger.error(TAG,"获取版本号异常：" + error)
     })
 
-    getContext(this).eventHub.on(Constants.EVENT_QUICK_TOP_FUNC, (): void => {
+    getContext(this).eventHub.on(YWConstants.EVENT_QUICK_TOP_FUNC, (): void => {
       this.scroller.scrollTo({ xOffset: 0, yOffset: 0 });
       this.bgOpacity = 1;
-      getContext(this).eventHub.emit(Constants.EVENT_TOP_ICON, false);
+      getContext(this).eventHub.emit(YWConstants.EVENT_TOP_ICON, false);
     })
 
     //页面中设置setWindowLayoutFullScreen
@@ -75,17 +80,14 @@ export struct HomePage {
     //     win.setWindowLayoutFullScreen(false)
     //   })
 
-    Logger.debug("onPageHide：" )
+    KLogger.debug("onPageHide：" )
 
     ThemeManager.settingStatusBarWhite()
   }
 
   onPageShow() {
-    Logger.debug("onPageShow： 不会触发，在index 里" )
-    // window.getLastWindow(getContext())
-    //   .then(win => {
-    //     win.setWindowLayoutFullScreen(true)
-    //   })
+    //如果是在tab组件里，不会触发，
+    KLogger.debug("onPageShow： 不会触发，在index 里" )
 
     ThemeManager.settingStatusBarBlack()
 
@@ -101,7 +103,7 @@ export struct HomePage {
 
     // 获取应⽤⽂件路径
     let filePath = tempDir + 'test.txt';
-    Logger.debug(`filePath: ${filePath}`);
+    KLogger.debug(`filePath: ${filePath}`);
     if (filePath !== null) {
       promptAction.showToast({
         message: filePath
@@ -109,23 +111,15 @@ export struct HomePage {
     }
   }
 
-  @Builder
-  PagesMap(name: string, param: number) {
-    if (name === 'Detail') {
-      GoodsDetailComponent()
-    }
-  }
-
   build() {
-    Navigation(this.pageInfos) {
+    // Navigation(this.pageInfos) {
 
       Stack({ alignContent: Alignment.Top }) {
         Image($r('app.media.ic_app_background'))
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height(BACKGROUND_HEIGHT)
           .objectFit(ImageFit.Fill)
           .opacity(this.bgOpacity)
-          .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
         Column() {
           SearchComponent()
           Refresh({ refreshing: $$this.isRefreshing }) {
@@ -136,8 +130,8 @@ export struct HomePage {
                 GoodsTabComponent()
               }
             }
-            .width(Constants.FULL_WIDTH)
-            .height(Constants.FULL_HEIGHT)
+            .width(YWConstants.FULL_WIDTH)
+            .height(YWConstants.FULL_HEIGHT)
             .scrollBar(BarState.Off)
             .scrollable(ScrollDirection.Vertical)
             // .onWillScroll((handler) => {
@@ -147,29 +141,43 @@ export struct HomePage {
             //   } else {
             //     this.bgOpacity = opacity;
             //   }
-            //   getContext(this).eventHub.emit(Constants.EVENT_TOP_ICON, (this.bgOpacity <= 0) ? true : false);
+            //   getContext(this).eventHub.emit(YWConstants.EVENT_TOP_ICON, (this.bgOpacity <= 0) ? true : false);
             // })
-            .padding({
-              top: $r('app.float.refresh_padding_top'),
-            })
+            // .padding({
+            //   top: $r('app.float.refresh_padding_top'),
+            // })
           }
           .onRefreshing(() => {
             setTimeout(() => {
-              getContext(this).eventHub.emit(Constants.EVENT_REFRESH_WATERFLOW_DATA, null);
+              getContext(this).eventHub.emit(YWConstants.EVENT_REFRESH_WATERFLOW_DATA, null);
               this.isRefreshing = false;
-            }, Constants.TIME_OUT_TWO_THOUSANDS)
+            }, YWConstants.TIME_OUT_TWO_THOUSANDS)
           })
         }
-        .height(Constants.FULL_HEIGHT)
+        // .padding({top:this.statusBarHeight})
+        .backgroundColor($r('app.color.home_background_color'))
 
-      }
-      .height(Constants.FULL_HEIGHT)
-      .backgroundColor($r('app.color.home_background_color'))
+
+
+        // }
+      // .height(YWConstants.FULL_HEIGHT)
+      // .backgroundColor($r('app.color.home_background_color'))
 
     }
     //.toolbarConfiguration(this.ToolBarBuilder())
-    .setNavStyle()
-    .navDestination(this.PagesMap)
+    // .setNavStyle()
+    // .navDestination(this.PagesMap)
+    // .onAppear(()=>{
+    //   KLogger.info(TAG,'--onAppear')
+    // })
+    // .onDisAppear(()=>{
+    //   KLogger.info(TAG,'--onDisAppear')
+    //
+    // })
+    // .onAreaChange((oldValue,newValue)=>{
+    //   KLogger.info(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+    //
+    // })
 
   }
 
@@ -178,7 +186,7 @@ export struct HomePage {
   //     Column() {
   //       Row(){
   //         // TextInput({placeholder:'请输入搜索内容'})
-  //         //   .backgroundColor(Constants.COLOR_EEEEEE)
+  //         //   .backgroundColor(YWConstants.COLOR_EEEEEE)
   //         //   .fontSize(14)
   //         //   .borderRadius(8)
   //         //   .height(40)
@@ -189,7 +197,7 @@ export struct HomePage {
   //         //   })
   //
   //         Text('请输入搜索内容')
-  //           .backgroundColor(Constants.COLOR_EEEEEE)
+  //           .backgroundColor(YWConstants.COLOR_EEEEEE)
   //           .fontSize(14)
   //           .borderRadius(20)
   //           .height(40)
@@ -204,7 +212,7 @@ export struct HomePage {
   //         Blank().width(12)
   //         Button('搜索')
   //           .buttonStyle(ButtonStyleMode.TEXTUAL)
-  //           .fontColor(Constants.COLOR_333333)
+  //           .fontColor(YWConstants.COLOR_333333)
   //           .fontSize(16)
   //           .onClick(()=>{
   //
@@ -234,7 +242,7 @@ export struct HomePage {
   //     .justifyContent(FlexAlign.Start)
   //   }
   //   .height('100%')
-  //   .backgroundColor(Constants.COLOR_EEEEEE)
+  //   .backgroundColor(YWConstants.COLOR_EEEEEE)
   //
   // }
 }

@@ -1,4 +1,4 @@
-import { Constants } from '@learn/common_har/Index'
+import { YWConstants } from '@learn/constants_har'
 import { BuilderWrapData } from '../node/MainNodeController'
 
 export enum DialogActionType {
@@ -164,8 +164,8 @@ function buttonExtend(action:DialogAction, isFirst:Boolean) {
   .buttonStyle(ButtonStyleMode.NORMAL)
   .height(44)
   .borderWidth(1)
-  .fontColor(Constants.HexColorA('ffcc33',0.9))
-  .borderColor(Constants.HexColorA('ffcc33',0.9))
+  .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+  .borderColor(YWConstants.HexColorA('ffcc33',0.9))
   .padding({left:10,bottom:3,right:10,top:3})
   .fontColor(Color.Green)
   .fontStyle(FontStyle.Italic)

@@ -1,9 +1,10 @@
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWNavBar } from '@learn/baseui_har';
+import { YWConstants } from '@learn/constants_har';
 import { NavigationBar } from '../../../common/NavigationBar';
 import { CategoryModel, CategorySecondModel } from '../model/CategoryModel';
 import { CategoryViewModel } from '../model/CategoryViewModel';
 
-@Entry
+// @Entry
 @Component
 export struct CategoryPage {
   @State message: string = 'Hello World cate';
@@ -14,6 +15,7 @@ export struct CategoryPage {
 
   aboutToAppear() {
     this.categoryList = CategoryViewModel.getData()
+    const kkk = Number(AppStorage.get(YWConstants.kStatusBarHeight))
     console.log('===', JSON.stringify(this.categoryList))
   }
 
@@ -26,7 +28,7 @@ export struct CategoryPage {
         .height('40vp')
         .fontSize(14)
         .fontWeight(FontWeight.Bold)
-        .fontColor(Constants.COLOR_333333)
+        .fontColor(YWConstants.COLOR_333333)
         .backgroundColor(Color.White)
         .padding({ left: 8, right: 8 })
 
@@ -64,7 +66,9 @@ export struct CategoryPage {
 
   build() {
     Column() {
-      NavigationBar({ title: '分类' }) //自定义一个视图即可
+      // NavigationBar({ title: '分类' }) //自定义一个视图即可
+      YWNavBar({title:"分类"})
+
       Row() {
         List({ scroller: this.scroll }) {
           ForEach(this.categoryList, (item: CategoryModel, index: number) => {
@@ -73,7 +77,7 @@ export struct CategoryPage {
                 .width('100vp')
                 .height('60vp')
                 .textAlign(TextAlign.Center)
-                .backgroundColor(this.currentCategory === index ? Constants.COLOR_PAGE_BGC : Color.White)
+                .backgroundColor(this.currentCategory === index ? YWConstants.COLOR_PAGE_BGC : Color.White)
                 .onClick(() => {
                   this.scrollChangeAction(index, true)
                 })
@@ -108,10 +112,15 @@ export struct CategoryPage {
       }
       .height('92%')
       .margin({ top: 12, bottom: 12 })
-      .backgroundColor(Constants.COLOR_PAGE_BGC)
+      .backgroundColor(YWConstants.COLOR_PAGE_BGC)
     }
     .height('100%')
-    .padding({ bottom: 12 })
-    .backgroundColor(Constants.COLOR_PAGE_BGC)
+    // .statusHeightStyle()
+    .backgroundColor(YWConstants.COLOR_PAGE_BGC)
   }
+}
+
+@Styles
+function statusHeightStyle() {
+  .padding({ top:Number(AppStorage.get(YWConstants.kStatusBarHeight)) })
 }

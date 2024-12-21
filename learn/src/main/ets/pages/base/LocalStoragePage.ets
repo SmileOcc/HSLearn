@@ -1,4 +1,4 @@
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../accountInfo/model/UserInfoModel';
 
 let storage = LocalStorage.getShared()
@@ -12,11 +12,10 @@ struct LocalStoragePage {
   @LocalStorageProp('PropA') parentPropNumber: number = 2;
   @LocalStorageLink('PropB') childLinkObject: PropB = new PropB(0);
 
-  @StorageLink(Constants.kStorageLocalUser) localUseInf:UserInfoModel = new UserInfoModel()
+  @StorageLink(YWConstants.kStorageLocalUser) localUseInf:UserInfoModel = new UserInfoModel()
 
   aboutToAppear(): void {
     console.log('========== LocalStoragePage')
-    console.log(`=========${Constants.screenWidth}`)
 
     storage.setOrCreate('PropB', new PropB(50));
 

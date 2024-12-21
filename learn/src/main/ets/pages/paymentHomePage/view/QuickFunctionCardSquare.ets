@@ -14,7 +14,7 @@
  */
 import { BreakPointType } from '../../../../../../../modules/common_har/src/main/ets/common/BreakPointSystem';
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { QuickFunctionItem } from '../viewmodel/PayHubViewModel';
 
 @Component
@@ -31,14 +31,14 @@ export struct QuickFunctionCardSquare {
             lg: $r('app.float.quick_function_icon_size_lg')
           }).getValue(this.curBp))
       }
-      .width(this.curBp === Constants.BREAKPOINTS[1] ? $r("app.float.quick_function_item_image_size_smaller") :
+      .width(this.curBp === YWConstants.BREAKPOINTS[1] ? $r("app.float.quick_function_item_image_size_smaller") :
       $r("app.float.quick_function_item_image_size_bigger"))
-      .height(this.curBp === Constants.BREAKPOINTS[1] ? $r("app.float.quick_function_item_image_size_smaller") :
+      .height(this.curBp === YWConstants.BREAKPOINTS[1] ? $r("app.float.quick_function_item_image_size_smaller") :
       $r("app.float.quick_function_item_image_size_bigger"))
       .margin({
-        right: this.curBp === Constants.BREAKPOINTS[1] ?
-        Constants.CONTENT_SPACE[1] :
-        Constants.CONTENT_SPACE[6]
+        right: this.curBp === YWConstants.BREAKPOINTS[1] ?
+        YWConstants.CONTENT_SPACE[1] :
+        YWConstants.CONTENT_SPACE[6]
       })
       .justifyContent(FlexAlign.Center)
       .alignItems(VerticalAlign.Center)
@@ -47,10 +47,10 @@ export struct QuickFunctionCardSquare {
         .fontFamily($r("app.string.normal_font_family"))
         .fontSize($r("app.float.bigger_font_size"))
         .fontColor(Color.White)
-        .fontWeight(Constants.FONT_WEIGHT[0])
+        .fontWeight(YWConstants.FONT_WEIGHT[0])
     }
-    .width(Constants.FULL_WIDTH)
-    .height(Constants.FULL_HEIGHT)
+    .width(YWConstants.FULL_WIDTH)
+    .height(YWConstants.FULL_HEIGHT)
     .backgroundColor($r("app.color.quick_function_item_background_color"))
     .borderRadius($r("app.float.quick_function_item_border_radius"))
     .justifyContent(FlexAlign.Center)

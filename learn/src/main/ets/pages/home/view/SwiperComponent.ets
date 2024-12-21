@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 import { swiperImage } from '../model/HomeViewModel';
 
@@ -28,7 +28,7 @@ export default struct SwiperComponent {
     Swiper() {
       ForEach(swiperImage, (item: Resource) => {
         Image(item)
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height($r('app.float.swiper_image_height'))
           .borderRadius($r('app.float.swiper_radius'))
           .backgroundColor(Color.White)
@@ -37,7 +37,7 @@ export default struct SwiperComponent {
     .indicator(this.dotIndicator)
     .autoPlay(true)
     .itemSpace(0)
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .displayCount(1)
     .padding({ left: $r('app.float.home_margin_left'), right: $r('app.float.home_margin_right') })
   }

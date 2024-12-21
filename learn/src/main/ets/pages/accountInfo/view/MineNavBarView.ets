@@ -1,9 +1,11 @@
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants'
+import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../model/UserInfoModel'
 import { router } from '@kit.ArkUI'
 
 @Component
 export struct MineNavBarView {
+
+  @StorageProp(YWConstants.kStatusBarHeight) statusBarHeight: number = 0
 
   @Prop userInfo:UserInfoModel
 
@@ -41,12 +43,12 @@ export struct MineNavBarView {
           Button() {
             Row() {
               Text('V')
-                .fontColor(Constants.COLOR_666666)
+                .fontColor(YWConstants.COLOR_666666)
                 .fontSize(16)
                 .fontWeight(FontWeight.Bold)
                 .margin({ left: 8 })
               Text('普通会员')
-                .fontColor(Constants.COLOR_666666)
+                .fontColor(YWConstants.COLOR_666666)
                 .fontSize(14)
                 .margin({ left: 8, right: 8 })
             }
@@ -95,7 +97,7 @@ export struct MineNavBarView {
     .alignItems(VerticalAlign.Top)
     .justifyContent(FlexAlign.SpaceBetween)
     .height(120)
-    .padding({ top: 12, left: 13, right: 13, bottom: 13 })
-    .backgroundColor(Constants.COLOR_PAGE_BGC)
+    .padding({ top: this.statusBarHeight, left: 13, right: 13, bottom: 13 })
+    .backgroundColor(YWConstants.COLOR_PAGE_BGC)
   }
 }

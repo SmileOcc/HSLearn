@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { QuickFunctionItem } from '../viewmodel/PayHubViewModel';
 
 @Component
@@ -30,7 +30,7 @@ export struct QuickFunctionCardCircle {
       .height($r("app.float.quick_function_item_image_size"))
       .borderRadius($r("app.float.quick_function_item_image_border_radius"))
       .backgroundColor($r("app.color.quick_function_item_background_color"))
-      .margin({ bottom: Constants.CONTENT_SPACE[1] })
+      .margin({ bottom: YWConstants.CONTENT_SPACE[1] })
       .justifyContent(FlexAlign.Center)
       .alignItems(VerticalAlign.Center)
 
@@ -39,11 +39,11 @@ export struct QuickFunctionCardCircle {
         .fontSize($r("app.float.middle_font_size"))
         .fontColor(Color.White)
         .textAlign(TextAlign.Start)
-        .fontWeight(Constants.FONT_WEIGHT[0])
-        .lineHeight(Constants.LINE_HEIGHT_21)
+        .fontWeight(YWConstants.FONT_WEIGHT[0])
+        .lineHeight(YWConstants.LINE_HEIGHT_21)
     }
-    .width(Constants.FULL_WIDTH)
-    .height(Constants.FULL_HEIGHT)
+    .width(YWConstants.FULL_WIDTH)
+    .height(YWConstants.FULL_HEIGHT)
     .borderRadius($r("app.float.quick_function_item_border_radius"))
     .justifyContent(FlexAlign.Center)
   }

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { QuickFunctionItem } from '../viewmodel/PayHubViewModel';
 
 @Component
@@ -32,7 +32,7 @@ export struct FunctionCard {
         .fontSize($r("app.float.smallest_font_size"))
         .fontColor(Color.Black)
         .textAlign(TextAlign.Center)
-        .fontWeight(Constants.FONT_WEIGHT[0])
+        .fontWeight(YWConstants.FONT_WEIGHT[0])
     }
   }
 }

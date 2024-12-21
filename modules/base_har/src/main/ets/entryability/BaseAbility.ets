@@ -3,6 +3,7 @@ import {
   AbilityConstant,
   bundleManager,
   Context,
+  errorManager,
   Permissions,
   UIAbility,
   Want
@@ -11,10 +12,12 @@ import {
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { process } from '@kit.ArkTS';
 
-import { BreakpointSystem, Constants,
+import { BreakpointSystem,
   GlobalContext,
-  KeyStorageManager, KLogger, PreferencesUtil,
-  YWAppUtils } from '@learn/common_har'
+  kyStoreManger, KLogger, PreferencesUtil,
+  YWAppUtils,
+  YWWindowUtils,
+  initWindowSetting} from '@learn/common_har'
 // import KLogger from '@learn/common_har/src/main/ets/common/KLogger';
 
 import { distributedKVStore } from '@kit.ArkData';
@@ -22,6 +25,7 @@ import { display, window } from '@kit.ArkUI';
 // import { AppUtil, DisplayUtil } from '@pura/harmony-utils';
 import { notificationManager } from '@kit.NotificationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { initListerSafeWindow, initListerWindow } from '@learn/common_har/src/main/ets/windowUtils/YWAvoidAreas';
 
 
 const permissions: Array<Permissions> = ['ohos.permission.SYSTEM_FLOAT_WINDOW'];
@@ -37,7 +41,7 @@ abstract  class BaseAbility extends UIAbility {
 
   private breakpointSystem: BreakpointSystem = new BreakpointSystem();
 
-
+  private registerId?: number
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
@@ -49,18 +53,19 @@ abstract  class BaseAbility extends UIAbility {
     let mainTid = process.tid
     KLogger.debug(`==== 主线程tid: ${mainTid}`)
 
+    //在Stage里初始化了
     //首选项本地数据
-    PreferencesUtil.getData(this.context)
-
-    let config:distributedKVStore.KVManagerConfig = {
-      bundleName: 'com.example.hmos_learn',
-      context: this.context
-    }
-
-    const KSManager = new KeyStorageManager(config,'myHMStore')
-
-    //权限
-    this.checkPermissions(["ohos.permission.CAMERA"]);
+    // PreferencesUtil.getData(this.context)
+    //
+    // let config:distributedKVStore.KVManagerConfig = {
+    //   bundleName: 'com.example.hmos_learn',
+    //   context: this.context
+    // }
+    //
+    // kyStoreManger.init(config,'myHMStore')
+    //
+    // //权限
+    // this.checkPermissions(["ohos.permission.CAMERA"]);
   }
 
   onDestroy(): void {
@@ -68,6 +73,8 @@ abstract  class BaseAbility extends UIAbility {
   }
 
   async configGlobalContext(windowStage: window.WindowStage) {
+
+    initWindowSetting(windowStage)
 
     windowStage.getMainWindow((err, data: window.Window) => {
       if (err.code) {
@@ -91,21 +98,27 @@ abstract  class BaseAbility extends UIAbility {
       KLogger.info("statusBarHeight===", avoidArea.topRect.height.toString())
 
       let isFullScreen = data.getWindowProperties().isFullScreen
-      //获取不对
-      let screen_w = data.getWindowProperties().windowRect.width
-      let screen_h = data.getWindowProperties().windowRect.height
 
-      KLogger.debug(screen_w + '====')
-      KLogger.debug(screen_h + '====')
-
-      KLogger.debug('===== aaaaa')
-      AppStorage.setOrCreate<number>(Constants.kStatusBarHeight, px2vp(avoidArea.topRect.height))
-      GlobalContext.getContext().setObject(Constants.kStatusBarHeight, px2vp(avoidArea.topRect.height))
     })
 
     //获取分辨率, 将获取到的分辨率存放在GlobalContext这个文件中的Map变量中
     GlobalContext.getContext().setObject('display', await display.getDefaultDisplaySync());
 
+    //自动旋转
+    window.getLastWindow(getContext(this)).then((win) => {
+      win.setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED)
+    })
+
+    //ErrorManager可以提供对错误观察器的注册和注销的能力，建议在主EntryAbility或者AbilityStage中
+    this.registerId = errorManager.on('error', {
+      onUnhandledException: (errMsg) => {
+        console.log('产生未捕获异常时的回调，onUnhandledException:', errMsg);
+      },
+      onException: (errorObj) => {
+        console.log('产生异常上报JS层时的回调，onException');
+
+      }
+    })
   }
 
   async checkPermissions(permissions: Array<Permissions>): Promise<void> {
@@ -144,11 +157,12 @@ abstract  class BaseAbility extends UIAbility {
     KLogger.debug(screenWidth + '')
     KLogger.debug(screenHeight + '')
 
+    //全局配置context
     // this.configGlobalContext(windowStage)
 
     // showAlertView(this.context,windowStage)
     //设置全屏
-    //this.requestFullScreen(windowStage, this.context)
+    // this.requestFullScreen(windowStage, this.context)
     // YWAppUtils.setStatusBar(true,true,"")
 
     // 开发者可以在适当的时机，如主窗口上按钮点击事件等，创建子窗口。并不一定需要在onWindowStageCreate调用，这里仅作展示
@@ -158,12 +172,13 @@ abstract  class BaseAbility extends UIAbility {
     this.breakpointSystem.register();
 
     this.loadContent(windowStage)
+  }
 
+  onWindowStageWillDestroy(windowStage: window.WindowStage): void {
+    //注销错误观测器
+    errorManager.off('error', this.registerId, (result) => {
 
-    //自动旋转
-    window.getLastWindow(getContext(this)).then((win) => {
-      win.setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED)
-    })
+    });
 
   }
 
@@ -222,10 +237,8 @@ abstract  class BaseAbility extends UIAbility {
       let area = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
       if (area.topRect.height > 0) {
         // 2.设置导航栏、状态栏不显示。
-        windowClass.setWindowSystemBarEnable([], (err) => {
-
-        });
-        windowClass.setWindowLayoutFullScreen(true)
+        YWWindowUtils.hideSystemBar(windowStage)
+        YWWindowUtils.setFullScreen(windowStage)
       }
     } catch (err) {
       KLogger.debug(`requestFullScreen err = ${err}`)

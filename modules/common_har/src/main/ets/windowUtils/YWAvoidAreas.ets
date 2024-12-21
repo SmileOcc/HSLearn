@@ -1,6 +1,6 @@
 import { Size, window } from '@kit.ArkUI'
+import { YWConstants } from '@learn/constants_har';
 import { Rect } from '@ohos.UiTest';
-import { Constants } from '../common/Constants';
 
 
 export interface YWAvoidAreas {
@@ -59,6 +59,10 @@ export function getAvoidPadding(avoidAreas:YWAvoidAreas):Padding {
     bottom = avoidAreas.navigation_indicator.bottomRect.height
   }
 
+  // 此处获取的单位为px，需转为vp
+  // let bottomRectHeight = px2vp(bottom); // 获取到导航条区域的高度
+
+
   return {
     top:`${top}px`,
     bottom:`${bottom}px`
@@ -70,19 +74,19 @@ export async function initListerWindow(windowObj: window.Window) {
 
   // windowObj.setWindowLayoutFullScreen(true)
   let rect = windowObj.getWindowProperties().windowRect
-  let size_w = rect.width
-  let size_h = rect.height
+  let size_w = px2vp(rect.width)
+  let size_h = px2vp(rect.height)
 
 
-  AppStorage.set(Constants.kStorageWidth,size_w)
-  AppStorage.set(Constants.kStatusBarHeight,size_h)
+  AppStorage.setOrCreate(YWConstants.kStorageWidth,size_w)
+  AppStorage.setOrCreate(YWConstants.kStorageHeight,size_h)
   windowObj.on("windowSizeChange", (value)=>{
 
     let rect = windowObj.getWindowProperties().windowRect
     let size_w = rect.width
     let size_h = rect.height
-    AppStorage.set(Constants.kStorageWidth,size_w)
-    AppStorage.set(Constants.kStatusBarHeight,size_h)
+    AppStorage.setOrCreate(YWConstants.kStorageWidth,size_w)
+    AppStorage.setOrCreate(YWConstants.kStorageHeight,size_h)
 
   })
 
@@ -93,11 +97,30 @@ export async function initListerSafeWindow(windowObj: window.Window) {
   let area = getAvoidAreas(windowObj)
   // windowObj.setWindowLayoutFullScreen(true)
 
-  AppStorage.set(Constants.kStorageAreas,area)
+  AppStorage.setOrCreate(YWConstants.kStorageAreas,area)
+
+  // 获取设备的安全高度
+  let safeArea = area.system
+
+  //状态栏高度 返回时px
+  let statusH = area.navigation_indicator.bottomRect.height
+
+  let a = px2vp(statusH)
+
+  // 顶部状态栏高度
+  let statusBarHeight = px2vp(area.system.topRect.height) //这个的单位是px  将单位转换为VP,这个方法是px转vp
+
+  // 底部安全高度
+  let indicatorHeight = px2vp(area.navigation_indicator.bottomRect.height);
+
+  //注意这是pv
+  AppStorage.setOrCreate(YWConstants.kStatusBarHeight,statusBarHeight)
+  AppStorage.setOrCreate(YWConstants.kSafeBottomHeight,indicatorHeight)
+
   windowObj.on("windowSizeChange", (value)=>{
 
     let newArea = getAvoidAreas(windowObj)
-    AppStorage.set("window",newArea)
+    AppStorage.setOrCreate("window",newArea)
 
   })
 

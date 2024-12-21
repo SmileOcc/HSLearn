@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { ReceiveMoneyServiceCardItem } from '../viewmodel/ReceiveMoneyCardViewModel';
 
 @Component
@@ -25,7 +25,7 @@ export struct CashFlowCenterCard {
       Image(this.cashFlowCenterItem.getImage())
         .width($r("app.float.receive_money_service_card_image_width"))
         .height($r("app.float.receive_money_service_card_image_height"))
-        .margin({ right: Constants.CONTENT_SPACE[6] })
+        .margin({ right: YWConstants.CONTENT_SPACE[6] })
         .objectFit(ImageFit.Contain)
 
       Row() {
@@ -35,18 +35,18 @@ export struct CashFlowCenterCard {
           .fontColor(Color.Black)
           .textAlign(TextAlign.Start)
           .lineHeight($r("app.float.receive_money_service_card_text_line_height"))
-          .fontWeight(Constants.FONT_WEIGHT[1])
+          .fontWeight(YWConstants.FONT_WEIGHT[1])
 
         Row() {
           if (this.cashFlowCenterItem.getBrief()) {
             Text(this.cashFlowCenterItem.getBrief())
-              .opacity(Constants.OPACITY)
+              .opacity(YWConstants.OPACITY)
               .fontFamily($r("app.string.normal_font_family"))
               .fontSize($r("app.float.smaller_font_size"))
               .fontColor(Color.Black)
               .textAlign(TextAlign.End)
               .lineHeight($r("app.float.brief_line_height"))
-              .fontWeight(Constants.FONT_WEIGHT[0])
+              .fontWeight(YWConstants.FONT_WEIGHT[0])
               .margin({ right: $r("app.float.brief_margin_right") })
           }
           Image($r("app.media.right_arrow"))
@@ -54,12 +54,12 @@ export struct CashFlowCenterCard {
             .height($r("app.float.right_arrow_height"))
         }
       }
-      .layoutWeight(Constants.LAYOUT_WEIGHT)
+      .layoutWeight(YWConstants.LAYOUT_WEIGHT)
       .justifyContent(FlexAlign.SpaceBetween)
       .alignItems(VerticalAlign.Center)
     }
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .height($r("app.float.receive_money_bottom_card_height"))
-    .padding({ left: Constants.CONTENT_SPACE[2], right: Constants.CONTENT_SPACE[2] })
+    .padding({ left: YWConstants.CONTENT_SPACE[2], right: YWConstants.CONTENT_SPACE[2] })
   }
 }

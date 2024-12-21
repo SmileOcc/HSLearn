@@ -66,6 +66,9 @@ export class MainViewModel extends YWBaseModel<MainUIState> {
 
 @Observed
 export class MainUIState implements IUState {
-  isLoading:Boolean = true
+  isLoading:boolean = true
+  isShowTab:boolean = true
+  isShowTitleBar:boolean = false
+
 
 }

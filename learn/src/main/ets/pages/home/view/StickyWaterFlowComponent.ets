@@ -15,7 +15,7 @@
 
 import { WaterFlowDataSource } from '../model/SectionsWaterFlowDataSource'
 import { constant } from '@kit.ConnectivityKit'
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 @Preview
 @Component
@@ -97,7 +97,7 @@ export struct StickyPage {
               RelativeContainer() {
                 Image($rawfile(`sections/${item % 4}.jpg`))
                   .objectFit(ImageFit.Cover)
-                  .width(Constants.FULL_WIDTH)
+                  .width(YWConstants.FULL_WIDTH)
                   .layoutWeight(1)
                   .borderRadius($r('app.float.sections_item_radius'))
                   .alignRules({
@@ -115,7 +115,7 @@ export struct StickyPage {
                   colors: [[$r('app.color.linearGradient_first_color'), 0.0],
                     [$r('app.color.linearGradient_last_color'), 1.0]]
                 })
-                .width(Constants.FULL_WIDTH)
+                .width(YWConstants.FULL_WIDTH)
                 .height($r('app.float.sections_item_blur_height'))
                 .borderRadius($r('app.float.sections_item_radius'))
                 .hitTestBehavior(HitTestMode.None)
@@ -138,7 +138,7 @@ export struct StickyPage {
               }
             }
           }
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .height(this.itemHeightArray[item % 100])
           .backgroundColor(Color.White)
         }, (item: string) => item)
@@ -146,8 +146,8 @@ export struct StickyPage {
       .columnsTemplate('1fr 1fr')
       .columnsGap($r('app.float.sections_margin'))
       .rowsGap($r('app.float.sections_margin'))
-      .width(Constants.FULL_WIDTH)
-      .height(Constants.FULL_HEIGHT)
+      .width(YWConstants.FULL_WIDTH)
+      .height(YWConstants.FULL_HEIGHT)
       .layoutWeight(1)
       .onScrollIndex((first: number, last: number) => {
         if (last + 20 >= this.dataSource.totalCount()) {
@@ -179,7 +179,7 @@ export struct StickyPage {
                     .textAlign(TextAlign.Center)
                     .fontSize($r('app.float.tab_font_size'))
                     .fontColor(Color.Black)
-                    .height(Constants.FULL_HEIGHT)
+                    .height(YWConstants.FULL_HEIGHT)
                     .backgroundColor($r('app.color.sections_tab_color_normal'))
                     .borderRadius($r('app.float.sections_tab_radius'))
                 }
@@ -278,7 +278,7 @@ export struct StickyPage {
 
           }
           .backgroundColor(Color.White)
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .padding({ top: $r('app.float.sections_margin'), bottom: $r('app.float.sections_margin') })
         }.alignItems(HorizontalAlign.Start)
       }

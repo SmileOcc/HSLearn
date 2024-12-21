@@ -13,6 +13,12 @@
     "@learn/main_har": "file:../modules/main_har",
     "@learn/request_har": "file:../modules/request_har",
     "@learn/tiger_har": "file:../tiger_har",
+    "@learn/nav_router_har": "file:../modules/nav_router_har",
+    "@learn/login_har": 'file:../modules/feature/login_har',
+    "@learn/res_har": 'file:../modules/res_har',
+    "@learn/alert_har": 'file:../modules/alert_har',
+    "@learn/baseui_har": 'file:../modules/baseui_har',
+    "@learn/constants_har": 'file:../modules/constants_har',
 
     "@abner/refresh": "^1.1.7",
     "@tencent/mmkv": "^2.0.1"

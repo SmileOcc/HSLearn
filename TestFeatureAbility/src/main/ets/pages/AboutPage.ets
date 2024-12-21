@@ -14,7 +14,7 @@ import AboutViewModel from '../viewmodel/AboutViewModel';
 @Entry
 @Component
 struct AboutPage {
-  @State currentBreakPoint: string = CommonConstants.BREAK_POINT_SM;
+  @State currentBreakPoint: string = CommonYWConstants.BREAK_POINT_SM;
 
   build() {
     Column() {
@@ -23,31 +23,31 @@ struct AboutPage {
       Scroll() {
         GridRow({
           columns: {
-            sm: CommonConstants.GRID_ROW_SM,
-            md: CommonConstants.GRID_ROW_MD,
-            lg: CommonConstants.GRID_ROW_LG
+            sm: CommonYWConstants.GRID_ROW_SM,
+            md: CommonYWConstants.GRID_ROW_MD,
+            lg: CommonYWConstants.GRID_ROW_LG
           },
-          gutter: { x: CommonConstants.GUTTER_X },
-          breakpoints: { value: CommonConstants.BREAK_POINT }
+          gutter: { x: CommonYWConstants.GUTTER_X },
+          breakpoints: { value: CommonYWConstants.BREAK_POINT }
         }) {
           GridCol({
             span: {
-              sm: CommonConstants.SPAN_SM,
-              md: CommonConstants.SPAN_MD,
-              lg: CommonConstants.SPAN_LG
+              sm: CommonYWConstants.SPAN_SM,
+              md: CommonYWConstants.SPAN_MD,
+              lg: CommonYWConstants.SPAN_LG
             },
             offset: {
-              sm: CommonConstants.OFFSET_SM,
-              md: CommonConstants.OFFSET_MD,
-              lg: CommonConstants.OFFSET_LG
+              sm: CommonYWConstants.OFFSET_SM,
+              md: CommonYWConstants.OFFSET_MD,
+              lg: CommonYWConstants.OFFSET_LG
             }
           }) {
             Column() {
               Row() {
                 LogoAndVersionComponent()
               }
-              .layoutWeight(this.currentBreakPoint === CommonConstants.BREAK_POINT_LG ?
-                CommonConstants.ROW_LG_WEIGHT : CommonConstants.ROW_WEIGHT)
+              .layoutWeight(this.currentBreakPoint === CommonYWConstants.BREAK_POINT_LG ?
+                CommonYWConstants.ROW_LG_WEIGHT : CommonYWConstants.ROW_WEIGHT)
 
               Flex({
                 direction: FlexDirection.Column,
@@ -59,8 +59,8 @@ struct AboutPage {
 
                 TechSupportComponent()
               }
-              .layoutWeight(this.currentBreakPoint === CommonConstants.BREAK_POINT_LG ?
-                CommonConstants.FLEX_LG_WEIGHT : CommonConstants.FLEX_WEIGHT)
+              .layoutWeight(this.currentBreakPoint === CommonYWConstants.BREAK_POINT_LG ?
+                CommonYWConstants.FLEX_LG_WEIGHT : CommonYWConstants.FLEX_WEIGHT)
             }
           }
         }
@@ -71,11 +71,11 @@ struct AboutPage {
           left: $r('app.float.grid_row_margin_left'),
           right: $r('app.float.grid_row_margin_right')
         })
-        .height(CommonConstants.SCROLL_HEIGHT_PERCENT)
+        .height(CommonYWConstants.SCROLL_HEIGHT_PERCENT)
         .constraintSize({ minHeight: $r('app.float.scroll_min_height') })
       }
       .scrollBar(BarState.Off)
-      .layoutWeight(CommonConstants.SCROLL_WEIGHT)
+      .layoutWeight(CommonYWConstants.SCROLL_WEIGHT)
     }
     .backgroundColor($r('app.color.page_background'))
   }
@@ -96,9 +96,9 @@ struct AboutPage {
       Text($r('app.string.title_name'))
         .fontSize($r('app.float.title_text_font_size'))
         .fontColor($r('app.color.title'))
-        .fontWeight(CommonConstants.FONT_WEIGHT)
+        .fontWeight(CommonYWConstants.FONT_WEIGHT)
     }
-    .width(CommonConstants.FULL_WIDTH_PERCENT)
+    .width(CommonYWConstants.FULL_WIDTH_PERCENT)
     .height($r('app.float.title_height'))
   }
 }

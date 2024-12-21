@@ -24,8 +24,6 @@
     "pages/base/TestPreferencesPage",
     "pages/base/TestKVStorePage",
     "pages/base/TestAxiosPage",
-    "pages/home/ctrl/HomePage",
-    "pages/category/ctrl/CategoryPage",
     "pages/setting/TestAccessPage",
     "pages/ability/DocPage",
     "pages/ability/SavedPage",
@@ -43,7 +41,6 @@
     "pages/base/EmitterBasePage",
     "pages/base/EmitterOneChildPage",
     "pages/accountInfo/ctrl/MineInfoPage",
-    "pages/MinePage",
     "pages/base/WindowFloatPage",
     "pages/base/LocalStoragePage",
     "pages/search/SearchResultPage",
@@ -73,6 +70,7 @@
     "pages/base/TestTabBarPage",
     "pages/base/relativelayout/TestRelativeContainerPage",
     "pages/base/relativelayout/TestWindowOrientationPage",
-    "pages/base/listscroll/TestListScrollPage"
+    "pages/base/listscroll/TestListScrollPage",
+    "pages/base/navtest/TestNavigationDestionationPage"
   ]
 }

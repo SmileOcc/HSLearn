@@ -1,0 +1,28 @@
+{
+  "routerMap": [
+    {
+      "name": "YWLoginThirdPage",
+      "pageSourceFile": "src/main/ets/pages/YWLoginThirdPage.ets",
+      "buildFunction": "RegisterBuilder",
+      "data": {
+        "description" : "this is LoginHuaweiPage"
+      }
+    },
+    {
+      "name": "YWLoginPassPage",
+      "pageSourceFile": "src/main/ets/pages/YWLoginPassPage.ets",
+      "buildFunction": "RegisterBuilder",
+      "data": {
+        "description" : "this is LoginPwdPage"
+      }
+    },
+    {
+      "name": "YWRegisterPage",
+      "pageSourceFile": "src/main/ets/pages/YWRegisterPage.ets",
+      "buildFunction": "RegisterBuilder",
+      "data": {
+        "description" : "this is RegisterPage"
+      }
+    }
+  ]
+}

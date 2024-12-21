@@ -1,0 +1,20 @@
+{
+  "routerMap": [
+    {
+      "name": "YWTipDialog",
+      "pageSourceFile": "src/main/ets/components/tip/YWTipDialog.ets",
+      "buildFunction": "RegisterBuilder",
+      "data": {
+        "description" : "this is TipDialog"
+      }
+    },
+    {
+      "name": "YWLoading",
+      "pageSourceFile": "src/main/ets/components/loading/YWLoading.ets",
+      "buildFunction": "RegisterBuilder",
+      "data": {
+        "description" : "this is Loading"
+      }
+    }
+  ]
+}

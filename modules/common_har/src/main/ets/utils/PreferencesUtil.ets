@@ -9,6 +9,8 @@ import { YWAppUtils } from './YWAppUtils';
 /*注意：开发工具DevEco studio中，默认每次启动app是先卸载再安装导致本地保存的数据丢失，需要改下配置每次运行都覆盖安装
 【entry-->edit config... --> keep application data】*/
 
+const TAG = 'PreferencesUtil'
+
 const defaultPreferenceName: string = "YW_HARMONY_UTILS_PREFERENCES"
 
 //整存整取，汗。。。。
@@ -110,9 +112,18 @@ export class PreferencesUtil {
    * @param preferenceName
    * @returns
    */
-  static async get(key: string, defValue: preferences.ValueType, preferenceName: string = defaultPreferenceName) {
+  static async get<T>(key: string, defValue: preferences.ValueType, preferenceName: string = defaultPreferenceName) {
     let preferences = await PreferencesUtil.getPreferences(preferenceName); //获取实例
-    return preferences.get(key, defValue);
+    return preferences.get(key, defValue) as T;
+  }
+
+  static getCall<T>(key: string, defValue: T, callback: (data: T) => void, preferenceName: string = defaultPreferenceName) {
+    PreferencesUtil.getPreferences(preferenceName).then((result)=> {
+      callback(result.getSync(key,defValue as preferences.ValueType) as T)
+    }).catch((err: Error)=> {
+      Logger.error(TAG, 'Get the preferences failed, err: ' + err);
+      callback(defValue);
+    })
   }
 
   /**

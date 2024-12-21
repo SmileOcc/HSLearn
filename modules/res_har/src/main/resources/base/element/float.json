@@ -1,0 +1,88 @@
+{
+  "float": [
+    {
+      "name": "height_title_bar",
+      "value": "45vp"
+    },
+    {
+      "name": "height_tab",
+      "value": "50vp"
+    },
+    {
+      "name": "size_tab_icon_select",
+      "value": "30vp"
+    },
+    {
+      "name": "size_tab_icon_normal",
+      "value": "30vp"
+    },
+    {
+      "name": "margin_left_right",
+      "value": "15vp"
+    },
+    {
+      "name": "margin_top",
+      "value": "20vp"
+    },
+    {
+      "name": "margin_hint_dialog",
+      "value": "45vp"
+    },
+    {
+      "name": "margin_bottom",
+      "value": "30vp"
+    },
+    {
+      "name": "size_line",
+      "value": "0.5vp"
+    },
+    {
+      "name": "height_list_item",
+      "value": "50vp"
+    },
+    {
+      "name": "size_menu_icon",
+      "value": "35vp"
+    },
+    {
+      "name": "size_splash_icon",
+      "value": "80vp"
+    },
+    {
+      "name": "top_splash_text",
+      "value": "30vp"
+    },
+    {
+      "name": "size_splash_main_text",
+      "value": "18fp"
+    },
+    {
+      "name": "size_splash_text_title",
+      "value": "26fp"
+    },
+    {
+      "name": "padding_menu_icon",
+      "value": "5vp"
+    },
+    {
+      "name": "font_title",
+      "value": "18fp"
+    },
+    {
+      "name": "font_main",
+      "value": "16fp"
+    },
+    {
+      "name": "font_desc",
+      "value": "14fp"
+    },
+    {
+      "name": "font_desc_smart",
+      "value": "12fp"
+    },
+    {
+      "name": "font_tag",
+      "value": "9fp"
+    }
+  ]
+}

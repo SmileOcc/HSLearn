@@ -1,5 +1,5 @@
 import { display, promptAction } from '@kit.ArkUI';
-import { Constants } from '../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { GlobalContext } from '../../../../../modules/common_har/src/main/ets/common/GlobalContext';
 import { UserInfoModel } from './accountInfo/model/UserInfoModel';
 import { MineMainView } from './accountInfo/view/MineMainView';
@@ -13,12 +13,11 @@ let storage = LocalStorage.getShared()
 export default struct MinePage {
   // @LocalStorageLink变量装饰器与LocalStorage中的'PropA'属性建立双向绑定
   @LocalStorageLink('PropA') parentLinkNumber: number = 1;
-  @StorageLink(Constants.kStorageLocalUser) localUseInf: UserInfoModel = new UserInfoModel()
+  @StorageLink(YWConstants.kStorageLocalUser) localUseInf: UserInfoModel = new UserInfoModel()
   private context = getContext(this) as common.UIAbilityContext;
 
   aboutToAppear(): void {
-    console.log('========== mine 1')
-    console.log(`=========${Constants.screenWidth}`)
+
     console.debug("=====aboutToAppear ：mine" )
 
     console.log(`=========${px2vp(display.getDefaultDisplaySync().width)}`)
@@ -73,6 +72,12 @@ export default struct MinePage {
     // .globalLineSub() 不能加
   }
 }
+
+@Styles
+function statusHeightStyle() {
+  .padding({ top:Number(AppStorage.get(YWConstants.kStatusBarHeight)) })
+}
+
 
 @Styles
 function globalLineSub() {

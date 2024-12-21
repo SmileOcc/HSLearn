@@ -21,7 +21,7 @@ export struct AppInfoComponent {
               })
               Divider()
                 .color($r('app.color.divider'))
-                .strokeWidth(CommonConstants.DIVIDER_STROKE_WIDTH)
+                .strokeWidth(CommonYWConstants.DIVIDER_STROKE_WIDTH)
                 .margin({
                   left: $r('app.float.list_padding_left'),
                   right: $r('app.float.list_padding_left')
@@ -49,7 +49,7 @@ struct AppInfoItem {
       Text(this.appInfoItem.title)
         .fontSize($r('app.float.app_info_title_size'))
         .fontColor($r('app.color.text'))
-        .fontWeight(CommonConstants.FONT_WEIGHT)
+        .fontWeight(CommonYWConstants.FONT_WEIGHT)
       Image(this.appInfoItem.icon)
         .objectFit(ImageFit.Contain)
         .height($r('app.float.app_info_image_height'))
@@ -67,17 +67,17 @@ struct AppInfoItem {
   openDetailPage(itemData: DataItem): void {
     let listData: Array<DataItem> = [];
     switch (itemData.id) {
-      case CommonConstants.ABOUT_US_ID:
+      case CommonYWConstants.ABOUT_US_ID:
         listData = AboutViewModel.getAboutUsInfo();
         break;
-      case CommonConstants.CONTACT_ID:
+      case CommonYWConstants.CONTACT_ID:
         listData = AboutViewModel.getContactInfo();
         break;
       default:
         break;
     }
     router.pushUrl({
-      url: CommonConstants.DETAIL_PAGE,
+      url: CommonYWConstants.DETAIL_PAGE,
       params: {
         title: itemData.title,
         data: listData

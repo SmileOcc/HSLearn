@@ -18,25 +18,26 @@ import { WaterFlowDataSource } from '../model/WaterFlowDataSource';
 import { loadingMoreFlowData } from '../model/HomeViewModel';
 import FlowItemComponent from '../view/FlowItemComponent';
 import ProductItem from '../model/ProductItem';
-import { Constants, NavPageStyle } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWNavRouterUtils } from '@learn/common_har';
+import { YWConstants } from '@learn/constants_har';
 
 @Component
 export default struct WaterFlowComponent {
   @Prop datasource: WaterFlowDataSource;
-  @Consume('pageInfos') pageInfos: NavPathStack;
+  // @Consume('pageInfos') pageInfos: NavPathStack;
   private scroller: Scroller = new Scroller();
   private isEnd: boolean = false;
 
   aboutToAppear() {
-    if (this.datasource.totalCount() <= Constants.DATASOURCE_MIN_COUNT) {
+    if (this.datasource.totalCount() <= YWConstants.DATASOURCE_MIN_COUNT) {
       this.isEnd = true;
     }
-    getContext(this).eventHub.on(Constants.EVENT_QUICK_TOP_FUNC, (): void => {
+    getContext(this).eventHub.on(YWConstants.EVENT_QUICK_TOP_FUNC, (): void => {
       this.scroller.scrollToIndex(0);
     })
-    getContext(this).eventHub.on(Constants.EVENT_REFRESH_WATERFLOW_DATA, (): void => {
+    getContext(this).eventHub.on(YWConstants.EVENT_REFRESH_WATERFLOW_DATA, (): void => {
     })
-    getContext(this).eventHub.on(Constants.EVENT_REMOVE_ITEM, (id: number): void => {
+    getContext(this).eventHub.on(YWConstants.EVENT_REMOVE_ITEM, (id: number): void => {
       this.datasource.deleteItem(id);
     })
   }
@@ -47,32 +48,33 @@ export default struct WaterFlowComponent {
         FlowItem() {
           FlowItemComponent({ item: item })
         }.onClick(() => {
-          this.pageInfos.pushPathByName('Detail', item.id);
+          // this.pageInfos.pushPathByName('Detail', item.id);
+          YWNavRouterUtils.navPush({name:'Detail',param:item.id})
         })
       }, (item: ProductItem) => JSON.stringify(item))
     }
-    .height(Constants.FULL_HEIGHT)
-    .friction(Constants.WATER_FLOW_FRICTION)
+    .height(YWConstants.FULL_HEIGHT)
+    .friction(YWConstants.WATER_FLOW_FRICTION)
     .nestedScroll({
       scrollForward: NestedScrollMode.PARENT_FIRST,
       scrollBackward: NestedScrollMode.SELF_FIRST
     })
     .onScrollIndex((first: number, last: number) => {
-      if ((last + Constants.CACHED_COUNT) === this.datasource.totalCount()) {
+      if ((last + YWConstants.CACHED_COUNT) === this.datasource.totalCount()) {
         setTimeout(() => {
           this.datasource.addMoreData(loadingMoreFlowData)
-        }, Constants.TIME_OUT_FIVE_HUNDREDS)
+        }, YWConstants.TIME_OUT_FIVE_HUNDREDS)
       }
     })
-    .layoutWeight(Constants.WATER_FLOW_LAYOUT_WEIGHT)
+    .layoutWeight(YWConstants.WATER_FLOW_LAYOUT_WEIGHT)
     .layoutDirection(FlexDirection.Column)
-    .columnsTemplate(Constants.WATER_FLOW_COLUMNS_TEMPLATE)
+    .columnsTemplate(YWConstants.WATER_FLOW_COLUMNS_TEMPLATE)
     .columnsGap($r('app.float.water_flow_columns_gap'))
     .rowsGap($r('app.float.water_flow_row_gap'))
     .padding({
-      bottom: NavPageStyle.BAR_HEIGHT * 2
+      bottom: 29 * 2
     })
-    .cachedCount(Constants.CACHED_COUNT)
+    .cachedCount(YWConstants.CACHED_COUNT)
   }
 
   @Builder
@@ -84,7 +86,7 @@ export default struct WaterFlowComponent {
       Text($r('app.string.loading')).fontSize($r('app.float.progress_font_size')).fontColor(Color.Gray)
     }
     .justifyContent(FlexAlign.Center)
-    .width(Constants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .margin({ top: $r('app.float.progress_margin_top') })
     .visibility(this.isEnd ? Visibility.Hidden : Visibility.Visible)
   }

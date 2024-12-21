@@ -1,8 +1,10 @@
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants'
+import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../model/UserInfoModel'
 
 @Component
 export struct MineInfoView {
+
+  @StorageProp(YWConstants.kStorageWidth) screenWidth:number = 0
 
   @Prop userInfo:UserInfoModel
   build() {
@@ -16,16 +18,16 @@ export struct MineInfoView {
           Text('VIP')
             .fontSize(24)
             .fontWeight(400)
-            .fontColor(Constants.HexColorA('ffcc33',0.9))
+            .fontColor(YWConstants.HexColorA('ffcc33',0.9))
           Button(){
             Text('5项权益 >')
-              .fontColor(Constants.HexColorA('ffcc33',0.9))
+              .fontColor(YWConstants.HexColorA('ffcc33',0.9))
               .fontSize(13)
           }
           .height(24)
           .margin({left:12})
           .padding({left:8,top:3,right:8,bottom:3})
-          .backgroundColor(Constants.HexColorA('ffcc33',0.5))
+          .backgroundColor(YWConstants.HexColorA('ffcc33',0.5))
           .borderRadius(12)
         }
         Button('升级攻略')
@@ -33,8 +35,8 @@ export struct MineInfoView {
           .width(80)
           .height(24)
           .borderWidth(1)
-          .fontColor(Constants.HexColorA('ffcc33',0.9))
-          .borderColor(Constants.HexColorA('ffcc33',0.9))
+          .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+          .borderColor(YWConstants.HexColorA('ffcc33',0.9))
           .padding({left:10,bottom:3,right:10,top:3})
       }
       .justifyContent(FlexAlign.SpaceBetween)
@@ -42,8 +44,8 @@ export struct MineInfoView {
       .width('100%')
 
       //中
-      Text('当前积分： 0' + Constants.screenWidth)
-        .fontColor(Constants.HexColorA('ffcc33',0.9))
+      Text('当前积分： 0' + this.screenWidth)
+        .fontColor(YWConstants.HexColorA('ffcc33',0.9))
         .fontSize(16)
         .fontWeight(Color.White)
         .margin({top:12})
@@ -55,17 +57,17 @@ export struct MineInfoView {
             .width('90%')
             .height(4)
             .backgroundColor(Color.White)
-            .color(Constants.HexColorA('ffcc33',0.9))
+            .color(YWConstants.HexColorA('ffcc33',0.9))
           Text('恭喜您已达到VIP级会员')
             .fontSize(13)
-            .fontColor(Constants.HexColorA('ffcc33',0.9))
+            .fontColor(YWConstants.HexColorA('ffcc33',0.9))
             .margin({top:6})
         }
         .alignItems(HorizontalAlign.Start)
         .width('60%')
 
         Text('NO:C000307')
-          .fontColor(Constants.HexColorA('ffcc33',0.9))
+          .fontColor(YWConstants.HexColorA('ffcc33',0.9))
           .fontSize(13)
           .margin({top:12})
       }
@@ -74,12 +76,12 @@ export struct MineInfoView {
       .justifyContent(FlexAlign.SpaceBetween)
 
     }
-    .width(Constants.SCREEN_WIDTH() - 26.0)
+    .width(this.screenWidth - 26.0)
     .margin(13)
     .padding({left:8,top:12,right:8,bottom:12})
     .borderRadius(16)
     .clip(true)
-    .backgroundColor(Constants.HexColorA('663300',1))
+    .backgroundColor(YWConstants.HexColorA('663300',1))
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(HorizontalAlign.Start)
   }

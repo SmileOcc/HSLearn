@@ -1,7 +1,7 @@
 import { PullToRefresh } from '@ohos/pulltorefresh'
 // import { Logger } from '@yunkss/eftool';
 import { MyDataSource } from '../../../../../../modules/common_har/src/main/ets/common/BasicDataSource';
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
 import { NavigationBar } from '../../common/NavigationBar';
 import { LazyDataSource } from './model/LayzBasicDataSource';
@@ -31,7 +31,7 @@ struct PullRefreshLazyPage {
 
   creatTempData() {
     let tempDatas: MyDataSource<LazyProductModel> = new MyDataSource()
-    let ranmStr = Constants.RandomColor()
+    let ranmStr = YWConstants.RandomColor()
     for (let i = 0; i <= 20; i++) {
       tempDatas.pushData({ title: `title ${i} _ ${ranmStr}`, sub_title: 'desc' })
     }
@@ -51,7 +51,7 @@ struct PullRefreshLazyPage {
   //             })
   //         }
   //         .height(120)
-  //         .backgroundColor(Constants.RandomColor())
+  //         .backgroundColor(YWConstants.RandomColor())
   //         .margin({ left: 10, right: 10 })
   //       }
   //     }, (item: LazyProductModel) => item.title)
@@ -113,7 +113,7 @@ struct PullRefreshLazyPage {
   //           setTimeout(() => {
   //
   //             let tempDatas:MyDataSource<LazyProductModel> = new MyDataSource()
-  //             let ranmStr = Constants.RandomColor()
+  //             let ranmStr = YWConstants.RandomColor()
   //             for (let i = 0; i <= 20; i++) {
   //               this.data.pushData({title:`title ${i} _ ${ranmStr}`,sub_title:'desc'})
   //               this.listData.push({title:`title ${i} _ ${ranmStr}`,sub_title:'desc'})
@@ -150,7 +150,7 @@ struct PullRefreshLazyPage {
               })
           }
           .height(120)
-          .backgroundColor(Constants.RandomColor())
+          .backgroundColor(YWConstants.RandomColor())
           .margin({ left: 10, right: 10 })
         }
       }, (item: LazyProductModel) => item.title)
@@ -246,7 +246,7 @@ struct PullRefreshLazyPage {
               setTimeout(() => {
 
                 let tempDatas: MyDataSource<LazyProductModel> = new MyDataSource()
-                let ranmStr = Constants.RandomColor()
+                let ranmStr = YWConstants.RandomColor()
                 for (let i = 0; i <= 20; i++) {
                   this.data.pushData({ title: `title ${i} _ ${ranmStr}`, sub_title: 'desc' })
                   this.listData.push({ title: `title ${i} _ ${ranmStr}`, sub_title: 'desc' })
@@ -294,7 +294,7 @@ struct PullRefreshLazyPage {
   //               })
   //           }
   //           .height(120)
-  //           .backgroundColor(Constants.RandomColor())
+  //           .backgroundColor(YWConstants.RandomColor())
   //           .margin({ left: 10, right: 10 })
   //         }
   //       }, (item: LazyProductModel) => item.title)
@@ -350,7 +350,7 @@ struct PullRefreshLazyPage {
   //           setTimeout(() => {
   //
   //             let tempDatas:MyDataSource<LazyProductModel> = new MyDataSource()
-  //             let ranmStr = Constants.RandomColor()
+  //             let ranmStr = YWConstants.RandomColor()
   //             for (let i = 0; i <= 20; i++) {
   //               this.data.pushData({title:`title ${i} _ ${ranmStr}`,sub_title:'desc'})
   //               this.listData.push({title:`title ${i} _ ${ranmStr}`,sub_title:'desc'})

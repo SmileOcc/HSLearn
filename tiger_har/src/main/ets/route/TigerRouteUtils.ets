@@ -4,7 +4,7 @@ export class TigerRouteUtils {
 
   static registerTigerApp() {
     osRouter.bandRouterName(OsRouterUrls.TIGER_APP,  (): Promise<Object> => {
-      return import("../components/mainpage/MainPage")
+      return import("../components/mainpage/RootPage")
     })
   }
 

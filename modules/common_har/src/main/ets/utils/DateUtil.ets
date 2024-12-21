@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-import { Constants } from '../common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 /**
  * Obtaining and formatting the current system time.
@@ -21,15 +21,15 @@ import { Constants } from '../common/Constants';
 export function getCurrentTime(): string {
   let date = new Date();
   let year = date.getFullYear();
-  let month = date.getMonth() + Constants.PLUS_ONE;
+  let month = date.getMonth() + YWConstants.PLUS_ONE;
   let day = date.getDate();
   let hours = date.getHours();
   let minutes = date.getMinutes().toString();
-  if (Number.parseInt(minutes) < Constants.TEN) {
+  if (Number.parseInt(minutes) < YWConstants.TEN) {
     minutes = `0${minutes}`;
   }
   let second = date.getSeconds().toString();
-  if (Number.parseInt(second) < Constants.TEN) {
+  if (Number.parseInt(second) < YWConstants.TEN) {
     second = `0${second}`;
   }
   return `${year}/${month}/${day} ${hours}:${minutes}:${second}`;

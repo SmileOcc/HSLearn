@@ -6,6 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@learn/YWRandomUtils": "file:../../modules/common_har"
+    "@learn/common_har": "file:../../modules/common_har",
+
   }
 }

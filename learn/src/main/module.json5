@@ -3,7 +3,10 @@
     "name": "learn",
     "type": "entry",
     "description": "$string:module_desc",
-    "mainElement": "EntryAbility",
+//    "mainElement": "EntryAbility",
+    "mainElement": "LearnEntryAbility",
+    "srcEntry": "./ets/stage/LearnStage.ets",
+
     "deviceTypes": [
       "phone"
     ],
@@ -23,6 +26,9 @@
         "name": "ohos.permission.CAMERA",
         "reason": "$string:app_name",
         "usedScene": {
+          "abilities": [
+            "LearnEntryAbility"
+          ],
           "when": "always"
         }
       },
@@ -30,7 +36,10 @@
         "name": "ohos.permission.MEDIA_LOCATION",
         "reason": "$string:app_name",
         "usedScene": {
-          "when": "always"
+          "abilities": [
+            "LearnEntryAbility"
+          ],
+          "when": "inuse"
         }
       },
       {
@@ -86,7 +95,6 @@
         "name": "LearnEntryAbility",
 //        "srcEntry": "./ets/entryability/EntryAbility.ets",
         "srcEntry": "./ets/entryability/LearnEntryAbility.ets",
-
         "description": "$string:EntryAbility_desc",
         "icon": "$media:logo",
         "label": "$string:EntryAbility_label",

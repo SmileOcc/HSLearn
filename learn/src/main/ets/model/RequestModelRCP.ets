@@ -1,14 +1,13 @@
 import { rcp } from '@kit.RemoteCommunicationKit';
-import { Constants } from '../../../../../modules/common_har/src/main/ets/common/Constants';
-// import CookieUtils from '../../../../../modules/common_har/src/main/ets/utils/CookieUtils';
-import UserAgentUtils from '../../../../../modules/common_har/src/main/ets/utils/UserAgentUtils';
+import { YWConstants } from '@learn/constants_har';
+// import UserAgentUtils from '@learn/common_har';
 
 class RequestModelRCP {
   private header(url: string): rcp.RequestHeaders {
     return {
       'content-type': 'application/x-www-form-urlencoded',
       'provenance': 'native',
-      'user-agent': UserAgentUtils.getUserAgent(),
+      // 'user-agent': UserAgentUtils.getUserAgent(),
       // 'cookie': CookieUtils.getCookieString('url'),
     };
   }
@@ -17,8 +16,8 @@ class RequestModelRCP {
     return {
       transfer: {
         timeout: {
-          connectMs: Constants.HTTP_TIMEOUT,
-          transferMs: Constants.HTTP_TIMEOUT,
+          connectMs: YWYWConstants.HTTP_TIMEOUT,
+          transferMs: YWYWConstants.HTTP_TIMEOUT,
         },
       },
       security: this.securityConfiguration()
@@ -27,7 +26,7 @@ class RequestModelRCP {
 
   private securityConfiguration(): rcp.SecurityConfiguration {
     // if (QDCtxConfig.isProdEnv()) {
-    if (Constants.isProdEnv()) {
+    if (YWYWConstants.isProdEnv()) {
 
       return {}
     } else {

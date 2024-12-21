@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { waterFlowData } from '../model/HomeViewModel';
 import { IProductItem } from '../model/ProductItem';
 import { TAB_DATA, TabDataModel, TabDataSource } from '../model/TabsData';
@@ -65,7 +65,7 @@ export struct GoodsTabComponent {
         .fontSize($r('app.float.tab_font_size'))
         .fontColor(this.tabsIndex === index ? '#FFFFFF' : '#000000')
         .fontWeight(this.tabsIndex === index ? 500 : 400)
-        .height(Constants.FULL_HEIGHT)
+        .height(YWConstants.FULL_HEIGHT)
         .padding({ left: $r('app.float.tab_text_padding_left'), right: $r('app.float.tab_text_padding_right') })
         .backgroundColor(this.tabsIndex === index ? $r('app.color.focus_color') : $r('app.color.tab_normal_color'))
         .borderRadius(21)
@@ -107,8 +107,8 @@ export struct GoodsTabComponent {
                 this.tabBuilder(index, tabItem.navData)
               })
             }
-            .width(Constants.FULL_WIDTH)
-            .height(Constants.FULL_HEIGHT)
+            .width(YWConstants.FULL_WIDTH)
+            .height(YWConstants.FULL_HEIGHT)
             .listDirection(Axis.Horizontal)
             .contentStartOffset(12)
             .scrollBar(BarState.Off)
@@ -124,8 +124,8 @@ export struct GoodsTabComponent {
               colors: [['rgba(241,243,245,1)', 0.0], ['rgba(241,243,245,0)', 0.07], ['rgba(241,243,245,0)', 0.93],
                 ['rgba(241,243,245,1)', 1.0]]
             })
-            .width(Constants.FULL_WIDTH)
-            .height(Constants.FULL_HEIGHT)
+            .width(YWConstants.FULL_WIDTH)
+            .height(YWConstants.FULL_HEIGHT)
             .hitTestBehavior(HitTestMode.None)
           }
           .alignContent(Alignment.End)
@@ -135,10 +135,10 @@ export struct GoodsTabComponent {
         .padding({ right: $r('app.float.home_margin_right') })
         .direction(Direction.Rtl)
         .alignItems(VerticalAlign.Bottom)
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
       }
       .alignItems(HorizontalAlign.Start)
-      .width(Constants.FULL_WIDTH)
+      .width(YWConstants.FULL_WIDTH)
 
       Tabs({ controller: this.tabsController }) {
         ForEach(TAB_DATA, (tabItem: TabDataModel, index) => {
@@ -149,7 +149,7 @@ export struct GoodsTabComponent {
       }
       .padding({ left: $r('app.float.home_margin_left'), right: $r('app.float.home_margin_right') })
       .barMode(BarMode.Scrollable)
-      .barWidth(Constants.FULL_WIDTH)
+      .barWidth(YWConstants.FULL_WIDTH)
       .barHeight(0)
       .onChange((index: number) => {
         this.tabsIndex = index;
@@ -159,7 +159,7 @@ export struct GoodsTabComponent {
         }
       })
 
-    }.height(Constants.FULL_HEIGHT)
+    }.height(YWConstants.FULL_HEIGHT)
   }
 }
 

@@ -17,7 +17,7 @@ import { customScan, scanBarcode, scanCore } from '@kit.ScanKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { router } from '@kit.ArkUI';
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 import { BreakpointTypeEnum } from '../../../../../../../modules/common_har/src/main/ets/common/BreakPointSystem';
 
 const aspectToHeightRatio = 4 / 3;
@@ -27,7 +27,7 @@ export function FunctionCard(icon: Resource, text: string, clickCallback: Functi
   Column() {
     Row() {
       Image(icon)
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
     }
     .width($r('app.float.quick_function_item_image_size_smaller'))
     .height($r('app.float.quick_function_item_image_size_smaller'))
@@ -40,7 +40,7 @@ export function FunctionCard(icon: Resource, text: string, clickCallback: Functi
       .fontFamily($r('app.string.normal_font_family'))
       .fontSize($r('app.float.smaller_font_size'))
       .textAlign(TextAlign.Center)
-      .fontWeight(Constants.FONT_WEIGHT_400)
+      .fontWeight(YWConstants.FONT_WEIGHT_400)
       .fontColor(Color.White)
   }
   .onClick(() => {
@@ -56,7 +56,7 @@ export function ScanAbility(name: string, index: number, currentIndex: number) {
       .fontSize($r('app.float.smaller_font_size'))
       .fontColor(Color.White)
       .textAlign(TextAlign.Center)
-      .fontWeight(Constants.FONT_WEIGHT_500)
+      .fontWeight(YWConstants.FONT_WEIGHT_500)
       .margin({ bottom: $r('app.float.span4') })
     Row()
       .width($r('app.float.active_dot_size'))
@@ -71,10 +71,10 @@ export function ScanAbility(name: string, index: number, currentIndex: number) {
 @CustomDialog
 export struct ScanQRCodeDialog {
   @StorageProp('currentBreakpoint') currentBreakpoint: string = BreakpointTypeEnum.MD;
-  @State cameraWidth: number = Constants.INIT_CAMERA_WIDTH_DIALOG;
-  @State cameraHeight: number = Constants.INIT_CAMERA_HEIGHT_DIALOG;
+  @State cameraWidth: number = YWConstants.INIT_CAMERA_WIDTH_DIALOG;
+  @State cameraHeight: number = YWConstants.INIT_CAMERA_HEIGHT_DIALOG;
   @State currentIndex: number = 0;
-  @State scanAbilities: string[] = Constants.SCAN_ABILITIES;
+  @State scanAbilities: string[] = YWConstants.SCAN_ABILITIES;
   @State marginTop: number = 50;
   private controller?: CustomDialogController;
   private mXComponentController: XComponentController = new XComponentController();
@@ -157,11 +157,11 @@ export struct ScanQRCodeDialog {
             .fontFamily("HarmonyHeiTi-Bold")
             .fontSize($r('app.float.biggest_font_size'))
             .fontColor(Color.White)
-            .fontWeight(Constants.FONT_WEIGHT_700)
+            .fontWeight(YWConstants.FONT_WEIGHT_700)
           Row() {
             Image($r('app.media.ic_close'))
-              .width(Constants.FULL_WIDTH)
-              .height(Constants.FULL_HEIGHT)
+              .width(YWConstants.FULL_WIDTH)
+              .height(YWConstants.FULL_HEIGHT)
               .fillColor(Color.White)
           }
           .width($r('app.float.icon_close_size'))
@@ -172,21 +172,21 @@ export struct ScanQRCodeDialog {
             this.controller?.close();
           })
         }
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
         .justifyContent(FlexAlign.SpaceBetween)
         .margin({ bottom: $r('app.float.title_margin_function') })
 
         Row() {
           Column() {
-            FunctionCard($r("app.media.ic_payment_code"), Constants.SCAN_DIALOG_FUNCTIONS[0], this.openReceiveMoney)
+            FunctionCard($r("app.media.ic_payment_code"), YWConstants.SCAN_DIALOG_FUNCTIONS[0], this.openReceiveMoney)
           }
 
           Column() {
-            FunctionCard($r("app.media.ic_album"), Constants.SCAN_DIALOG_FUNCTIONS[1], () => {
+            FunctionCard($r("app.media.ic_album"), YWConstants.SCAN_DIALOG_FUNCTIONS[1], () => {
             })
           }
         }
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
         .padding({
           left: $r('app.float.padding_80'),
           right: $r('app.float.padding_80')
@@ -201,7 +201,7 @@ export struct ScanQRCodeDialog {
             ScanAbility(item, index, this.currentIndex)
           }, (item: string) => item)
         }
-        .width(Constants.FULL_WIDTH)
+        .width(YWConstants.FULL_WIDTH)
         .height($r('app.float.scan_ability_height'))
       }
       .width($r('app.float.half_dialog_width'))
@@ -212,7 +212,7 @@ export struct ScanQRCodeDialog {
 
       Row() {
         Image($r('app.media.scan_animation'))
-          .width(Constants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
       }
       .width($r('app.float.scan_animation_width'))
       .height($r('app.float.scan_animation_height'))

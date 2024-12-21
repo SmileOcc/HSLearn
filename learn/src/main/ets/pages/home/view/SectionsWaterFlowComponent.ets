@@ -49,7 +49,7 @@ struct ReusableFlowItem {
         colors: [[$r('app.color.linearGradient_first_color'), 0.0],
           [$r('app.color.linearGradient_last_color'), 1.0]]
       })
-      .width(CommonConstants.FULL_WIDTH)
+      .width(CommonYWConstants.FULL_WIDTH)
       .height($r('app.float.sections_item_blur_height'))
       .borderRadius($r('app.float.sections_item_radius'))
       .hitTestBehavior(HitTestMode.None)
@@ -73,7 +73,7 @@ struct ReusableFlowItem {
         })
         .id('text')
     }
-    .width(CommonConstants.FULL_WIDTH)
+    .width(CommonYWConstants.FULL_WIDTH)
     .borderRadius($r('app.float.sections_item_radius'))
     .backgroundColor(Color.Gray)
   }
@@ -162,15 +162,15 @@ export struct SectionsPage {
           FlowItem() {
             ReusableFlowItem({ item: item })
           }
-          .width(CommonConstants.FULL_WIDTH)
+          .width(CommonYWConstants.FULL_WIDTH)
           .borderRadius($r('app.float.sections_item_radius'))
           .backgroundColor(Color.Gray)
         }, (item: string) => item)
       }
       .columnsGap($r('app.float.sections_margin'))
       .rowsGap($r('app.float.sections_margin'))
-      .width(CommonConstants.FULL_WIDTH)
-      .height(CommonConstants.FULL_HEIGHT)
+      .width(CommonYWConstants.FULL_WIDTH)
+      .height(CommonYWConstants.FULL_HEIGHT)
       .layoutWeight(1)
       .onScrollIndex((first: number, last: number) => {
         if (last + 20 >= this.dataSource.totalCount()) {

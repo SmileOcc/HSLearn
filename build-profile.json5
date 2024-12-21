@@ -87,6 +87,34 @@
           ]
         }
       ]
+    },
+    {
+      "name": "nav_router_har",
+      "srcPath": "./modules/nav_router_har",
+    },
+    {
+      "name": "login_har",
+      "srcPath": "./modules/feature/login_har"
+    },
+    {
+      "name": "alert_har",
+      "srcPath": "./modules/alert_har",
+    },
+    {
+      "name": "loading_har",
+      "srcPath": "./modules/loading_har",
+    },
+    {
+      "name": "res_har",
+      "srcPath": "./modules/res_har",
+    },
+    {
+      "name": "baseui_har",
+      "srcPath": "./modules/baseui_har",
+    },
+    {
+      "name": "constants_har",
+      "srcPath": "./modules/constants_har",
     }
   ]
 }

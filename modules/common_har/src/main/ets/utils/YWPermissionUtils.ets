@@ -22,9 +22,8 @@ export class YWPermissionUtils{
     let grantStatus: abilityAccessCtrl.GrantStatus = await YWPermissionUtils.checkAccessToken(permissions);
     if (grantStatus === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) { //判断是否授权
       return true; //已经授权
-    } else {
-      return false; //未授权
     }
+    return false; //未授权
   }
 
 
@@ -112,6 +111,4 @@ export class YWPermissionUtils{
     }
     return grantStatus;
   }
-
-
 }

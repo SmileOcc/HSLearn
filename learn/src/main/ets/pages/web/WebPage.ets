@@ -60,7 +60,7 @@ struct WebPage {
 //       // 加载沙箱路径文件。
 //       Web({ src: url, controller: this.controller })
 //     }
-//     .backgroundColor(Constants.RandomColor())
+//     .backgroundColor(YWConstants.RandomColor())
 //   }
 // }
 

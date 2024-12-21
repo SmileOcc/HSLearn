@@ -1,6 +1,5 @@
-import  { KSManager } from '../../entryability/EntryAbility'
 import { BusinessError } from '@kit.BasicServicesKit';
-import { getCurrentTime } from '@learn/common_har';
+import { getCurrentTime, kyStoreManger } from '@learn/common_har';
 
 @Entry
 @Component
@@ -10,10 +9,10 @@ struct TestKVStorePage {
   aboutToAppear(): void {
 
     let timestr = getCurrentTime()
-    KSManager.putData("ksKey_name",`{\"msg\":\"${timestr}\",\"code\":200}`)
+    kyStoreManger.putData("ksKey_name",`{\"msg\":\"${timestr}\",\"code\":200}`)
 
     setTimeout(() => {
-      KSManager.getData<string>("ksKey_name").then((value:string)=> {
+      kyStoreManger.getData<string>("ksKey_name","").then((value:string)=> {
         console.debug(`===== ${value}`)
 
         this.message = value

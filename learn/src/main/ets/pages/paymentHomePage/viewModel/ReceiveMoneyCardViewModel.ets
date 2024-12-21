@@ -13,18 +13,18 @@
  * limitations under the License.
  */
 
-import { Constants } from '../../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 export class ReceiveMoneyCardViewModel {
   private receiveMoneyServiceCards: ReceiveMoneyServiceCardItem[] = [];
 
   constructor() {
     this.receiveMoneyServiceCards.push(new ReceiveMoneyServiceCardItem($r("app.media.receive_money_record"),
-      Constants.RECEIVE_MONEY_SERVICE_CARD_ITEM[0]));
+      YWConstants.RECEIVE_MONEY_SERVICE_CARD_ITEM[0]));
     this.receiveMoneyServiceCards.push(new ReceiveMoneyServiceCardItem($r("app.media.receive_money_notice"),
-      Constants.RECEIVE_MONEY_SERVICE_CARD_ITEM[1]));
+      YWConstants.RECEIVE_MONEY_SERVICE_CARD_ITEM[1]));
     this.receiveMoneyServiceCards.push(new ReceiveMoneyServiceCardItem($r("app.media.receive_money_record"),
-      Constants.RECEIVE_MONEY_SERVICE_CARD_ITEM[2], Constants.RECEIVE_MONEY_SERVICE_CARD_ITEM[3]));
+      YWConstants.RECEIVE_MONEY_SERVICE_CARD_ITEM[2], YWConstants.RECEIVE_MONEY_SERVICE_CARD_ITEM[3]));
   }
 
   public getReceiveMoneyServiceCards() {

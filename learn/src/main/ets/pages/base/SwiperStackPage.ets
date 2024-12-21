@@ -1,5 +1,5 @@
 import { BasicDataModel, MyDataSource } from '../../../../../../modules/common_har/src/main/ets/common/BasicDataSource';
-import { Constants } from '../../../../../../modules/common_har/src/main/ets/common/Constants';
+import { YWConstants } from '@learn/constants_har';
 
 @Entry
 @Component
@@ -58,7 +58,7 @@ struct SwiperStackPage {
               this.startAnimation(event.offsetX < 0);
             })
         )
-        .backgroundColor(Constants.RandomColor())
+        .backgroundColor(YWConstants.RandomColor())
         .zIndex(this.currentIndex == index ? 1 : 0)
       })
     }

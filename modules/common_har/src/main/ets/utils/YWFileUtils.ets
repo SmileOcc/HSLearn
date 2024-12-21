@@ -13,6 +13,19 @@ export class YWFileUtils {
 
   static readonly separator: string = '/';
 
+  static delete(filePath: string) {
+    try {
+      if (fs.accessSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    } catch (err) {
+    }
+  }
+
+  static isExist(filePath: string) {
+    return fs.accessSync(filePath);
+  }
+
   /**
    * 获取文件目录下的文件夹路径或文件路径。
    * @param dirPath 文件路径,支持完整路径 和 相对路径（download/wps/doc）。dirPath传空表示根目录

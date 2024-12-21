@@ -1,0 +1,18 @@
+{
+  "module": {
+    "name": "login_har",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ],
+    "routerMap": "$profile:route_map",
+    "metadata": [ // 华为登录配置信息如下
+      {
+        "name": "client_id",
+        "value": "111176855"
+      }
+    ]
+  }
+}

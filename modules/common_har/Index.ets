@@ -33,10 +33,10 @@ export { YWWindowUtils } from './src/main/ets/utils/YWWindowUtils'
 export { initWindowSetting } from './src/main//ets//windowUtils/YWWindow'
 export { YWAvoidAreas } from './src/main//ets//windowUtils/YWAvoidAreas'
 
-export { GlobalThis } from './src/main/ets/global/GlobalThis'
+export { globalThis, ENU_PREFS, ENU_CONTEXT } from './src/main/ets/global/YWGlobalThis'
 export { OsRouterUrls } from './src/main/ets/route/OsRouterURL'
 export { osRouter, OsRouter } from './src/main/ets/route/OsRouter'
-
+export { YWNavRouterUtils } from './src/main/ets/utils/YWNavRouterUtils'
 export { YWTipsUtil } from  './src/main/ets/alert/YWTipsUtils'
 export { YWToastUtils } from  './src/main/ets/alert/YWToastUtils'
 export { YWDialogUtils } from  './src/main/ets/alert/YWDialogUtils'
@@ -55,8 +55,6 @@ export { BreakpointTypeOption, BreakPointType, BreakpointSystem, BreakpointTypeE
 
 export { reqPermissions, strToUtf8Bytes, strToArrayBuffer, learnSleep, randomString, bufferToString, stringToBuffer } from './src/main/ets/common/Common'
 
-export { Constants } from './src/main/ets/common/Constants'
-
 export { DateUtil } from './src/main/ets/common/DateUtil'
 
 
@@ -65,9 +63,9 @@ export { FileConstants } from './src/main/ets/common/FileConstants'
 
 export { GlobalContext } from './src/main/ets/common/GlobalContext'
 
-export { KeyStorageManager } from './src/main/ets/common/KeyStorageManager'
+export { kyStoreManger } from './src/main/ets/common/YWKeyStoreManager'
 
-
+export { YWAppEvent } from './src/main/ets/utils/YWAppEvent'
 
 export { cameraCapture } from './src/main/ets/utils/CameraUtils'
 
