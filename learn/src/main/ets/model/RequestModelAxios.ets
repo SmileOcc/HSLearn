@@ -6,7 +6,7 @@ import { HttpConstants } from '../../../../../modules/request_har/src/main/ets/r
 import { HotelListItemModel } from '../../../../../modules/request_har/src/main/ets/AxiosRequest/TestViewModel';
 import { OrderItemInfo } from '../pages/accountInfo/model/OrderItemInfo';
 import { ReviewModel } from '../pages/accountInfo/model/ReviewModel';
-import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { taskpool } from '@kit.ArkTS';
 import { YWShowToast } from '@learn/common_har';
 import { router } from '@kit.ArkUI';
@@ -41,8 +41,8 @@ instance.interceptors.request.use((config:InternalAxiosRequestConfig) => {
     config.headers['authorization'] = tokens //设置token
   }
 
-  KLogger.debug('=========0 添加请求拦截器')
-  KLogger.debug(`========= ${JSON.stringify(config)}`)
+  hsLog.d('=========0 添加请求拦截器')
+  hsLog.d(`========= ${JSON.stringify(config)}`)
 
 
   return config;
@@ -55,7 +55,7 @@ instance.interceptors.request.use((config:InternalAxiosRequestConfig) => {
 instance.interceptors.response.use((response:AxiosResponse)=> {
   // 对响应数据做点什么
 
-  KLogger.debug('=========1 添加响应拦截器')
+  hsLog.d('=========1 添加响应拦截器')
 
   // 对响应数据做点什么
   // 因为 我们后台返回的 数据结构是统一的例如{code:2001,massage:'用户信息不能为空',data:{}}
@@ -71,7 +71,7 @@ instance.interceptors.response.use((response:AxiosResponse)=> {
     return Promise.reject(response.data);
   }
 
-  KLogger.debug(`========= ${JSON.stringify(response.data)}`)
+  hsLog.d(`========= ${JSON.stringify(response.data)}`)
   AlertDialog.show({message:JSON.stringify(response.data)})
   return response;
 }, (error:AxiosError)=> {
@@ -138,13 +138,13 @@ class RequestModelAxios{
     )
 
     if(resp.status === 200){
-      KLogger.debug('=====cccd')
-      KLogger.debug(resp.status + '')
-      KLogger.debug(`==== axios--成功 ${JSON.stringify(resp.data)}`)
+      hsLog.d('=====cccd')
+      hsLog.d(resp.status + '')
+      hsLog.d(`==== axios--成功 ${JSON.stringify(resp.data)}`)
       return resp.data
     }
     //查询失败
-    KLogger.debug('axios--失败',JSON.stringify(resp))
+    hsLog.d('axios--失败',JSON.stringify(resp))
   }
 
   async reqHotelRoomList(){
@@ -163,13 +163,13 @@ class RequestModelAxios{
     )
 
     if(resp.status === 200){
-      KLogger.debug('=====cccd')
-      KLogger.debug(resp.status + '')
-      KLogger.debug(`==== axios--成功 ${JSON.stringify(resp.data)}`)
+      hsLog.d('=====cccd')
+      hsLog.d(resp.status + '')
+      hsLog.d(`==== axios--成功 ${JSON.stringify(resp.data)}`)
       return resp.data
     }
     //查询失败
-    KLogger.debug('axios--失败',JSON.stringify(resp))
+    hsLog.d('axios--失败',JSON.stringify(resp))
   }
 
   async reqUserInfo(){
@@ -185,13 +185,13 @@ class RequestModelAxios{
     )
 
     if(resp.status === 200){
-      KLogger.debug('===== success reqHotelList')
-      KLogger.debug(`==== axios--成功 ${JSON.stringify(resp.data)}`)
+      hsLog.d('===== success reqHotelList')
+      hsLog.d(`==== axios--成功 ${JSON.stringify(resp.data)}`)
       return resp.data
     }
     //查询失败
-    KLogger.debug('===== failure reqHotelList')
-    KLogger.debug('axios--失败',JSON.stringify(resp))
+    hsLog.d('===== failure reqHotelList')
+    hsLog.d('axios--失败',JSON.stringify(resp))
   }
 
 
@@ -204,16 +204,16 @@ class RequestModelAxios{
         // .then((resp:AxiosResponse) => {
           .then((resp:AxiosResponse<UserInfoModel>) => {
         if (resp.status === 200) {
-          KLogger.debug('===== success reqUserInfoTwo')
+          hsLog.d('===== success reqUserInfoTwo')
           resolve(resp.data)
         } else {
-          KLogger.debug('===== failure reqUserInfoTwo')
-          KLogger.debug('===== axios--失败',JSON.stringify(resp))
+          hsLog.d('===== failure reqUserInfoTwo')
+          hsLog.d('===== axios--失败',JSON.stringify(resp))
           reject({'msg':'查询失败user','code':'408'})
         }
 
       }).catch((err:AxiosError)=> {
-        KLogger.debug('===== axios--失败 cat ',JSON.stringify(err))
+        hsLog.d('===== axios--失败 cat ',JSON.stringify(err))
 
         reject({'msg':'查询失败user','code':'408'})
 
@@ -231,16 +231,16 @@ class RequestModelAxios{
         // .then((resp:AxiosResponse) => {
         .then((resp:AxiosResponse<UserInfoModel>) => {
           if (resp.status === 200) {
-            KLogger.debug('===== success reqUserInfoTwo')
+            hsLog.d('===== success reqUserInfoTwo')
             resolve(resp.data)
           } else {
-            KLogger.debug('===== failure reqUserInfoTwo')
-            KLogger.debug('===== axios--失败',JSON.stringify(resp))
+            hsLog.d('===== failure reqUserInfoTwo')
+            hsLog.d('===== axios--失败',JSON.stringify(resp))
             reject('查询失败')
           }
 
         }).catch((err:AxiosError)=> {
-        KLogger.debug('===== axios--失败 cat ',JSON.stringify(err))
+        hsLog.d('===== axios--失败 cat ',JSON.stringify(err))
 
         reject('查询失败')
 
@@ -268,16 +268,16 @@ class RequestModelAxios{
       )
         .then((resp:AxiosResponse<ReviewModel[]>) => {
           if (resp.status === 200) {
-            KLogger.debug('===== success reqHotelRoomList')
+            hsLog.d('===== success reqHotelRoomList')
             resolve(resp.data)
           } else {
-            KLogger.debug('===== failure reqHotelRoomList')
-            KLogger.debug('===== axios--失败',JSON.stringify(resp))
+            hsLog.d('===== failure reqHotelRoomList')
+            hsLog.d('===== axios--失败',JSON.stringify(resp))
             reject({'msg':'查询失败comments','code':'408'})
           }
 
         }).catch((err:AxiosError)=> {
-        KLogger.debug('===== axios--失败 cat ',JSON.stringify(err))
+        hsLog.d('===== axios--失败 cat ',JSON.stringify(err))
 
         reject({'msg':'查询失败comments','code':'408'})
 
@@ -298,17 +298,17 @@ class RequestModelAxios{
         // .then((resp:AxiosResponse) => {
         .then((resp:AxiosResponse) => {
           if (resp.status === 201) {
-            KLogger.debug('===== success postUserOrder')
+            hsLog.d('===== success postUserOrder')
             resolve(resp.data)
           } else {
-            KLogger.debug('===== failure postUserOrder')
-            KLogger.debug('===== axios--失败',JSON.stringify(resp))
+            hsLog.d('===== failure postUserOrder')
+            hsLog.d('===== axios--失败',JSON.stringify(resp))
 
             reject('查询失败')
           }
 
         }).catch((err:AxiosError)=> {
-        KLogger.debug('===== axios--失败 cat ',JSON.stringify(err))
+        hsLog.d('===== axios--失败 cat ',JSON.stringify(err))
 
         reject('查询失败')
 
@@ -328,16 +328,16 @@ class RequestModelAxios{
         // .then((resp:AxiosResponse) => {
         .then((resp:AxiosResponse<OrderItemInfo[]>) => {
           if (resp.status === 200) {
-            KLogger.debug('===== success reqUserOrderList')
+            hsLog.d('===== success reqUserOrderList')
             resolve(resp.data)
           } else {
-            KLogger.debug('===== failure reqUserOrderList')
-            KLogger.debug('===== axios--失败',JSON.stringify(resp))
+            hsLog.d('===== failure reqUserOrderList')
+            hsLog.d('===== axios--失败',JSON.stringify(resp))
             reject({'msg':'查询失败orderList','code':'408'})
           }
 
         }).catch((err:AxiosError)=> {
-        KLogger.debug('===== axios--失败 cat ',JSON.stringify(err))
+        hsLog.d('===== axios--失败 cat ',JSON.stringify(err))
 
         reject({'msg':'查询失败orderList','code':'408'})
 
@@ -354,7 +354,7 @@ class RequestModelAxios{
     await axios.get<userInfo,AxiosResponse<userInfo>, null>(`${this.url}}`)
       .then((response: AxiosResponse<userInfo>) => {
         // 处理成功情况
-        KLogger.debug('====== ccc')
+        hsLog.d('====== ccc')
         console.info(`===== ${JSON.stringify(response)}`);
         // AlertDialog.show({message:JSON.stringify(response.data)})
       })
@@ -370,8 +370,8 @@ class RequestModelAxios{
       //4. axios获取结果
       .then((res:AxiosResponse)=>{ //与服务器通信成功
         // res.status 响应状态码 ， 200成功，非200（400,401,403）
-        // KLogger.debug("wangdh:"+1)
-        // KLogger.debug("wangdh:"+res.data)
+        // hsLog.d("wangdh:"+1)
+        // hsLog.d("wangdh:"+res.data)
         AlertDialog.show({message:JSON.stringify(res.data)})
       })
       .catch((error:AxiosError)=>{ //与服务器通信失败
@@ -399,7 +399,7 @@ class RequestModelAxios{
 
     try {
       const response:AxiosResponse = await axios.get<string, AxiosResponse<string>, null>(this.url);
-      KLogger.debug(JSON.stringify(response));
+      hsLog.d(JSON.stringify(response));
       AlertDialog.show({message:JSON.stringify(response.data)})
       //返回这个，外面数据可以then
       return response.data

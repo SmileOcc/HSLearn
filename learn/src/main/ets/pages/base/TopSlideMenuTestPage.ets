@@ -1,5 +1,5 @@
 import { YWConstants } from '@learn/constants_har';
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 @Entry
 @Component
@@ -42,7 +42,7 @@ struct TopSlideMenuTestPage {
 
                 this.currentIndex = index;
                 this.scrollView.scrollTo({xOffset:this.currentIndex * this.tWidth,yOffset:0, animation:true});
-                KLogger.debug(`==== tap: ${this.currentIndex}`)
+                hsLog.d(`==== tap: ${this.currentIndex}`)
 
                 // 记录点击index
                 // this.currentIndex = index;
@@ -96,7 +96,7 @@ struct TopSlideMenuTestPage {
           let offsetXX = this.scrollView.currentOffset().xOffset
           let index = (offsetX + this.tWidth / 2.0) / this.tWidth
 
-          KLogger.debug(`==== scroll end: ${offsetX}  ==  ${offsetXX}  ${index}`)
+          hsLog.d(`==== scroll end: ${offsetX}  ==  ${offsetXX}  ${index}`)
 
           if (this.currentIndex != index && index < 4) {
             this.currentIndex = index

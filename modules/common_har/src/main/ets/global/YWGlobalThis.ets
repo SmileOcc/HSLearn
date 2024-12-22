@@ -3,7 +3,7 @@
  */
 import { common } from '@kit.AbilityKit';
 import dataPreferences from '@ohos.data.preferences';
-import KLogger from  '../common/KLogger'
+import { hsLog } from '@learn/logger_har';
 import { systemDateTime } from '@kit.BasicServicesKit';
 import { preferences } from '@kit.ArkData';
 
@@ -129,7 +129,7 @@ class YWGlobalThis {
         callback(pres.getSync(key, defValue as preferences.ValueType) as T);
       }
     }).catch((err: Error) => {
-      KLogger.error(TAG, 'Get the preferences failed, err: ' + err);
+      hsLog.e(TAG, 'Get the preferences failed, err: ' + err);
       if (callback) {
         callback(defValue)
       }
@@ -144,7 +144,7 @@ class YWGlobalThis {
       await p.put(key, value as preferences.ValueType)
       await p.flush();
     }).catch((err:Error)=>{
-      KLogger.error(TAG, 'set the preferences failed, err: ' + err);
+      hsLog.e(TAG, 'set the preferences failed, err: ' + err);
     })
     return promise
 
@@ -155,9 +155,9 @@ class YWGlobalThis {
     const preferences: dataPreferences.Preferences = await pref();
     let deleteValue = preferences.delete(key);
     deleteValue.then(() => {
-      KLogger.info(TAG, 'Succeeded in deleting the key appFontSize.');
+      hsLog.i(TAG, 'Succeeded in deleting the key appFontSize.');
     }).catch((err: Error) => {
-      KLogger.error(TAG, 'Failed to delete the key appFontSize. Cause: ' + err);
+      hsLog.e(TAG, 'Failed to delete the key appFontSize. Cause: ' + err);
     });
   }
 
@@ -168,9 +168,9 @@ class YWGlobalThis {
 
     let deleteValue = preferences.delete(key);
     deleteValue.then(() => {
-      KLogger.info(TAG, 'Succeeded in deleting the key appFontSize.');
+      hsLog.i(TAG, 'Succeeded in deleting the key appFontSize.');
     }).catch((err: Error) => {
-      KLogger.error(TAG, 'Failed to delete the key appFontSize. Cause: ' + err);
+      hsLog.e(TAG, 'Failed to delete the key appFontSize. Cause: ' + err);
     });
   }
 
@@ -179,7 +179,7 @@ class YWGlobalThis {
   //   pref().then(async (pres: dataPreferences.Preferences) => {
   //     callback(pres.getSync(key, defValue as preferences.ValueType) as T);
   //   }).catch((err: Error) => {
-  //     KLogger.error(TAG, 'Get the preferences failed, err: ' + err);
+  //     hsLog.e(TAG, 'Get the preferences failed, err: ' + err);
   //     callback(defValue);
   //   });
   // }
@@ -193,16 +193,16 @@ class YWGlobalThis {
   //       return
   //     }
   //     preferences.has(key).then(async (isExist: boolean) => {
-  //       KLogger.info(TAG, 'preferences has changeFontSize is ' + isExist);
+  //       hsLog.i(TAG, 'preferences has changeFontSize is ' + isExist);
   //       if (!isExist) {
   //         await preferences.put(key, value);
   //         preferences.flush();
   //       }
   //     }).catch((err: Error) => {
-  //       KLogger.info(TAG, 'Has the value failed with err: ' + err);
+  //       hsLog.i(TAG, 'Has the value failed with err: ' + err);
   //     });
   //   }).catch((err: Error) => {
-  //     KLogger.info(TAG, 'Get the preferences failed, err: ' + err);
+  //     hsLog.i(TAG, 'Get the preferences failed, err: ' + err);
   //   });
   // }
 
@@ -217,7 +217,7 @@ class YWGlobalThis {
       this.lastClickTime = curTime;
       return false;
     }
-    KLogger.info(TAG, '点击过快了');
+    hsLog.i(TAG, '点击过快了');
     return true;
   }
 

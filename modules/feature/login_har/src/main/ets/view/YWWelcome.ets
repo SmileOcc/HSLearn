@@ -2,7 +2,7 @@
  * @Desc:
  */
 import { YWResColor, YWResFloat, YWResImage, YWResString } from '@learn/res_har';
-import { KLogger } from '@learn/common_har';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWWelcome';
 
@@ -18,10 +18,10 @@ export struct YWWelcome {
           .draggable(false)
           .copyOption(CopyOptions.None)
           .onComplete(() => {
-            KLogger.info(TAG, 'appIcon loading success');
+            hsLog.i(TAG, 'appIcon loading success');
           })
           .onError(() => {
-            KLogger.error(TAG, 'appIcon loading fail');
+            hsLog.e(TAG, 'appIcon loading fail');
           })
 
         Text('HI 欢迎您～')

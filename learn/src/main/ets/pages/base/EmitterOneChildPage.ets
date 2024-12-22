@@ -1,4 +1,4 @@
-import Logger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { EmitterData, MYEmitterType, MyEmitterUtil } from '../../../../../../modules/common_har/src/main/ets/utils/MyEmitterUtil';
 
 @Entry
@@ -11,7 +11,7 @@ struct EmitterOneChildPage {
   aboutToAppear() {
 
     this.myEmitterUtil.onEmitter((eventData: EmitterData) => {
-      Logger.info('子组件监听结果: ', JSON.stringify(eventData));
+      hsLog.i('子组件监听结果: ', JSON.stringify(eventData));
       // 判断事件类型并执行相应操作...
       this.message = eventData.flag + eventData.data
     });

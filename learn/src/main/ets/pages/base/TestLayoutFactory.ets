@@ -1,19 +1,18 @@
-import Logger from '../../../../../../modules/common_har/src/main/ets/common/KLogger'
-
+import { hsLog } from '@learn/logger_har';
 export interface TestLayoutFactory {
   testEvent():void
 }
 
 export class PhoneLayoutFactor implements TestLayoutFactory {
   testEvent(): void {
-    Logger.debug('PhoneLayoutFactor')
+    hsLog.d('PhoneLayoutFactor')
 
   }
 }
 
 export class TabletLayoutFactor implements TestLayoutFactory {
   testEvent(): void {
-    Logger.debug('TabletLayoutFactor')
+    hsLog.d('TabletLayoutFactor')
   }
 
 }

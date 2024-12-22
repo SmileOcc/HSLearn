@@ -14,10 +14,11 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { HMItemInfo } from '../pages/login/model/HMItemInfo'
 import { preferences } from '@kit.ArkData';
 import { UserInfoManager } from '../model/UserInfoManager';
-import { kyStoreManger, KLogger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
+import { kyStoreManger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
 import { loginService } from '@learn/login_har'
 import { API, netReq } from '@learn/request_har';
 import { YWResImage } from '@learn/res_har'
+import { hsLog } from '@learn/logger_har';
 
 const TAG: string = '[AccountInfo]'
 
@@ -69,7 +70,7 @@ export struct Account {
     // preferences.deletePreferences()
 
     let score: number | string = 'A'
-    console.log(`=======score:${score}`) // 98
+    hsLog.i(`=======score:${score}`) // 98
 
     StorageUtils.put(StorageKeys.USER_LOGIN, true)
     StorageUtils.put(StorageKeys.USER_INFO_KEY, "user_info_key001")
@@ -77,7 +78,7 @@ export struct Account {
     setTimeout(() => {
       StorageUtils.get(StorageKeys.USER_INFO_KEY).then((result) => {
         //showToast(result.toString())
-        console.debug(`===== ${result}`)
+        hsLog.d(`===== ${result}`)
       })
 
 
@@ -89,7 +90,7 @@ export struct Account {
 
     setTimeout(() => {
       kyStoreManger.getData<string>("ksKey_name","").then((value:string) => {
-        console.debug(`===== ${value}`)
+        hsLog.d(`===== ${value}`)
 
       }).catch((err: BusinessError) => {
 
@@ -101,7 +102,7 @@ export struct Account {
 
     // 重复执行内容，可设置时间延迟间隔（执行多次）
     // let intervalID = setInterval(() => {
-    //   console.log('do after 2s delay.')
+    //   hsLog.i('do after 2s delay.')
     //
     // }, 2000)
     // clearInterval(intervalID)  // 手动取消定时器
@@ -109,7 +110,7 @@ export struct Account {
 
   async getUserLogin() {
     let hasLogin = await StorageUtils.get(StorageKeys.USER_LOGIN, false)
-    console.debug(`===== ${hasLogin}`)
+    hsLog.d(`===== ${hasLogin}`)
     return hasLogin
     //LogUtils.debug('网络请求Request 登录状态校验>>>', `${hasLogin.toString()}`);
   }
@@ -124,9 +125,9 @@ export struct Account {
 
     // 获取窗口宽高
 
-    console.log("width: " + properties.windowRect.width);
+    hsLog.i("width: " + properties.windowRect.width);
 
-    console.log("height: " + properties.windowRect.height);
+    hsLog.i("height: " + properties.windowRect.height);
 
   }
 
@@ -134,7 +135,7 @@ export struct Account {
     if (this.isLogin) {
       netReq.post<Record<string, string>, Record<string, string[]>>(API.userInfos, { 'infos': ['nickname', 'avatar'] }, {
         onSuccess: (data: Record<string, string>) => {
-          KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+          hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
           if (data['avatar'] === undefined || data['avatar'] === '') {
             this.head = $r('app.media.app_icon');
           } else {
@@ -147,7 +148,7 @@ export struct Account {
           }
         },
         onFail: (code: number, message: string) => {
-          KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+          hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
         }
       });
     } else {
@@ -361,7 +362,7 @@ export struct Account {
           .fontColor(Color.Red)
           .type(ButtonType.Capsule)
           .onClick(() => {
-            console.log("====tap test")
+            hsLog.i("====tap test")
             router.pushUrl({ url: 'pages/accountInfo/ScrollListPage' })
           })
 
@@ -372,7 +373,7 @@ export struct Account {
           .fontColor(Color.Red)
           .type(ButtonType.Capsule)
           .onClick(() => {
-            console.log("====tap test")
+            hsLog.i("====tap test")
             router.pushUrl({ url: 'pages/columnRowShow/layoutWeightPage' })
           })
 
@@ -383,7 +384,7 @@ export struct Account {
           .fontColor(Color.Red)
           .type(ButtonType.Capsule)
           .onClick(() => {
-            console.log("====tap test")
+            hsLog.i("====tap test")
             router.pushUrl({ url: 'pages/columnRowShow/layoutPercentWidthPage' })
           })
 
@@ -409,11 +410,11 @@ export struct Account {
                 secondaryButton: {
                   value: 'cancel',
                   action: () => {
-                    KLogger.info(TAG, `AlertDialog enter`)
+                    hsLog.i(TAG, `AlertDialog enter`)
                   }
                 },
                 cancel: () => {
-                  KLogger.info(TAG, `AlertDialog close`)
+                  hsLog.i(TAG, `AlertDialog close`)
                 }
               })
           })
@@ -422,8 +423,7 @@ export struct Account {
         // HWAlertView.CreateAlert("ddd",null)
 
         CreateAlertMsgView("create", () => {
-          this.tttLogger.debug("==== msg")
-          console.log("=====odd")
+          hsLog.i("=====odd")
 
         })
 
@@ -433,7 +433,7 @@ export struct Account {
           .fontSize(20)
           .fontColor(Color.Blue)
           .onClick(() => {
-            console.debug("======= share page 听说 测试版 这个还没有授权")
+            hsLog.d("======= share page 听说 测试版 这个还没有授权")
             //'@bundle:包名（bundleName）/模块名（moduleName）/路径/页面所在的文件名(不加.ets后缀)'
             router.pushUrl({ url: '@bundle:com.example.hmos_learn/ShareHarLibs/src/main/ets/pages/HWSuccessPage' })
           })
@@ -454,18 +454,18 @@ export struct Account {
     .edgeEffect(EdgeEffect.Spring)
     .padding({ bottom: 50 })
     .onScrollStart(() => {
-      //console.log("滚动==开始")
+      //hsLog.i("滚动==开始")
     })
     .onScroll((a, b) => {
-      //console.log(`滚动===${a} : ${b}`)
+      //hsLog.i(`滚动===${a} : ${b}`)
     })
     .onScrollStop(() => {
-      //console.log("滚动==结束")
+      //hsLog.i("滚动==结束")
 
     })
     .onScrollEdge((edg) => {
       //滚动到边缘事件回调
-      console.log(edg.toString())
+      hsLog.i(edg.toString())
     })
     .height('100%')
     .backgroundColor(Color.Yellow)

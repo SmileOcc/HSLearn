@@ -1,5 +1,5 @@
 
-import { globalThis, KLogger, YWNavRouterUtils } from '@learn/common_har';
+import { globalThis, YWNavRouterUtils } from '@learn/common_har';
 import { YWLoading } from '@learn/loading_har';
 import { YWTipDialog } from '@learn/alert_har';
 import { YWCommonButton, YWNavBar, YWSpringLayout } from '@learn/baseui_har';
@@ -11,7 +11,7 @@ import { YWLoginManager } from '../core/YWLoginManager';
 import { YWLoginWay } from '../core/YWLoginWay';
 import { loginComponentManager } from '@kit.AccountKit';
 import { YWWelcome } from '../view/YWWelcome';
-
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWLoginPassPage';
 
@@ -78,14 +78,14 @@ export struct YWLoginPassPage {
       Column() {
         TextInput({ placeholder: '请输入您的账号' })
           .onSubmit((EnterKeyType) => {
-            KLogger.info(TAG, EnterKeyType + '输入法回车键的类型值')
+            hsLog.i(TAG, EnterKeyType + '输入法回车键的类型值')
           })
           .onChange((value: string) => {
             this.account = value;
           })
         TextInput({ placeholder: '请输入您的密码' }).type(InputType.Password).margin({ top: 20 })
           .onSubmit((EnterKeyType) => {
-            KLogger.info(TAG, EnterKeyType + '输入法回车键的类型值')
+            hsLog.i(TAG, EnterKeyType + '输入法回车键的类型值')
           })
           .onChange((value: string) => {
             this.password = value;
@@ -112,13 +112,13 @@ export struct YWLoginPassPage {
             netReq.post<Record<string, string>, Record<string, string>>(API.login,
               { 'authType': 'password', 'account': this.account, 'password': this.password }, {
                 onSuccess: (data: Record<string, string>) => {
-                  KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+                  hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
                   YWLoginManager.getInstance().setLogin(true);
                   YWLoginManager.getInstance().saveLoginWay(YWLoginWay.PASSWORD);
                   YWNavRouterUtils.popHome();
                 },
                 onFail: (code: number, message: string) => {
-                  KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+                  hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
                   showErrorDialog(message);
                 },
                 onFinally: () => {

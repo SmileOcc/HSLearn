@@ -3,7 +3,8 @@ import { audio } from '@kit.AudioKit';
 import { speechRecognizer } from '@kit.CoreSpeechKit';
 import { PermissionUtil } from '@pura/harmony-utils';
 import { KeyboardAvoidMode, router, window } from '@kit.ArkUI';
-import { KLogger, RouterUtils } from '@learn/common_har';
+import { RouterUtils } from '@learn/common_har';
+import { hsLog } from '@learn/logger_har'
 
 @Component
 struct TestAudioSearchComp {
@@ -266,7 +267,7 @@ struct TestAudioSearchCompPage {
       // 语音搜索组件
       TestAudioSearchComp({
         onChange: (keyword: string) => {
-          KLogger.info('转换的文本是:' + keyword)
+          hsLog.i('转换的文本是:' + keyword)
           this.keyword = keyword
         },
         onComplete: (keyword: string) => {

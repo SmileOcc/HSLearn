@@ -2,7 +2,7 @@
  * @Desc: 全局内存对象缓存工具类，比如：保存 Function 、Context等
  */
 import { systemDateTime } from '@kit.BasicServicesKit';
-import KLogger from  '../common/KLogger'
+import { hsLog } from '@learn/logger_har';
 const TAG = 'YWGlobal';
 
 class YWGlobal {
@@ -34,7 +34,7 @@ class YWGlobal {
       this.lastClickTime = curTime;
       return false;
     }
-    KLogger.info(TAG, '点击过快了');
+    hsLog.i(TAG, '点击过快了');
     return true;
   }
 

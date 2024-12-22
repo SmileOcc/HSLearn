@@ -14,8 +14,7 @@ import distributedKVStore from '@ohos.data.distributedKVStore'
 // import KeyStorageManager from '../../../../../modules/common_har/src/main/ets/common/KeyStorageManager'
 
 import { kyStoreManger } from '@learn/common_har'
-import { HWTTLogger } from 'STHarLib';
-import Logger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { PreferencesUtil } from '../../../../../modules/common_har/src/main/ets/utils/PreferencesUtil';
 import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../pages/accountInfo/model/UserInfoModel';
@@ -25,7 +24,6 @@ import { notificationManager } from '@kit.NotificationKit';
 // import { AppUtil } from '@pura/harmony-utils';
 // import { DisplayUtil, StrUtil, ToastUtil, DeviceUtil, RandomUtil } from '@pura/harmony-utils';
 import { process } from '@kit.ArkTS';
-import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
 import { BreakpointSystem } from '../../../../../modules/common_har/src/main/ets/common/BreakPointSystem';
 
 
@@ -34,6 +32,7 @@ const permissions: Array<Permissions> = ['ohos.permission.SYSTEM_FLOAT_WINDOW'];
 export  let windowStage_: window.WindowStage;
 let sub_windowClass: window.Window;
 
+const TAG = 'EntryAbility'
 export default class EntryAbility extends UIAbility {
   //本地页面内部使用LocalStorage保存数据，应用页面间通过AppStorage传递信息，PersistentStorage可以持久化存储数据信息
   //可以放全局，然后每个页面@Entry(localStorage),
@@ -56,20 +55,20 @@ export default class EntryAbility extends UIAbility {
         accessManager.requestPermissionsFromUser(this.context, permissions)
       }
     } catch (err) {
-      console.error('EntryAbility', 'checkPermissions', `Catch err: ${err}`);
+      hsLog.e('EntryAbility', 'checkPermissions', `Catch err: ${err}`);
       return;
     }
   }
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+    hsLog.i(TAG, 'testTag', '%{public}s', 'Ability onCreate');
 
     // 通过在GlobalContext对象上绑定filesDir，可以实现UIAbility组件与UI之间的数据同步。
     // GlobalContext.getContext().setObject("filesDir", this.context.filesDir);
     // // GlobalContext.getContext().setObject("display", );
 
     let mainTid = process.tid
-    KLogger.debug(`==== 主线程tid: ${mainTid}`)
+    hsLog.d(TAG,`==== 主线程tid: ${mainTid}`)
 
     //首选项本地数据
     PreferencesUtil.getData(this.context)
@@ -81,8 +80,8 @@ export default class EntryAbility extends UIAbility {
 
     kyStoreManger.init(config,'myHMStore')
 
-    // console.log(`=========${YWConstants.screenWidth}`)//1260
-    // console.log(`=========${px2vp(display.getDefaultDisplaySync().width)}`)//1260
+    // hsLog.i(`=========${YWConstants.screenWidth}`)//1260
+    // hsLog.i(`=========${px2vp(display.getDefaultDisplaySync().width)}`)//1260
     //
     // //这个造成上面错误
     let localUseInf = AppStorage.get<UserInfoModel>(YWConstants.kStorageLocalUser)
@@ -117,14 +116,14 @@ export default class EntryAbility extends UIAbility {
   }
 
   onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    hsLog.i('testTag', '%{public}s', 'Ability onDestroy');
   }
 
   async configGlobalContext(windowStage: window.WindowStage) {
 
     windowStage.getMainWindow((err, data: window.Window) => {
       if (err.code) {
-        Logger.debug(err.code + '==== err')
+        hsLog.d(err.code + '==== err')
 
         return
       }
@@ -148,20 +147,20 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+    hsLog.i(TAG, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     // AppUtil.init(this.context, windowStage);
     //
-    // Logger.debug(AppUtil.getStatusBarHeight() + '')
+    // hsLog.d(AppUtil.getStatusBarHeight() + '')
     //
-    // Logger.debug(DisplayUtil.getWidth() + ' util')
-    // Logger.debug(DisplayUtil.getHeight() + ' util')
+    // hsLog.d(DisplayUtil.getWidth() + ' util')
+    // hsLog.d(DisplayUtil.getHeight() + ' util')
 
     // 获取屏幕宽高
     let screenWidth = display.getDefaultDisplaySync().width;
     let screenHeight = display.getDefaultDisplaySync().height;
-    Logger.debug(screenWidth + '')
-    Logger.debug(screenHeight + '')
+    hsLog.d(screenWidth + '')
+    hsLog.d(screenHeight + '')
 
     // this.configGlobalContext(windowStage)
 
@@ -186,7 +185,7 @@ export default class EntryAbility extends UIAbility {
       // 设置背景色实现沉浸式
       //windowStage.getMainWindowSync().setWindowBackgroundColor('#9F6BF5')
 
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
+      hsLog.i(TAG, 'testTag', 'Succeeded in loading the content.');
     });
 
     window.getLastWindow(getContext(this)).then((win) => {
@@ -196,7 +195,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageDestroy(): void {
     // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+    hsLog.i(TAG, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
 
     // 开发者可以在适当的时机，如子窗口上点击关闭按钮等，销毁子窗口。并不一定需要在onWindowStageDestroy调用，这里仅作展示
     this.destroySubWindow();
@@ -207,12 +206,12 @@ export default class EntryAbility extends UIAbility {
 
   onForeground(): void {
     // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
+    hsLog.i(TAG, 'testTag', '%{public}s', 'Ability onForeground');
   }
 
   onBackground(): void {
     // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
+    hsLog.i(TAG, 'testTag', '%{public}s', 'Ability onBackground');
   }
 
 
@@ -236,7 +235,7 @@ export default class EntryAbility extends UIAbility {
         windowClass.setWindowLayoutFullScreen(true)
       }
     } catch (err) {
-      Logger.debug(`requestFullScreen err = ${err}`)
+      hsLog.d(`requestFullScreen err = ${err}`)
     }
 
     //2
@@ -266,10 +265,10 @@ export default class EntryAbility extends UIAbility {
   async remoteNotification() {
     // 请求用户推送权限
     notificationManager.isNotificationEnabled().then((data: boolean) => {
-      Logger.info("isNotificationEnabled success, data: " + JSON.stringify(data));
+      hsLog.i("isNotificationEnabled success, data: " + JSON.stringify(data));
       if (!data) {
         notificationManager.requestEnableNotification().then(async () => {
-          Logger.info(`[ANS] requestEnableNotification success`)
+          hsLog.i(`[ANS] requestEnableNotification success`)
         }).catch(() => {
 
         })
@@ -283,40 +282,40 @@ export default class EntryAbility extends UIAbility {
     // 1.创建应用子窗口。
     windowStage_.createSubWindow("mySubWindow", (err, data) => {
       if (err.code) {
-        console.error('Failed to create the subwindow. Cause: ' + JSON.stringify(err));
+        hsLog.e('Failed to create the subwindow. Cause: ' + JSON.stringify(err));
         return;
       }
       sub_windowClass = data;
-      console.info('Succeeded in creating the subwindow. Data: ' + JSON.stringify(data));
+      hsLog.i('Succeeded in creating the subwindow. Data: ' + JSON.stringify(data));
       // 2.子窗口创建成功后，设置子窗口的位置、大小及相关属性等。
       sub_windowClass.moveWindowTo(300, 300, (err) => {
         if (err.code) {
-          console.error('Failed to move the window. Cause:' + JSON.stringify(err));
+          hsLog.e('Failed to move the window. Cause:' + JSON.stringify(err));
           return;
         }
-        console.info('Succeeded in moving the window.');
+        hsLog.i('Succeeded in moving the window.');
       });
       sub_windowClass.resize(500, 500, (err) => {
         if (err.code) {
-          console.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+          hsLog.e('Failed to change the window size. Cause:' + JSON.stringify(err));
           return;
         }
-        console.info('Succeeded in changing the window size.');
+        hsLog.i('Succeeded in changing the window size.');
       });
       // 3.为子窗口加载对应的目标页面。
       sub_windowClass.setUIContent("pages/page3", (err) => {
         if (err.code) {
-          console.error('Failed to load the content. Cause:' + JSON.stringify(err));
+          hsLog.e('Failed to load the content. Cause:' + JSON.stringify(err));
           return;
         }
-        console.info('Succeeded in loading the content.');
+        hsLog.i('Succeeded in loading the content.');
         // 3.显示子窗口。
         sub_windowClass.showWindow((err) => {
           if (err.code) {
-            console.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+            hsLog.e('Failed to show the window. Cause: ' + JSON.stringify(err));
             return;
           }
-          console.info('Succeeded in showing the window.');
+          hsLog.i('Succeeded in showing the window.');
         });
       });
     })
@@ -326,10 +325,10 @@ export default class EntryAbility extends UIAbility {
     // 4.销毁子窗口。当不再需要子窗口时，可根据具体实现逻辑，使用destroy对其进行销毁。
     sub_windowClass.destroyWindow((err) => {
       if (err.code) {
-        console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+        hsLog.e('Failed to destroy the window. Cause: ' + JSON.stringify(err));
         return;
       }
-      console.info('Succeeded in destroying the window.');
+      hsLog.i('Succeeded in destroying the window.');
     });
   }
 }
@@ -345,7 +344,7 @@ async function checkAccessToken(permission: Permissions): Promise<abilityAccessC
     let appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
     tokenId = appInfo.accessTokenId;
   } catch (err) {
-    console.error(`getBundleInfoForSelf failed, code is ${err.code}, message is ${err.message}`);
+    hsLog.e(`getBundleInfoForSelf failed, code is ${err.code}, message is ${err.message}`);
     return abilityAccessCtrl.GrantStatus.PERMISSION_DENIED
   }
 
@@ -353,7 +352,7 @@ async function checkAccessToken(permission: Permissions): Promise<abilityAccessC
   try {
     grantStatus = await atManager.checkAccessToken(tokenId, permission);
   } catch (err) {
-    console.error(`checkAccessToken failed, code is ${err.code}, message is ${err.message}`);
+    hsLog.e(`checkAccessToken failed, code is ${err.code}, message is ${err.message}`);
     return abilityAccessCtrl.GrantStatus.PERMISSION_DENIED
   }
   return grantStatus
@@ -365,11 +364,11 @@ async function checkPermissions(): Promise<boolean> {
 
   if (grantStatus === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
     // 已经授权，可以继续访问目标操作
-    console.log('已授权')
+    hsLog.i('已授权')
     return true
   } else {
     // 申请权限
-    console.log('没有授权')
+    hsLog.i('没有授权')
     return false
   }
 }
@@ -389,10 +388,10 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
         for (let i = 0; i < length; i++) {
           if (grantStatus[i] === 0) {
             // 用户授权，可以继续访问目标操作
-            Logger.debug('用户授权，可以继续访问目标操作')
+            hsLog.d('用户授权，可以继续访问目标操作')
           } else {
             // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
-            Logger.debug('用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限')
+            hsLog.d('用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限')
             return;
           }
         }
@@ -407,58 +406,58 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
           ctx: context
         }, (err, data) => {
           if (err.code) {
-            Logger.error('Failed to create the floatWindow. Cause: ' + JSON.stringify(err));
+            hsLog.e('Failed to create the floatWindow. Cause: ' + JSON.stringify(err));
             return;
           }
-          Logger.info('Succeeded in creating the floatWindow. Data: ' + JSON.stringify(data));
+          hsLog.i('Succeeded in creating the floatWindow. Data: ' + JSON.stringify(data));
           windowClass = data;
 
           // 2.悬浮窗窗口创建成功后，设置悬浮窗的位置、大小及相关属性等。
           windowClass.moveWindowTo(0, 200, (err) => {
             if (err.code) {
-              Logger.error('Failed to move the window. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to move the window. Cause:' + JSON.stringify(err));
               return;
             }
-            Logger.info('Succeeded in moving the window.');
+            hsLog.i('Succeeded in moving the window.');
           });
           windowClass.resize(1080, 151, (err) => {
             if (err.code) {
-              Logger.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to change the window size. Cause:' + JSON.stringify(err));
               return;
             }
-            Logger.info('Succeeded in changing the window size.');
+            hsLog.i('Succeeded in changing the window size.');
 
           });
 
           // 3.为悬浮窗加载对应的目标页面。
           windowClass.setUIContent("pages/Index", (err) => {
             if (err.code) {
-              Logger.error('Failed to load the content. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to load the content. Cause:' + JSON.stringify(err));
               return;
             }
-            Logger.info('Succeeded in loading the content.');
+            hsLog.i('Succeeded in loading the content.');
             // 3.显示悬浮窗。
             windowClass.showWindow((err) => {
               if (err.code) {
-                Logger.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+                hsLog.e('Failed to show the window. Cause: ' + JSON.stringify(err));
                 return;
               }
-              Logger.info('Succeeded in showing the window.');
+              hsLog.i('Succeeded in showing the window.');
             });
 
             try {
               windowClass.setWindowBackgroundColor('#00000000')
             } catch (exception) {
-              Logger.error('Failed to set the background color. Cause: ' + JSON.stringify(exception));
+              hsLog.e('Failed to set the background color. Cause: ' + JSON.stringify(exception));
             }
 
             // 4.销毁悬浮窗。当不再需要悬浮窗时，可根据具体实现逻辑，使用destroy对其进行销毁。
             // windowClass.destroyWindow((err) => {
             //   if (err.code) {
-            //     console.error('Failed to destroy the window. Cause: ' + JSON.stringify(err));
+            //     hsLog.e('Failed to destroy the window. Cause: ' + JSON.stringify(err));
             //     return;
             //   }
-            //   console.info('Succeeded in destroying the window.');
+            //   hsLog.i('Succeeded in destroying the window.');
             // });
 
           });
@@ -466,7 +465,7 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
         })
 
       }).catch((err: BusinessError) => {
-        Logger.error(`requestPermissionsFromUser failed, code is ${err.code}, message is ${err.message}`);
+        hsLog.e(`requestPermissionsFromUser failed, code is ${err.code}, message is ${err.message}`);
       })
 
     }

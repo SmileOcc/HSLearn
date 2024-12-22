@@ -6,7 +6,7 @@ import { FileConstants } from '../../../../../modules/common_har/src/main/ets/co
 import fs from '@ohos.file.fs';
 import { YWConstants } from '@learn/constants_har';
 import { FileUtils } from '../../../../../modules/common_har/src/main/ets/utils/FileUtils';
-import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 class HttpRequestModel{
@@ -63,7 +63,7 @@ class HttpRequestModel{
    * 下载文件(验证码使用)
    */
   static httpFileDownload(url: string, params?: object): Promise<object> {
-    KLogger.debug("下载文件URL：" + url + "\n请求参数:" + (params != undefined ? "\n请求参数:" + JSON.stringify(params) : "无参数"));
+    hsLog.d("下载文件URL：" + url + "\n请求参数:" + (params != undefined ? "\n请求参数:" + JSON.stringify(params) : "无参数"));
     //
     let httpRequest = http.createHttp();
     httpRequest.on('headersReceive', (header) => {
@@ -83,10 +83,10 @@ class HttpRequestModel{
 
     // let responseResultJson = new ResponseResultJson();
     return responseResult.then(async (responseResult: http.HttpResponse) => {
-      KLogger.debug("文件下载请求响应URL：" + url + "\n响应结果:" + "\n" + JSON.stringify(responseResult));
+      hsLog.d("文件下载请求响应URL：" + url + "\n响应结果:" + "\n" + JSON.stringify(responseResult));
       if (responseResult.responseCode === 200) {
         let header = responseResult.header
-        KLogger.debug('解析响应 header \n' + JSON.stringify(header));
+        hsLog.d('解析响应 header \n' + JSON.stringify(header));
 
         let headerJson = JSON.stringify(header)
         let headerObj:TestInfo = JSON.parse(headerJson)
@@ -108,7 +108,7 @@ class HttpRequestModel{
         fs.writeSync(file.fd, result); //将数据写入文件
         fs.closeSync(file); //关闭文件
         //
-        KLogger.debug("保存文件成功:\n" + filePath + "\t" + await FileUtils.getPathSize(filePath));
+        hsLog.d("保存文件成功:\n" + filePath + "\t" + await FileUtils.getPathSize(filePath));
         //结果
         // responseResultJson.code = ResponseYWConstants.CODE_SUCCESS
         // responseResultJson.isSuccess = true
@@ -124,7 +124,7 @@ class HttpRequestModel{
     })
 
     //   .catch(((error:BusinessError)) => {
-    //   Logger.debug("文件下载请求响应URL：" + url + "\n请求异常:\n" + JSON.stringify(error))
+    //   hsLog.d("文件下载请求响应URL：" + url + "\n请求异常:\n" + JSON.stringify(error))
     //   // responseResultJson.code = ResponseYWConstants.CODE_ERROR;
     //   // responseResultJson.message = "请求异常:\n" + JSON.stringify(error)
     //   // responseResultJson.isSuccess = false

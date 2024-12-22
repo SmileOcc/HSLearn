@@ -1,7 +1,7 @@
 // import { ClassConstructor, instanceToPlain, plainToClass } from 'class-transformer';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { JSONArray, JSONObject } from '@yunkss/eftool';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { YWDateUtils } from './YWDateUtils';
 
 /**
@@ -228,7 +228,7 @@ export class YWJsonUtils {
   //     return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as T
   //   } catch (err) {
   //     let error = err as BusinessError;
-  //     KLogger.error(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+  //     hsLog.e(`JSONUtil-jsonToBean-异常 ~ code: ${error.code} -·- message: ${error.message}`);
   //     return null
   //   }
   // }
@@ -245,7 +245,7 @@ export class YWJsonUtils {
   //     return plainToClass(cls, JSON.parse(jsonStr), { enableImplicitConversion: false, exposeDefaultValues: true }) as Array<T>
   //   } catch (err) {
   //     let error = err as BusinessError;
-  //     KLogger.error(`JSONUtil-jsonToArray-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+  //     hsLog.e(`JSONUtil-jsonToArray-异常 ~ code: ${error.code} -·- message: ${error.message}`);
   //     return []
   //   }
   // }
@@ -264,7 +264,7 @@ export class YWJsonUtils {
   //     return JSON.stringify(instanceToPlain(data))
   //   } catch (err) {
   //     let error = err as BusinessError;
-  //     KLogger.error(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+  //     hsLog.e(`JSONUtil-beanToJsonStr-异常 ~ code: ${error.code} -·- message: ${error.message}`);
   //     return ""
   //   }
   // }

@@ -5,7 +5,7 @@ import { YWShowToast } from '@learn/common_har'
  */
 import axios, { AxiosError, AxiosResponse, AxiosRequestHeaders,InternalAxiosRequestConfig,
   AxiosRequestConfig } from '@ohos/axios'
-import KLogger from '../../../../../common_har/src/main/ets/common/KLogger'
+import { hsLog } from '@learn/logger_har';
 import { HttpConstants } from '../requestConfig/HttpConstants'
 
 const TAG = "AxiosRequest"
@@ -82,10 +82,10 @@ axiosInstance.interceptors.request.use(async (config:HttpRequestConfig) => {
   //   config.headers['Authorization'] = 'Bearer ' + access_token // 让每个请求携带自定义token 请根据实际情况自行修改
   // }
   // config.headers['xpt'] = 'occ-xpt'
-  KLogger.debug(`==== ${JSON.stringify(config)}`)
+  hsLog.d(`==== ${JSON.stringify(config)}`)
   return config
 }, (error:string) => {
-  KLogger.debug(error)
+  hsLog.d(error)
   return Promise.reject(error)
 })
 
@@ -97,10 +97,10 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
     AlertDialog.show({
       message: response.statusText
     })
-    KLogger.error('3-code响应错误：' + JSON.stringify(response.data))
+    hsLog.e('3-code响应错误：' + JSON.stringify(response.data))
     return Promise.reject(response.data)
   }
-  KLogger.warn('2-响应成功结果：' + JSON.stringify(response.data))
+  hsLog.w('2-响应成功结果：' + JSON.stringify(response.data))
   // 简化数据返回,可以根据自己需要，返回对应设置的层级数据
   // return response
   //返回数组
@@ -116,7 +116,7 @@ axiosInstance.interceptors.response.use((response: AxiosResponse) => {
 
 }, (error: AxiosError) => {
   YWShowToast(error.response?.status + '：' + error.message)
-  KLogger.error('3-http响应错误：' + JSON.stringify(error))
+  hsLog.e('3-http响应错误：' + JSON.stringify(error))
   // 对响应错误做点什么
   return Promise.reject(error);
 });
@@ -149,7 +149,7 @@ function axiosAddHeader(header: Record<string, string | number | boolean>) {
   Object.keys(header).forEach((key: string) => {
     axiosInstance.defaults.headers.common[key] = header[key];
   })
-  KLogger.info(TAG, 'after addHeader: ' + JSON.stringify(axiosInstance.defaults.headers));
+  hsLog.i(TAG, 'after addHeader: ' + JSON.stringify(axiosInstance.defaults.headers));
 }
 
 export { axiosInstance, IApiResponse, IApiParams,IApiBodyData, IApiResultData, apiRequest, ApiRequestType, axiosAddHeader}

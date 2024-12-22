@@ -6,7 +6,8 @@ import { API } from './API';
 import { NetCallback } from './NetCallback';
 import { NetMagicResp } from './NetMagicResp';
 import { JSON } from '@kit.ArkTS';
-import { KLogger, YWFileUtils } from '@learn/common_har';
+import { YWFileUtils } from '@learn/common_har';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'NetRequest';
 
@@ -34,7 +35,7 @@ class NetRequest {
     Object.keys(header).forEach((key: string) => {
       this.instance.defaults.headers.common[key] = header[key];
     })
-    KLogger.info(TAG, 'after addHeader: ' + JSON.stringify(this.instance.defaults.headers));
+    hsLog.i(TAG, 'after addHeader: ' + JSON.stringify(this.instance.defaults.headers));
   }
 
   axios(): AxiosInstance {
@@ -57,11 +58,11 @@ class NetRequest {
    * @param callback T 为响应数据
    */
   post<T, D>(url: string, data?: D, callback?: NetCallback<T>) {
-    KLogger.info(TAG, `[请求][${url}]: ${JSON.stringify(data)}`);
+    hsLog.i(TAG, `[请求][${url}]: ${JSON.stringify(data)}`);
     this.instance
       .post<string, AxiosResponse<NetMagicResp<T>>, D>(url, data)
       .then((response: AxiosResponse<NetMagicResp<T>>) => {
-        KLogger.info(TAG, `[响应][${url}]: ${JSON.stringify(response.data)}`);
+        hsLog.i(TAG, `[响应][${url}]: ${JSON.stringify(response.data)}`);
         if (callback === undefined) {
           return;
         }
@@ -78,7 +79,7 @@ class NetRequest {
         NetRequest.dealSuccess(magic, callback);
       })
       .catch((error: Error) => {
-        KLogger.error(TAG, `[异常][${url}]: ${JSON.stringify(error)}`);
+        hsLog.e(TAG, `[异常][${url}]: ${JSON.stringify(error)}`);
         const obj: Record<string, string> = JSON.parse(error.message) as Record<string, string>;
         if (obj && obj['code'] !== undefined) {
           NetRequest.dealError<T>(Number(obj['code']), obj['message'], callback);
@@ -100,7 +101,7 @@ class NetRequest {
    * @param onResult (status: -1：下载失败；0：未下载；1：下载成功；2：正在下载)
    */
   download(url: string, filePath: string, onResult: (status: number, progress: number, msg: string) => void) {
-    KLogger.info(TAG, `[下载][${url}]: ${filePath}`);
+    hsLog.i(TAG, `[下载][${url}]: ${filePath}`);
     YWFileUtils.delete(filePath);
     axios({
       url: url,
@@ -112,11 +113,11 @@ class NetRequest {
           return;
         }
         const progress = progressEvent.total ? Math.ceil(progressEvent.loaded / progressEvent.total * 100) : 0;
-        KLogger.info(TAG, `progress: ${progress} | ${JSON.stringify(progressEvent)}`);
+        hsLog.i(TAG, `progress: ${progress} | ${JSON.stringify(progressEvent)}`);
         onResult(2, progress, '下载中');
       }
     }).then((response: AxiosResponse<string>) => {
-      KLogger.info(TAG, `response: ${JSON.stringify(response)}`);
+      hsLog.i(TAG, `response: ${JSON.stringify(response)}`);
       if (response.status === 200) {
         onResult(1, 100, response.data);
       } else {
@@ -124,7 +125,7 @@ class NetRequest {
         onResult(-1, 0, response.data);
       }
     }).catch((error: AxiosError) => {
-      KLogger.error(TAG, `[异常][${url}]: ${JSON.stringify(error)}`);
+      hsLog.e(TAG, `[异常][${url}]: ${JSON.stringify(error)}`);
       YWFileUtils.delete(filePath);
       onResult(-1, 0, error.message);
     })
@@ -153,7 +154,7 @@ class NetRequest {
       return response;
     }, (error: AxiosError) => {
       // 对响应错误做点什么
-      KLogger.info(TAG, 'initIntercept error: code=' + error.code + ' | message=' + error.message);
+      hsLog.i(TAG, 'initIntercept error: code=' + error.code + ' | message=' + error.message);
       if (this.errorInterceptFunc) {
         return this.errorInterceptFunc(error);
       }

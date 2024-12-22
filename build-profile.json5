@@ -115,6 +115,10 @@
     {
       "name": "constants_har",
       "srcPath": "./modules/constants_har",
+    },
+    {
+      "name": "logger_har",
+      "srcPath": "./modules/logger_har",
     }
   ]
 }

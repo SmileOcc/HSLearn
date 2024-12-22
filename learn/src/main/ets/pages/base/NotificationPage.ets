@@ -1,5 +1,5 @@
 import NotificationManager from '@ohos.notificationManager';
-import Logger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { image } from '@kit.ImageKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 
@@ -36,10 +36,10 @@ struct NotificationPage {
             // 发布通知
             NotificationManager.publish(notificationRequest, (err) => {
               if (err) {
-                Logger.error(`[ANS] failed to publish, error[${err}]`);
+                hsLog.e(`[ANS] failed to publish, error[${err}]`);
                 return;
               }
-              Logger.debug(`[ANS] publish success`);
+              hsLog.d(`[ANS] publish success`);
             });
 
 
@@ -84,9 +84,9 @@ struct NotificationPage {
     }
 
     NotificationManager.publish(notificationRequest).then(() => { // 发布通知
-      Logger.debug('publish success');
+      hsLog.d('publish success');
     }).catch((err:BusinessError) => {
-      Logger.debug(`publish failed, dcode:${err.code}, message:${err.message}`);
+      hsLog.d(`publish failed, dcode:${err.code}, message:${err.message}`);
     });
 
   }

@@ -327,7 +327,7 @@ export class YWConstants {
   //       await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
   //     return bundleInfo.versionName;
   //   } catch (error) {
-  //     Logger.debug(JSON.stringify(error))
+  //     hsLog.d(JSON.stringify(error))
   //   }
   //   return "";
   // }
@@ -338,7 +338,7 @@ export class YWConstants {
   //       await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
   //     return bundleInfo.versionCode.toString();
   //   } catch (error) {
-  //     Logger.debug(JSON.stringify(error))
+  //     hsLog.d(JSON.stringify(error))
   //   }
   //   return "";
   // }
@@ -349,7 +349,7 @@ export class YWConstants {
   //
   // public static currentTip() {
   //   let mainTid = process.tid
-  //   KLogger.debug(`==== 当前线程tid: ${mainTid}`)
+  //   hsLog.d(`==== 当前线程tid: ${mainTid}`)
   //   return mainTid
   // }
 }

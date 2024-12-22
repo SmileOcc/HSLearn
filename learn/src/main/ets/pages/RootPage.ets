@@ -6,18 +6,19 @@ import { UserInfoModel } from './accountInfo/model/UserInfoModel'
 import requestModelAxios from '../model/RequestModelAxios'
 import MinePage from './MinePage';
 import { BreakpointTypeEnum, ENU_CONTEXT, globalThis, YWDeviceUtils, YWNavRouterUtils,
-  YWShowToast,BreakpointSystem, BreakPointType, ThemeManager, KLogger, YWAvoidAreas, getDefaultAvoidAreas, getAvoidPadding } from '@learn/common_har';
+  YWShowToast,BreakpointSystem, BreakPointType, ThemeManager, YWAvoidAreas, getDefaultAvoidAreas, getAvoidPadding } from '@learn/common_har';
 import { YWMainPage } from './main/YWMainPage';
 import { display } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { YWResImage } from '@learn/res_har';
 import { GoodsDetailComponent } from './home/view/GoodsDetailComponent';
 import { YWConstants } from '@learn/constants_har';
+import { hsLog } from '@learn/logger_har';
 
-const TAG = "Index"
+const TAG = "RootPage"
 @Entry
 @Component
-struct Index {
+struct RootPage {
 
   @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
 
@@ -208,14 +209,14 @@ struct Index {
       .hideNavBar(this.isFullScreen)
       .mode(this.navigationMode)
       .onAppear(()=>{
-        KLogger.info(TAG,'--onAppear')
+        hsLog.i(TAG,'--onAppear')
       })
       .onDisAppear(()=>{
-        KLogger.info(TAG,'--onDisAppear')
+        hsLog.i(TAG,'--onDisAppear')
 
       })
       .onAreaChange((oldValue,newValue)=>{
-        KLogger.info(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+        hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
 
       })
     }

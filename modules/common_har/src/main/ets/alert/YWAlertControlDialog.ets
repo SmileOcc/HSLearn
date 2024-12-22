@@ -1,5 +1,5 @@
 import { AlertDialog } from '@kit.ArkUI';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -66,7 +66,7 @@ export struct YWAlertControlDialog {
       }
     } else {
       this.visible = false;
-      KLogger.error("AlertControlDialog的AlertOptions不存在，请添加options参数")
+      hsLog.e("AlertControlDialog的AlertOptions不存在，请添加options参数")
     }
   }
 

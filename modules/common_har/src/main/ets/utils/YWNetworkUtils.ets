@@ -1,7 +1,7 @@
 import { connection } from '@kit.NetworkKit';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
 import { wifiManager } from '@kit.ConnectivityKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -86,7 +86,7 @@ export class YWNetworkUtils {
     //先使用register接口注册订阅事件
     YWNetworkUtils.netConnection.register((error: BusinessError) => {
       if (error) {
-        KLogger.error(`YWNetworkUtils-register-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        hsLog.e(`YWNetworkUtils-register-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       }
     });
     if (netAvailableCallback) {
@@ -117,7 +117,7 @@ export class YWNetworkUtils {
     if (YWNetworkUtils.netConnection) {
       YWNetworkUtils.netConnection.unregister((error: BusinessError) => {
         if (error) {
-          KLogger.error(`YWNetworkUtils-unregister-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+          hsLog.e(`YWNetworkUtils-unregister-异常 ~ code: ${error.code} -·- message: ${error.message}`);
         }
       });
     }

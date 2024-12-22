@@ -1,7 +1,7 @@
 import { display, window } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -99,7 +99,7 @@ export class YWWindowUtils {
     } catch (err) {
       let error = err as BusinessError;
 
-      KLogger.error(`WindowUtil-createWindow-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`WindowUtil-createWindow-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

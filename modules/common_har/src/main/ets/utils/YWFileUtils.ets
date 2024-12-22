@@ -2,7 +2,7 @@ import fileUri from '@ohos.file.fileuri';
 import fs, { ListFileOptions, ReadOptions, ReadTextOptions, WriteOptions } from '@ohos.file.fs';
 import { YWStrUtils } from './YWStrUtils';
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 /**
  * 文件操作相关工具类
@@ -424,7 +424,7 @@ export class YWFileUtils {
       });
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWFileUtils-writeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWFileUtils-writeEasy-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return -1;
     }
   }

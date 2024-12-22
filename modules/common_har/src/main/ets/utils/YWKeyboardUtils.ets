@@ -1,6 +1,6 @@
 import { inputMethodEngine } from '@kit.IMEKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 /**
  * 输入法键盘工具类
@@ -36,7 +36,7 @@ export class YWKeyboardUtils {
       });
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`KeyboardUtil-onKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`KeyboardUtil-onKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -50,7 +50,7 @@ export class YWKeyboardUtils {
       inputMethodEngine.getInputMethodAbility().off('keyboardHide');
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`KeyboardUtil-removeKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`KeyboardUtil-removeKeyboardListener-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -64,7 +64,7 @@ export class YWKeyboardUtils {
       inputMethodEngine.getKeyboardDelegate().on('textChange', callback);
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`KeyboardUtil-onInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`KeyboardUtil-onInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -77,7 +77,7 @@ export class YWKeyboardUtils {
       inputMethodEngine.getKeyboardDelegate().off('textChange');
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`KeyboardUtil-removeInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`KeyboardUtil-removeInputTextChanged-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 

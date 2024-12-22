@@ -1,6 +1,6 @@
 // Index.ets代码
 import taskpool from '@ohos.taskpool';
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import requestModelAxios from '../../model/RequestModelAxios';
 import { UserInfoModel } from '../accountInfo/model/UserInfoModel';
 import Handle from './TaskPoolHand'; // 返回静态句柄
@@ -69,7 +69,7 @@ struct TaskPoolSyncTaskPage {
   }
 
   multRequest() {
-    KLogger.debug('===== taskpool taskpool')
+    hsLog.d('===== taskpool taskpool')
     let task: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserInfoTwo);
     let task2: taskpool.Task = new taskpool.Task(requestModelAxios.reqCommentsList);
     let task3: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserOrderList);
@@ -80,20 +80,20 @@ struct TaskPoolSyncTaskPage {
     }).catch((error:Error) =>{
       AlertDialog.show({message:JSON.stringify(error)})
     });
-    KLogger.debug('===== taskpool res1')
+    hsLog.d('===== taskpool res1')
 
     taskpool.execute(task2).then((ret) =>{
       console.log(`========= 2:`)
       console.log(`========= 2 ${JSON.stringify(ret)}`)
     });
-    KLogger.debug('===== taskpool res2')
+    hsLog.d('===== taskpool res2')
 
 
     taskpool.execute(task3).then((ret) =>{
       console.log(`========= 3:`)
       console.log(`========= 3 ${JSON.stringify(ret)}`)
     });
-    KLogger.debug('===== taskpool res3')
+    hsLog.d('===== taskpool res3')
 
 
   }

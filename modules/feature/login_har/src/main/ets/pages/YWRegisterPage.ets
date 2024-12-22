@@ -2,8 +2,9 @@
 import { YWNavBar } from '@learn/baseui_har';
 import { YWLoading } from '@learn/loading_har'
 import { YWTipDialog } from '@learn/alert_har'
-import { KLogger, YWNavRouterUtils } from '@learn/common_har';
+import { YWNavRouterUtils } from '@learn/common_har';
 import { API, netReq } from '@learn/request_har';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWRegisterPage';
 
@@ -29,11 +30,11 @@ export struct YWRegisterPage {
               'password': 'abcd1234'
             }, {
               onSuccess: (data: Record<string, string>) => {
-                KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+                hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
                 AppStorage.setOrCreate('isLogin', true);
               },
               onFail: (code: number, message: string) => {
-                KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+                hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
                 YWTipDialog.open({
                   content: message,
                   showNo: false

@@ -4,7 +4,7 @@
 import { loginComponentManager, LoginWithHuaweiIDButton } from '@kit.AccountKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
-import { globalThis, KLogger, YWNavRouterUtils } from '@learn/common_har';
+import { globalThis, YWNavRouterUtils } from '@learn/common_har';
 import { API, netReq } from '@learn/request_har';
 
 import { YWCommonButton, YWNavBar, YWSpringLayout } from '@learn/baseui_har'
@@ -15,7 +15,7 @@ import { YWPrivacyCheckbox } from '../view/YWPrivacyCheckbox'
 import { YWLoginManager } from '../core/YWLoginManager';
 import { YWLoginWay } from '../core/YWLoginWay';
 import { YWWelcome } from '../view/YWWelcome';
-
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWLoginPage';
 
@@ -64,7 +64,7 @@ export struct YWLoginThirdPage {
           this.dealAllError(error);
           return;
         }
-        KLogger.info(TAG, `onClickEvent clickEvent: ${clickEvent}`);
+        hsLog.i(TAG, `onClickEvent clickEvent: ${clickEvent}`);
       });
 
   onCheckboxChange() {
@@ -83,14 +83,14 @@ export struct YWLoginThirdPage {
     } catch (error) {
       let message = (error as BusinessError).message
       let code = (error as BusinessError).code
-      KLogger.error(TAG, `showToast args error code is ${code}, message is ${message}`);
+      hsLog.e(TAG, `showToast args error code is ${code}, message is ${message}`);
     }
   }
 
   handleLoginWithHuaweiIDButton(error: BusinessError | undefined,
     response: loginComponentManager.HuaweiIDCredential) {
     if (error) {
-      KLogger.error(TAG,
+      hsLog.e(TAG,
         `Failed to click LoginWithHuaweiIDButton. Code is ${error.code}, message is ${error.message}`);
       if (error.code === ErrorCode.ERROR_CODE_NETWORK_ERROR) {
         AlertDialog.show(
@@ -124,24 +124,24 @@ export struct YWLoginThirdPage {
     try {
       if (this.isCheckboxSelected) {
         if (response) {
-          KLogger.info(TAG, 'Succeed in clicking LoginWithHuaweiIDButton.');
+          hsLog.i(TAG, 'Succeed in clicking LoginWithHuaweiIDButton.');
           // 开发者根据实际业务情况使用以下信息
           let authCode = response.authorizationCode;
           let openID = response.openID;
           let unionID = response.unionID;
           let idToken = response.idToken;
-          KLogger.info(TAG, `Success：authCode=${authCode},openID=${openID},unionID=${unionID},idToken=${idToken}`)
+          hsLog.i(TAG, `Success：authCode=${authCode},openID=${openID},unionID=${unionID},idToken=${idToken}`)
           YWLoading.open();
           netReq.post<Record<string, string>, Record<string, string>>(API.login,
             { 'authType': 'huawei', 'account': unionID, 'password': authCode }, {
               onSuccess: (data: Record<string, string>) => {
-                KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+                hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
                 YWLoginManager.getInstance().setLogin(true);
                 YWLoginManager.getInstance().saveLoginWay(YWLoginWay.HUAWEI);
                 YWNavRouterUtils.popHome();
               },
               onFail: (code: number, message: string) => {
-                KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+                hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
                 YWTipDialog.open({
                   content: message,
                   showNo: false
@@ -157,7 +157,7 @@ export struct YWLoginThirdPage {
         this.unselectAnimalCount++;
       }
     } catch (err) {
-      KLogger.error(TAG,
+      hsLog.e(TAG,
         `Failed to LoginWithHuaweiIDButton, errCode: ${err.code}, errMessage: ${err.message}`);
       AlertDialog.show(
         {
@@ -253,7 +253,7 @@ export struct YWLoginThirdPage {
 
   // 错误处理
   dealAllError(error: BusinessError): void {
-    KLogger.error(TAG, `Failed to auth, errorCode=${error.code}, errorMsg=${error.message}`);
+    hsLog.e(TAG, `Failed to auth, errorCode=${error.code}, errorMsg=${error.message}`);
   }
 }
 

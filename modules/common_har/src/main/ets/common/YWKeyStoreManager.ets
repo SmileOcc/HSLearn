@@ -1,6 +1,6 @@
 import distributedKVStore  from '@ohos.data.distributedKVStore'
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger'
+import { hsLog } from '@learn/logger_har';
 /**
  * 数据持久化，缓存数据到本地（4M以下）
  * 分布式键值数据库 管理器
@@ -53,12 +53,12 @@ export class YWKeyStoreManager {
         this.kvManager.getKVStore(this.storeId, this.options, (err:BusinessError,store:distributedKVStore.SingleKVStore) => {
           if (err) {
             callback(false);
-            KLogger.error(TAG, `Failed to get KVStore: Code:${err.code},message:${err.message}`);
+            hsLog.e(TAG, `Failed to get KVStore: Code:${err.code},message:${err.message}`);
             return;
           }
 
           this.kvStore = store as distributedKVStore.SingleKVStore;
-          KLogger.info(TAG, 'Succeeded in getting KVStore.');
+          hsLog.i(TAG, 'Succeeded in getting KVStore.');
           callback(true);
         });
       }
@@ -76,7 +76,7 @@ export class YWKeyStoreManager {
       return value as T;
     } catch (e) {
       let error = e as BusinessError;
-      KLogger.error(TAG, `Failed to get data. Code:${error.code},message:${error.message}`);
+      hsLog.e(TAG, `Failed to get data. Code:${error.code},message:${error.message}`);
       return defaultValue;
     }
 
@@ -108,10 +108,10 @@ export class YWKeyStoreManager {
   putData(key: string, value: boolean | string | number | Uint8Array) {
     this.kvStore?.put(key, value, (err) => {
       if (err !== undefined) {
-        KLogger.error(TAG, `Failed to put data. Code:${err.code},message:${err.message}`);
+        hsLog.e(TAG, `Failed to put data. Code:${err.code},message:${err.message}`);
         return;
       }
-      KLogger.info(TAG, 'Succeeded in putting data.');
+      hsLog.i(TAG, 'Succeeded in putting data.');
     });
   }
 
@@ -132,10 +132,10 @@ export class YWKeyStoreManager {
   delete(key: string) {
     this.kvStore?.delete(key, (err) => {
       if (err !== undefined) {
-        KLogger.error(TAG, `Failed to delete data. Code:${err.code},message:${err.message}`);
+        hsLog.e(TAG, `Failed to delete data. Code:${err.code},message:${err.message}`);
         return;
       }
-      KLogger.info(TAG, 'Succeeded in deleting data.');
+      hsLog.i(TAG, 'Succeeded in deleting data.');
     });
   }
 

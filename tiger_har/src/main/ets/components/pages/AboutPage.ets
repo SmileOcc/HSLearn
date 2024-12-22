@@ -1,4 +1,4 @@
-import { KLogger } from "@learn/common_har";
+import { hsLog } from '@learn/logger_har';
 
 @Component
 export struct AboutPage {
@@ -31,43 +31,43 @@ export struct AboutPage {
       return true
     })
     .onShown(()=>{
-      KLogger.info("======= onShown")
+      hsLog.i("======= onShown")
 
     })
     .onHidden(()=>{
-      KLogger.info("======= onHidden")
+      hsLog.i("======= onHidden")
 
     })
     .onWillAppear(()=>{
-      KLogger.info("======= onWillAppear")
+      hsLog.i("======= onWillAppear")
 
     })
     .onDisAppear(()=>{
-      KLogger.info("======= onDisAppear")
+      hsLog.i("======= onDisAppear")
 
     })
     .onAppear(()=>{
-      KLogger.info("======= onAppear")
+      hsLog.i("======= onAppear")
 
     })
   }
 
   aboutToAppear(): void {
-    KLogger.info("======= aboutToAppear")
+    hsLog.i("======= aboutToAppear")
   }
 
   aboutToDisappear(): void {
     // this.appContext.
-    KLogger.info("======= aboutToDisappear")
+    hsLog.i("======= aboutToDisappear")
 
   }
 
   onPageShow(): void {
-    KLogger.info("======= onPageShow")
+    hsLog.i("======= onPageShow")
 
   }
   onPageHide(): void {
-    KLogger.info("======= onPageHide")
+    hsLog.i("======= onPageHide")
 
   }
 

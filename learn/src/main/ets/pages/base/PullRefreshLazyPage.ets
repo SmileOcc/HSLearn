@@ -2,7 +2,7 @@ import { PullToRefresh } from '@ohos/pulltorefresh'
 // import { Logger } from '@yunkss/eftool';
 import { MyDataSource } from '../../../../../../modules/common_har/src/main/ets/common/BasicDataSource';
 import { YWConstants } from '@learn/constants_har';
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { NavigationBar } from '../../common/NavigationBar';
 import { LazyDataSource } from './model/LayzBasicDataSource';
 import { LazyProductModel } from './model/LazyProductModel';
@@ -47,7 +47,7 @@ struct PullRefreshLazyPage {
   //         Row() {
   //           Text(item.title).fontSize(50)
   //             .onAppear(() => {
-  //               KLogger.debug("appear:" + item.title)
+  //               hsLog.d("appear:" + item.title)
   //             })
   //         }
   //         .height(120)
@@ -59,25 +59,25 @@ struct PullRefreshLazyPage {
   //   // TODO: 知识点：必须设置列表为滑动到边缘无效果，否则无法触发pullToRefresh组件的上滑下拉方法。
   //   .edgeEffect(EdgeEffect.None)
   // .onScrollStart(()=>{
-  //   KLogger.debug(`=== start ${this.scroller.currentOffset().yOffset}`)
+  //   hsLog.d(`=== start ${this.scroller.currentOffset().yOffset}`)
   // })
   // .onScroll(()=>{
-  //   KLogger.debug(`=== scroll ${this.scroller.currentOffset().yOffset}`)
+  //   hsLog.d(`=== scroll ${this.scroller.currentOffset().yOffset}`)
   //
   // })
   // .onAppear(()=>{
-  //   KLogger.debug(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
+  //   hsLog.d(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
   //
   // })
   // .onAreaChange((oldValue: Area, newValue: Area)=>{
-  //   KLogger.debug(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
-  //   KLogger.debug(`=== onAreaChange ${JSON.stringify(oldValue)}`)
-  //   KLogger.debug(`=== onAreaChange ${JSON.stringify(newValue)}`)
+  //   hsLog.d(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
+  //   hsLog.d(`=== onAreaChange ${JSON.stringify(oldValue)}`)
+  //   hsLog.d(`=== onAreaChange ${JSON.stringify(newValue)}`)
   //
   //
   // })
   // .onTouch((event)=>{
-  //   KLogger.debug(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
+  //   hsLog.d(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
   //
   // })
   // .width('100%')
@@ -146,7 +146,7 @@ struct PullRefreshLazyPage {
           Row() {
             Text(item.title).fontSize(50)
               .onAppear(() => {
-                KLogger.debug("appear:" + item.title)
+                hsLog.d("appear:" + item.title)
               })
           }
           .height(120)
@@ -159,7 +159,7 @@ struct PullRefreshLazyPage {
     // TODO: 知识点：必须设置列表为滑动到边缘无效果，否则无法触发pullToRefresh组件的上滑下拉方法。
     .edgeEffect(EdgeEffect.None)
     .onScrollStart(() => {
-      KLogger.debug(`=== onScrollStart ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onScrollStart ${this.scroller.currentOffset().yOffset}`)
     })
     .onScroll((scrollOffset: number) => { //往下滑动不会触发， 神奇
 
@@ -172,24 +172,24 @@ struct PullRefreshLazyPage {
         }
 
       }
-      KLogger.debug(`=== scrollOffset:${scrollOffset}  -- ${this.imgMarginTop}`)
+      hsLog.d(`=== scrollOffset:${scrollOffset}  -- ${this.imgMarginTop}`)
 
     })
     .onAppear(() => {
-      KLogger.debug(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
 
     })
     .onAreaChange((oldValue: Area, newValue: Area) => { //上拉、下拉在边界区域变化时
-      KLogger.debug(`=== onAreaChange ${JSON.stringify(oldValue)}`)
-      KLogger.debug(`=== onAreaChange ${JSON.stringify(newValue)}`)
+      hsLog.d(`=== onAreaChange ${JSON.stringify(oldValue)}`)
+      hsLog.d(`=== onAreaChange ${JSON.stringify(newValue)}`)
 
       // TODO 知识点: 通过onAreaChange获取到List的区域高度，与屏幕高度计算差值，得到下拉高度，除以高度基数，表明图片变化的高度是下拉高度的1/2
       this.refreshPullDownHeight = (this.windowHeight - (newValue.height as number)) / this.pullDownHeightRadix;
-      KLogger.debug(`=== onAreaChange ${this.refreshPullDownHeight}`)
+      hsLog.d(`=== onAreaChange ${this.refreshPullDownHeight}`)
 
     })
     .onTouch((event) => {
-      KLogger.debug(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
 
     })
     .width('100%')
@@ -267,7 +267,7 @@ struct PullRefreshLazyPage {
             // TODO 知识点：PullToRefresh组件会铺满整改屏幕，通过onAreaChange获取到的区域高度就是屏幕高度
             // TODO 知识点：并且PullToRefresh组件不会随着上拉或下拉变化，该接口只会回调一次，此处不存在频繁回调造成的性能问题
             this.windowHeight = (newValue.height as number);
-            KLogger.debug(`==== windowHeight ${this.windowHeight}`)
+            hsLog.d(`==== windowHeight ${this.windowHeight}`)
           })
       }
       .width('100%')
@@ -290,7 +290,7 @@ struct PullRefreshLazyPage {
   //           Row() {
   //             Text(item.title).fontSize(50)
   //               .onAppear(() => {
-  //                 //KLogger.debug("appear:" + item.title)
+  //                 //hsLog.d("appear:" + item.title)
   //               })
   //           }
   //           .height(120)
@@ -301,21 +301,21 @@ struct PullRefreshLazyPage {
   //     }
   //   }
   //   .onScrollStart(()=>{
-  //     KLogger.debug(`=== start ${this.scroller.currentOffset().yOffset}`)
+  //     hsLog.d(`=== start ${this.scroller.currentOffset().yOffset}`)
   //   })
   //   .onScroll(()=>{
-  //     KLogger.debug(`=== scroll ${this.scroller.currentOffset().yOffset}`)
+  //     hsLog.d(`=== scroll ${this.scroller.currentOffset().yOffset}`)
   //   })
   //   .onAppear(()=>{
-  //     KLogger.debug(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
+  //     hsLog.d(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
   //   })
   //   .onAreaChange((oldValue: Area, newValue: Area)=>{
-  //     KLogger.debug(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
-  //     KLogger.debug(`=== onAreaChange ${JSON.stringify(oldValue)}`)
-  //     KLogger.debug(`=== onAreaChange ${JSON.stringify(newValue)}`)
+  //     hsLog.d(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
+  //     hsLog.d(`=== onAreaChange ${JSON.stringify(oldValue)}`)
+  //     hsLog.d(`=== onAreaChange ${JSON.stringify(newValue)}`)
   //   })
   //   .onTouch((event)=>{
-  //     KLogger.debug(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
+  //     hsLog.d(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
   //   })
   //   .width('100%')
   //   .height('100%')

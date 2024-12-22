@@ -1,4 +1,4 @@
-import Logger from '../common/KLogger'
+import { hsLog } from '@learn/logger_har';
 import { EnviInfo } from '../../../../../../learn/src/main/ets/model/EnvirInfo'
 import { UserInfoModel } from '../../../../../../learn/src/main/ets/pages/accountInfo/model/UserInfoModel'
 import dataPreferences from '@ohos.data.preferences';
@@ -43,11 +43,11 @@ export class PreferencesUtil {
 
   public static async getData(context: Context) {
     try {
-      Logger.info(PreferencesUtil.LOG, 'getData');
+      hsLog.i(PreferencesUtil.LOG, 'getData');
       let file = await dataPreferences.getPreferences(context, PreferencesUtil.FILENAME_AND_KEY)
-      Logger.info(PreferencesUtil.LOG, 'getData', 'file succ');
+      hsLog.i(PreferencesUtil.LOG, 'getData', 'file succ');
       let value = await file.get(PreferencesUtil.FILENAME_AND_KEY, JSON.stringify(PreferencesUtil.getInstance()))
-      Logger.info(PreferencesUtil.LOG, 'getData', 'get succ', 'value:' + value);
+      hsLog.i(PreferencesUtil.LOG, 'getData', 'get succ', 'value:' + value);
 
       //这个方法受控制了，不生效了
       // Object.assign(PreferencesUtil.getInstance(), JSON.parse(value.toString()))//将本地数据 拷贝到单例中去。
@@ -57,30 +57,30 @@ export class PreferencesUtil {
       PreferencesUtil.getInstance().mUserInfo = localPreferencesUtil.mUserInfo
       PreferencesUtil.getInstance().mEnvirInfo = localPreferencesUtil.mEnvirInfo
 
-      Logger.info(PreferencesUtil.LOG, 'getData', 'assign succ');
+      hsLog.i(PreferencesUtil.LOG, 'getData', 'assign succ');
 
       let bundleFlags = bundleManager.BundleFlag.GET_BUNDLE_INFO_DEFAULT;
       let data = await bundleManager.getBundleInfoForSelf(bundleFlags); //开始保存app的版本名称和版本号
       PreferencesUtil.getInstance().mEnvirInfo.versionName = data.versionName
       PreferencesUtil.getInstance().mEnvirInfo.versionCode = data.versionCode
-      Logger.info(PreferencesUtil.LOG, 'getData', 'set versionName and versionCode succ');
+      hsLog.i(PreferencesUtil.LOG, 'getData', 'set versionName and versionCode succ');
     } catch (e) {
-      Logger.error(PreferencesUtil.LOG, 'getData', JSON.stringify(e));
+      hsLog.e(PreferencesUtil.LOG, 'getData', JSON.stringify(e));
     }
   }
 
 
   public static async saveData(context:Context) {
     try {
-      Logger.info(PreferencesUtil.LOG, 'saveData');
+      hsLog.i(PreferencesUtil.LOG, 'saveData');
       let file = await dataPreferences.getPreferences(context, PreferencesUtil.FILENAME_AND_KEY)
-      Logger.info(PreferencesUtil.LOG, 'saveData', 'file succ');
+      hsLog.i(PreferencesUtil.LOG, 'saveData', 'file succ');
       await file.put(PreferencesUtil.FILENAME_AND_KEY, JSON.stringify(PreferencesUtil.getInstance()))
-      Logger.info(PreferencesUtil.LOG, 'saveData', 'put succ');
+      hsLog.i(PreferencesUtil.LOG, 'saveData', 'put succ');
       await file.flush()
-      Logger.info(PreferencesUtil.LOG, 'saveData', 'flush succ');
+      hsLog.i(PreferencesUtil.LOG, 'saveData', 'flush succ');
     } catch (e) {
-      Logger.error(PreferencesUtil.LOG, 'saveData', JSON.stringify(e));
+      hsLog.e(PreferencesUtil.LOG, 'saveData', JSON.stringify(e));
     }
   }
 
@@ -121,7 +121,7 @@ export class PreferencesUtil {
     PreferencesUtil.getPreferences(preferenceName).then((result)=> {
       callback(result.getSync(key,defValue as preferences.ValueType) as T)
     }).catch((err: Error)=> {
-      Logger.error(TAG, 'Get the preferences failed, err: ' + err);
+      hsLog.e(TAG, 'Get the preferences failed, err: ' + err);
       callback(defValue);
     })
   }

@@ -172,3 +172,18 @@ export class YWArrayUtils {
 
 }
 
+
+/*
+ * @Desc: 通过@Observed修饰的Array，解决界面不刷新问题
+ * 测试没有效果
+ */
+@Observed
+export class ObservedArray<T> extends Array<T> {
+  constructor(args?: T[]) {
+    if (args instanceof Array) {
+      super(...args);
+    } else {
+      super();
+    }
+  }
+}

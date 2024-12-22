@@ -14,11 +14,11 @@ import { process } from '@kit.ArkTS';
 
 import { BreakpointSystem,
   GlobalContext,
-  kyStoreManger, KLogger, PreferencesUtil,
+  kyStoreManger, PreferencesUtil,
   YWAppUtils,
   YWWindowUtils,
   initWindowSetting} from '@learn/common_har'
-// import KLogger from '@learn/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 import { distributedKVStore } from '@kit.ArkData';
 import { display, window } from '@kit.ArkUI';
@@ -51,7 +51,7 @@ abstract  class BaseAbility extends UIAbility {
     // // GlobalContext.getContext().setObject("display", );
 
     let mainTid = process.tid
-    KLogger.debug(`==== 主线程tid: ${mainTid}`)
+    hsLog.d(`==== 主线程tid: ${mainTid}`)
 
     //在Stage里初始化了
     //首选项本地数据
@@ -78,7 +78,7 @@ abstract  class BaseAbility extends UIAbility {
 
     windowStage.getMainWindow((err, data: window.Window) => {
       if (err.code) {
-        KLogger.debug(err.code + '==== err')
+        hsLog.d(err.code + '==== err')
 
         return
       }
@@ -95,7 +95,7 @@ abstract  class BaseAbility extends UIAbility {
       data.setWindowSystemBarProperties(sysBarProps)
       // 获取状态栏高度
       let avoidArea = data.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM);
-      KLogger.info("statusBarHeight===", avoidArea.topRect.height.toString())
+      hsLog.i("statusBarHeight===", avoidArea.topRect.height.toString())
 
       let isFullScreen = data.getWindowProperties().isFullScreen
 
@@ -146,16 +146,16 @@ abstract  class BaseAbility extends UIAbility {
 
     // AppUtil.init(this.context, windowStage);
     //
-    // KLogger.debug(AppUtil.getStatusBarHeight() + '')
+    // hsLog.d(AppUtil.getStatusBarHeight() + '')
     //
-    // KLogger.debug(DisplayUtil.getWidth() + ' util')
-    // KLogger.debug(DisplayUtil.getHeight() + ' util')
+    // hsLog.d(DisplayUtil.getWidth() + ' util')
+    // hsLog.d(DisplayUtil.getHeight() + ' util')
 
     // 获取屏幕宽高
     let screenWidth = display.getDefaultDisplaySync().width;
     let screenHeight = display.getDefaultDisplaySync().height;
-    KLogger.debug(screenWidth + '')
-    KLogger.debug(screenHeight + '')
+    hsLog.d(screenWidth + '')
+    hsLog.d(screenHeight + '')
 
     //全局配置context
     // this.configGlobalContext(windowStage)
@@ -241,7 +241,7 @@ abstract  class BaseAbility extends UIAbility {
         YWWindowUtils.setFullScreen(windowStage)
       }
     } catch (err) {
-      KLogger.debug(`requestFullScreen err = ${err}`)
+      hsLog.d(`requestFullScreen err = ${err}`)
     }
 
     //2
@@ -328,10 +328,10 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
         for (let i = 0; i < length; i++) {
           if (grantStatus[i] === 0) {
             // 用户授权，可以继续访问目标操作
-            KLogger.debug('用户授权，可以继续访问目标操作')
+            hsLog.d('用户授权，可以继续访问目标操作')
           } else {
             // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
-            KLogger.debug('用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限')
+            hsLog.d('用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限')
             return;
           }
         }
@@ -346,49 +346,49 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
           ctx: context
         }, (err, data) => {
           if (err.code) {
-            KLogger.error('Failed to create the floatWindow. Cause: ' + JSON.stringify(err));
+            hsLog.e('Failed to create the floatWindow. Cause: ' + JSON.stringify(err));
             return;
           }
-          KLogger.info('Succeeded in creating the floatWindow. Data: ' + JSON.stringify(data));
+          hsLog.i('Succeeded in creating the floatWindow. Data: ' + JSON.stringify(data));
           windowClass = data;
 
           // 2.悬浮窗窗口创建成功后，设置悬浮窗的位置、大小及相关属性等。
           windowClass.moveWindowTo(0, 200, (err) => {
             if (err.code) {
-              KLogger.error('Failed to move the window. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to move the window. Cause:' + JSON.stringify(err));
               return;
             }
-            KLogger.info('Succeeded in moving the window.');
+            hsLog.i('Succeeded in moving the window.');
           });
           windowClass.resize(1080, 151, (err) => {
             if (err.code) {
-              KLogger.error('Failed to change the window size. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to change the window size. Cause:' + JSON.stringify(err));
               return;
             }
-            KLogger.info('Succeeded in changing the window size.');
+            hsLog.i('Succeeded in changing the window size.');
 
           });
 
           // 3.为悬浮窗加载对应的目标页面。
           windowClass.setUIContent("pages/Index", (err) => {
             if (err.code) {
-              KLogger.error('Failed to load the content. Cause:' + JSON.stringify(err));
+              hsLog.e('Failed to load the content. Cause:' + JSON.stringify(err));
               return;
             }
-            KLogger.info('Succeeded in loading the content.');
+            hsLog.i('Succeeded in loading the content.');
             // 3.显示悬浮窗。
             windowClass.showWindow((err) => {
               if (err.code) {
-                KLogger.error('Failed to show the window. Cause: ' + JSON.stringify(err));
+                hsLog.e('Failed to show the window. Cause: ' + JSON.stringify(err));
                 return;
               }
-              KLogger.info('Succeeded in showing the window.');
+              hsLog.i('Succeeded in showing the window.');
             });
 
             try {
               windowClass.setWindowBackgroundColor('#00000000')
             } catch (exception) {
-              KLogger.error('Failed to set the background color. Cause: ' + JSON.stringify(exception));
+              hsLog.e('Failed to set the background color. Cause: ' + JSON.stringify(exception));
             }
 
             // 4.销毁悬浮窗。当不再需要悬浮窗时，可根据具体实现逻辑，使用destroy对其进行销毁。
@@ -405,7 +405,7 @@ function showAlertView(context: Context, windowStage: window.WindowStage) {
         })
 
       }).catch((err: BusinessError) => {
-        KLogger.error(`requestPermissionsFromUser failed, code is ${err.code}, message is ${err.message}`);
+        hsLog.e(`requestPermissionsFromUser failed, code is ${err.code}, message is ${err.message}`);
       })
 
     }

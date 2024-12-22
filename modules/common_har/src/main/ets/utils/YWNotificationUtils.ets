@@ -5,7 +5,7 @@ import wantAgent from '@ohos.app.ability.wantAgent';
 import image from '@ohos.multimedia.image';
 import { WantAgent } from '@ohos.wantAgent';
 import { YWDateUtils } from './YWDateUtils';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -141,12 +141,12 @@ export class YWNotificationUtils {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+          hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
       let err = error as BusinessError;
-      KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -266,12 +266,12 @@ export class YWNotificationUtils {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+          hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
       let err = error as BusinessError;
-      KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -391,12 +391,12 @@ export class YWNotificationUtils {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+          hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
       let err = error as BusinessError;
-      KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -517,12 +517,12 @@ export class YWNotificationUtils {
           options.callBack(options.id); //执行回调
         }
         if (err) {
-          KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+          hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
         }
       });
     } catch (error) {
       let err = error as BusinessError;
-      KLogger.error(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      hsLog.e(`发送通知异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 
@@ -569,7 +569,7 @@ export class YWNotificationUtils {
       notificationManager.setBadgeNumber(count); //设置角标
     } catch (error) {
       const err = error as BusinessError;
-      KLogger.error(`YWNotificationUtils-setBadgeFromNotificationCount-异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
+      hsLog.e(`YWNotificationUtils-setBadgeFromNotificationCount-异常：${YWNotificationUtils.getErrorMsg(err.code, err.code + " - " + err.message)}`);
     }
   }
 

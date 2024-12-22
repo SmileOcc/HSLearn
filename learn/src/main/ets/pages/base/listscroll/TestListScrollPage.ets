@@ -10,8 +10,9 @@ struct TestListScrollPage {
   alphabets = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',  'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
   //只能观察到一维数组变化，二维的改变不支持，
+  // @State contactsGroups: GroupItem[] = [
   @State contactsGroups: GroupItem[] = [
-    {
+  {
       title: 'A',
       key:YWRandomUtils.generateUUID32(),
       contacts: [

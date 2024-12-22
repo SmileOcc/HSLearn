@@ -1,10 +1,11 @@
 /*
  * @Desc: 阅读隐私协议
  */
-import { KLogger, YWAppUtils } from '@learn/common_har';
+import { YWAppUtils } from '@learn/common_har';
 import { loginComponentManager } from '@kit.AccountKit';
 import { curves } from '@kit.ArkUI';
 import { YWResColor } from '@learn/res_har';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWPrivacyCheckbox';
 
@@ -39,7 +40,7 @@ export struct YWPrivacyCheckbox {
             } else {
               this.isCheckboxSelected = false;
             }
-            KLogger.info(TAG, `agreementChecked: ${value}`);
+            hsLog.i(TAG, `agreementChecked: ${value}`);
           })
       }
 
@@ -59,7 +60,7 @@ export struct YWPrivacyCheckbox {
                 .focusable(true)
                 .focusOnTouch(true)
                 .onClick(() => {
-                  KLogger.info(TAG, `click privacy text tag: ${item.tag}`);
+                  hsLog.i(TAG, `click privacy text tag: ${item.tag}`);
                   if (this.onCustomItemClick !== undefined) {
                     this.onCustomItemClick(item);
                   } else if (item.tag) { // 应用需要根据item.tag实现协议页面的跳转逻辑。

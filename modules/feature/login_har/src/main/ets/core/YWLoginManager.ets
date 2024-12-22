@@ -3,11 +3,12 @@
  */
 import { YWLoginService } from './YWLoginService';
 import { AxiosError, AxiosResponse } from '@ohos/axios';
-import { KLogger, PreferencesUtil, YWNavRouterUtils } from '@learn/common_har';
+import { PreferencesUtil, YWNavRouterUtils } from '@learn/common_har';
 import { API, netReq } from '@learn/request_har';
 import { YWTipDialog } from '@learn/alert_har';
 import { YWLoading } from '@learn/loading_har'
 import { YWLoginWay } from './YWLoginWay';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'YWLoginManager';
 
@@ -29,7 +30,7 @@ export class YWLoginManager implements YWLoginService {
         return response;
       }
       if (response.config.url && API.login.includes(response.config.url) && code === 1) { //处理登录cookie
-        KLogger.info(TAG, '登录cookie onResponseIntercept: ' + JSON.stringify(response));
+        hsLog.i(TAG, '登录cookie onResponseIntercept: ' + JSON.stringify(response));
         let cookies = response.headers['set-cookie'];
         if (cookies === undefined || cookies.length === 0) {
           return response;
@@ -40,14 +41,14 @@ export class YWLoginManager implements YWLoginService {
         }
         netReq.axios().defaults.headers.common['Cookie'] = cookie;
         PreferencesUtil.put('Cookie', cookie); //TODO - 未处理多个cookie
-        KLogger.info(TAG, '成功设置登录cookie: ' + cookie);
+        hsLog.i(TAG, '成功设置登录cookie: ' + cookie);
       }
 
       return response;
     });
     netReq.onErrorIntercept((error: AxiosError) => {
       if (error.code && error.code.includes('401')) { //session过期
-        KLogger.info(TAG, '登录失效 onErrorIntercept: ' + JSON.stringify(error.message));
+        hsLog.i(TAG, '登录失效 onErrorIntercept: ' + JSON.stringify(error.message));
         this.setLogin(false);
       }
       return error;
@@ -75,7 +76,7 @@ export class YWLoginManager implements YWLoginService {
     //当登录成功后，记录 YWLoginWay ，用户调用登录时自动切换
     PreferencesUtil.getCall<string>('YWLoginWay', YWLoginWay.HUAWEI, (lastLongWay: string) => {
       YWNavRouterUtils.push(lastLongWay,undefined,(info)=>{
-        KLogger.info(`info ==== ${info}`)
+        hsLog.i(`info ==== ${info}`)
       });
     });
   }
@@ -84,11 +85,11 @@ export class YWLoginManager implements YWLoginService {
     YWLoading.open();
     netReq.postNotBody<void>(API.logout, {
       onSuccess: () => {
-        KLogger.info(TAG, '登出成功...');
+        hsLog.i(TAG, '登出成功...');
         this.setLogin(false);
       },
       onFail: (code: number, message: string) => {
-        KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+        hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
         YWTipDialog.open({
           content: message,
           showNo: false

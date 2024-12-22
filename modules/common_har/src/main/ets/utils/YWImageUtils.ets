@@ -4,7 +4,7 @@ import { YWAppUtils } from './YWAppUtils';
 import { YWFileUtils } from './YWFileUtils';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { YWStrUtils } from './YWStrUtils';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -52,7 +52,7 @@ export class YWImageUtils {
       return base64Str;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`ImageUtil-pixelMapToBase64Str-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`ImageUtil-pixelMapToBase64Str-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }
@@ -79,7 +79,7 @@ export class YWImageUtils {
       return filePath;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`ImageUtil-savePixelMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`ImageUtil-savePixelMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }
@@ -106,7 +106,7 @@ export class YWImageUtils {
       return filePath;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`ImageUtil-saveImageSource-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`ImageUtil-saveImageSource-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return '';
     }
   }

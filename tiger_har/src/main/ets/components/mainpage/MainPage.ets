@@ -1,33 +1,34 @@
-import { BreakpointSystem, BreakPointType, KLogger } from "@learn/common_har";
+import { BreakpointSystem, BreakPointType } from "@learn/common_har";
 import { CategoryPage } from "../pages/CategoryPage";
 import { HomePage } from "../pages/HomePage";
 import { MinePage } from "../pages/MinePage";
+import { hsLog } from '@learn/logger_har';
 
 @Component
 export struct MainPage {
   @State selectIndex: number = 0;
 
   aboutToAppear(): void {
-    KLogger.info("======= aboutToAppear")
+    hsLog.i("======= aboutToAppear")
   }
 
   aboutToDisappear(): void {
     // this.appContext.
-    KLogger.info("======= aboutToDisappear")
+    hsLog.i("======= aboutToDisappear")
 
   }
 
   onPageShow(): void {
-    KLogger.info("======= onPageShow")
+    hsLog.i("======= onPageShow")
 
   }
   onPageHide(): void {
-    KLogger.info("======= onPageHide")
+    hsLog.i("======= onPageHide")
 
   }
 
   onBackPress(): boolean | void {
-    KLogger.info("======= onPageHide")
+    hsLog.i("======= onPageHide")
 
   }
 

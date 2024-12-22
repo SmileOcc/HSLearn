@@ -6,9 +6,10 @@ import SwiperComponent from '../view/SwiperComponent';
 import { GridComponent } from '../view/GridComponent';
 import { GoodsTabComponent } from '../view/GoodsTabComponent';
 import { GoodsDetailComponent } from '../view/GoodsDetailComponent';
-import { ThemeManager, KLogger, YWAvoidAreas, getDefaultAvoidAreas,
+import { ThemeManager, YWAvoidAreas, getDefaultAvoidAreas,
   getAvoidPadding } from '@learn/common_har';
 import { YWConstants } from '@learn/constants_har';
+import { hsLog } from '@learn/logger_har'
 
 const SCROLL_OFFSET_FULL: number = 120;
 const BACKGROUND_HEIGHT: Length = 222;
@@ -49,7 +50,7 @@ export struct HomePage {
     // })
 
     const aaa = this.statusBarHeight
-    KLogger.debug("获取版本号1：" )
+    hsLog.d("获取版本号1：" )
 
     //异步方式获取
     bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION)
@@ -58,7 +59,7 @@ export struct HomePage {
         let versionNo: string = bundleInfo.versionCode.toString(); //应用版本号
         this.message = "v" + versionName + "." + versionNo
       }).catch((error:Error) => {
-      KLogger.error(TAG,"获取版本号异常：" + error)
+      hsLog.e(TAG,"获取版本号异常：" + error)
     })
 
     getContext(this).eventHub.on(YWConstants.EVENT_QUICK_TOP_FUNC, (): void => {
@@ -80,14 +81,14 @@ export struct HomePage {
     //     win.setWindowLayoutFullScreen(false)
     //   })
 
-    KLogger.debug("onPageHide：" )
+    hsLog.d("onPageHide：" )
 
     ThemeManager.settingStatusBarWhite()
   }
 
   onPageShow() {
     //如果是在tab组件里，不会触发，
-    KLogger.debug("onPageShow： 不会触发，在index 里" )
+    hsLog.d("onPageShow： 不会触发，在index 里" )
 
     ThemeManager.settingStatusBarBlack()
 
@@ -103,7 +104,7 @@ export struct HomePage {
 
     // 获取应⽤⽂件路径
     let filePath = tempDir + 'test.txt';
-    KLogger.debug(`filePath: ${filePath}`);
+    hsLog.d(`filePath: ${filePath}`);
     if (filePath !== null) {
       promptAction.showToast({
         message: filePath
@@ -168,14 +169,14 @@ export struct HomePage {
     // .setNavStyle()
     // .navDestination(this.PagesMap)
     // .onAppear(()=>{
-    //   KLogger.info(TAG,'--onAppear')
+    //   hsLog.i(TAG,'--onAppear')
     // })
     // .onDisAppear(()=>{
-    //   KLogger.info(TAG,'--onDisAppear')
+    //   hsLog.i(TAG,'--onDisAppear')
     //
     // })
     // .onAreaChange((oldValue,newValue)=>{
-    //   KLogger.info(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+    //   hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
     //
     // })
 
@@ -193,7 +194,7 @@ export struct HomePage {
   //         //   .layoutWeight(8)
   //         //   .enabled(false)
   //         //   .onClick(()=>{
-  //         //     Logger.debug('==== 搜索')
+  //         //     hsLog.d('==== 搜索')
   //         //   })
   //
   //         Text('请输入搜索内容')
@@ -204,7 +205,7 @@ export struct HomePage {
   //           .layoutWeight(8)
   //           .padding({left:8})
   //           .onClick(()=>{
-  //             Logger.debug('==== 搜索')
+  //             hsLog.d('==== 搜索')
   //             RouterUtils.jumpRouter('pages/search/SearchPage')
   //
   //           })
@@ -218,7 +219,7 @@ export struct HomePage {
   //
   //             let tttLogger = new HWTTLogger()
   //
-  //             tttLogger.debug('==== 搜索1')
+  //             ttthsLog.d('==== 搜索1')
   //
   //             RouterUtils.jumpRouter('pages/search/SearchResultPage')
   //           })

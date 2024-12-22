@@ -8,7 +8,7 @@ import { PullToRefresh } from '@ohos/pulltorefresh'
 // import { config } from '../common/config';
 // import { ReplacePath } from '../common/utils';
 import promptAction from '@ohos.promptAction';
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 class ProductModel {
@@ -584,25 +584,25 @@ struct ProductListPage {
       .padding({ bottom: "20lpx" })
     }
     .onScrollStart(()=>{
-      KLogger.debug(`=== start ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== start ${this.scroller.currentOffset().yOffset}`)
     })
     .onScroll(()=>{
-      KLogger.debug(`=== scroll ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== scroll ${this.scroller.currentOffset().yOffset}`)
 
     })
     .onAppear(()=>{
-      KLogger.debug(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onAppear ${this.scroller.currentOffset().yOffset}`)
 
     })
     .onAreaChange((oldValue: Area, newValue: Area)=>{
-      KLogger.debug(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
-      KLogger.debug(`=== onAreaChange ${JSON.stringify(oldValue)}`)
-      KLogger.debug(`=== onAreaChange ${JSON.stringify(newValue)}`)
+      hsLog.d(`=== onAreaChange ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onAreaChange ${JSON.stringify(oldValue)}`)
+      hsLog.d(`=== onAreaChange ${JSON.stringify(newValue)}`)
 
 
     })
     .onTouch((event)=>{
-      KLogger.debug(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
+      hsLog.d(`=== onTouch ${this.scroller.currentOffset().yOffset}`)
 
     })
   }

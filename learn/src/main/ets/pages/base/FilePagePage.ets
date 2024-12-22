@@ -1,6 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import fs from '@ohos.file.fs'; // 导入文件管理模块
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 @Entry
@@ -14,7 +14,7 @@ struct FilePagePage {
     let tempPath = 'file:/data/storage/el2/base/haps/entry/files/zhimg/zhimg.jpg'
     let tempPath2 = this.context.filesDir + "/zhimg/zhimg.jpg";
 
-    KLogger.debug(tempPath2)
+    hsLog.d(tempPath2)
     let isRes = fs.accessSync(tempPath2)
     if (isRes) {
       AlertDialog.show({message:'存在图片路径'})
@@ -30,12 +30,12 @@ struct FilePagePage {
 
     if (isRes) {
       this.message = 'file exists'
-      KLogger.debug('file exists')
+      hsLog.d('file exists')
       //删除
       //fs.rmdirSync(dirPath);
     } else {
       fs.mkdirSync(dirPath);//创建目录
-      KLogger.debug('file not exists')
+      hsLog.d('file not exists')
       this.message = 'file not exists 创建目录'
 
     }

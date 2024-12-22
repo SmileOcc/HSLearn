@@ -1,6 +1,6 @@
-import { Logger } from '@yunkss/eftool';
 import { IRouterInfo } from './IRouterInfo';
 import { NavRouterPage } from './NavRouterPage';
+import { hsLog } from '@learn/logger_har'
 
 const TAG = 'YWRouterNav';
 
@@ -31,7 +31,7 @@ export class YWRouterNav {
   public static hasNavDest(name: string): boolean {
     const info = NavRouterPage.getInfo(name);
     if (info === undefined) {
-      Logger.error(TAG, `${name} --> 没有注册路由！`)
+      hsLog.e(TAG, `${name} --> 没有注册路由！`)
       return false;
     }
     if (info.hasNavDest === undefined) {
@@ -63,7 +63,7 @@ export class YWRouterNav {
         isImportSucceed = true;
       }, (error: ESObject) => {
         // 动态加载模块失败时，打印错误日志
-        Logger.debug(TAG, error)
+        hsLog.d(TAG, error)
       });
     }
     if (isImportSucceed) {

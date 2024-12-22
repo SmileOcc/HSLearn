@@ -50,11 +50,11 @@ export struct NavigationBar {
             //     secondaryButton: {
             //       value: $r('app.string.cancel'),
             //       action: () => {
-            //         Logger.info(TAG, `AlertDialog enter`)
+            //         hsLog.i(TAG, `AlertDialog enter`)
             //       }
             //     },
             //     cancel: () => {
-            //       Logger.info(TAG, `AlertDialog close`)
+            //       hsLog.i(TAG, `AlertDialog close`)
             //     }
             //   })
           })

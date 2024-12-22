@@ -1,4 +1,3 @@
-import KLogger from './src/main/ets/common/KLogger'
 import QDImageCompressionUtils from './src/main/ets/utils/QDImageCompressionUtils'
 import RouterUtils from './src/main/ets/utils/RouterUtils'
 import ToastUtils from './src/main/ets/utils/ToastUtils'
@@ -16,7 +15,7 @@ export { YWDeviceUtils } from './src/main/ets/utils/YWDeviceUtils'
 export { YWRandomUtils } from './src/main/ets/utils/YWRandomUtils'
 export { YWStrUtils } from './src/main/ets/utils/YWStrUtils'
 
-export { YWArrayUtils } from './src/main/ets/utils/YWArrayUtils'
+export { YWArrayUtils, ObservedArray } from './src/main/ets/utils/YWArrayUtils'
 export { YWCacheUtils } from './src/main/ets/utils/YWCacheUtils'
 export { YWClickUtils } from './src/main/ets/utils/YWClickUtils'
 export { YWDateUtils } from './src/main/ets/utils/YWDateUtils'
@@ -81,7 +80,6 @@ export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil'
 
 // export QDImageCompressionUtils from './src/main/ets/utils/QDImageCompressionUtils'
 
-export {KLogger}
 export {QDImageCompressionUtils}
 export {RouterUtils}
 export { ThemeManager } from './src/main/ets/utils/ThemeManager'

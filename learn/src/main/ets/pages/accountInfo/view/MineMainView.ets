@@ -4,11 +4,12 @@ import { MineNavBarView } from './MineNavBarView'
 import { router } from '@kit.ArkUI'
 import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../model/UserInfoModel'
-import { kyStoreManger, KLogger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
+import { kyStoreManger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
 import { loginService } from '@learn/login_har'
 import { API, netReq } from '@learn/request_har';
 import { YWResImage } from '@learn/res_har'
 import { YWNavBar } from '@learn/baseui_har';
+import { hsLog } from '@learn/logger_har';
 
 const TAG = 'MineMainView'
 @Component
@@ -32,7 +33,7 @@ export struct MineMainView {
     if (this.isLogin) {
       netReq.post<Record<string, string>, Record<string, string[]>>(API.userInfos, { 'infos': ['nickname', 'avatar'] }, {
         onSuccess: (data: Record<string, string>) => {
-          KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+          hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
           if (data['avatar'] === undefined || data['avatar'] === '') {
             this.head = $r('app.media.app_icon');
           } else {
@@ -45,7 +46,7 @@ export struct MineMainView {
           }
         },
         onFail: (code: number, message: string) => {
-          KLogger.info(TAG, '数据回调：' + code + ' | ' + message);
+          hsLog.i(TAG, '数据回调：' + code + ' | ' + message);
         }
       });
     } else {

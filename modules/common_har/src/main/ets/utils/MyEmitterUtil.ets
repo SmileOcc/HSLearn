@@ -1,7 +1,6 @@
 import { pasteboard } from '@kit.BasicServicesKit';
 import Emitter from '@ohos.events.emitter';
-import Logger from '../common/KLogger';
-
+import { hsLog } from '@learn/logger_har';
 
 export enum MYEmitterType{
   one,
@@ -16,7 +15,7 @@ export class MyEmitterUtil {
 
   constructor(type:MYEmitterType) {
     this.eventId = type
-    Logger.debug(`事件ID: ${this.eventId}`);
+    hsLog.d(`事件ID: ${this.eventId}`);
   }
 
   // 定义业务状态标识常量

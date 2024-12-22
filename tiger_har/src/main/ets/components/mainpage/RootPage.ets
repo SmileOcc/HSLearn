@@ -1,4 +1,4 @@
-import { KLogger, OsRouterUrls } from '@learn/common_har/Index';
+import { OsRouterUrls } from '@learn/common_har/Index';
 import { IUState } from '@learn/common_har/src/main/ets/model/YWBaseModel';
 import { ITigerAppContext } from '../../core/ITigerAppContext';
 import { ILaunchListener, ILaunchServer } from '../../core/launchexecute/ILaunchServer';
@@ -11,6 +11,7 @@ import { promptAction } from '@kit.ArkUI';
 import { MainPage } from "../mainpage/MainPage";
 import { CategoryPage } from '../pages/CategoryPage';
 import { AboutPage } from '../pages/AboutPage';
+import { hsLog } from '@learn/logger_har';
 
 @Entry({routeName:OsRouterUrls.TIGER_APP})
 @Component
@@ -86,13 +87,13 @@ export struct RootPage {
       .hideNavBar(!this.iuState.isShowTab) // 是否隐藏导航栏, 隐藏Navigation的导航栏，包括标题栏、内容区和工具栏。
       .backgroundColor(Color.Pink)
       .onAppear(()=>{
-        KLogger.info("======= aboutToAppear")
+        hsLog.i("======= aboutToAppear")
         // this.iuState.isShowTab = true
 
       })
       // .animation()
       .onDisAppear(()=>{
-        KLogger.info("======= aboutToAppear")
+        hsLog.i("======= aboutToAppear")
         // this.iuState.isShowTab = false
       })
 

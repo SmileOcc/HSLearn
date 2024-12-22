@@ -3,7 +3,8 @@ import { photoAccessHelper } from '@kit.MediaLibraryKit';
 // 第二步：将文件保存到鸿蒙系统的缓存目录
 import fs from '@ohos.file.fs';
 import { request } from '@kit.BasicServicesKit';
-import { KLogger, YWShowToast } from '@learn/common_har';
+import { YWShowToast } from '@learn/common_har';
+import { hsLog } from '@learn/logger_har';
 
 
 @Entry
@@ -89,7 +90,7 @@ struct UpdateImagePage {
 
     //监听上传进度
     uploader.on('progress',(uploadedSize,totalSize) => {
-      KLogger.info('上传大小：' + uploadedSize, '总大小：' + totalSize)
+      hsLog.i('上传大小：' + uploadedSize, '总大小：' + totalSize)
 
       if (uploadedSize === totalSize) {
         YWShowToast("上传完成")

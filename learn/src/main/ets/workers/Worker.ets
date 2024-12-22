@@ -1,7 +1,7 @@
 import { ErrorEvent, MessageEvents, ThreadWorkerGlobalScope, worker } from '@kit.ArkTS';
 import { common } from '@kit.AbilityKit';
 import { BusinessError, request, zlib } from '@kit.BasicServicesKit';
-import KLogger from '../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
 
@@ -37,7 +37,7 @@ workerPort.onmessage = (e: MessageEvents) => {
     filePath: inFilePath
   }).then((downloadTask) => {
     downloadTask.on('progress', (receivedSize: number, totalSize: number) => {
-      KLogger.debug(`==== receivedSize:${receivedSize},totalSize:${totalSize}`);
+      hsLog.d(`==== receivedSize:${receivedSize},totalSize:${totalSize}`);
     });
     downloadTask.on('complete', () => {
       if  (inFilePath.endsWith('.zip')) {
@@ -47,8 +47,8 @@ workerPort.onmessage = (e: MessageEvents) => {
           if (errData !== null) {
 
             // 异常处理
-            KLogger.debug(`====decompressFile error`);
-            KLogger.debug(`====decompressFile error:${JSON.stringify(errData)}`);
+            hsLog.d(`====decompressFile error`);
+            hsLog.d(`====decompressFile error:${JSON.stringify(errData)}`);
           }
 
           let videoPath: string = `${filesDir}/${fileName}/${fileName}.mp4`;
@@ -65,15 +65,15 @@ workerPort.onmessage = (e: MessageEvents) => {
     });
     downloadTask.on('fail', () => {
 
-      KLogger.debug(`====downloadTask fail`);
+      hsLog.d(`====downloadTask fail`);
       workerPort.postMessage({ 'isComplete': false, 'filePath': '' });
 
       // 异常处理
     });
   }).catch((err:BusinessError) => {
 
-    KLogger.debug(`====catch`);
-    KLogger.debug(`====catch ${JSON.stringify(err)}`);
+    hsLog.d(`====catch`);
+    hsLog.d(`====catch ${JSON.stringify(err)}`);
     workerPort.postMessage({ 'isComplete': false, 'filePath': 'err' });
 
     // 异常处理

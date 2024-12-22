@@ -16,8 +16,8 @@ class RequestModelRCP {
     return {
       transfer: {
         timeout: {
-          connectMs: YWYWConstants.HTTP_TIMEOUT,
-          transferMs: YWYWConstants.HTTP_TIMEOUT,
+          connectMs: YWConstants.HTTP_TIMEOUT,
+          transferMs: YWConstants.HTTP_TIMEOUT,
         },
       },
       security: this.securityConfiguration()
@@ -26,7 +26,7 @@ class RequestModelRCP {
 
   private securityConfiguration(): rcp.SecurityConfiguration {
     // if (QDCtxConfig.isProdEnv()) {
-    if (YWYWConstants.isProdEnv()) {
+    if (YWConstants.isProdEnv()) {
 
       return {}
     } else {
@@ -61,7 +61,7 @@ class RequestModelRCP {
   //     let resp: rcp.Response = await QDHttpRequest.session.fetch(req)
   //     return resp
   //   } catch (err) {
-  //     Logger.error(`req err = ${JSON.stringify(err)}`)
+  //     hsLog.e(`req err = ${JSON.stringify(err)}`)
   //     return new Object()
   //   }
   // }

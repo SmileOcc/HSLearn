@@ -1,7 +1,7 @@
 import worker, { MessageEvents } from '@ohos.worker';
 import { common } from '@kit.AbilityKit';
 import fileuri from '@ohos.file.fileuri';
-import KLogger from '../../../../../../modules/common_har/src/main/ets/common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { FileConstants } from '../../../../../../modules/common_har/src/main/ets/common/FileConstants';
 
 
@@ -23,11 +23,11 @@ struct WorkerTestPage {
     //file://com.example.hmos_learn/data/storage/el2/base/haps/entry/files/zhimg/zhimg.jpg
     //Image组件不能直接传入应用沙箱路径，需要传入应用沙箱uri
     this.localImage =  fileuri.getUriFromPath('/data/storage/el2/base/haps/entry/files/1718945609812.jpg')
-    KLogger.debug(this.localImage)
+    hsLog.d(this.localImage)
 
     let isFile = FileConstants.isExitFile(this.localImage)
 
-    KLogger.debug(`===是否存在：${isFile} === ${this.localImage}`)
+    hsLog.d(`===是否存在：${isFile} === ${this.localImage}`)
 
     this.downImageFile()
 
@@ -60,16 +60,16 @@ struct WorkerTestPage {
         let isFile = FileConstants.isExitFile(filePath)
 
         this.localImage = fileuri.getUriFromPath(filePath)
-        KLogger.debug(this.localImage)
+        hsLog.d(this.localImage)
 
-        KLogger.debug(`===${isFile} === ${filePath} \n ${this.localImage}`)
+        hsLog.d(`===${isFile} === ${filePath} \n ${this.localImage}`)
 
         //每次移除，就要重新创建，在销毁地方释放吧
         //this.workerInstance.terminate();
 
         let isFile2 = FileConstants.isExitFile(this.localImage)
 
-        KLogger.debug(`===${isFile} === ${isFile2}`)
+        hsLog.d(`===${isFile} === ${isFile2}`)
 
 
       }

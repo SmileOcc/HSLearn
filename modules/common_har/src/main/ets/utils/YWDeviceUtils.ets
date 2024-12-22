@@ -3,7 +3,7 @@ import { resourceManager } from '@kit.LocalizationKit';
 import { YWStrUtils } from './YWStrUtils';
 import { PreferencesUtil } from './PreferencesUtil';
 import { YWRandomUtils } from './YWRandomUtils';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { YWAssetStore } from './YWAssetStore';
 import { display } from '@kit.ArkUI';
 import { BusinessError, Callback } from '@kit.BasicServicesKit';
@@ -152,7 +152,7 @@ export class YWDeviceUtils {
       display.off('foldStatusChange', callback)
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`DisplayUtil-offFoldStatusChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`DisplayUtil-offFoldStatusChange-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
   }
 
@@ -173,7 +173,7 @@ export class YWDeviceUtils {
         deviceId = YWStrUtils.toStr(await YWAssetStore.get(YWDeviceUtils.deviceIdKey));
       } else {
         deviceId = YWStrUtils.toStr(await PreferencesUtil.get(YWDeviceUtils.deviceIdKey, "") as string)
-        KLogger.error(`当前设备不支持,关键资产存储服务`);
+        hsLog.e(`当前设备不支持,关键资产存储服务`);
       }
     }
     if (YWStrUtils.isEmpty(deviceId)) {
@@ -190,7 +190,7 @@ export class YWDeviceUtils {
         YWAssetStore.set(YWDeviceUtils.deviceIdKey, deviceId);
       } else {
         PreferencesUtil.put(YWDeviceUtils.deviceIdKey, deviceId)
-        KLogger.error(`当前设备不支持,关键资产存储服务`);
+        hsLog.e(`当前设备不支持,关键资产存储服务`);
       }
     }
     YWDeviceUtils.deviceId = deviceId;

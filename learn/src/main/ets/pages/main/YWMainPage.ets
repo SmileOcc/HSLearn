@@ -1,4 +1,4 @@
-import { KLogger, YWAvoidAreas, getDefaultAvoidAreas, getAvoidPadding } from "@learn/common_har";
+import { YWAvoidAreas, getDefaultAvoidAreas, getAvoidPadding } from "@learn/common_har";
 import { CategoryPage } from "../category/ctrl/CategoryPage";
 import { HomePage } from "../home/ctrl/HomePage";
 import MinePage from "../MinePage";
@@ -11,6 +11,7 @@ import { API, NetMagicResp, netReq } from "@learn/request_har";
 import { IAdvModel } from "../../data/IAdvModel";
 import { YWAdvBanner } from "../home/view/YWAdvBanner";
 import { YWConstants } from "@learn/constants_har";
+import { hsLog } from "@learn/logger_har";
 
 const TAG = 'YWMainPage'
 // @Entry
@@ -37,7 +38,7 @@ export struct YWMainPage {
         selectIndex: this.selectIndex,
         page: this.buildCommonPage,
         onListener: (index) => {
-          KLogger.info(TAG, 'click TabBar: ' + index);
+          hsLog.i(TAG, 'click TabBar: ' + index);
         }
       })
         // .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
@@ -99,7 +100,7 @@ export struct YWMainPage {
   private loadServiceData() {
     netReq.postNotBody<IAdvModel>(API.bulletin, {
       onSuccess: (data: IAdvModel, magic?: NetMagicResp<IAdvModel>) => {
-        KLogger.info(TAG, '数据回调：' + JSON.stringify(data));
+        hsLog.i(TAG, '数据回调：' + JSON.stringify(data));
         if (magic) {
           data.server_time = '' + magic.timestamp;
         }

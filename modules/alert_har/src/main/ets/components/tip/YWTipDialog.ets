@@ -9,8 +9,9 @@ import { CenterWebParm } from './config/CenterWebParm';
 import { BottomBtnParm } from './config/BottomBtnParm';
 import { CoreDialog } from './dialog/CoreDialog';
 // import { global, log, RouterUtil } from '@common/utils';
-import { globalThis, KLogger, YWNavRouterUtils } from '@learn/common_har'
+import { globalThis, YWNavRouterUtils } from '@learn/common_har'
 import { curves } from '@kit.ArkUI';
+import { hsLog } from '@learn/logger_har';
 
 @Component
 export struct YWTipDialog {
@@ -127,7 +128,7 @@ export struct YWTipDialog {
   }
 
   private createParm(parm: TipParm): void {
-    KLogger.info('ssss', JSON.stringify(this.TipStyle));
+    hsLog.i('ssss', JSON.stringify(this.TipStyle));
     //点击是否可以取消，默认true
     const outC = this.TipStyle.outsideCancel;
     this.outsideCancel = parm.outsideCancel !== undefined ? parm.outsideCancel : (outC !== undefined ? outC : true);

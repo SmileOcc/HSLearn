@@ -1,6 +1,6 @@
 import { asset } from '@kit.AssetStoreKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { YWStrUtils } from './YWStrUtils';
 
 /**
@@ -12,7 +12,7 @@ export class YWAssetStore {
   static async set(key: string, value: string, e10: boolean = true): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
-        KLogger.error(`YWAssetStore-当前设备不支持该模块`);
+        hsLog.e(`YWAssetStore-当前设备不支持该模块`);
         return false;
       }
       let attr: asset.AssetMap = new Map();
@@ -35,7 +35,7 @@ export class YWAssetStore {
       return result;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-set-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-set-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
     return false;
   }
@@ -44,7 +44,7 @@ export class YWAssetStore {
   static async has(key: string): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
-        KLogger.error(`YWAssetStore-当前设备不支持该模块`);
+        hsLog.e(`YWAssetStore-当前设备不支持该模块`);
         return false;
       }
       let query: asset.AssetMap = new Map();
@@ -60,7 +60,7 @@ export class YWAssetStore {
       return true;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-has-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-has-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
@@ -69,7 +69,7 @@ export class YWAssetStore {
   static async get(key: string): Promise<string | null> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
-        KLogger.error(`YWAssetStore-当前设备不支持该模块`);
+        hsLog.e(`YWAssetStore-当前设备不支持该模块`);
         return null;
       }
       let query: asset.AssetMap = new Map();
@@ -90,7 +90,7 @@ export class YWAssetStore {
       }
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-get-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-get-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     }
     return null;
   }
@@ -102,7 +102,7 @@ export class YWAssetStore {
       return true;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-setAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-setAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
@@ -111,7 +111,7 @@ export class YWAssetStore {
   static async remove(key: string): Promise<boolean> {
     try {
       if (!canIUse("SystemCapability.Security.Asset")) {
-        KLogger.error(`YWAssetStore-当前设备不支持该模块`);
+        hsLog.e(`YWAssetStore-当前设备不支持该模块`);
         return false;
       }
       let query: asset.AssetMap = new Map();
@@ -123,7 +123,7 @@ export class YWAssetStore {
       return result;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-remove-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-remove-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
@@ -135,7 +135,7 @@ export class YWAssetStore {
       return true;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-removeAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-removeAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }
@@ -147,7 +147,7 @@ export class YWAssetStore {
       return z9;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-getAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-getAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }
@@ -159,7 +159,7 @@ export class YWAssetStore {
       return true;
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`YWAssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`YWAssetStore-updateAssetMap-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return false;
     }
   }

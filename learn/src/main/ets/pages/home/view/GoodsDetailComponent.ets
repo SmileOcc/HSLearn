@@ -40,5 +40,6 @@ export struct GoodsDetailComponent {
       }.justifyContent(FlexAlign.Center)
       .backgroundColor(Color.Yellow)
     }
+    .hideTitleBar(true)
   }
 }

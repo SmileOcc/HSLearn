@@ -4,7 +4,7 @@ import { window } from '@kit.ArkUI'
 import { TigerRouteUtils } from '@learn/tiger_har/Index'
 import { initWindowSetting } from '@learn/common_har/Index'
 
-const ROOT_PAGE = "pages/Index"
+const ROOT_PAGE = "pages/RootPage"
 
 export abstract class MainAbility extends BaseEntryAbility {
 

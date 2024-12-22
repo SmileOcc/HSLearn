@@ -12,6 +12,7 @@
     "@learn/alert_har": "file:../../alert_har",
     "@learn/loading_har": "file:../../loading_har",
     "@learn/res_har": 'file:../../res_har',
-    "@learn/baseui_har": 'file:../../baseui_har'
+    "@learn/baseui_har": 'file:../../baseui_har',
+    "@learn/logger_har": "file:../../logger_har"
   }
 }

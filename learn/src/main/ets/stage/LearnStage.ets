@@ -1,7 +1,8 @@
 import { AbilityConstant, AbilityStage } from "@kit.AbilityKit";
-import { KLogger, kyStoreManger, PreferencesUtil, YWAppEvent, YWDeviceUtils } from "@learn/common_har";
+import { kyStoreManger, PreferencesUtil, YWAppEvent, YWDeviceUtils } from "@learn/common_har";
 import { distributedKVStore } from "@kit.ArkData";
 import { axiosAddHeader } from "@learn/request_har/src/main/ets/AxiosRequest/AxiosRequest";
+import { hsLog } from '@learn/logger_har';
 
 /*
  * @Desc: 应用入口，初始化一些库和SDK，在module.json5配置路径。
@@ -10,7 +11,7 @@ const TAG = 'LearnStage'
 
 export default class LearnStage extends AbilityStage {
   onCreate(): void {
-    KLogger.info(TAG,'onCreate')
+    hsLog.i(TAG,'onCreate')
 
     //初始化一些库或三方sdk
 
@@ -21,7 +22,7 @@ export default class LearnStage extends AbilityStage {
 
   onMemoryLevel(level: AbilityConstant.MemoryLevel): void {
     // 根据系统可用内存的变化情况，释放不必要的内存
-    KLogger.info(TAG, 'onMemoryLevel -> ' + level);
+    hsLog.i(TAG, 'onMemoryLevel -> ' + level);
   }
 
   private onThirdLibInit() {

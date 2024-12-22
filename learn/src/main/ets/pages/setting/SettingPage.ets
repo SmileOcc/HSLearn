@@ -4,8 +4,7 @@ import { router, window } from '@kit.ArkUI'
 import { Want } from '@kit.AbilityKit'
 import common from '@ohos.app.ability.common';
 import RouterUtils from '../../../../../../modules/common_har/src/main/ets/utils/RouterUtils'
-import Logger from '../../../../../../modules/common_har/src/main/ets/common/KLogger'
-import { PreferencesUtil } from '../../../../../../modules/common_har/src/main/ets/utils/PreferencesUtil'
+import { hsLog } from '@learn/logger_har';import { PreferencesUtil } from '../../../../../../modules/common_har/src/main/ets/utils/PreferencesUtil'
 import { PhoneLayoutFactor, TabletLayoutFactor, TestLayoutFactory } from '../base/TestLayoutFactory'
 // import { DisplayUtil } from '@pura/harmony-utils'
 // import { CacheUtil, OutDTO, IdCardUtil, ToastUtil, ActionUtil, DialogUtil,LoadingUtil} from '@yunkss/eftool'
@@ -67,8 +66,8 @@ struct SettingPage {
   }
   aboutToAppear(): void {
 
-    // Logger.debug(DisplayUtil.getWidth() +' util11')//1260 util11
-    // Logger.debug(DisplayUtil.getHeight() +' util11')//2720 util11
+    // hsLog.d(DisplayUtil.getWidth() +' util11')//1260 util11
+    // hsLog.d(DisplayUtil.getHeight() +' util11')//2720 util11
 
 
     // window.getLastWindow(this.context).then((windowClass) => {
@@ -82,8 +81,8 @@ struct SettingPage {
 
 
     let usetInfo = PreferencesUtil.getInstance().mUserInfo
-    Logger.debug(JSON.stringify(usetInfo))
-    Logger.debug('====mmmmm')
+    hsLog.d(JSON.stringify(usetInfo))
+    hsLog.d('====mmmmm')
 
     let userinfo: UserInfoInterface = {
       username: "张三",
@@ -353,7 +352,7 @@ struct SettingPage {
 
         if (subModel.title.startsWith('登录')) {
           RouterUtils.openLogin().then(()=> {
-            Logger.debug('进入登录页')
+            hsLog.d('进入登录页')
           })
             .catch(()=> {
 

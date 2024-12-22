@@ -3,7 +3,7 @@ import { image } from '@kit.ImageKit';
 import { picker } from '@kit.CoreFileKit';
 import { YWAppUtils } from './YWAppUtils';
 import { BusinessError } from '@kit.BasicServicesKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 
 
 /**
@@ -69,7 +69,7 @@ export class YWScanUtils {
       return await YWScanUtils.onDetectBarCode(uris[0], options);
     } catch (err) {
       let error = err as BusinessError;
-      KLogger.error(`ScanUtil-onPickerScanForResult-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`ScanUtil-onPickerScanForResult-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       return [];
     }
   }

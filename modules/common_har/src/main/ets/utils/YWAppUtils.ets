@@ -3,7 +3,7 @@ import { BusinessError } from '@ohos.base';
 import { KeyboardAvoidMode, window } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
 import { common, Want } from '@kit.AbilityKit';
-import KLogger from '../common/KLogger';
+import { hsLog } from '@learn/logger_har';
 import { YWDeviceUtils } from './YWDeviceUtils';
 
 
@@ -40,7 +40,7 @@ export class YWAppUtils{
   static getContext(): common.UIAbilityContext {
     if (!YWAppUtils.context) {
       YWAppUtils.context = getContext() as common.UIAbilityContext; //兜底
-      KLogger.error("context为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
+      hsLog.e("context为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
     }
     return YWAppUtils.context;
   }
@@ -50,7 +50,7 @@ export class YWAppUtils{
    */
   static getMainWindow(): window.Window {
     if (!YWAppUtils.windowStage) {
-      KLogger.error("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
+      hsLog.e("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
     }
     return YWAppUtils.windowStage.getMainWindowSync();
   }
@@ -259,17 +259,17 @@ export class YWAppUtils{
     windowClass.setWindowLayoutFullScreen(isLayoutFullScreen).then(() => {
       windowClass.setWindowBackgroundColor(color);
     }).catch((error: BusinessError) => {
-      KLogger.error(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`setWindowLayoutFullScreen-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     });
 
     windowClass.setWindowSystemBarEnable(enable ? ['status', 'navigation'] : []).then(() => {
       windowClass.setSpecificSystemBarEnabled("navigationIndicator", enable); //底部导航条。
     }).catch((error: BusinessError) => {
-      KLogger.error(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+      hsLog.e(`setWindowSystemBarEnable-异常 ~ code: ${error.code} -·- message: ${error.message}`);
     });
     if (systemBarProperties) {
       windowClass.setWindowSystemBarProperties(systemBarProperties).catch((error: BusinessError) => {
-        KLogger.error(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
+        hsLog.e(`setWindowSystemBarProperties-异常 ~ code: ${error.code} -·- message: ${error.message}`);
       });
     }
   }
