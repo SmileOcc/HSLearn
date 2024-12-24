@@ -2,6 +2,11 @@ import display from '@ohos.display';
 
 export class YWConstants {
 
+  //appstorage 暗黑模式
+  static readonly kLocalColorModel = 'LocalColorModel'
+  //appstorage 主context
+  static readonly kUI_RootContext = 'UI_RootContext'
+
   static readonly kStatusBarHeight = 'statusBarHeight'
   static readonly kSafeBottomHeight ='safeBottomHeight'
 

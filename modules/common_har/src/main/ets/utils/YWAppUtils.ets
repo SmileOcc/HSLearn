@@ -11,9 +11,12 @@ import { YWDeviceUtils } from './YWDeviceUtils';
  * App相关工具类(使用该工具前请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化)
  * 一些基础跳转页：设置、商店、网络、蓝牙、want
  */
+
+const TAG ='YWAppUtils'
 export class YWAppUtils{
 
   private constructor() {}
+  private static bundleInfo?: bundleManager.BundleInfo;
 
   private static readonly uri_info: string = 'application_info_entry' //应用设置页面
   private static readonly uri_network: string = "mobile_network_entry"; //移动网络设置页面
@@ -279,8 +282,17 @@ export class YWAppUtils{
    * 获取当前应用的BundleInfo
    * @returns
    */
-  static async getBundleInfo(): Promise<bundleManager.BundleInfo> {
-    return await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+  static async getBundleInfo(): Promise<bundleManager.BundleInfo | undefined> {
+    if (YWAppUtils.bundleInfo !== undefined) {
+      return YWAppUtils.bundleInfo
+    }
+    try {
+      YWAppUtils.bundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    } catch (e) {
+      const error = e as BusinessError
+      hsLog.e(TAG,`getBundleInfo error: ${error.code}  msg:${error.message}`)
+    }
+    return YWAppUtils.bundleInfo
   }
 
 
@@ -288,9 +300,26 @@ export class YWAppUtils{
    * 获取应用程序的配置信息
    * @returns
    */
-  static async getAppInfo() {
-    let bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
-    return bundleInfo.appInfo;
+  static async getAppInfo(){
+
+    const bundleInfo = await YWAppUtils.getBundleInfo();
+    if (bundleInfo === undefined) {
+      hsLog.e(TAG,`getAppInfo error: bundleInfo undefined`)
+      return undefined
+    }
+    return bundleInfo!.appInfo
+  }
+
+  /**
+   * 获取包名
+   * @returns
+   */
+  static async getBundleName(): Promise<string> {
+    const info = await YWAppUtils.getBundleInfo();
+    if (info === undefined) {
+      return '';
+    }
+    return info.name;
   }
 
 

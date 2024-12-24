@@ -11,6 +11,43 @@ export class YWStrUtils {
 
 
   /**
+   * 检测字符串的版本更新
+   * @param verOld 0.0.11
+   * @param verNew 1.11.1
+   * @returns true需要更新
+   */
+  static checkVersionUpdate(verOld: string, verNew: string): boolean {
+    const olds = verOld.split('\.');
+    const news = verNew.split('\.');
+    if (olds.length !== news.length && olds.length !== 3) {
+      return false; //数据异常
+    }
+    const addValue = (num: string): number => {
+      let newNum: string;
+      if (num.length === 1) {
+        newNum = `100${num}`
+      } else if (num.length === 2) {
+        newNum = `10${num}`
+      } else if (num.length === 3) {
+        newNum = `1${num}`
+      } else {
+        newNum = num;
+      }
+      return Number.parseInt(newNum);
+    }
+    for (let index = 0; index < olds.length; index++) {
+      const o = addValue(olds[index]);
+      const n = addValue(news[index]);
+      if (n > o) {
+        return true;
+      } else if (n < o) {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  /**
    * 判断是否是String
    * @param source
    * @returns

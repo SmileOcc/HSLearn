@@ -120,7 +120,7 @@ export async function initListerSafeWindow(windowObj: window.Window) {
   windowObj.on("windowSizeChange", (value)=>{
 
     let newArea = getAvoidAreas(windowObj)
-    AppStorage.setOrCreate("window",newArea)
+    AppStorage.setOrCreate(YWConstants.kStorageAreas,newArea)
 
   })
 

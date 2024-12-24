@@ -20,6 +20,8 @@
     "@learn/baseui_har": 'file:../modules/baseui_har',
     "@learn/constants_har": 'file:../modules/constants_har',
     "@learn/logger_har": 'file:../modules/logger_har',
+    "@learn/dark_har": 'file:../modules/dark_har',
+    "@learn/taskpool_har": 'file:../modules/taskpool_har',
 
     "@abner/refresh": "^1.1.7",
     "@tencent/mmkv": "^2.0.1"

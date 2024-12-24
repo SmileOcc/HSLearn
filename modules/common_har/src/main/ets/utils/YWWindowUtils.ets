@@ -7,6 +7,7 @@ import { hsLog } from '@learn/logger_har';
 /**
  * 窗口工具类
  */
+const TAG = 'YWWindowUtils'
 export class YWWindowUtils {
 
   private constructor() {}
@@ -14,6 +15,9 @@ export class YWWindowUtils {
   private static windowStage: window.WindowStage;
 
   static getWindowStage() {
+    if (YWWindowUtils.windowStage === undefined) {
+      throw Error('YWWindowUtils setWindowStage')
+    }
     return YWWindowUtils.windowStage
   }
 

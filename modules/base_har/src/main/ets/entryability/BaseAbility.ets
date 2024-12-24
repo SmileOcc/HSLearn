@@ -1,6 +1,7 @@
 import {
   abilityAccessCtrl,
   AbilityConstant,
+  AbilityLifecycleCallback,
   bundleManager,
   Context,
   errorManager,
@@ -12,64 +13,192 @@ import {
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { process } from '@kit.ArkTS';
 
-import { BreakpointSystem,
+import {
+  BreakpointSystem,
   GlobalContext,
-  kyStoreManger, PreferencesUtil,
   YWAppUtils,
   YWWindowUtils,
-  initWindowSetting} from '@learn/common_har'
+  initWindowSetting,
+  ENU_CONTEXT
+} from '@learn/common_har'
 import { hsLog } from '@learn/logger_har';
 
-import { distributedKVStore } from '@kit.ArkData';
 import { display, window } from '@kit.ArkUI';
-// import { AppUtil, DisplayUtil } from '@pura/harmony-utils';
-import { notificationManager } from '@kit.NotificationKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { initListerSafeWindow, initListerWindow } from '@learn/common_har/src/main/ets/windowUtils/YWAvoidAreas';
+import { YWDarkManager } from '@learn/dark_har';
 
 
 const permissions: Array<Permissions> = ['ohos.permission.SYSTEM_FLOAT_WINDOW'];
 
-abstract  class BaseAbility extends UIAbility {
-  //本地页面内部使用LocalStorage保存数据，应用页面间通过AppStorage传递信息，PersistentStorage可以持久化存储数据信息
-  //可以放全局，然后每个页面@Entry(localStorage),
-  // 也可以在这里传过去，每个页面上先let storage = LocalStorage.GetShared()
-  para: Record<string, number> = {
-    'PropA': 47
-  };
-  localStorage: LocalStorage = new LocalStorage(this.para);
+const TAG = 'BaseAbility'
 
+abstract class BaseAbility extends UIAbility {
+  //启动根页面
+  abstract initRootPage(): string
+
+  // 定义生命周期ID
+  lifecycleId: number = -1;
   private breakpointSystem: BreakpointSystem = new BreakpointSystem();
-
   private registerId?: number
+  localStorage: LocalStorage = new LocalStorage();
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
 
-    // 通过在GlobalContext对象上绑定filesDir，可以实现UIAbility组件与UI之间的数据同步。
-    // GlobalContext.getContext().setObject("filesDir", this.context.filesDir);
-    // // GlobalContext.getContext().setObject("display", );
+    //在应用入口存储当前上下文，通过get方法拿到当前上下文
+    AppStorage.setOrCreate<Context>(ENU_CONTEXT.UI_Root, this.context)
+    // const ctx = AppStorage.get<Context>('context')
+
+    this.initDark()
+    this.initParams()
+    this.initErrorManager()
+    this.registerLifeCycle()
 
     let mainTid = process.tid
     hsLog.d(`==== 主线程tid: ${mainTid}`)
+  }
 
-    //在Stage里初始化了
-    //首选项本地数据
-    // PreferencesUtil.getData(this.context)
-    //
-    // let config:distributedKVStore.KVManagerConfig = {
-    //   bundleName: 'com.example.hmos_learn',
-    //   context: this.context
-    // }
-    //
-    // kyStoreManger.init(config,'myHMStore')
-    //
-    // //权限
-    // this.checkPermissions(["ohos.permission.CAMERA"]);
+  onWindowStageWillDestroy(windowStage: window.WindowStage): void {
+    //注销错误观测器
+    errorManager.off('error', this.registerId, (result) => {
+
+    });
+  }
+
+  onWindowStageDestroy(): void {
+    // Main window is destroyed, release UI related resources
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+
+    // 开发者可以在适当的时机，如子窗口上点击关闭按钮等，销毁子窗口。并不一定需要在onWindowStageDestroy调用，这里仅作展示
+    // this.destroySubWindow();
+    this.breakpointSystem.unregister();
+  }
+
+  onForeground(): void {
+    // Ability has brought to foreground
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
+  }
+
+  onBackground(): void {
+    // Ability has back to background
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
   }
 
   onDestroy(): void {
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onDestroy');
+    hilog.info(0x0000, TAG, '%{public}s', 'Ability onDestroy');
+
+    // 获取应用上下文
+    let applicationContext = this.context.getApplicationContext();
+    // 取消应用内生命周期回调
+    applicationContext.off('abilityLifecycle', this.lifecycleId);
+  }
+
+  protected loadContent(windowStage: window.WindowStage): void { //子类重写了
+
+    this.loadRootPage(windowStage)
+  }
+
+  loadRootPage(windowStage: window.WindowStage): void {
+    windowStage.loadContent(this.initRootPage(), this.localStorage, (err) => {
+      if (err.code) {
+        hilog.error(0x0000, TAG, 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
+        return;
+      }
+
+      // 设置背景色实现沉浸式
+      //windowStage.getMainWindowSync().setWindowBackgroundColor('#9F6BF5')
+      hilog.info(0x0000, TAG, 'Succeeded in loading the content.');
+    });
+  }
+
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    // Main window is created, set main page for this ability
+    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+
+    YWAppUtils.init(this.context, windowStage)
+
+    //全局配置context
+    // this.configGlobalContext(windowStage)
+
+    // showAlertView(this.context,windowStage)
+    //设置全屏
+    // this.requestFullScreen(windowStage, this.context)
+    //YWAppUtils.setStatusBar(true,true,"")
+
+    this.breakpointSystem.register();
+
+    this.loadContent(windowStage)
+  }
+
+  initDark() {
+    YWDarkManager.initConfigDark(this.context)
+  }
+
+  initParams() {}
+
+  private registerLifeCycle() {
+
+    let abilityLifecycleCallback: AbilityLifecycleCallback = {
+      // 当UIAbility创建时被调用
+      onAbilityCreate(uiAbility) {
+        hsLog.i(TAG, `onAbilityCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当窗口创建时被调用
+      onWindowStageCreate(uiAbility, windowStage: window.WindowStage) {
+        hsLog.i(TAG, `onWindowStageCreate uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hsLog.i(TAG, `onWindowStageCreate windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口处于活动状态时被调用
+      onWindowStageActive(uiAbility, windowStage: window.WindowStage) {
+        hsLog.i(TAG, `onWindowStageActive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hsLog.i(TAG, `onWindowStageActive windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口处于非活动状态时被调用
+      onWindowStageInactive(uiAbility, windowStage: window.WindowStage) {
+        hsLog.i(TAG, `onWindowStageInactive uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hsLog.i(TAG, `onWindowStageInactive windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当窗口被销毁时被调用
+      onWindowStageDestroy(uiAbility, windowStage: window.WindowStage) {
+        hsLog.i(TAG, `onWindowStageDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+        hsLog.i(TAG, `onWindowStageDestroy windowStage: ${JSON.stringify(windowStage)}`);
+      },
+      // 当UIAbility被销毁时被调用
+      onAbilityDestroy(uiAbility) {
+        hsLog.i(TAG, `onAbilityDestroy uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility从后台转到前台时触发回调
+      onAbilityForeground(uiAbility) {
+        hsLog.i(TAG, `onAbilityForeground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility从前台转到后台时触发回调
+      onAbilityBackground(uiAbility) {
+        hsLog.i(TAG, `onAbilityBackground uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      },
+      // 当UIAbility迁移时被调用
+      onAbilityContinue(uiAbility) {
+        hsLog.i(TAG, `onAbilityContinue uiAbility.launchWant: ${JSON.stringify(uiAbility.launchWant)}`);
+      }
+    };
+    // 获取应用上下文
+    let applicationContext = this.context.getApplicationContext();
+    // 注册应用内生命周期回调
+    this.lifecycleId = applicationContext.on('abilityLifecycle', abilityLifecycleCallback);
+    hsLog.i(TAG, `register callback number: ${this.lifecycleId}`);
+  }
+
+  initErrorManager() {
+
+    //ErrorManager可以提供对错误观察器的注册和注销的能力，建议在主EntryAbility或者AbilityStage中
+    this.registerId = errorManager.on('error', {
+      onUnhandledException: (errMsg) => {
+        console.log('产生未捕获异常时的回调，onUnhandledException:', errMsg);
+      },
+      onException: (errorObj) => {
+        console.log('产生异常上报JS层时的回调，onException');
+
+      }
+    })
   }
 
   async configGlobalContext(windowStage: window.WindowStage) {
@@ -109,16 +238,6 @@ abstract  class BaseAbility extends UIAbility {
       win.setPreferredOrientation(window.Orientation.AUTO_ROTATION_RESTRICTED)
     })
 
-    //ErrorManager可以提供对错误观察器的注册和注销的能力，建议在主EntryAbility或者AbilityStage中
-    this.registerId = errorManager.on('error', {
-      onUnhandledException: (errMsg) => {
-        console.log('产生未捕获异常时的回调，onUnhandledException:', errMsg);
-      },
-      onException: (errorObj) => {
-        console.log('产生异常上报JS层时的回调，onException');
-
-      }
-    })
   }
 
   async checkPermissions(permissions: Array<Permissions>): Promise<void> {
@@ -136,93 +255,6 @@ abstract  class BaseAbility extends UIAbility {
       return;
     }
   }
-
-  onWindowStageCreate(windowStage: window.WindowStage): void {
-
-    YWAppUtils.init(this.context,windowStage)
-
-    // Main window is created, set main page for this ability
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
-    // AppUtil.init(this.context, windowStage);
-    //
-    // hsLog.d(AppUtil.getStatusBarHeight() + '')
-    //
-    // hsLog.d(DisplayUtil.getWidth() + ' util')
-    // hsLog.d(DisplayUtil.getHeight() + ' util')
-
-    // 获取屏幕宽高
-    let screenWidth = display.getDefaultDisplaySync().width;
-    let screenHeight = display.getDefaultDisplaySync().height;
-    hsLog.d(screenWidth + '')
-    hsLog.d(screenHeight + '')
-
-    //全局配置context
-    // this.configGlobalContext(windowStage)
-
-    // showAlertView(this.context,windowStage)
-    //设置全屏
-    // this.requestFullScreen(windowStage, this.context)
-    // YWAppUtils.setStatusBar(true,true,"")
-
-    // 开发者可以在适当的时机，如主窗口上按钮点击事件等，创建子窗口。并不一定需要在onWindowStageCreate调用，这里仅作展示
-    //this.showSubWindow();
-
-
-    this.breakpointSystem.register();
-
-    this.loadContent(windowStage)
-  }
-
-  onWindowStageWillDestroy(windowStage: window.WindowStage): void {
-    //注销错误观测器
-    errorManager.off('error', this.registerId, (result) => {
-
-    });
-
-  }
-
-  protected loadContent(windowStage: window.WindowStage):void {
-    // windowStage.loadContent('pages/Index', (err) => {
-    windowStage.loadContent(this.initRootPage(), this.localStorage, (err) => {
-
-      if (err.code) {
-        hilog.error(0x0000, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err) ?? '');
-        return;
-      }
-
-      // 设置背景色实现沉浸式
-      //windowStage.getMainWindowSync().setWindowBackgroundColor('#9F6BF5')
-
-      hilog.info(0x0000, 'testTag', 'Succeeded in loading the content.');
-    });
-  }
-
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-
-    // 开发者可以在适当的时机，如子窗口上点击关闭按钮等，销毁子窗口。并不一定需要在onWindowStageDestroy调用，这里仅作展示
-    // this.destroySubWindow();
-
-    this.breakpointSystem.unregister();
-
-  }
-
-
-  abstract initRootPage():string
-
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onBackground');
-  }
-
-
 
   // 实现方案有三种，分别是：
   // setWindowLayoutFullScreen方法实现沉浸式
@@ -266,12 +298,9 @@ abstract  class BaseAbility extends UIAbility {
     // })
 
   }
-
-
-
 }
 
-export {BaseAbility}
+export { BaseAbility }
 
 async function checkAccessToken(permission: Permissions): Promise<abilityAccessCtrl.GrantStatus> {
   let atManager = abilityAccessCtrl.createAtManager();
@@ -280,7 +309,8 @@ async function checkAccessToken(permission: Permissions): Promise<abilityAccessC
   // 获取应用程序的accessTokenID
   let tokenId: number;
   try {
-    let bundleInfo: bundleManager.BundleInfo = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
+    let bundleInfo: bundleManager.BundleInfo =
+      await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);
     let appInfo: bundleManager.ApplicationInfo = bundleInfo.appInfo;
     tokenId = appInfo.accessTokenId;
   } catch (err) {

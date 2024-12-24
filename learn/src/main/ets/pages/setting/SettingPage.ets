@@ -8,13 +8,14 @@ import { hsLog } from '@learn/logger_har';import { PreferencesUtil } from '../..
 import { PhoneLayoutFactor, TabletLayoutFactor, TestLayoutFactory } from '../base/TestLayoutFactory'
 // import { DisplayUtil } from '@pura/harmony-utils'
 // import { CacheUtil, OutDTO, IdCardUtil, ToastUtil, ActionUtil, DialogUtil,LoadingUtil} from '@yunkss/eftool'
-
 import { rcp } from "@kit.RemoteCommunicationKit";
 import { TigerOpenApi, TigerOpenImp } from '@learn/tiger_har/Index'
 import { ENU_PREFS, globalThis } from '@learn/common_har'
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { YWConstants } from '@learn/constants_har'
+import { YWTaskPoolUtils } from '@learn/taskpool_har';
+import { taskpool } from '@kit.ArkTS';
 
 //导入har库
 import('STHarLib')
@@ -26,6 +27,20 @@ interface UserInfoInterface {
   sex: string
 }
 
+
+export let resolvePromise2:((value:void | Promise<void>)=>void)
+
+export  const testPromise2:Promise<void> = new Promise<void>((resolve)=>{
+  resolvePromise2 = resolve
+})
+
+export let resolvePromise:((value:string | Promise<string>)=>void)
+
+export  const testPromise:Promise<string> = new Promise<string>((resolve)=>{
+  resolvePromise = resolve
+})
+
+const TAG = 'SettingPage'
 @Entry
 @Component
 struct SettingPage {
@@ -48,7 +63,7 @@ struct SettingPage {
     let author = globalThis.getAttribute("author");
     let org = globalThis.getAttribute("org");
 
-    let context: common.UIAbilityContext | undefined = globalThis.getContext("context");
+    let context: common.UIAbilityContext | undefined = globalThis.getMainAbilityContext();
     if (context != undefined) {
       let label = context.abilityInfo.bundleName;
     }
@@ -64,7 +79,41 @@ struct SettingPage {
       })
     }
   }
+
+  async testBBB() {
+
+    hsLog.i(TAG,'====taskPool 1')
+
+
+    //这个有问题
+    taskpool.Task.sendData("action","aaa",true)
+    hsLog.i(TAG,'====taskPool 2')
+
+  }
+
+  async testAAA() {
+
+    testPromise.then((value)=>{
+      hsLog.i(TAG,'====testPromise 2')
+    })
+    setTimeout(()=>{
+      hsLog.i(TAG,'====testPromise 1')
+      resolvePromise("xxx")
+    }, 3000)
+
+
+    let taskk = new taskpool.Task(this.testBBB)
+    taskk.onReceiveData((action:string,arg1:string,arg2:boolean) =>{
+      hsLog.i(TAG,'====taskPool 3')
+
+    })
+    YWTaskPoolUtils.serialRun(taskk)
+    hsLog.i(TAG,'====taskPool 4')
+
+  }
   aboutToAppear(): void {
+
+    this.testAAA()
 
     // hsLog.d(DisplayUtil.getWidth() +' util11')//1260 util11
     // hsLog.d(DisplayUtil.getHeight() +' util11')//2720 util11

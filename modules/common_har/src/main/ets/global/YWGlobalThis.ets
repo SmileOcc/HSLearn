@@ -17,7 +17,7 @@ export enum ENU_PREFS {
 }
 
 export enum ENU_CONTEXT {
-  UI_Root = "UI_Root"
+  UI_Root = "UI_RootContext"
 }
 
 type PrefValueType = number | string | boolean | Array<number> | Array<string> | Array<boolean> | bigint;
@@ -30,22 +30,30 @@ class YWGlobalThis {
 
   private static instance: YWGlobalThis
 
+
+  private kMainContextKey = "_mainContextKey"
+  private kMainAbilityContextKey = "_mainAbilityContextKey"
+
   private lastClickTime: number = 0;
 
   private _objects = new Map<string, Object>();
 
   // 缓存context
-  private _uiContexts = new Map<string, common.UIAbilityContext>();
+  // private _uiContexts = new Map<string, common.UIAbilityContext>();
+  private _uiContexts = new Map<string, Context | common.UIAbilityContext>();
   // 缓存属性值
   private _attribute = new Map<string, string>();
   // 缓存首选项
   private _preferences = new Map<string, Promise<dataPreferences.Preferences>>();
 
-  public init(context: common.UIAbilityContext) {
+  public init(context: Context) {//这个传入的是ability的context
+
+    //全局持有
+    this.setContext(this.kMainContextKey, context);
 
     let preferences: Promise<dataPreferences.Preferences> = dataPreferences.getPreferences(context, ENU_PREFS.Global);
     // 缓存首选项Promise
-    globalThis.setPref(ENU_PREFS.Global, preferences);
+    this.setPref(ENU_PREFS.Global, preferences);
 
     // let preferencesFunc: Function = (() => {
     //   let preferences: Promise<dataPreferences.Preferences> = dataPreferences.getPreferences(context, PrefKeys.kGlobal_Pref);
@@ -64,6 +72,15 @@ class YWGlobalThis {
   }
 
 
+  public getMainContext():Context | undefined {
+    let context: Context  = globalThis.getContext(this.kMainContextKey) as Context;
+    return context
+  }
+
+  public getMainAbilityContext():common.UIAbilityContext | undefined {
+    let context: common.UIAbilityContext = globalThis.getContext(this.kMainContextKey) as common.UIAbilityContext;
+    return context
+  }
 
   public setObject(key: string, objectClass: Object): void {
     this._objects.set(key, objectClass);
@@ -88,11 +105,13 @@ class YWGlobalThis {
     return YWGlobalThis.instance;
   }
 
-  getContext(key: string): common.UIAbilityContext | undefined {
+  // getContext(key: string): common.UIAbilityContext | undefined {
+  getContext(key: string): Context | common.UIAbilityContext | undefined {
     return this._uiContexts.get(key);
   }
 
-  setContext(key: string, value: common.UIAbilityContext): void {
+  // setContext(key: string, value: common.UIAbilityContext): void {
+  setContext(key: string, value: Context | common.UIAbilityContext): void {
     this._uiContexts.set(key, value);
   }
 

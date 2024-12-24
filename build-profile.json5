@@ -119,6 +119,14 @@
     {
       "name": "logger_har",
       "srcPath": "./modules/logger_har",
+    },
+    {
+      "name": "taskpool_har",
+      "srcPath": "./modules/taskpool_har",
+    },
+    {
+      "name": "dark_har",
+      "srcPath": "./modules/dark_har",
     }
   ]
 }

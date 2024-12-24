@@ -71,6 +71,7 @@
     "pages/base/relativelayout/TestRelativeContainerPage",
     "pages/base/relativelayout/TestWindowOrientationPage",
     "pages/base/listscroll/TestListScrollPage",
-    "pages/base/navtest/TestNavigationDestionationPage"
+    "pages/base/navtest/TestNavigationDestionationPage",
+    "auth/YWAuthAlertPage"
   ]
 }

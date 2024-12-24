@@ -14,11 +14,16 @@ import { YWResImage } from '@learn/res_har';
 import { GoodsDetailComponent } from './home/view/GoodsDetailComponent';
 import { YWConstants } from '@learn/constants_har';
 import { hsLog } from '@learn/logger_har';
+import { YWDarkManager } from '@learn/dark_har';
 
 const TAG = "RootPage"
 @Entry
 @Component
 struct RootPage {
+
+  //暗黑模式
+  @StorageLink(YWConstants.kLocalColorModel) @Watch('colorChange') private colorMode: number = YWDarkManager.getDefaultTheme()
+
 
   @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
 
@@ -41,6 +46,10 @@ struct RootPage {
 
   @StorageProp('splashFinish') splashFinish: boolean = false; //等待广告业加载完毕
 
+  colorChange() {
+    let kk = this.colorMode
+    
+  }
   @Builder
   bottomBarItemBuilder(name: Resource, icon: Resource, selectIcon:Resource, index: number) {
     Flex({

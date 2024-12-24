@@ -1,3 +1,4 @@
+import { resolvePromise, testPromise } from '../setting/SettingPage'
 
 // 注：当前代码基于宽度为720的设计稿进行适配，使用lpx单位。
 // 整段代码描述的功能：
@@ -16,6 +17,16 @@ struct SearchPage {
   @State historyValueArr: Array<string> = [
     '张三', '李四', '举头望明月', '低头思故乡', 'HarmonyOs', '不可能，绝对不可能'
   ]
+
+  aboutToAppear(): void {
+
+    testPromise.then(()=>{
+
+    })
+    setTimeout(()=>{
+      resolvePromise("xxx")
+    }, 3000)
+  }
 
   // 构建UI组件
   build() {

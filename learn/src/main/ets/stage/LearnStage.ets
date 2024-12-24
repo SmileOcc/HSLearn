@@ -3,6 +3,8 @@ import { kyStoreManger, PreferencesUtil, YWAppEvent, YWDeviceUtils } from "@lear
 import { distributedKVStore } from "@kit.ArkData";
 import { axiosAddHeader } from "@learn/request_har/src/main/ets/AxiosRequest/AxiosRequest";
 import { hsLog } from '@learn/logger_har';
+import { YWAppUtils, globalThis, ENU_PREFS } from '@learn/common_har'
+import { YWConstants } from "@learn/constants_har/src/main/ets/core/YWConstants";
 
 /*
  * @Desc: 应用入口，初始化一些库和SDK，在module.json5配置路径。
@@ -13,11 +15,23 @@ export default class LearnStage extends AbilityStage {
   onCreate(): void {
     hsLog.i(TAG,'onCreate')
 
+    this.initParams()
     //初始化一些库或三方sdk
 
     this.onThirdLibInit()
     this.onUIInit()
     this.onNetworkInit()
+  }
+
+  initParams() {
+    //异步加载
+    setTimeout(async () => {
+
+      const statusBarHeight = Number(AppStorage.get(YWConstants.kStatusBarHeight))
+
+      // const noiseValue = await pref.get<number>(Const.NOISE_VALUE, Const.DEF_NOISE_VALUE);
+      // globalThis.setObject(Const.NOISE_VALUE, noiseValue);
+    })
   }
 
   onMemoryLevel(level: AbilityConstant.MemoryLevel): void {
@@ -29,7 +43,7 @@ export default class LearnStage extends AbilityStage {
 
 
     //首选项本地数据 直接使用
-    //PreferencesUtil.getData(this.context)
+    PreferencesUtil.getData(this.context)
 
     //数据持久化，缓存数据到本地
     let config:distributedKVStore.KVManagerConfig = {
