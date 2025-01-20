@@ -83,6 +83,40 @@
     {
       "name": "level_red",
       "value": "#E53935"
+    },
+    {
+      "name": "col_262626",
+      "value": "#262626"
+    },
+    {
+      "name": "col_333333",
+      "value": "#333333"
+    },
+    {
+      "name": "col_666666",
+      "value": "#666666"
+    },
+    {
+      "name": "col_999999",
+      "value": "#999999"
+    },
+    {
+      "name": "col_454545",
+      "value": "#454545"
+    },{
+      "name": "col_CCCCCC",
+      "value": "#CCCCCC"
+    },
+    {
+      "name": "col_7D7D7D",
+      "value": "#7D7D7D"
+    },{
+      "name": "col_EEEEEE",
+      "value": "#EEEEEE"
+    },
+    {
+      "name": "col_0D0D0D",
+      "value": "#0D0D0D"
     }
   ]
 }

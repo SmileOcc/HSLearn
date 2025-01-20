@@ -26,6 +26,7 @@ function dialogViewNodeView(params:DialogConfig) {
       }
     }
   )
+  Text("aaa")
 }
 
 export class DialogAction {
@@ -42,12 +43,13 @@ export interface DialogConfig {
   canOutClickHide?:Boolean
 }
 
+@Entry
 @Component
 export struct DialogView {
 
   @Require @Prop config: DialogConfig
 
-  dismiss:()=>void = ()=> {
+  dismiss?:()=>void = ()=> {
 
   }
 
@@ -150,7 +152,7 @@ export struct DialogView {
     .justifyContent(FlexAlign.Center)
     .bgStyles()
     .onClick(()=>{
-      if (this.config.canOutClickHide) {
+      if (this.config.canOutClickHide && this.dismiss) {
         this.dismiss()
       }
     })

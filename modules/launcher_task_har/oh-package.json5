@@ -1,0 +1,25 @@
+{
+  "name": "launcher_task_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/learn_task_har": "file:../learn_task_har",
+    "@learn/nav_router_har": "file:../nav_router_har",
+    "@learn/tab_nav_har": "file:../tab_nav_har",
+    "@learn/main_har": "file:../main_har",
+    "@learn/catapp": "file:../catapp",
+    "@learn/login_har": "file:../feature/login_har",
+    "@learn/home_har": "file:../feature/home_har",
+    "@learn/category_har": "file:../feature/category_har",
+    "@learn/tab_nav_common_har": "file:../tab_nav_common_har",
+    "@learn/car_har": "file:../feature/car_har",
+    "@learn/mine_har": "file:../feature/mine_har",
+    "@learn/setting_har": "file:../feature/setting_har",
+    "@learn/lion_har": "file:../feature/lion_har",
+    "@learn/debug_demo_har": "file:../feature/debug_demo_har"
+
+  }
+}

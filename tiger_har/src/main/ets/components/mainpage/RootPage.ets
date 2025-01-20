@@ -1,17 +1,26 @@
 import { OsRouterUrls } from '@learn/common_har/Index';
-import { IUState } from '@learn/common_har/src/main/ets/model/YWBaseModel';
 import { ITigerAppContext } from '../../core/ITigerAppContext';
 import { ILaunchListener, ILaunchServer } from '../../core/launchexecute/ILaunchServer';
 import { LaunchStepState } from '../../core/launchexecute/LaunchStepState';
 import { TigerServerType } from '../../core/launchexecute/TigerServerType';
 import { TigerGlobalThis } from '../../core/TigerGlobalThis';
 import { LaunchLoadingView } from '../loading/LaunchLoadingView';
-import { MainUIState, MainViewModel } from './MainViewModel';
+import { MainUIState, MainViewModel } from './RootViewModel';
 import { promptAction } from '@kit.ArkUI';
 import { MainPage } from "../mainpage/MainPage";
 import { CategoryPage } from '../pages/CategoryPage';
 import { AboutPage } from '../pages/AboutPage';
 import { hsLog } from '@learn/logger_har';
+import { tigerMainTabBuilder } from './MainTabPage';
+
+export const TigerRootBuilder = wrapBuilder(rootBuilder)
+
+@Builder function rootBuilder(name:string, params:Map<string,Object>) {
+  NavDestination(){
+    RootPage()
+  }
+    .hideTitleBar(true)
+}
 
 @Entry({routeName:OsRouterUrls.TIGER_APP})
 @Component
@@ -32,6 +41,29 @@ export struct RootPage {
     //启动页结束后进行操作，如请求网络等
   }
 
+  aboutToAppear(): void {
+
+    let appId = "tigerAppID"
+    let context = this.getUIContext()
+    TigerGlobalThis.initContext(context,appId)
+
+    // this.iuState.isShowTab = true
+
+    setTimeout(()=>{
+      this.viewModel.showErrorAlert()
+    },4000)
+  }
+
+  textPush() {
+    TigerGlobalThis.getRootStack().pushPath({name:""},{launchMode:LaunchMode.MOVE_TO_TOP_SINGLETON})
+  }
+
+  aboutToDisappear(): void {
+    // this.appContext.
+    // this.iuState.isShowTab = false
+
+  }
+
   @Builder
   rightMenuView(){
     Row(){
@@ -48,8 +80,8 @@ export struct RootPage {
 
   //二级页面通过：@Consume('navStack') navStack: NavPathStack  获取到路由管理进行页面跳转
   //路由栈, (控制跳转）
-  @Provide('navStack')
-  navStack: NavPathStack = new NavPathStack()
+  // @Provide('navStack')
+  // navStack: NavPathStack = new NavPathStack()
 
   // 路由容器
   @Builder
@@ -66,11 +98,11 @@ export struct RootPage {
 
   build() {
     Stack(){
-      Navigation(this.navStack) {
+      Navigation(TigerGlobalThis.getRootStack()) {
         if (this.iuState.isLoading) {
           LaunchLoadingView()
         } else {
-          MainPage()
+          tigerMainTabBuilder("",new Map())
         }
       }
       .height('100%')
@@ -108,24 +140,16 @@ export struct RootPage {
 
   }
 
-  aboutToAppear(): void {
-    // this.iuState.isShowTab = true
-  }
 
-  aboutToDisappear(): void {
-    // this.appContext.
-    // this.iuState.isShowTab = false
-
-  }
 
   onBackPress(): boolean | void {
 
-    let size = this.navStack.size()
-    let allPages = this.navStack.getAllPathName()
-
-    if (this.navStack.size() > 0) {
-      this.navStack.pop(true)
-    }
+    // let size = this.navStack.size()
+    // let allPages = this.navStack.getAllPathName()
+    //
+    // if (this.navStack.size() > 0) {
+    //   this.navStack.pop(true)
+    // }
 
     // size: 获取页面栈大小
     // this.navStack.size()
@@ -165,9 +189,12 @@ export struct RootPage {
 
   goAbout(){
     const navPath: NavPathInfo = new NavPathInfo('AboutPage', undefined);
-    this.navStack.pushPath(navPath);
+    TigerGlobalThis.getRootStack().pushPath(navPath)
+    // this.navStack.pushPath(navPath);
     // this.iuState.isShowTab = false
   }
+
+
 
   // tab是基础组件，无生命周期回调。目前推荐的是，使用tab来进行组件级别的切换。如果涉及页面的切换和跳转，或需要使用页面级别的生命周期，建议使用Navigation
 

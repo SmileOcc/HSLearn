@@ -14,6 +14,15 @@ import { YWConstants } from "@learn/constants_har";
 import { hsLog } from "@learn/logger_har";
 
 const TAG = 'YWMainPage'
+
+@Builder
+export function oldMainBuilder(name:string,params:Map<string,Object>) {
+  NavDestination(){
+    YWMainPage()
+  }
+  .hideTitleBar(true)
+}
+
 // @Entry
 @Component
 export struct YWMainPage {

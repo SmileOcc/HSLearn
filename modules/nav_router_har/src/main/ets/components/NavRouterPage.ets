@@ -3,6 +3,7 @@
  */
 import { IRouterInfo } from "./IRouterInfo";
 
+//路由管理简单：每个模块对应一个
 export class NavRouterPage {
   //方便管理
   private static infos: Map<string, IRouterInfo> = new Map<string, IRouterInfo>();

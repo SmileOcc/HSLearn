@@ -4,6 +4,8 @@ import { GlobalContext } from '../../../../../modules/common_har/src/main/ets/co
 import { UserInfoModel } from './accountInfo/model/UserInfoModel';
 import { MineMainView } from './accountInfo/view/MineMainView';
 import { common } from '@kit.AbilityKit';
+import { YWAlertConfirm } from '@learn/common_har';
+
 // import { Logger } from '@yunkss/eftool';
 
 let storage = LocalStorage.getShared()
@@ -26,6 +28,17 @@ export default struct MinePage {
     let url = 'file://' + GlobalContext.getContext().getObject("filesDir") + '/index.html'
 
     this.testPath()
+
+    //自定义弹窗
+    // YWAlertConfirm.show(this.getUIContext(),{
+    //   content:"您确定要删除这条记录吗？",
+    //   onConfirm:()=>{
+    //     YWAlertConfirm.close(this.getUIContext())//关闭弹窗
+    //   },
+    //   onCancel:()=>{
+    //     YWAlertConfirm.close(this.getUIContext())//关闭弹窗
+    //   }
+    // })
   }
   onPageHide(): void {
     console.log('========== onPageHide')

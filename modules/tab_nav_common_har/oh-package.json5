@@ -1,0 +1,16 @@
+{
+  "name": "tab_nav_common_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/common_har": "file:../common_har",
+    "@learn/logger_har": "file:../logger_har",
+    "@learn/nav_router_har": "file:../nav_router_har",
+    "@learn/res_har": "file:../res_har",
+    "@learn/global_service_har": "file:../global_service_har"
+
+  }
+}

@@ -8,6 +8,7 @@
   "dependencies": {
     "@learn/common_har": "file:../common_har",
     "@learn/logger_har": "file:../logger_har",
-    "@learn/dark_har": "file:../dark_har"
+    "@learn/dark_har": "file:../dark_har",
+    "@learn/manager_task_har": "file:../manager_task_har",
   }
 }

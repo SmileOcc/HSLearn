@@ -10,12 +10,13 @@ import { PhoneLayoutFactor, TabletLayoutFactor, TestLayoutFactory } from '../bas
 // import { CacheUtil, OutDTO, IdCardUtil, ToastUtil, ActionUtil, DialogUtil,LoadingUtil} from '@yunkss/eftool'
 import { rcp } from "@kit.RemoteCommunicationKit";
 import { TigerOpenApi, TigerOpenImp } from '@learn/tiger_har/Index'
-import { ENU_PREFS, globalThis } from '@learn/common_har'
+import { ENU_PREFS, globalThis, YWNavRouterUtils } from '@learn/common_har'
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { YWConstants } from '@learn/constants_har'
 import { YWTaskPoolUtils } from '@learn/taskpool_har';
 import { taskpool } from '@kit.ArkTS';
+import { CatOpenImp } from '@learn/cat_har';
 
 //导入har库
 import('STHarLib')
@@ -41,9 +42,18 @@ export  const testPromise:Promise<string> = new Promise<string>((resolve)=>{
 })
 
 const TAG = 'SettingPage'
+
+export const RootSettingBuilder = wrapBuilder(settingBuilder)
+
+@Builder function settingBuilder(name:string, params:Map<string,Object>){
+  NavDestination(){
+    SettingPage()
+  }
+  .hideTitleBar(true)
+}
 @Entry
 @Component
-struct SettingPage {
+export struct SettingPage {
   private context = getContext(this) as common.UIAbilityContext
   @State tempGroupList: SetItemModel[][] = new Array
   @State allGroupList: SetItemModel[] = new Array
@@ -143,7 +153,7 @@ struct SettingPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination"],
+      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
         "savedAbility-docAbility-multition",
@@ -163,7 +173,7 @@ struct SettingPage {
       ["MarginPaddingPage"],
       ["设备硬件信息：HardwareInfoPage"],
       ["支付首页全适配：PaymentHomePage"],
-      ["tiger_har_app"],
+      ["tiger_har_app","cat_har_app"],
 
       ["注销账号", "退出"]]
 
@@ -512,6 +522,12 @@ struct SettingPage {
 
           this.tigerOpenApi.openTigerApp("tiger_id","123")
         }
+        if (subModel.title.startsWith('cat_har_app')) {
+          const catApi = new CatOpenImp()
+          catApi.openCatApp("cat_id","123")
+
+          // YWNavRouterUtils.navPathStack.pushPath({name:"cat_har_app"},true)
+        }
 
         if (subModel.title.includes('录音转文字')) {
           RouterUtils.jumpRouter('pages/base/audio/TestAudioSearchCompPage')
@@ -543,6 +559,10 @@ struct SettingPage {
 
         if (subModel.title.includes('测试NavDestination')) {
           RouterUtils.jumpRouter('pages/base/navtest/TestNavigationDestionationPage')
+        }
+
+        if (subModel.title.includes('测试弹窗WrapBuilder')) {
+          RouterUtils.jumpRouter('pages/base/wrapbuilder/dialog/TestWrapBuilderDialog')
         }
       })
 

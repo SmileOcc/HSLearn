@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { CommonConstants } from '../common/constants/CommonConstants';
+import { YWConstants } from '@learn/constants_har';
 
 import { WaterFlowDataSource } from '../model/SectionsWaterFlowDataSource';
 
@@ -49,7 +49,7 @@ struct ReusableFlowItem {
         colors: [[$r('app.color.linearGradient_first_color'), 0.0],
           [$r('app.color.linearGradient_last_color'), 1.0]]
       })
-      .width(CommonYWConstants.FULL_WIDTH)
+      .width(YWConstants.FULL_WIDTH)
       .height($r('app.float.sections_item_blur_height'))
       .borderRadius($r('app.float.sections_item_radius'))
       .hitTestBehavior(HitTestMode.None)
@@ -73,7 +73,7 @@ struct ReusableFlowItem {
         })
         .id('text')
     }
-    .width(CommonYWConstants.FULL_WIDTH)
+    .width(YWConstants.FULL_WIDTH)
     .borderRadius($r('app.float.sections_item_radius'))
     .backgroundColor(Color.Gray)
   }
@@ -162,15 +162,15 @@ export struct SectionsPage {
           FlowItem() {
             ReusableFlowItem({ item: item })
           }
-          .width(CommonYWConstants.FULL_WIDTH)
+          .width(YWConstants.FULL_WIDTH)
           .borderRadius($r('app.float.sections_item_radius'))
           .backgroundColor(Color.Gray)
         }, (item: string) => item)
       }
       .columnsGap($r('app.float.sections_margin'))
       .rowsGap($r('app.float.sections_margin'))
-      .width(CommonYWConstants.FULL_WIDTH)
-      .height(CommonYWConstants.FULL_HEIGHT)
+      .width(YWConstants.FULL_WIDTH)
+      .height(YWConstants.FULL_HEIGHT)
       .layoutWeight(1)
       .onScrollIndex((first: number, last: number) => {
         if (last + 20 >= this.dataSource.totalCount()) {

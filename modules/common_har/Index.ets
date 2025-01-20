@@ -5,6 +5,7 @@ import UserAgentUtils from './src/main/ets/utils/UserAgentUtils'
 import YWBaseModel from './src/main/ets/model/YWBaseModel'
 import YWShowToast from './src/main/ets/alert/YWToastUtils'
 
+export { YWAlertConfirm } from  './src/main/ets/alert/YWAlertConfirm'
 export { getDefaultAvoidAreas, getAvoidPadding } from './src/main/ets/windowUtils/YWAvoidAreas'
 
 export { MainPage } from './src/main/ets/components/mainpage/MainPage'
@@ -76,10 +77,12 @@ export { DBUtils } from './src/main/ets/utils/DBUtils'
 export { FileUtils } from './src/main/ets/utils/FileUtils'
 export { MyEmitterUtil, MYEmitterType } from './src/main/ets/utils/MyEmitterUtil'
 export { PreferencesUtil } from './src/main/ets/utils/PreferencesUtil'
+export { IUState } from './src/main/ets/model/IUState'
 
 
 // export QDImageCompressionUtils from './src/main/ets/utils/QDImageCompressionUtils'
 
+export {YWBaseModel}
 export {QDImageCompressionUtils}
 export {RouterUtils}
 export { ThemeManager } from './src/main/ets/utils/ThemeManager'

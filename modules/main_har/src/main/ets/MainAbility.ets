@@ -2,11 +2,14 @@ import { BaseEntryAbility } from '@learn/base_har'
 import { AbilityConstant, Want } from '@kit.AbilityKit'
 import { window } from '@kit.ArkUI'
 import { TigerRouteUtils } from '@learn/tiger_har/Index'
+import { CatRouteUtils } from '@learn/cat_har'
 import { initWindowSetting } from '@learn/common_har/Index'
 import { AuthPromise } from './components/auth/YWAuthPage'
 import { YWAuthManager } from './components/auth/YWAuthManager'
+import { LaunchTask } from './LaunchTask'
+import { ywManagerTask } from '@learn/manager_task_har/src/main/ets/core/YWMangaerTask'
 
-const ROOT_PAGE = "pages/RootPage"
+const ROOT_PAGE = "root/RootPage"
 
 const AUTH_ALERT_PAGE = "auth/YWAuthAlertPage"
 
@@ -16,18 +19,31 @@ export abstract class MainAbility extends BaseEntryAbility {
     super.onWindowStageCreate(windowStage)
   }
 
-  loadContent(windowStage: window.WindowStage): void {
+  async loadContent(windowStage: window.WindowStage) {
     //注册与初始化
     initWindowSetting(windowStage)
+
+    let promise = await YWAuthManager.checkUserPrivacy(this.context)
+
+    if (promise) {
+      const abilityTask = ywManagerTask.launchTask?.abilityTask ?? []
+      ywManagerTask.handTask(abilityTask)
+    }
 
     windowStage.loadContent(this.initRootPage(), this.localStorage).then((value)=>{
       //注册其他har app
       TigerRouteUtils.registerTigerApp()
-      return super.taskEndFinish()
+      CatRouteUtils.registerCatApp()
+
+      return this.startLaunchTask()
 
     }).then(()=>{
       this.isAuth(windowStage)
     })
+  }
+
+  async startLaunchTask():Promise<void> {
+    return super.taskEndFinish()
   }
 
   //用户首次授权
@@ -41,6 +57,7 @@ export abstract class MainAbility extends BaseEntryAbility {
       //去授权页
       this.goAuthPage(windowStage)
     } else {
+
       this.mainRootPage(windowStage)
     }
   }

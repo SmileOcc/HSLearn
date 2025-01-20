@@ -3,10 +3,25 @@ import { CategoryPage } from "../pages/CategoryPage";
 import { HomePage } from "../pages/HomePage";
 import { MinePage } from "../pages/MinePage";
 import { hsLog } from '@learn/logger_har';
+import { TigerRouteParams } from "../../route/TigerRouteParams";
+
+
+@Builder
+export function tigerMainPageBuilder(name:string, pageId:number, params:TigerRouteParams) {
+  NavDestination(){
+    MainPage({pageId:pageId, params:params})
+  }
+  .hideTitleBar(true)
+}
 
 @Component
 export struct MainPage {
   @State selectIndex: number = 0;
+
+  @Require
+  pageId?:number
+  @Require
+  params?:TigerRouteParams
 
   aboutToAppear(): void {
     hsLog.i("======= aboutToAppear")

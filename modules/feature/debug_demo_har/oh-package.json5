@@ -1,0 +1,15 @@
+{
+  "name": "debug_demo_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/logger_har": "file:../../logger_har",
+    "@learn/res_har": "file:../../res_har",
+    "@learn/common_har": "file:../../common_har",
+    "@learn/constants_har": "file:../../constants_har",
+    "@learn/tiger_har": "file:../../../tiger_har"
+  }
+}

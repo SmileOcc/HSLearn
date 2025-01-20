@@ -10,6 +10,9 @@ export class TigerGlobalThis {
 
   private static instance: TigerGlobalThis
 
+  private rootStack:NavPathStack = new NavPathStack()
+  private mainStack:NavPathStack = new NavPathStack()
+
   private _appContext: ITigerAppContext = new TigerAppContext()
 
   // 缓存context
@@ -22,6 +25,11 @@ export class TigerGlobalThis {
   // 启动数据
   private _launchStoreData = new Map<string,object>()
 
+
+  static initContext(uiContext:UIContext,appId:string) {
+    let global = TigerGlobalThis.getInstance()
+    global._appContext.initAppContext(uiContext,appId)
+  }
 
   static saveLaunchData(key:string,data:object|undefined) {
     if (key && data) {
@@ -39,6 +47,13 @@ export class TigerGlobalThis {
     return undefined
   }
 
+  public static getRootStack():NavPathStack {
+    return TigerGlobalThis.instance.rootStack
+  }
+
+  public static getMainStack():NavPathStack {
+    return TigerGlobalThis.instance.mainStack
+  }
 
   public static getInstance(): TigerGlobalThis {
     if (!TigerGlobalThis.instance) {

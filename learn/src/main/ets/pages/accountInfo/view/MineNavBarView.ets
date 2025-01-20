@@ -1,6 +1,8 @@
 import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../model/UserInfoModel'
 import { router } from '@kit.ArkUI'
+import { YWNavRouterUtils } from '@learn/common_har/src/main/ets/utils/YWNavRouterUtils';
+import { YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 
 @Component
 export struct MineNavBarView {
@@ -84,6 +86,12 @@ export struct MineNavBarView {
         }
         .onClick(()=>{
           router.pushUrl({ url: 'pages/setting/SettingPage' })
+
+          // ywNavRouter
+          //   .openRoute(this.getUniqueId())
+          //   .onTargetUrl(YWNavPath.root_setting)
+          //   .onRouteMode()
+          //   .go()
         })
         .buttonStyle(ButtonStyleMode.NORMAL)
         .padding(4)

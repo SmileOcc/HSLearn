@@ -127,6 +127,70 @@
     {
       "name": "dark_har",
       "srcPath": "./modules/dark_har",
+    },
+    {
+      "name": "cat_har",
+      "srcPath": "./cat_har",
+    },
+    {
+      "name": "setting_har",
+      "srcPath": "./modules/feature/setting_har",
+    },
+    {
+      "name": "tab_nav_har",
+      "srcPath": "./modules/tab_nav_har",
+    },
+    {
+      "name": "home_har",
+      "srcPath": "./modules/feature/home_har",
+    },
+    {
+      "name": "category_har",
+      "srcPath": "./modules/feature/category_har",
+    },
+    {
+      "name": "mine_har",
+      "srcPath": "./modules/feature/mine_har",
+    },
+    {
+      "name": "car_har",
+      "srcPath": "./modules/feature/car_har",
+    },
+    {
+      "name": "learn_task_har",
+      "srcPath": "./modules/learn_task_har",
+    },
+    {
+      "name": "launcher_task_har",
+      "srcPath": "./modules/launcher_task_har",
+    },
+    {
+      "name": "manager_task_har",
+      "srcPath": "./modules/manager_task_har",
+    },
+    {
+      "name": "global_service_har",
+      "srcPath": "./modules/global_service_har",
+    },
+    {
+      "name": "user_har",
+      "srcPath": "./modules/user_har",
+    },
+    {
+      "name": "hs_launcher_har",
+      "srcPath": "./modules/hs_launcher_har",
+    },
+    {
+      "name": "tab_nav_common_har",
+      "srcPath": "./modules/tab_nav_common_har",
+    },
+    {
+      "name": "lion_har",
+      "srcPath": "./modules/feature/lion_har",
+    },
+    {
+      "name": "debug_demo_har",
+      "srcPath": "./modules/feature/debug_demo_har",
     }
   ]
 }

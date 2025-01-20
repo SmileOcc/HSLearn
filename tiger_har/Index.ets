@@ -1,4 +1,4 @@
-export { RootPage } from './src/main/ets/components/mainpage/RootPage'
+export { RootPage, TigerRootBuilder } from './src/main/ets/components/mainpage/RootPage'
 
 export { TigerOpenApi } from './src/main/ets/core/TigerOpenApi'
 export { TigerOpenImp } from './src/main/ets/core/TigerOpenImp'

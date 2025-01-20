@@ -8,6 +8,16 @@
   "dependencies": {
     "@learn/common_har": "file:../common_har",
     "@learn/base_har": "file:../base_har",
-    "@learn/tiger_har": "file:../../tiger_har"
+    "@learn/constants_har": "file:../constants_har",
+    "@learn/global_service_har": "file:../global_service_har",
+    "@learn/tiger_har": "file:../../tiger_har",
+    "@learn/cat_har": "file:../../cat_har",
+    "@learn/setting_har": "file:../feature/setting_har",
+    "@learn/nav_router_har": "file:../nav_router_har",
+    "@learn/logger_har": "file:../logger_har",
+    "@learn/res_har": "file:../res_har",
+    "@learn/tab_nav_har": "file:../tab_nav_har",
+    "@learn/manager_task_har": "file:../manager_task_har",
+    "@learn/learn_task_har": "file:../learn_task_har",
   }
 }

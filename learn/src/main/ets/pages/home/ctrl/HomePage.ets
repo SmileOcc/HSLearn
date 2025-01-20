@@ -135,6 +135,7 @@ export struct HomePage {
             .height(YWConstants.FULL_HEIGHT)
             .scrollBar(BarState.Off)
             .scrollable(ScrollDirection.Vertical)
+
             // .onWillScroll((handler) => {
             //   let opacity = (SCROLL_OFFSET_FULL - this.scroller.currentOffset().yOffset) * 1.0 / SCROLL_OFFSET_FULL;
             //   if (opacity <= 0) {
@@ -159,26 +160,26 @@ export struct HomePage {
         .backgroundColor($r('app.color.home_background_color'))
 
 
-
         // }
-      // .height(YWConstants.FULL_HEIGHT)
-      // .backgroundColor($r('app.color.home_background_color'))
+        // .height(YWConstants.FULL_HEIGHT)
+        // .backgroundColor($r('app.color.home_background_color'))
 
-    }
-    //.toolbarConfiguration(this.ToolBarBuilder())
-    // .setNavStyle()
-    // .navDestination(this.PagesMap)
-    // .onAppear(()=>{
-    //   hsLog.i(TAG,'--onAppear')
-    // })
-    // .onDisAppear(()=>{
-    //   hsLog.i(TAG,'--onDisAppear')
-    //
-    // })
-    // .onAreaChange((oldValue,newValue)=>{
-    //   hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
-    //
-    // })
+      }
+
+      // .toolbarConfiguration(this.ToolBarBuilder())
+      // .setNavStyle()
+      // .navDestination(this.PagesMap)
+      // .onAppear(()=>{
+      //   hsLog.i(TAG,'--onAppear')
+      // })
+      // .onDisAppear(()=>{
+      //   hsLog.i(TAG,'--onDisAppear')
+      //
+      // })
+      // .onAreaChange((oldValue,newValue)=>{
+      //   hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+      //
+      // })
 
   }
 

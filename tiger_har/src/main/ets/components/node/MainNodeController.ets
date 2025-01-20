@@ -78,8 +78,7 @@ export class MainNodeController extends NodeController implements INodeComponent
   // 外部调用的更新的方法
   update(params: object): void {
 
-    // update的数据类型要和builder一致
-
+    // update的数据类型要和builder一致(ComponentParams)
   }
 }
 

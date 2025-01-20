@@ -3,6 +3,18 @@
     {
       "name": "page_show",
       "value": "page from package"
+    },
+    {
+      "name": "update_title",
+      "value": "新版本"
+    },
+    {
+      "name": "cancel",
+      "value": "取消"
+    },
+    {
+      "name": "update_now",
+      "value": "更新"
     }
   ]
 }

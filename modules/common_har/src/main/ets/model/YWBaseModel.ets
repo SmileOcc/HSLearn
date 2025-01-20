@@ -1,5 +1,4 @@
-
-export interface IUState {}
+import { IUState } from './IUState'
 
 abstract class YWBaseModel<T extends IUState> {
   abstract iuState: IUState

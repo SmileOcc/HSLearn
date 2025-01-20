@@ -1,0 +1,120 @@
+import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
+import { hsLog } from "@learn/logger_har"
+import { TabInfo } from "../core/bar/TabInfo"
+import { TabMainViewModel } from "../viewmodel/CommonTabViewModel"
+import { YWLazy } from "@learn/global_service_har/src/main/ets/core/YWLazy"
+import { TabViewIUState } from "../core/bar/TabViewIUState"
+import { ITabEventState } from "../core/bar/ITabEventState"
+import { TabItemInfo } from "../core/bar/TabItemInfo"
+import { ywMainTabManger } from "../MainTabManager"
+
+const TAG = "CommonTabNavPage"
+@Component
+export struct CommonTabNavPage {
+
+  params?:YWNavParams
+  navName?:YWLocalNavType
+  @State navigationMode: number = NavigationMode.Stack;
+
+  @Watch("tabStateChange")
+  @Provide("CommonTabIUState") commonTabIUState:TabViewIUState = new TabViewIUState()
+
+  @Provide("CommonITabEventState")
+  commonTabEventState:ITabEventState = {
+    onClickIndex:(oldTabInfo,selectTabInfo) => {
+
+      this.commonTabIUState.tabInfo.updateSelectTab(selectTabInfo)
+
+      this.viewModel.value.selectIndexTab(selectTabInfo)
+    },
+    onDoubleClickIndex:(oldTabInfo,selectTabInfo) => {
+
+    }
+  }
+
+  viewModel:YWLazy<TabMainViewModel> = new YWLazy(()=>{
+    return new TabMainViewModel(this.getUniqueId(), this.navName!, this.commonTabIUState)
+  })
+
+  //UI数据变化
+  tabStateChange(value:string) {
+
+
+  }
+
+  aboutToAppear(): void {
+
+    if (this.params) {
+      this.commonTabIUState = this.params.get("tabInfo") as TabViewIUState
+      this.navName = this.params.get("main_tab_nav") as YWLocalNavType
+    }
+
+
+    setTimeout(()=>{
+      this.viewModel.value.init(this.getUniqueId())
+
+    },3000)
+
+
+  }
+
+  onBackPress(){
+
+    let kk = "d"
+  }
+
+  @Builder
+  navDestPages(name: string, param: YWNavParams) {
+    ywNavManager.getBuilderWithPageID(this.navName!)(name)?.builder(name,param)
+  }
+
+  build() {
+    Row(){
+      if (false) {
+        Column(){
+
+        }
+        .height('100%')
+        .width('60')
+      }
+      Stack() {
+        Navigation(ywNavManager.getNavStack(this.navName!)){
+
+        }
+        .hideTitleBar(true)
+        .navDestination(this.navDestPages)
+        .hideNavBar(true)
+        .mode(this.navigationMode)
+        .onAppear(()=>{
+          hsLog.i(TAG,'--onAppear')
+        })
+        .onDisAppear(()=>{
+          hsLog.i(TAG,'--onDisAppear')
+
+        })
+        .width('100%')
+        .height('100%')
+      }
+      .layoutWeight(1)
+      .height('100%')
+
+
+    }
+    .width('100%')
+    .height('100%')
+
+  }
+}
+
+@Builder
+export function commonTabBuilder(params:YWNavParams) {
+  CommonTabNavPage({params:params})
+}
+
+@Builder
+export function commonTabNavBuilder(name:string, params:YWNavParams) {
+  NavDestination(){
+    CommonTabNavPage({params:params})
+  }
+  .hideTitleBar(true)
+}

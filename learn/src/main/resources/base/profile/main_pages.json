@@ -1,6 +1,6 @@
 {
   "src": [
-    "pages/RootPage",
+    "root/RootPage",
     "pages/Logo",
     "pages/Home",
     "pages/FoodDetail",
@@ -72,6 +72,7 @@
     "pages/base/relativelayout/TestWindowOrientationPage",
     "pages/base/listscroll/TestListScrollPage",
     "pages/base/navtest/TestNavigationDestionationPage",
-    "auth/YWAuthAlertPage"
+    "auth/YWAuthAlertPage",
+    "pages/base/wrapbuilder/dialog/TestWrapBuilderDialog"
   ]
 }

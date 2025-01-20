@@ -2,6 +2,9 @@ import { ITigerAppServer } from './ITigerAppServer'
 import { TigerServerType } from './launchexecute/TigerServerType'
 
 export interface ITigerAppContext extends ITigerAppServer {
+
+  initAppContext(context?:UIContext, appId?:string):void
+
   getAppID():string
 
   getUIContext():UIContext | undefined

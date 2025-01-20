@@ -4,12 +4,24 @@ import { LaunchStoreDataManager } from './launchexecute/LaunchStoreDataManager';
 import { TigerServerType } from './launchexecute/TigerServerType';
 import { TigerAppServerManager } from './TigerAppServerManager';
 import { TigerServerProvider } from './TigerServerProvider';
+import App from '@system.app';
 
 export class TigerAppContext implements ITigerAppContext {
 
   private serverManager = new TigerAppServerManager()
+
+  private uiContext?:UIContext
+  private appId:string = ""
   constructor() {
+
     TigerServerProvider.bundleAppService(this)
+  }
+
+  initAppContext(context?:UIContext, appId?:string) {
+    this.appId = appId ?? ""
+    this.uiContext = context
+
+    this.serverManager.initAppContext(context,appId)
   }
 
   onStart(): void {
@@ -23,11 +35,12 @@ export class TigerAppContext implements ITigerAppContext {
 
 
   getAppID(): string {
-    throw new Error('Method not implemented.');
+    return this.appId
   }
 
   getUIContext(): UIContext | undefined {
-    throw new Error('Method not implemented.');
+
+    return this.uiContext
   }
 
   getAppConfig(): Object {

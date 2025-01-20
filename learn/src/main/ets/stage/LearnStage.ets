@@ -4,16 +4,25 @@ import { distributedKVStore } from "@kit.ArkData";
 import { axiosAddHeader } from "@learn/request_har/src/main/ets/AxiosRequest/AxiosRequest";
 import { hsLog } from '@learn/logger_har';
 import { YWAppUtils, globalThis, ENU_PREFS } from '@learn/common_har'
-import { YWConstants } from "@learn/constants_har/src/main/ets/core/YWConstants";
+import { YWConstants } from "@learn/constants_har";
+import { ywManagerTask } from "@learn/manager_task_har";
+import { LauncherStage } from "@learn/hs_launcher_har";
 
 /*
  * @Desc: 应用入口，初始化一些库和SDK，在module.json5配置路径。
  */
 const TAG = 'LearnStage'
 
-export default class LearnStage extends AbilityStage {
+export default class LearnStage extends LauncherStage {
   onCreate(): void {
     hsLog.i(TAG,'onCreate')
+
+    super.onCreate()
+
+    let stageTask = ywManagerTask.launchTask?.stageTask ?? []
+    //TODO 先合并在一起了
+    ywManagerTask.handTask(stageTask)
+
 
     this.initParams()
     //初始化一些库或三方sdk

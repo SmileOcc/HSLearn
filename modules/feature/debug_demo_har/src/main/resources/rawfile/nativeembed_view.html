@@ -1,0 +1,72 @@
+<!Document>
+<html>
+<head>
+    <title>viewhtml</title>
+    <!--  设置H5页面根据设备宽度自适应  -->
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+</head>
+<body>
+<div>
+    <div id="bodyId">
+        <!-- 在H5界面上通过embed标签标识同层元素，在应用侧将原生组件渲染到H5页面embed标签所在位置-->
+        <embed id="nativeSearch" type = "native/component" width="100" height="50" src="view"/>
+
+
+    </div>
+
+    <div id="bodyId1">
+        <!-- 在H5界面上通过embed标签标识同层元素，在应用侧将原生组件渲染到H5页面embed标签所在位置-->
+
+        <embed id="nativevideo_01" type = "native/video" width="100" height="50" src="view"/>
+
+    </div>
+
+    <div id="bodyId2">
+        <!-- 在H5界面上通过embed标签标识同层元素，在应用侧将原生组件渲染到H5页面embed标签所在位置-->
+
+        <embed id="nativevideo_02" type = "native/video" width="200" height="100" src="view"/>
+
+
+    </div>
+
+    <div id="bodyId3">
+        <!-- 在H5界面上通过embed标签标识同层元素，在应用侧将原生组件渲染到H5页面embed标签所在位置-->
+
+        <embed id="nativevideo_03" type = "native/video" width="200" height="100" src="view"/>
+    </div>
+
+
+
+    <div id="bodyId4">
+        <!-- 在H5界面上通过embed标签标识同层元素，在应用侧将原生组件渲染到H5页面embed标签所在位置-->
+
+        <embed id="nativevideo_04" type = "native/video" width="200" height="200" src="view"/>
+
+    </div>
+
+</div>
+
+    <div id="menu" style="background-color:#FFD700;height:600px;width:100px;"></div>
+
+    <embed id="nativevideo_05" type = "native/video" width="200" height="200" src="view"/>
+
+
+<script>
+// 判断设备是否支持touch事件
+let nativeEmbed = {
+  // 通过id名获取embed标签
+  nativeSearch : document.getElementById('nativeSearch'),
+  // 事件
+  events:{},
+  // 初始化
+  init:function(){
+    let self = this;
+    // 添加touch的监听事件
+    self.nativeSearch.addEventListener('touchstart', self.events, false);
+  }
+};
+nativeEmbed.init();
+</script>
+
+</body>
+</html>

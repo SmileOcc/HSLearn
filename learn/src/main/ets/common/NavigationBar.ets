@@ -1,3 +1,6 @@
+import { ywNavManager } from '@learn/nav_router_har/src/main/ets/components/YWNavManager';
+import { ywNavRouter } from '@learn/nav_router_har/src/main/ets/components/YWNavRouter';
+import { YWLocalNavType } from '@learn/nav_router_har/src/main/ets/components/YWNavType';
 import router from '@ohos.router'
 
 const TAG: string = '[NavigationBar]'
@@ -28,7 +31,10 @@ export struct NavigationBar {
           .id('back')
           .layoutWeight(1)
           .onClick(() => {
-            router.back()
+            // router.back()
+
+            ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT)?.pop(true)
+
             // AlertDialog.show(
             //   {
             //     title: $r('app.string.warning'),

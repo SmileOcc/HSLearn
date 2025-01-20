@@ -96,9 +96,9 @@
 //        "srcEntry": "./ets/entryability/EntryAbility.ets",
         "srcEntry": "./ets/entryability/LearnEntryAbility.ets",
         "description": "$string:EntryAbility_desc",
-        "icon": "$media:logo",
+        "icon": "$media:app_icon",
         "label": "$string:EntryAbility_label",
-        "startWindowIcon": "$media:startIcon",
+        "startWindowIcon": "$media:app_icon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
         "orientation": "auto_rotation_restricted",//横竖屏

@@ -7,6 +7,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@learn/constants_har": 'file:../constants_har',
-    "@learn/logger_har": 'file:../logger_har'
+    "@learn/logger_har": 'file:../logger_har',
   }
 }

@@ -4,6 +4,9 @@ import { TigerServerType } from './launchexecute/TigerServerType'
 import { LaunchStepData } from './task/LaunchStep'
 
 export class TigerAppServerManager implements ITigerAppContext {
+  initAppContext(context?: UIContext | undefined, appId?: string | undefined): void {
+
+  }
 
   private serverMap:Map<TigerServerType,ITigerAppServer> = new Map()
 

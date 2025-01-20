@@ -3,6 +3,8 @@ import { window } from '@kit.ArkUI'
 import { MainAbility } from '@learn/main_har'
 import { YWAppUtils, globalThis } from '@learn/common_har'
 import { MMKV } from '@tencent/mmkv';
+import { YWLocalNavType, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
+import { RootSettingBuilder } from '../pages/setting/SettingPage';
 
 
 export abstract  class LearnEntryAbility extends MainAbility {

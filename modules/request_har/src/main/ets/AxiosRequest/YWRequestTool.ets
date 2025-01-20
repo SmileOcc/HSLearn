@@ -8,7 +8,7 @@ import { efAxios } from './YWAxiosUtils';
 import fs from '@ohos.file.fs';
 // import { ToastUtil } from '../../ui/prompt/ToastUtil';
 import { common } from '@kit.AbilityKit';
-import { YWToastUtils } from '@learn/YWRandomUtils/src/main/ets/alert/YWToastUtils';
+import { YWToastUtils } from '@learn/common_har';
 
 
 class YWRequestTool {

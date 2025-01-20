@@ -6,6 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "@learn/hs_launcher_har": "file:../modules/hs_launcher_har",
     "STHarLib": "file:../learn/libs/STHarLib.har",
     "ShareHarLibs": "file:../ShareHarLib",
     "@learn/common_har": "file:../modules/common_har",
@@ -13,6 +14,7 @@
     "@learn/main_har": "file:../modules/main_har",
     "@learn/request_har": "file:../modules/request_har",
     "@learn/tiger_har": "file:../tiger_har",
+    "@learn/cat_har": "file:../cat_har",
     "@learn/nav_router_har": "file:../modules/nav_router_har",
     "@learn/login_har": 'file:../modules/feature/login_har',
     "@learn/res_har": 'file:../modules/res_har',
@@ -22,6 +24,7 @@
     "@learn/logger_har": 'file:../modules/logger_har',
     "@learn/dark_har": 'file:../modules/dark_har',
     "@learn/taskpool_har": 'file:../modules/taskpool_har',
+    "@learn/manager_task_har": 'file:../modules/manager_task_har',
 
     "@abner/refresh": "^1.1.7",
     "@tencent/mmkv": "^2.0.1"

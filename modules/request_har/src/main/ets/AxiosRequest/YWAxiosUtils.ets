@@ -5,8 +5,8 @@ import { AxiosResponse } from '@ohos/axios';
 import { AxiosStatic } from '@ohos/axios';
 
 import { ArrayList } from '@kit.ArkTS';
-import { YWJsonUtils, YWRandomUtils } from '@learn/YWRandomUtils/Index';
-import { YWToastUtils } from '@learn/YWRandomUtils/src/main/ets/alert/YWToastUtils';
+import { YWJsonUtils, YWRandomUtils } from '@learn/common_har';
+import { YWToastUtils } from '@learn/common_har';
 
 /**
  * @Author csx
