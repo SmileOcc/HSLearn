@@ -1,9 +1,7 @@
 import { hsLog } from "@learn/logger_har"
 import { ywNavManager, YWNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
-import { ITabEventState } from "../core/bar/ITabEventState"
-import { TabItemInfo } from "../core/bar/TabItemInfo"
-import { TabViewIUState } from "../core/bar/TabViewIUState"
+import { ITabEventState, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har"
 import { CommonTabItemView } from "./CommonTabItemView"
 
 const TAG = "CommonTabContentView"

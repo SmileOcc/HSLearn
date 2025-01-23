@@ -1,11 +1,9 @@
 import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
-import { TabInfo } from "../core/bar/TabInfo"
+import { TabInfo, TabViewIUState, ITabEventState, TabItemInfo } from "@learn/tab_nav_api_har"
 import { TabMainViewModel } from "../viewmodel/CommonTabViewModel"
 import { YWLazy } from "@learn/global_service_har/src/main/ets/core/YWLazy"
-import { TabViewIUState } from "../core/bar/TabViewIUState"
-import { ITabEventState } from "../core/bar/ITabEventState"
-import { TabItemInfo } from "../core/bar/TabItemInfo"
+
 import { ywMainTabManger } from "../MainTabManager"
 
 const TAG = "CommonTabNavPage"

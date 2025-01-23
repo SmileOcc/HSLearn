@@ -12,22 +12,22 @@ export enum YWNavParamsKey {
 
 export enum YWLocalNavType {
 
-
+  //APP最外层路由
   NAV_ROOT = "NAV_ROOT",
-    //主导航
+  //APP第二层主导航
   NAV_ROOT_MAIN_NAV = "NAV_ROOT_MAIN_NAV",
-    //主tab
+  //APP第三层主tab
   NAV_ROOT_MAIN_TAB = "NAV_ROOT_MAIN_TAB",
 
 
+  //除了几个特殊的 配置在NAV_ROOT上，其他的都应该配置在NAV_ROOT_MAIN_TAB上
 
+  //登录
   NAV_ROOT_LOGIN_NAV = "NAV_ROOT_LOGIN_NAV",
-
+  //设置
   NAV_ROOT_LEARN_SETTING = "NAV_ROOT_LEARN_SETTING",
 
-
-  NAV_SETTING = "NAV_SETTING",
-
+  // ================== 都在NAV_ROOT_MAIN_TAB下 =================== //
   NAV_MAIN_HOME = "NAV_MAIN_HOME",
   NAV_MAIN_CATEGORY = "NAV_MAIN_CATEGORY",
   NAV_MAIN_CAR = "NAV_MAIN_CAR",
@@ -37,6 +37,7 @@ export enum YWLocalNavType {
   //普通tab
   NAV_COMMON_TAB = "NAV_COMMON_TAB",
 
+  // ================ 各模块内的路由(除了第一层路由，内部路由可以在内部重新设计） ============= //
   //cat tab
   NAV_CAT_HOME_NAV = "NAV_CAT_HOME_NAV",
   NAV_CAT_NEWS_NAV = "NAV_CAT_NEWS_NAV",

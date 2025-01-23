@@ -248,7 +248,7 @@ struct RootPage {
 
       })
     }
-    // .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .alignContent(Alignment.BottomEnd)
     .backgroundColor($r('app.color.bg_base'))
     .padding(getAvoidPadding(this.avoidAreas))

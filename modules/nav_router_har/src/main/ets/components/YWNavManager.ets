@@ -297,16 +297,23 @@ export class YWNavManager {
     let indexStacks = navConfig.navPathStack.getIndexByName(config.targetUrl)
 
     const findIndex = (pagesList:Array<number>):number=> {
-      let reverseList = pagesList.reverse()
-      for (let i=0; i< reverseList.length; i++) {
 
-        let params = navConfig.navPathStack.getParamByIndex(i) as YWNavParams
-        if (params) {
-          let urlKey = params.get(YWNavParamsKey.NAV_ULR_KEY) as string ?? "-1000"
-          if (config.targetUrlKey === urlKey) {
-            return i
+      //TODO
+      if (config.targetUrlKey) {
+        let reverseList = pagesList.reverse()
+        for (let i=0; i< reverseList.length; i++) {
+
+          let params = navConfig.navPathStack.getParamByIndex(i) as YWNavParams
+          if (params) {
+            let urlKey = params.get(YWNavParamsKey.NAV_ULR_KEY) as string ?? "-1000"
+            if (config.targetUrlKey === urlKey) {
+              return i
+            }
           }
         }
+
+      } else {
+        return pagesList.length - 1
       }
       return -1
     }

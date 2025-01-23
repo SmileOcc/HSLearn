@@ -1,24 +1,34 @@
 import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
-import { TabInfo } from "@learn/tab_nav_common_har"
+import { ITabComponentDelegate, NavMenuInfo, NavTitleInfo, TabInfo, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabMainViewModel } from "./viewmodel/TabMainViewModel"
 import { YWLazy } from "@learn/global_service_har/src/main/ets/core/YWLazy"
-import { TabViewIUState } from "@learn/tab_nav_common_har"
-import { ITabEventState } from "@learn/tab_nav_common_har"
-import { TabItemInfo } from "@learn/tab_nav_common_har"
+import { TabViewIUState } from "@learn/tab_nav_api_har"
+import { ITabEventState } from "@learn/tab_nav_api_har"
+import { TabItemInfo } from "@learn/tab_nav_api_har"
 import { ywMainTabManger } from "@learn/tab_nav_common_har"
 import { router } from "@kit.ArkUI"
+import { NavAvatarInfo } from "@learn/tab_nav_api_har"
 
 const TAG = "TabMainNavPage"
 @Component
 export struct TabMainNavPage {
 
+  tabDelegate?:ITabComponentDelegate
 
-  @State tabInfo:TabInfo = new TabInfo()
   @State navigationMode: number = NavigationMode.Stack;
+
+  @State navInfo:TabNavTitleConfig = new TabNavTitleConfig()
+
+  //共享状态，子组件通过Consume 读取数据
+  @Provide tabInfo:TabInfo = new TabInfo()
 
   @Watch("tabStateChange")
   @Provide("tabIUState") tabIUState:TabViewIUState = new TabViewIUState()
+
+  @Provide("titleInfo") titleInfo:NavTitleInfo = this.navInfo.titleInfo
+  @Provide("userAvatarInfo") userAvatarInfo:NavAvatarInfo = this.navInfo.userAvatarInfo
+  @Provide("rightMenuInfos") rightMenuInfos:NavMenuInfo = this.navInfo.rightMenuInfos
 
   @Provide("ITabEventState")
   tabEventState:ITabEventState = {
@@ -81,6 +91,7 @@ export struct TabMainNavPage {
 
 
         }
+        .id(YWLocalNavType.NAV_ROOT_MAIN_TAB)
         .hideTitleBar(true)
         .navDestination(this.navDestPages)
         .hideNavBar(true)

@@ -58,6 +58,8 @@ export struct MainNavPage {
         hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
 
       })
+      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+
     }
 
   }

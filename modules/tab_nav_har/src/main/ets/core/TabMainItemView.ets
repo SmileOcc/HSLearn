@@ -1,6 +1,6 @@
 import { YWConstants } from "@learn/constants_har";
 import { YWResColor, YWResImage } from "@learn/res_har";
-import { TabItemInfo } from "@learn/tab_nav_common_har";
+import { TabItemInfo } from "@learn/tab_nav_api_har";
 
 @Component
 export struct TabMainItemView {

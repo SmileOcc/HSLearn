@@ -51,4 +51,8 @@ export class YWResImage {
   static defaultPlaceholder():Resource {
     return $r('app.media.placeholder')
   }
+
+  static backArrow():Resource {
+    return $r('app.media.tab_bag_normal')//todo 返回按钮
+  }
 }

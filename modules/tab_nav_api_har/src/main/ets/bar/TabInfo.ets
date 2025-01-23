@@ -1,6 +1,9 @@
 import { IUState } from "@learn/common_har"
 import { TabItemInfo } from "./TabItemInfo"
 
+//TODO
+// type MainTabNav:Map<string,string> = new Map<string,string>()
+
 @Observed
 export class TabInfo {
   mainNavList:TabItemInfo[] = []

@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "tab_nav_api_har",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

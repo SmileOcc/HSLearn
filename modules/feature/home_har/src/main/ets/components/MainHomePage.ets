@@ -21,7 +21,7 @@ const TAG = "MainHomePage"
 export struct MainHomePage {
   @State message: string = 'Hello home';
   @State navigationMode: number = NavigationMode.Stack;
-  homePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_HOME)
+  // homePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_HOME)
 
   @Builder
   navPagesMap(name: string, param: YWNavParams) {
@@ -34,7 +34,7 @@ export struct MainHomePage {
 
   build() {
     Stack() {
-      Navigation(this.homePageNav) {
+      // Navigation(this.homePageNav) {
 
         Column() {
           Text("home")
@@ -51,25 +51,25 @@ export struct MainHomePage {
         .width('100%')
         .height('100%')
 
-      }
-      .width('100%')
-      .height('100%')
-      .hideTitleBar(true)
-      .navBarWidth('50%')
-      .navDestination(this.navPagesMap)
-      // .hideNavBar(this.isFullScreen)
-      .mode(this.navigationMode)
-      .onAppear(() => {
-        hsLog.i(TAG, '--onAppear')
-      })
-      .onDisAppear(() => {
-        hsLog.i(TAG, '--onDisAppear')
-
-      })
-      .onAreaChange((oldValue, newValue) => {
-        hsLog.i(TAG, `--onAreaChange:${oldValue}  ${newValue}`)
-
-      })
+      // }
+      // .width('100%')
+      // .height('100%')
+      // .hideTitleBar(true)
+      // .navBarWidth('50%')
+      // .navDestination(this.navPagesMap)
+      // // .hideNavBar(this.isFullScreen)
+      // .mode(this.navigationMode)
+      // .onAppear(() => {
+      //   hsLog.i(TAG, '--onAppear')
+      // })
+      // .onDisAppear(() => {
+      //   hsLog.i(TAG, '--onDisAppear')
+      //
+      // })
+      // .onAreaChange((oldValue, newValue) => {
+      //   hsLog.i(TAG, `--onAreaChange:${oldValue}  ${newValue}`)
+      //
+      // })
     }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     // .alignContent(Alignment.BottomEnd)

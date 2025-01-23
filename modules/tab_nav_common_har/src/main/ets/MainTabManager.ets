@@ -1,7 +1,7 @@
 import { YWNavPath } from "@learn/nav_router_har/src/main/ets/components/YWNavPath"
 import { YWLocalNavType } from "@learn/nav_router_har/src/main/ets/components/YWNavType"
 import { YWResImage } from "@learn/res_har"
-import { TabItemInfo } from "./core/bar/TabItemInfo"
+import { TabItemInfo } from "@learn/tab_nav_api_har"
 
 const MainTabList:Map<YWLocalNavType,YWNavPath> = new Map([
   [YWLocalNavType.NAV_MAIN_HOME,YWNavPath.main_tab_home],

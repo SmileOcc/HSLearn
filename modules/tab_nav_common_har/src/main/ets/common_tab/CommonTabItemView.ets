@@ -1,5 +1,5 @@
 import { YWResColor, YWResImage } from "@learn/res_har";
-import { TabItemInfo } from "../core/bar/TabItemInfo";
+import { TabItemInfo } from "@learn/tab_nav_api_har";
 
 @Component
 export struct CommonTabItemView {

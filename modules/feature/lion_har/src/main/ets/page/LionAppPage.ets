@@ -1,7 +1,8 @@
 import { hsLog } from "@learn/logger_har";
 import { YWLocalNavType, ywNavManager, YWNavParams, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
 import { YWResColor } from "@learn/res_har";
-import { commonTabBuilder, TabInfo, TabItemInfo, TabViewIUState } from "@learn/tab_nav_common_har";
+import { TabInfo, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har";
+import { commonTabBuilder } from "@learn/tab_nav_common_har"
 import { lionMainBuilder } from "../../../../Index";
 
 export const LionRootBuilder = wrapBuilder(lionAppBuilder)

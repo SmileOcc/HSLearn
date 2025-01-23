@@ -1,11 +1,12 @@
 import { YWLocalNavType, ywNavRouter } from "@learn/nav_router_har";
-import { TabItemInfo } from "../core/bar/TabItemInfo";
-import { TabViewIUState } from "../core/bar/TabViewIUState";
+import { TabItemInfo, TabViewIUState, ITabComponentDelegate } from "@learn/tab_nav_api_har";
 
 export class TabMainViewModel {
   private viewModelState:TabViewIUState
   private componentId:number
   private navName:YWLocalNavType
+
+  private tabDelegate?:ITabComponentDelegate
   constructor(componentId:number, navName:YWLocalNavType, viewState:TabViewIUState) {
 
     this.componentId = componentId

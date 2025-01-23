@@ -191,6 +191,10 @@
     {
       "name": "debug_demo_har",
       "srcPath": "./modules/feature/debug_demo_har",
+    },
+    {
+      "name": "tab_nav_api_har",
+      "srcPath": "./modules/tab_nav_api_har",
     }
   ]
 }

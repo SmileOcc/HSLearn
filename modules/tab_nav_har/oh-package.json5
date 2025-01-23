@@ -16,6 +16,7 @@
     "@learn/category_har": "file:../feature/category_har",
     "@learn/car_har": "file:../feature/car_har",
     "@learn/mine_har": "file:../feature/mine_har",
+    "@learn/tab_nav_api_har": "file:../tab_nav_api_har",
     "@learn/tab_nav_common_har": "file:../tab_nav_common_har"
   }
 }
