@@ -54,7 +54,11 @@ function getAvoidAreas(tWindow:window.Window):YWAvoidAreas {
 export function getAvoidPadding(avoidAreas:YWAvoidAreas):Padding {
 
   let bottom = 0
-  let top = avoidAreas.system.topRect.top
+  // let top = avoidAreas.system.topRect.top
+
+  //TODO top值
+  let top = avoidAreas.cutout.topRect.top
+
   if (avoidAreas.navigation_indicator.bottomRect.height > avoidAreas.keyboard.bottomRect.height) {
     bottom = avoidAreas.navigation_indicator.bottomRect.height
   }

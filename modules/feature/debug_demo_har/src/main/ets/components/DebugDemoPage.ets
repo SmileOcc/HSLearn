@@ -4,9 +4,17 @@ import { YWResColor } from "@learn/res_har"
 import { SetItemModel } from "../mode/SetItemModel";
 import { common, Want } from "@kit.AbilityKit";
 import { router } from "@kit.ArkUI";
-import { PreferencesUtil, RouterUtils } from "@learn/common_har";
+import { getAvoidPadding, getDefaultAvoidAreas, PreferencesUtil, RouterUtils, YWAvoidAreas } from "@learn/common_har";
 import { WebViewDemo, webViewDemoBuilder } from "../pages/web/layer_web/FeatureComponent";
 import { TigerOpenApi, TigerOpenImp } from "@learn/tiger_har";
+import { createPreWeb } from "../../../../Index";
+// import { TestPreWebBuilder } from "../pages/web/pre_web/TestPreWebPage";
+import { YWConstants } from "@learn/constants_har";
+import { TestPreWebPageBuilder } from "../pages/web/pre_web/TestPreWebPage";
+import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
+import { createPreNodeWeb } from "../pages/web/pre_node_web/PreNodeWebNodeController";
+
+// import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
 @Builder
 export function debugDemoBuilder(name:string,params:Map<string,Object>) {
@@ -20,6 +28,7 @@ const TAG = "DebugDemoPage"
 @Component
 export struct DebugDemoPage {
   @State message: string = 'Hello World';
+  @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
 
   private context = getContext(this) as common.UIAbilityContext
   @State tempGroupList: SetItemModel[][] = new Array
@@ -59,10 +68,15 @@ export struct DebugDemoPage {
   aboutToAppear(): void {
     ywDebugGlobal.init(this.getUIContext())
 
-
+    // 预先创建一个空的ArkWeb动态组件（需传入UIContext），拉起渲染进程
+    createPreWeb('about://blank',this.getUIContext())
     // hsLog.d(DisplayUtil.getWidth() +' util11')//1260 util11
     // hsLog.d(DisplayUtil.getHeight() +' util11')//2720 util11
 
+
+
+    // 创建ArkWeb动态组件（需传入UIContext），loadContent之后的任意时机均可创建
+    createPreNodeWeb('https://blank', this.getUIContext());
 
     // window.getLastWindow(this.context).then((windowClass) => {
     //   windowClass.setWindowSystemBarEnable(["status", "navigation"]).then(() => {
@@ -73,7 +87,7 @@ export struct DebugDemoPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["web同层组件"],
+      ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web"],
       ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
@@ -486,8 +500,22 @@ export struct DebugDemoPage {
           RouterUtils.jumpRouter('pages/base/wrapbuilder/dialog/TestWrapBuilderDialog')
         }
 
+        if (subModel.title.startsWith("TestWeb")) {
+          this.demoPageNav.pushPathByName("TestWeb",true)
+        }
         if (subModel.title.includes("web同层组件")) {
           this.demoPageNav.pushPathByName("WebViewDemo",true)
+        }
+
+        if (subModel.title.startsWith("webPre预加载web")) {
+          this.demoPageNav.pushPathByName("PreWebViewDemo",true)
+        }
+
+        if (subModel.title.startsWith("2webPre预加载web")) {
+          this.demoPageNav.pushPathByName("aaPreWebView",true)
+        }
+        if (subModel.title.startsWith("3webPre预加载web")) {
+          this.demoPageNav.pushPathByName("bbPreWebView",true)
         }
       })
 
@@ -504,7 +532,49 @@ export struct DebugDemoPage {
     if (name == "WebViewDemo") {
 
       webViewDemoBuilder("aa",new Map)
+    } else if (name == "TestWeb") {
+      TestWWebPageBuilder("xx")
+    } else if (name == "PreWebViewDemo") {
+
+      // TestPreWebBuilder("https://www.baidu.com")
+      TestPreWebPageBuilder("https://zhuanlan.zhihu.com/p/719287092")
+
+    } else if (name == "aaPreWebView") {
+
+      TestPreWebPageBuilder("https://www.baidu.com")
+    } else if (name == "bbPreWebView") {
+
+      TestPreWebPageBuilder("https://www.zhihu.com")
+
+      // TestPreWebPageBuilder("https://developer.huawei.com/consumer/cn/doc/harmonyos-faqs-V5/faqs-app-debugging-14-V5")
     }
+
+
+
+    // 这种写法，不写else最后一个跳转进去空白
+    // if (name == "bbPreWebView") {
+    //
+    //   // TestPreWebPageBuilder("https://www.zhihu.com")
+    //
+    //   TestPreWebPageBuilder("https://developer.huawei.com/consumer/cn/doc/harmonyos-faqs-V5/faqs-app-debugging-14-V5")
+    // }
+    //
+    // if (name == "PreWebViewDemo") {
+    //
+    //   // TestPreWebBuilder("https://www.baidu.com")
+    //   TestPreWebPageBuilder("https://zhuanlan.zhihu.com/p/719287092")
+    //
+    // }
+    // if (name == "aaPreWebView") {
+    //
+    //   TestPreWebPageBuilder("https://www.baidu.com")
+    // }
+    //
+    // if (name == "WebViewDemo") {
+    //
+    //   webViewDemoBuilder("aa",new Map)
+    // }
+
   }
 
   build() {
@@ -537,7 +607,7 @@ export struct DebugDemoPage {
         .scrollBar(BarState.Off)
 
         // .margin({top:'15%'})
-        .padding({ top: '15%' })
+        // .padding({ top: '15%' })
 
         // NavigationBar({ title: $r('app.string.empty'), flag: true })
 
@@ -545,7 +615,7 @@ export struct DebugDemoPage {
       .width('100%')
       .height('100%')
       // .hideTitleBar(true)
-      .navBarWidth('50%')
+      // .navBarWidth('50%')
       .navDestination(this.navPagesMap)
       // .hideNavBar(this.isFullScreen)
       .mode(this.navigationMode)
@@ -564,7 +634,8 @@ export struct DebugDemoPage {
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .alignContent(Alignment.BottomEnd)
     .backgroundColor(YWResColor.bgBase())
-    // .padding(getAvoidPadding(this.avoidAreas))
+    .padding(getAvoidPadding(this.avoidAreas))
+    // .padding({ top:Number(AppStorage.get(YWConstants.kStatusBarHeight)) })
 
   }
 }

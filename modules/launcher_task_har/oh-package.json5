@@ -19,7 +19,9 @@
     "@learn/mine_har": "file:../feature/mine_har",
     "@learn/setting_har": "file:../feature/setting_har",
     "@learn/lion_har": "file:../feature/lion_har",
-    "@learn/debug_demo_har": "file:../feature/debug_demo_har"
+    "@learn/debug_demo_har": "file:../feature/debug_demo_har",
+    "@learn/appcontext_har": "file:../feature/appcontext_har",
+    "@learn/applink_har": "file:../feature/applink_har"
 
   }
 }

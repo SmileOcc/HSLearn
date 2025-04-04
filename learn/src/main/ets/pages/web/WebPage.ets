@@ -1,4 +1,4 @@
-import web_webview from '@ohos.web.webview'
+import { webview } from '@kit.ArkWeb'
 
 @Entry
 @Component
@@ -8,7 +8,7 @@ struct WebPage {
   @State access: boolean = true
 
 
-  controller: web_webview.WebviewController = new web_webview.WebviewController()
+  controller: webview.WebviewController = new webview.WebviewController()
 
   testObj = new WebHandleObj();
 
@@ -16,6 +16,11 @@ struct WebPage {
   build() {
     Column() {
       Web({ src: 'https://www.baidu.com', controller: this.controller })
+        .onAppear(() => {
+          // 指定第二个参数为true，代表要进行预连接，如果为false该接口只会对网址进行dns预解析
+          // 第三个参数为要预连接socket的个数。最多允许6个。
+          //webview.WebviewController.prepareForPageLoad('https://www.example.com/cn/', true, 2);
+        })
 
       // 隐私模式
       // Web({ src: 'www.example.com', controller: this.controller, incognitoMode: true })
