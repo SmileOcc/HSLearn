@@ -1,7 +1,7 @@
 import { TaskType } from "@learn/learn_task_har"
 import { ILaunchTask } from "./ILaunchTask"
 
-export class AppErrorExpectionTask implements ILaunchTask {
+export class AppExceptionTask implements ILaunchTask {
   appcontext?:Context
 
   constructor(context:Context) {

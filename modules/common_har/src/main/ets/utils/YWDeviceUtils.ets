@@ -6,7 +6,9 @@ import { YWRandomUtils } from './YWRandomUtils';
 import { hsLog } from '@learn/logger_har';
 import { YWAssetStore } from './YWAssetStore';
 import { display } from '@kit.ArkUI';
-import { BusinessError, Callback } from '@kit.BasicServicesKit';
+import { BusinessError, Callback, deviceInfo } from '@kit.BasicServicesKit';
+import fs from '@ohos.file.fs';
+import util from '@ohos.util';
 
 /**
  * 设备相关工具类
@@ -317,5 +319,46 @@ export class YWDeviceUtils {
     return vibrator.stopVibration(vibrator.VibratorStopMode.VIBRATOR_STOP_MODE_TIME);
   }
 
+  // 判断是否运行在模拟器环境的函数
+  static async isRunningOnEmulator(): Promise<boolean> {
+
+    // 设备类型
+    let deviceTypeInfo: string = deviceInfo.deviceType
+    // 设备厂家名
+    let manufactureInfo: string = deviceInfo.manufacture
+    // 设备品牌名称
+    let brandInfo: string = deviceInfo.brand
+    let productModel: string = deviceInfo.productModel
+    if (productModel == "emulator") {
+      return true
+    }
+
+    // const sysDirPath = '/sys/devices/virtual/dmi/id';
+    // const biosVendorFilePath = `${sysDirPath}/bios_vendor`;
+    //
+    // try {
+    //   // 检查 sysDirPath 是否存在
+    //   const sysDirStat = await fs.stat(sysDirPath);
+    //   if (sysDirStat) {
+    //     // 检查 biosVendorFilePath 是否存在
+    //     const biosVendorFileStat = await fs.stat(biosVendorFilePath);
+    //     if (biosVendorFileStat) {
+    //       // 读取 bios_vendor 文件内容
+    //       const file = await fs.open(biosVendorFilePath, 0o400);
+    //       const buffer = new ArrayBuffer(1024);
+    //       const readLength = await fs.read(file.fd, buffer);
+    //       const biosVendor = new util.TextDecoder().decodeToString(new Uint8Array(buffer));
+    //       await fs.close(file);
+    //       // 判断是否包含模拟器相关标识
+    //       return biosVendor.includes('Android') || biosVendor.includes('Genymotion');
+    //     }
+    //   }
+    // } catch (e) {
+    //   console.error(`Error checking emulator: ${e.message}`);
+    // }
+    return false;
+  }
 
 }
+
+

@@ -19,6 +19,7 @@ import { YWDarkManager } from '@learn/dark_har';
 import { SettingPage } from '../pages/setting/SettingPage';
 import { injectMainContext, ywNavManager, YWNavParams, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { YWLocalNavType } from '@learn/nav_router_har/src/main/ets/components/YWNavType';
+import { DebuggerApi } from '@learn/debugger_api_har';
 
 const TAG = "RootPage"
 @Entry
@@ -114,6 +115,8 @@ struct RootPage {
     this.breakpointSystem.register()
     console.log("====aboutToAppear 组件即将出现时回调该接口，具体时机为在创建自定义组件的新实例后，在执行其build()函数之前执行")
 
+    //注册debugger调试窗
+    DebuggerApi.registerDebugger()
     //注册原项目的demo tab
     ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT,[
       {name:YWNavPath.root_old_test_demo,builder:wrapBuilder(oldMainBuilder)},
@@ -252,6 +255,9 @@ struct RootPage {
     .alignContent(Alignment.BottomEnd)
     .backgroundColor($r('app.color.bg_base'))
     .padding(getAvoidPadding(this.avoidAreas))
+    .onClick(()=>{
+      DebuggerApi.debuggerOpen()
+    })
   }
 
   // build() {

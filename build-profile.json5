@@ -206,6 +206,22 @@
     {
       "name": "http_har",
       "srcPath": "./modules/http_har",
+    },
+    {
+      "name": "message_har",
+      "srcPath": "./modules/feature/message_har",
+    },
+    {
+      "name": "debugger_har",
+      "srcPath": "./modules/debugger_har",
+    },
+    {
+      "name": "debugger_api_har",
+      "srcPath": "./modules/debugger_api_har",
+    },
+    {
+      "name": "network_har",
+      "srcPath": "./modules/network_har",
     }
   ]
 }

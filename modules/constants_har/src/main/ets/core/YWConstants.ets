@@ -7,6 +7,8 @@ export class YWConstants {
   //appstorage 主context
   static readonly kUI_RootContext = 'UI_RootContext'
 
+  static readonly kMainTabHeight = 49
+
   static readonly kStatusBarHeight = 'statusBarHeight'
   static readonly kSafeBottomHeight ='safeBottomHeight'
 

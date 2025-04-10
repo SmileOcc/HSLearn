@@ -1,6 +1,8 @@
 import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
+import { ComponentContent, OverlayManager } from "@kit.ArkUI"
+import { YWConstants } from "@learn/constants_har"
 
 // export const MainHomeBuilder = wrapBuilder(mainHomeBuilder)
 
@@ -10,6 +12,17 @@ export function mainHomeBuilder(name: string, params: YWNavParams) {
     MainHomePage()
   }
   .hideTitleBar(true)
+  .onWillDisappear(()=>{
+    let kk = ""
+  })
+  .onShown(()=>{
+    let kk = ""
+
+  })
+  .onHidden(()=>{
+    let kk = ""
+
+  })
 
   // MainHomePage()
 
@@ -23,6 +36,14 @@ export struct MainHomePage {
   @State navigationMode: number = NavigationMode.Stack;
   // homePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_HOME)
 
+  @StorageProp(YWConstants.kStorageWidth) screenWidth: number = 0; //屏幕宽度（单位：vp）
+  @StorageProp(YWConstants.kStorageHeight) screenHeight: number = 0; //屏幕宽度（单位：vp）
+  @StorageProp(YWConstants.kSafeBottomHeight) safeBottomHeight: number = 0; //屏幕宽度（单位：vp）
+
+  private uiContext = this.getUIContext()
+  private overlayNode: OverlayManager = this.uiContext.getOverlayManager()
+  private componentContentTest?: ComponentContent<ActivityParams>
+
   @Builder
   navPagesMap(name: string, param: YWNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_HOME)(name)?.builder(name, param)
@@ -30,6 +51,33 @@ export struct MainHomePage {
 
   aboutToAppear(): void {
     hsLog.i(TAG, "aboutToAppear")
+
+    let width = this.screenWidth
+    let heig = this.screenHeight
+    let componentContentTest = new ComponentContent(
+      // this.uiContext, wrapBuilder<[ActivityParams]>(builderText),new ActivityParams("活动入口", {x: this.screenWidth - 100, y: this.screenHeight - 100}));
+      this.uiContext, wrapBuilder<[ActivityParams]>(builderText),new ActivityParams("活动入口", {x: (this.screenWidth)/2.0 - 40- 20, y: (this.screenHeight)/2.0 - 40 - this.safeBottomHeight - YWConstants.kMainTabHeight - 20 - 20}));
+    this.overlayNode.addComponentContent(componentContentTest, 1);
+    // 1为新增节点在OverlayManager上的层级位置。
+    this.componentContentTest = componentContentTest
+
+    this.overlayNode.showComponentContent(this.componentContentTest)
+
+    // this.overlayNode.removeComponentContent(componentContent.pop())
+    // this.overlayNode.hideComponentContent(componentContent)
+
+
+  }
+  aboutToDisappear(): void {
+    this.overlayNode.hideComponentContent(this.componentContentTest)
+  }
+
+  onPageShow(): void {
+    let kk = ""
+  }
+
+  onPageHide(): void {
+    let kk = ""
   }
 
   build() {
@@ -81,4 +129,30 @@ export struct MainHomePage {
     // .padding(getAvoidPadding(this.avoidAreas))
 
   }
+}
+
+
+class ActivityParams {
+  text: string = "活动入口"
+  offset: Position
+  constructor(text: string, offset: Position) {
+    this.text = text
+    this.offset = offset
+  }
+}
+
+@Builder
+function builderText(params: ActivityParams) {
+  Column() {
+    Text(params.text)
+      .fontSize(15)
+      .fontWeight(FontWeight.Normal)
+  }
+  .width(80)
+  .height(80)
+  .borderRadius(40)
+  .offset(params.offset)
+  .backgroundColor(Color.Blue)
+  .alignItems(HorizontalAlign.Center)
+  .justifyContent(FlexAlign.Center)
 }

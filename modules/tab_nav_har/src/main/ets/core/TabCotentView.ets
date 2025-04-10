@@ -123,7 +123,7 @@ export struct TabContentView {
 
             })
           }
-          .height('49')
+          .height(YWConstants.kMainTabHeight)
           .width('100%')
         }
         .width('100%')

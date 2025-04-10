@@ -26,8 +26,10 @@ export abstract class MainAbility extends BaseEntryAbility {
     let promise = await YWAuthManager.checkUserPrivacy(this.context)
 
     if (promise) {
-      const abilityTask = ywManagerTask.launchTask?.abilityTask ?? []
-      ywManagerTask.handTask(abilityTask)
+      const abilityTask = ywManagerTask.launchTask?.abilityTask
+      if (abilityTask) {
+        ywManagerTask.handTask(this.context, abilityTask)
+      }
     }
 
     windowStage.loadContent(this.initRootPage(), this.localStorage).then((value)=>{

@@ -13,12 +13,12 @@
       "arkOptions": {
         "obfuscation": {
           "ruleOptions": {
-            "enable": true,
+            "enable": true, // 配置true，即可开启代码混淆功能
             //对于API 10及以上版本，HAR模块默认开启混淆能力
             "files": [
-              "./obfuscation-rules.txt"
+              "./obfuscation-rules.txt" // 混淆规则文件
             ]
-          }
+          },
         }
       }
     },

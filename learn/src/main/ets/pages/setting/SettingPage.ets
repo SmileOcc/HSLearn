@@ -576,11 +576,20 @@ export struct SettingPage {
       Scroll() {
         Column() {
           List({ space: 10 }) {
-            ForEach(this.tempGroupList, (subGrou: [], index) => {
-              ListItemGroup({ header: this.itemHead("组") }) {
-                this.itemCellView(subGrou)
-              }
-            })
+            // ForEach(this.tempGroupList, (subGrou: [], index) => {
+            //   ListItemGroup({ header: this.itemHead("组") }) {
+            //     this.itemCellView(subGrou)
+            //   }
+            // })
+
+            Repeat<SetItemModel[]>(this.tempGroupList)
+              .each((res: RepeatItem<SetItemModel[]>)=>{
+
+                  ListItemGroup({ header: this.itemHead("组") }) {
+                    this.itemCellView(res.item)
+                  }
+              })
+              .key((item: SetItemModel[]) => "innerList_" + item.toString())
 
           }.borderRadius(12)
           .cachedCount(3) //不是懒加载，没用

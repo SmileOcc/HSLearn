@@ -27,7 +27,8 @@
     "@learn/manager_task_har": 'file:../modules/manager_task_har',
 
     "@abner/refresh": "^1.1.7",
-    "@tencent/mmkv": "^2.0.1"
+    "@tencent/mmkv": "^2.0.1",
+    "@learn/debugger_api_har": "file:../modules/debugger_api_har"
 
   }
 }

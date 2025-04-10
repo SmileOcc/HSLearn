@@ -116,7 +116,7 @@ abstract class BaseAbility extends UIAbility {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
     YWAppUtils.init(this.context, windowStage)
-
+    YWWindowUtils.setWindowStage(windowStage)
     //全局配置context
     // this.configGlobalContext(windowStage)
 
@@ -128,6 +128,8 @@ abstract class BaseAbility extends UIAbility {
     this.breakpointSystem.register();
 
     this.loadContent(windowStage)
+
+    this.addWindowListener()
   }
 
   initDark() {
@@ -136,7 +138,31 @@ abstract class BaseAbility extends UIAbility {
 
   initParams() {}
 
-  private registerLifeCycle() {
+  addWindowListener() {
+    //3 生命周期监听 利用 windowStageEvent、windowEvent 监听窗口生命周期变化
+
+    // 获取 App 主窗口
+    const windowStage = YWWindowUtils.getWindowStage()
+    // 窗口管理器
+    //建议使用 windowStageEventType ，避免 App 多窗口的情况导致监听错误
+    windowStage.on('windowStageEvent', (windowStageEventType: window.WindowStageEventType) => {
+      hsLog.i(TAG,`windowStageEventType: ${windowStageEventType}`);
+    })
+    // 主窗口
+    // windowStage.getMainWindowSync().on('windowEvent', (windowEventType: window.WindowEventType) => {
+    //   console.log('windowEventType: ', windowEventType)
+    // })
+
+    // // App 切后台
+    // windowStageEventType/windowEventType: 3
+    // windowStageEventType/windowEventType: 4
+    // // App 切前台
+    // windowStageEventType/windowEventType: 1
+    // windowStageEventType/windowEventType: 2
+
+  }
+
+  private registerLifeCycle() {//准备迁移到其他地方
 
     let abilityLifecycleCallback: AbilityLifecycleCallback = {
       // 当UIAbility创建时被调用

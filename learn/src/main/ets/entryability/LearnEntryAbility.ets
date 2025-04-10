@@ -1,13 +1,14 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit'
 import { window } from '@kit.ArkUI'
 import { MainAbility } from '@learn/main_har'
-import { YWAppUtils, globalThis } from '@learn/common_har'
+import { YWAppUtils, globalThis, YWDeviceUtils } from '@learn/common_har'
 import { MMKV } from '@tencent/mmkv';
 import { YWLocalNavType, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { RootSettingBuilder } from '../pages/setting/SettingPage';
 import { webview } from '@kit.ArkWeb';
+import { hsLog } from '@learn/logger_har';
 
-
+const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -28,7 +29,17 @@ export abstract  class LearnEntryAbility extends MainAbility {
     // 指定第二个参数为true，代表要进行预连接，如果为false该接口只会对网址进行DNS预解析
     webview.WebviewController.prepareForPageLoad('https://www.example.com/', true, 2);
     AppStorage.setOrCreate('abilityWant', want);
-    console.log('EntryAbility onCreate done');
+    hsLog.i(TAG,'EntryAbility onCreate done');
+
+    // 判断是否模拟器  反调试检测
+    YWDeviceUtils.isRunningOnEmulator().then((result) => {
+      if (result) {
+        hsLog.i(TAG,'The app is running on an emulator.');
+      } else {
+        hsLog.i(TAG,'The app is running on a real device.');
+      }
+    });
+
  }
 
 
@@ -53,7 +64,7 @@ export abstract  class LearnEntryAbility extends MainAbility {
     //初始化MMKV
     let appCtx = this.context.getApplicationContext();
     let mmkvRootDir = MMKV.initialize(appCtx);
-    console.info('mmkv rootDir: ', mmkvRootDir);
+    hsLog.i(TAG,'mmkv rootDir: ', mmkvRootDir);
 
     //初始化
     globalThis.init(this.context)

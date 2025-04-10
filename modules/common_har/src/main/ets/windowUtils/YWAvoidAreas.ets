@@ -87,8 +87,8 @@ export async function initListerWindow(windowObj: window.Window) {
   windowObj.on("windowSizeChange", (value)=>{
 
     let rect = windowObj.getWindowProperties().windowRect
-    let size_w = rect.width
-    let size_h = rect.height
+    let size_w = px2vp(rect.width)
+    let size_h = px2vp(rect.height)
     AppStorage.setOrCreate(YWConstants.kStorageWidth,size_w)
     AppStorage.setOrCreate(YWConstants.kStorageHeight,size_h)
 

@@ -13,6 +13,10 @@ import { YWConstants } from "@learn/constants_har";
 import { TestPreWebPageBuilder } from "../pages/web/pre_web/TestPreWebPage";
 import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 import { createPreNodeWeb } from "../pages/web/pre_node_web/PreNodeWebNodeController";
+import { TestObservedBuilder } from "../pages/observed/TestBaseObserved";
+import { TestEventHubEmitterBuilder } from "../pages/eventhub_emmiter/EventHubAndEmitterTestPage";
+import { TestPromptAlertBuilder } from "../pages/popup_alert/PromptActionClass";
+import { TestPictureLibraryBuilder } from "../pages/popup_alert/PictureLibraryDemo";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -88,6 +92,7 @@ export struct DebugDemoPage {
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
       ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web"],
+      ["调试Observed","TestEventHub_Emitter","新自定义弹窗","半弹窗选择图片"],
       ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
@@ -517,6 +522,18 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith("3webPre预加载web")) {
           this.demoPageNav.pushPathByName("bbPreWebView",true)
         }
+        if (subModel.title.startsWith("调试Observed")) {
+          this.demoPageNav.pushPathByName("调试Observed",true)
+        }
+        if (subModel.title.startsWith("TestEventHub_Emitter")) {
+          this.demoPageNav.pushPathByName("TestEventHub_Emitter",true)
+        }
+        if (subModel.title.startsWith("新自定义弹窗")) {
+          this.demoPageNav.pushPathByName("TestPromptAlertBuilder",true)
+        }
+        if (subModel.title.startsWith("半弹窗选择图片")) {
+          this.demoPageNav.pushPathByName("TestPictureLibraryBuilder",true)
+        }
       })
 
     })
@@ -547,6 +564,14 @@ export struct DebugDemoPage {
       TestPreWebPageBuilder("https://www.zhihu.com")
 
       // TestPreWebPageBuilder("https://developer.huawei.com/consumer/cn/doc/harmonyos-faqs-V5/faqs-app-debugging-14-V5")
+    } else if (name == "调试Observed") {
+      TestObservedBuilder()
+    } else if (name == "TestEventHub_Emitter") {
+      TestEventHubEmitterBuilder()
+    } else if (name == "TestPromptAlertBuilder") {
+      TestPromptAlertBuilder()
+    } else if (name == "TestPictureLibraryBuilder") {
+      TestPictureLibraryBuilder()
     }
 
 

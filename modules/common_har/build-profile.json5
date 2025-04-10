@@ -14,7 +14,7 @@
             ]
           },
           "consumerFiles": [
-            "./consumer-rules.txt"
+            "./consumer-rules.txt" // 该模块被依赖时的混淆规则
           ]
         }
       },

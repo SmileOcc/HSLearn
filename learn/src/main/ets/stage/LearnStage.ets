@@ -16,13 +16,12 @@ const TAG = 'LearnStage'
 export default class LearnStage extends LauncherStage {
   onCreate(): void {
     hsLog.i(TAG,'onCreate')
-
     super.onCreate()
-
-    let stageTask = ywManagerTask.launchTask?.stageTask ?? []
-    //TODO 先合并在一起了
-    ywManagerTask.handTask(stageTask)
-
+    let stageTask = ywManagerTask.launchTask?.stageTask
+    if (stageTask) {
+      //TODO 先合并在一起了
+      ywManagerTask.handTask(this.context, stageTask)
+    }
 
     this.initParams()
     //初始化一些库或三方sdk
