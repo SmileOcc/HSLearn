@@ -1,5 +1,5 @@
 {
-  "name": "logger_har",
+  "name": "@learn/logger_har",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
   "main": "Index.ets",
