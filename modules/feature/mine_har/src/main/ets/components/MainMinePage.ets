@@ -1,6 +1,7 @@
 import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
+import { HSLocalConfig } from "@learn/app_config_har"
 
 @Builder
 export function mainMineBuilder(name:string, params:YWNavParams) {
@@ -17,6 +18,7 @@ export struct MainMinePage {
   @State message: string = 'Hello mine';
 
   @State navigationMode: number = NavigationMode.Stack;
+  @State envName: string = ""
 
   minePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_MINE)
   @Builder
@@ -24,10 +26,16 @@ export struct MainMinePage {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_MINE)(name)?.builder(name,param)
   }
 
+  aboutToAppear(): void {
+    this.envName = HSLocalConfig.getEnv()
+
+  }
+
   build() {
     Stack() {
       Navigation(this.minePageNav) {
         Column(){
+          Text(`配置：${this.envName}`)
           Button("设置")
             .onClick(()=>{
               ywNavRouter.openRoute(this.getUniqueId())

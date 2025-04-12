@@ -7,6 +7,7 @@ import { YWLocalNavType, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { RootSettingBuilder } from '../pages/setting/SettingPage';
 import { webview } from '@kit.ArkWeb';
 import { hsLog } from '@learn/logger_har';
+import { HSLocalConfig } from '@learn/app_config_har';
 
 const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
@@ -14,6 +15,10 @@ export abstract  class LearnEntryAbility extends MainAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onCreate(want, launchParam)
     //ability 的context 与UI中取得Context一致 与stage不一致
+    HSLocalConfig.InitLocalRes(this.context)
+    let envName: string = HSLocalConfig.getEnv()
+    hsLog.i(TAG,`环境配置 envName: ${envName}`);
+
     this.initGlobal()
     this.handWant(want)
 

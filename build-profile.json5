@@ -2,19 +2,83 @@
   "app": {
     "products": [
       {
+        // 默认环境（开发环境）
         "name": "default",
         "signingConfig": "default",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
         "runtimeOS": "HarmonyOS",
+        "output": {
+          "artifactName": "default_app"
+        },
+        "resource": {
+          "directories": [
+            "./AppScope/resource_dev"
+          ]
+        },
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": {
+              "IS_PRODUCTION": false,
+              "URL_BASE": "https://*"
+            }
+          }
+        }
+      },
+      {
+        // 生产环境
+        "name": "release",
+        "signingConfig": "release",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "targetSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "output": {
+          "artifactName": "pro_app"
+        },
+        "resource": {
+          "directories": [
+            "./AppScope/resource_pro"
+          ]
+        }
       }
     ],
     "buildModeSet": [
       {
-        "name": "debug",
+        "name": "debug"
       },
       {
         "name": "release"
+      },
+      {
+        "name": "free"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B9BB5A40A981F54C44AEB9890E61C5087BE3733FB706E89543D2ADAF666042F549EDE1027E136CF",
+          "profile": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
+          "storePassword": "0000001B49EDE76BA5E03DA9D4A781EF1BD1B7192C39A19693CED53D9ED5E6EE8F35DF7E040B49BAFF3430"
+        }
+      },
+      {
+        "name": "release",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B27CA1DFB5C9FE7F88BE975199C0A1ADAF38B0EA6CC0D425DCC4879A5166F271FDB354A2B51DB5A",
+          "profile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
+          "storePassword": "0000001BC630E9E6DD60B84DE8548FE0A54AD75E5EF0294AC935CBC738CC5CAC6E685521877A9410265E50"
+        }
       }
     ]
   },
@@ -222,6 +286,10 @@
     {
       "name": "network_har",
       "srcPath": "./modules/network_har",
+    },
+    {
+      "name": "app_config_har",
+      "srcPath": "./modules/app_config_har",
     }
   ]
 }

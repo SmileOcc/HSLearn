@@ -16,11 +16,10 @@ class YWManagerTask {
   }
 
   taskCount = 0
-  async handTask(context:Context, taskList:(context:Context) => (()=>IAppTask)[]) {
+  async handTask(taskList:(()=>IAppTask)[]) {
     this.taskCount++
 
-    // let contexxt:Context = globalThis.getContext()
-    for (const itemTask of taskList(context)) {
+    for (const itemTask of taskList) {
       const task = itemTask()
       if (task.type() == TaskType.main) {
         await task.run()
@@ -43,6 +42,22 @@ class YWManagerTask {
     let contexxt:Context = globalThis.getContext()
     for (const itemTask of taskList) {
       const task = itemTask(contexxt)()
+      if (task.type() == TaskType.main) {
+        await task.run()
+      } else {
+        task.run()
+      }
+    }
+    this.taskCount--
+  }
+
+  //测试2
+  async handTask2(context:Context, taskList:(context:Context) => (()=>IAppTask)[]) {
+    this.taskCount++
+
+    // let contexxt:Context = globalThis.getContext()
+    for (const itemTask of taskList(context)) {
+      const task = itemTask()
       if (task.type() == TaskType.main) {
         await task.run()
       } else {

@@ -10,6 +10,7 @@
   "buildOptionSet": [
     {
       "name": "release",
+      "debuggable": false,
       "arkOptions": {
         "obfuscation": {
           "ruleOptions": {
@@ -22,13 +23,33 @@
         }
       }
     },
+    {
+      "name": "default",
+      "debuggable": true,
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false
+          }
+        }
+      }
+    }
   ],
+
   "targets": [
     {
-      "name": "default"
+      "name": "default" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
     },
     {
-      "name": "ohosTest",
+      "name": "PRD",
+      "output": {
+        "artifactName": "customizedTargetOutputName1-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
+      },
+      "config": {
+        "deviceType": [  //定义free支持的设备类型为phone
+          "phone"
+        ]
+      }
     }
   ]
 }

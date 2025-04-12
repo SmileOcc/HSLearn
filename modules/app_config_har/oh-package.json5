@@ -1,0 +1,11 @@
+{
+  "name": "@learn/app_config_har",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "Index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@learn/logger_har": "file:../logger_har"
+  }
+}

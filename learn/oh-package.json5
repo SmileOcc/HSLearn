@@ -6,6 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "@learn/app_config_har": "file:../modules/app_config_har",
     "@learn/hs_launcher_har": "file:../modules/hs_launcher_har",
     "STHarLib": "file:../learn/libs/STHarLib.har",
     "ShareHarLibs": "file:../ShareHarLib",

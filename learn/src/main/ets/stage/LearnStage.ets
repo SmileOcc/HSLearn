@@ -17,10 +17,10 @@ export default class LearnStage extends LauncherStage {
   onCreate(): void {
     hsLog.i(TAG,'onCreate')
     super.onCreate()
-    let stageTask = ywManagerTask.launchTask?.stageTask
+    let stageTask = ywManagerTask.launchTask?.stageTask(this.context)
     if (stageTask) {
       //TODO 先合并在一起了
-      ywManagerTask.handTask(this.context, stageTask)
+      ywManagerTask.handTask(stageTask)
     }
 
     this.initParams()
