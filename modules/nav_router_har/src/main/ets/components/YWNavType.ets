@@ -57,5 +57,3 @@ export enum YWLocalNavType {
   NAV_DEMO_MAIN_NAV = "NAV_DEMO_MAIN_NAV",
 
 }
-
-export type YWNavParams = Map<string, Object>

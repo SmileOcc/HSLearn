@@ -1,9 +1,9 @@
-import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 
 @Builder
-export function lionMainMeBuilder(name:string, params:YWNavParams) {
+export function lionMainMeBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     LionMainMePage()
   }
@@ -21,7 +21,7 @@ export struct LionMainMePage {
 
   homePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_CAT_ME_NAV)
   @Builder
-  navPagesMap(name: string, param: YWNavParams) {
+  navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_CAT_ME_NAV)(name)?.builder(name,param)
   }
 

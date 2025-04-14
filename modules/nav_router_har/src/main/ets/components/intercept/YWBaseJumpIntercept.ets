@@ -1,5 +1,4 @@
 import { YWNavRouterInfoConfig } from "../YWNavRouteInfoConfig"
-import { YWNavParams } from "../YWNavType"
 
 export abstract class YWBaseJumpIntercept {
   protected nextIntercept?:YWBaseJumpIntercept

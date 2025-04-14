@@ -1,4 +1,4 @@
-import { YWLocalNavType, ywNavManager, YWNavParams, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
+import { YWLocalNavType, ywNavManager, YWRouterNavParams, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
 import { router } from "@kit.ArkUI";
 import { hsLog } from "@learn/logger_har";
 
@@ -19,7 +19,7 @@ export struct MainNavPage {
   }
 
   @Builder
-  PagesMap(name: string, param: YWNavParams) {
+  PagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_ROOT_MAIN_NAV)(name)?.builder(name,param)
   }
 
@@ -66,7 +66,7 @@ export struct MainNavPage {
 }
 
 @Builder
-export function mainNavBuilder(name:string, params:YWNavParams) {
+export function mainNavBuilder(name:string, params:YWRouterNavParams) {
   NavDestination() {
     MainNavPage()
   }

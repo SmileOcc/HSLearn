@@ -1,5 +1,5 @@
 import { hsLog } from "@learn/logger_har"
-import { ywNavManager, YWNavParams } from "@learn/nav_router_har"
+import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
 import { ITabEventState, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har"
 import { CommonTabItemView } from "./CommonTabItemView"
@@ -94,9 +94,9 @@ export struct CommonTabContentView {
 }
 
 @Builder
-export function commonTabContentBuilder(name:string, params:YWNavParams) {
+export function commonTabContentBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
-    CommonTabContentView({navName:params["navName"] ?? ""})
+    CommonTabContentView({navName:params.params["navName"] ?? ""})
   }
   .onBackPressed(()=>{
 //获取父类

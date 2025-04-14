@@ -17,15 +17,25 @@ import { TestObservedBuilder } from "../pages/observed/TestBaseObserved";
 import { TestEventHubEmitterBuilder } from "../pages/eventhub_emmiter/EventHubAndEmitterTestPage";
 import { TestPromptAlertBuilder } from "../pages/popup_alert/PromptActionClass";
 import { TestPictureLibraryBuilder } from "../pages/popup_alert/PictureLibraryDemo";
+import { YWRouterNavParams } from "@learn/nav_router_har";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
 @Builder
-export function debugDemoBuilder(name:string,params:Map<string,Object>) {
+export function debugDemoBuilder(name:string,params:YWRouterNavParams) {
   NavDestination(){
-    DebugDemoPage()
+    DebugDemoPage({navParams: params})
   }
   .hideTitleBar(true)
+  .onWillDisappear(()=>{
+    params.getPageLifecycle().pageOnDisappear?.()
+  })
+  .onShown(()=>{
+    params.getPageLifecycle().pageOnShow?.()
+  })
+  .onHidden(()=>{
+    params.getPageLifecycle().pageOnHide?.()
+  })
 }
 
 const TAG = "DebugDemoPage"
@@ -38,6 +48,7 @@ export struct DebugDemoPage {
   @State tempGroupList: SetItemModel[][] = new Array
   @State allGroupList: SetItemModel[] = new Array
   @State showLoading: boolean = false
+  navParams?:YWRouterNavParams
 
   private tigerOpenApi:TigerOpenApi =  new TigerOpenImp()
 
@@ -71,6 +82,16 @@ export struct DebugDemoPage {
 
   aboutToAppear(): void {
     ywDebugGlobal.init(this.getUIContext())
+
+
+    this.navParams?.getPageLifecycleImp().setPageOnShow(()=>{
+      hsLog.i(TAG, "--pageOnShow")
+
+    })
+    this.navParams?.getPageLifecycleImp().setPageOnHide(()=>{
+      hsLog.i(TAG, "--pageOnHide")
+
+    })
 
     // 预先创建一个空的ArkWeb动态组件（需传入UIContext），拉起渲染进程
     createPreWeb('about://blank',this.getUIContext())

@@ -1,4 +1,4 @@
-import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor, YWResImage } from "@learn/res_har"
 import { CarPayInfo, CartGood, CarUIState, CarViewModel, goodList, GoodObj } from '../model/CarViewModel'
@@ -11,7 +11,7 @@ const DEEP_GRAY: string = '#bebebe'
 
 
 @Builder
-export function mainCarBuilder(name:string, params:YWNavParams) {
+export function mainCarBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     MainCarPage()
   }

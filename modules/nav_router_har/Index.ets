@@ -23,7 +23,6 @@ export {
   YWNavCustomIDType,
   CustomerNavAnimation,
   YWLocalNavType,
-  YWNavParams,
   YWNavParamsKey,
 } from "./src/main/ets/components/YWNavType"
 

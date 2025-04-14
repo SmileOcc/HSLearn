@@ -1,6 +1,7 @@
 import { ywNavManager } from "./YWNavManager"
 import { YWNavResult, YWNavRouterInfoConfig } from "./YWNavRouteInfoConfig"
-import { YWNavParams, YWLocalNavType, YWNavParamsKey } from "./YWNavType"
+import { YWLocalNavType, YWNavParamsKey } from "./YWNavType"
+import { YWRouterNavParams } from "./YWRouterNavParams"
 
 export class YWNavRouterInfo {
   private config:YWNavRouterInfoConfig
@@ -20,7 +21,7 @@ export class YWNavRouterInfo {
   }
 
   onParams(key:string, params:Object):YWNavRouterInfo {
-    this.config.targetParams.set(key,params)
+    this.config.targetParams.params.set(key,params)
     return this
   }
 
@@ -82,7 +83,7 @@ export class YWNavRouterInfo {
   }
 
 
-  onPopListener(block:(params:YWNavParams)=>void):YWNavRouterInfo {
+  onPopListener(block:(params:YWRouterNavParams)=>void):YWNavRouterInfo {
     this.config.popListener = block
     return this
   }

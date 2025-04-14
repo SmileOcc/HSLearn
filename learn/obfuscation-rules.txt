@@ -4,6 +4,24 @@
 # For more details, see
 #   https://gitee.com/openharmony/arkcompiler_ets_frontend/blob/master/arkguard/README.md
 
+#混淆选项
+#-disable-obfuscation 关闭混淆
+#-enable-property-obfuscation 属性混淆
+#-enable-toplevel-obfuscation 顶层作用域名称混淆
+#-enable-filename-obfuscation 文件名混淆
+#-enable-export-obfuscation export导出名称与属性混淆
+#-compact 代码压缩
+#-remove-log 删除console*方法
+#-print-namecache filepath 指定路径输出namecachejson文件及内容
+#-apply-namecache filepath 复用指定的名称缓存文件
+#-remove-comments 删除注释
+#保留选项
+#-keep-property-name 保留属性白名单
+#-keep-global-name 保留顶层作用域名称白名单
+#-keep-file-name 保留文件名白名单
+#-keep-comments 保留某个类的JsDoc注释
+#-keep-dts filepath 读取指定dts文件中的名称作白名单
+
 # Obfuscation options:
 # -disable-obfuscation: disable all obfuscations
 # -enable-property-obfuscation: obfuscate the property names
@@ -16,7 +34,30 @@
 # Keep options:
 # -keep-property-name: specifies property names that you want to keep
 # -keep-global-name: specifies names that you want to keep in the global scope
--enable-property-obfuscation
--enable-toplevel-obfuscation
--enable-filename-obfuscation
--enable-export-obfuscation
+
+#-enable-property-obfuscation
+#-enable-toplevel-obfuscation
+
+#关闭所有混淆
+#-disable-obfuscation
+
+#如果使用这个选项，那么所有的文件/文件夹名称都会被混淆
+#-enable-filename-obfuscation
+#开启直接导入或导出的类或对象的名称和属性名混淆
+#-enable-export-obfuscation
+
+# 保留所有属性名称：
+#-keep-property-name
+#*
+
+#指定要保留的顶层作用域的名称
+-keep-global-name
+TAFEncodeError
+TAFDecodeError
+TAFConstants
+TAFClient
+TAFRequest
+
+-keep
+./src
+../modules/app_config_har

@@ -4,11 +4,12 @@ import { ywInterManager, YWInterManager } from "./intercept/YWInterManager";
 import { ywNavManager, YWNavManager } from "./YWNavManager";
 import { YWNavRouterInfo } from "./YWNavRouteInfo";
 import { YWNavRouterInfoConfig } from "./YWNavRouteInfoConfig";
-import { CustomerNavAnimation, YWNavCustomIDType, YWNavIDType, YWNavParams, YWLocalNavType } from "./YWNavType";
+import { CustomerNavAnimation, YWNavCustomIDType, YWNavIDType, YWLocalNavType } from "./YWNavType";
+import { YWRouterNavParams } from "./YWRouterNavParams";
 
 export interface NavRouterBuilder {
   name:string,
-  builder:WrappedBuilder<[string,YWNavParams]>
+  builder:WrappedBuilder<[string,YWRouterNavParams]>
 }
 
 export class YWNavRouter {
@@ -19,7 +20,7 @@ export class YWNavRouter {
     })
   }
 
-  registerCustomRoute(nav:YWNavCustomIDType,superNav:YWLocalNavType,path:string,params:YWNavParams)  {
+  registerCustomRoute(nav:YWNavCustomIDType,superNav:YWLocalNavType,path:string,params:YWRouterNavParams)  {
     ywNavManager.registerCustomNav(nav,superNav,path,params)
 
   }

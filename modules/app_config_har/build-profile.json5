@@ -8,13 +8,14 @@
       "arkOptions": {
         "obfuscation": {
           "ruleOptions": {
-            "enable": false,
+            "enable": true,
             "files": [
-              "./obfuscation-rules.txt"
+              "./obfuscation-rules.txt",
+//              "./Hm-recommend-keep-list.txt"
             ]
           },
           "consumerFiles": [
-            "./consumer-rules.txt"
+//            "./consumer-rules.txt"
           ]
         }
       },

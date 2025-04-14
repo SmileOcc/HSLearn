@@ -1,5 +1,5 @@
 import { hsLog } from "@learn/logger_har";
-import { YWLocalNavType, YWNavParams, ywNavManager } from "@learn/nav_router_har";
+import { YWLocalNavType, ywNavManager, YWRouterNavParams } from "@learn/nav_router_har";
 import { YWResColor } from "@learn/res_har";
 import { asyncLocalStage, GlobalService, YWGlobalServiceManager, YWLazy } from "@learn/global_service_har"
 import { tabMainBuilder, TabMainNavPage } from "@learn/tab_nav_har/src/main/ets/core/TabMainNavPage";
@@ -56,7 +56,7 @@ struct MainPage {
 }
 
 @Builder
-export function learnMainBuilder(name:string, params:YWNavParams) {
+export function learnMainBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     MainPage({},asyncLocalStage(()=>{
       return new LocalStorage()

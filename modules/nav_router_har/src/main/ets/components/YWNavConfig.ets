@@ -1,6 +1,7 @@
 import { ywNavManager, YWNavManager } from "./YWNavManager"
 import { YWNavRouterInfoConfig } from "./YWNavRouteInfoConfig"
-import { YWNavIDType, YWNavParams, YWLocalNavType } from "./YWNavType"
+import { YWNavIDType, YWLocalNavType } from "./YWNavType"
+import { YWRouterNavParams } from "./YWRouterNavParams"
 
 type act = ()=>void
 
@@ -8,14 +9,14 @@ export class YWNavConfig {
   routeNav:YWNavIDType
   superNav:YWNavIDType |undefined
   path:string
-  params:YWNavParams
+  params:YWRouterNavParams
   navPathStack:NavPathStack
 
   constructor(
     nav: YWNavIDType,
     superNav: YWNavIDType | undefined,
     pathInit: string,
-    paramsInit: YWNavParams) {
+    paramsInit: YWRouterNavParams) {
 
     this.routeNav = nav
     this.superNav = superNav
@@ -57,7 +58,7 @@ export class YWNavConfig {
   }
 
 
-  isMoveToReturnAction(superNav:NavPathStack, pageName:string, params:YWNavParams,  animation?:boolean): act | undefined{
+  isMoveToReturnAction(superNav:NavPathStack, pageName:string, params:YWRouterNavParams,  animation?:boolean): act | undefined{
 
     let index = superNav.getIndexByName(pageName)
     let size = superNav.size()

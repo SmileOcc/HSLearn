@@ -31,8 +31,8 @@ export class YWRouterLifecycleImp implements YWRouterLifeCycleProxy {
 }
 
 export interface YWRouterLifeCycleProxy {
-  pageOnShow():void
-  pageOnHide():void
-  pageOnDisappear():void
-  pageOnDestroy():void
+  pageOnShow?():void
+  pageOnHide?():void
+  pageOnDisappear?():void
+  pageOnDestroy?():void
 }

@@ -1,4 +1,4 @@
-import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { ITabComponentDelegate, NavMenuInfo, NavTitleInfo, TabInfo, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabMainViewModel } from "./viewmodel/TabMainViewModel"
@@ -72,7 +72,7 @@ export struct TabMainNavPage {
   }
 
   @Builder
-  navDestPages(name: string, param: YWNavParams) {
+  navDestPages(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_ROOT_MAIN_TAB)(name)?.builder(name,param)
   }
 
@@ -123,7 +123,7 @@ export function tabMainBuilder() {
 }
 
 @Builder
-export function tabMainNavBuilder(name:string, params:YWNavParams) {
+export function tabMainNavBuilder(name:string, params:YWRouterNavParams) {
  NavDestination(){
    TabMainNavPage()
  }

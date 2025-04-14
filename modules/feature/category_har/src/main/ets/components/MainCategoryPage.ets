@@ -1,4 +1,4 @@
-import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { YWConstants } from "@learn/constants_har"
@@ -6,7 +6,7 @@ import { CategoryModel, CategorySecondModel } from "../model/CategoryModel"
 import { CategoryViewModel } from "../model/CategoryViewModel"
 
 @Builder
-export function mainCategoryBuilder(name:string, params:YWNavParams) {
+export function mainCategoryBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     MainCategoryPage()
   }
@@ -35,7 +35,7 @@ export struct MainCategoryPage {
   }
 
   @Builder
-  navPagesMap(name: string, param: YWNavParams) {
+  navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_CATEGORY)(name)?.builder(name,param)
   }
 

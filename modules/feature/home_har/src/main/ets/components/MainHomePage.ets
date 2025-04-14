@@ -1,4 +1,4 @@
-import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { ComponentContent, OverlayManager } from "@kit.ArkUI"
@@ -7,21 +7,19 @@ import { YWConstants } from "@learn/constants_har"
 // export const MainHomeBuilder = wrapBuilder(mainHomeBuilder)
 
 @Builder
-export function mainHomeBuilder(name: string, params: YWNavParams) {
+export function mainHomeBuilder(name: string, params: YWRouterNavParams) {
   NavDestination() {
-    MainHomePage()
+    MainHomePage({navParams: params})
   }
   .hideTitleBar(true)
   .onWillDisappear(()=>{
-    let kk = ""
+    params.getPageLifecycle().pageOnDisappear?.()
   })
   .onShown(()=>{
-    let kk = ""
-
+    params.getPageLifecycle().pageOnShow?.()
   })
   .onHidden(()=>{
-    let kk = ""
-
+    params.getPageLifecycle().pageOnHide?.()
   })
 
   // MainHomePage()
@@ -40,17 +38,28 @@ export struct MainHomePage {
   @StorageProp(YWConstants.kStorageHeight) screenHeight: number = 0; //屏幕宽度（单位：vp）
   @StorageProp(YWConstants.kSafeBottomHeight) safeBottomHeight: number = 0; //屏幕宽度（单位：vp）
 
+  navParams?:YWRouterNavParams
   private uiContext = this.getUIContext()
   private overlayNode: OverlayManager = this.uiContext.getOverlayManager()
   private componentContentTest?: ComponentContent<ActivityParams>
 
   @Builder
-  navPagesMap(name: string, param: YWNavParams) {
+  navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_HOME)(name)?.builder(name, param)
   }
 
   aboutToAppear(): void {
     hsLog.i(TAG, "aboutToAppear")
+
+    this.navParams?.getPageLifecycleImp().setPageOnShow(()=>{
+      hsLog.i(TAG, "--pageOnShow")
+
+    })
+    this.navParams?.getPageLifecycleImp().setPageOnHide(()=>{
+      hsLog.i(TAG, "--pageOnHide")
+
+    })
+
 
     let width = this.screenWidth
     let heig = this.screenHeight

@@ -12,11 +12,12 @@ import { IAdvModel } from "../../data/IAdvModel";
 import { YWAdvBanner } from "../home/view/YWAdvBanner";
 import { YWConstants } from "@learn/constants_har";
 import { hsLog } from "@learn/logger_har";
+import { YWRouterNavParams } from "@learn/nav_router_har";
 
 const TAG = 'YWMainPage'
 
 @Builder
-export function oldMainBuilder(name:string,params:Map<string,Object>) {
+export function oldMainBuilder(name:string,params:YWRouterNavParams) {
   NavDestination(){
     YWMainPage()
   }

@@ -1,8 +1,8 @@
-import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 
-@Builder export function learnSettingBuilder(name:string, params:Map<string,Object>) {
+@Builder export function learnSettingBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     LearnSettingPage()
   }
@@ -20,7 +20,7 @@ export struct LearnSettingPage {
 
   settingPageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT_LEARN_SETTING)
   @Builder
-  navPagesMap(name: string, param: YWNavParams) {
+  navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_ROOT_LEARN_SETTING)(name)?.builder(name,param)
   }
 

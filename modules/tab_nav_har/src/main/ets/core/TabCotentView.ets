@@ -4,7 +4,7 @@ import { YWConstants } from "@learn/constants_har"
 import { mainHomeBuilder } from "@learn/home_har"
 import { hsLog } from "@learn/logger_har"
 import { mainMineBuilder } from "@learn/mine_har"
-import { ywNavManager, YWNavParams } from "@learn/nav_router_har"
+import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
 import { ITabEventState, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabInfo } from "@learn/tab_nav_api_har"
@@ -78,7 +78,7 @@ export struct TabContentView {
   }
 
   @Builder
-  navDestPages(name: string, param: YWNavParams) {
+  navDestPages(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(this.navName!)(name)?.builder(name,param)
   }
 
@@ -95,13 +95,13 @@ export struct TabContentView {
           //内容显示
           Column(){
             if (this.currentTabInfo?.index == 0) {
-              mainHomeBuilder(this.navName!,new Map())
+              mainHomeBuilder(this.navName!,new YWRouterNavParams())
             } else if (this.currentTabInfo?.index == 1) {
-              mainCategoryBuilder(this.navName!,new Map())
+              mainCategoryBuilder(this.navName!,new YWRouterNavParams())
             } else if (this.currentTabInfo?.index == 2) {
-              mainCarBuilder(this.navName!,new Map())
+              mainCarBuilder(this.navName!,new YWRouterNavParams())
             } else if (this.currentTabInfo?.index == 3) {
-              mainMineBuilder(this.navName!,new Map())
+              mainMineBuilder(this.navName!,new YWRouterNavParams())
             }
 
           }
@@ -151,9 +151,9 @@ export struct TabContentView {
 }
 
 @Builder
-export function maintTabContentViewBuilder(name:string, params:YWNavParams) {
+export function maintTabContentViewBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
-    TabContentView({navName:params.get("navName") as string ?? ""})
+    TabContentView({navName:params.params.get("navName") as string ?? ""})
   }
   .onBackPressed(()=>{
     router.back()

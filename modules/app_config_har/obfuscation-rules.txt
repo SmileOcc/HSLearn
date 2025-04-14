@@ -13,11 +13,14 @@
 # -print-namecache: print the name cache that contains the mapping from the old names to new names
 # -apply-namecache: reuse the given cache file
 
+#关闭所有混淆
+#-disable-obfuscation
+
 # Keep options:
 # -keep-property-name: specifies property names that you want to keep
 # -keep-global-name: specifies names that you want to keep in the global scope
 
--enable-property-obfuscation
--enable-toplevel-obfuscation
--enable-filename-obfuscation
--enable-export-obfuscation
+#-enable-property-obfuscation
+#-enable-toplevel-obfuscation
+#-enable-filename-obfuscation
+#-enable-export-obfuscation

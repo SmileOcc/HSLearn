@@ -1,4 +1,5 @@
-import { YWNavParams, YWLocalNavType } from "./YWNavType"
+import { YWLocalNavType } from "./YWNavType"
+import { YWRouterNavParams } from "./YWRouterNavParams"
 import { YWRouterWithContext } from "./YWRouterWithContext"
 
 type RouteModel = "Standard" | "MoveToTop"
@@ -15,7 +16,7 @@ export class YWNavRouterInfoConfig {
 
   targetUrl: string = ""
   targetUrlKey:string = ""
-  targetParams: Map<string,Object> = new Map()
+  targetParams: YWRouterNavParams = new YWRouterNavParams()
 
   isFromSession:boolean = true
   customSession?: Object | undefined
@@ -27,7 +28,7 @@ export class YWNavRouterInfoConfig {
 
   uiContext?:UIContext
 
-  popListener?:(params:YWNavParams)=>void
+  popListener?:(params:YWRouterNavParams)=>void
 
   handleResult?:(result:YWNavResult)=>void
 

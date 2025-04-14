@@ -17,14 +17,29 @@
             "enable": true, // 配置true，即可开启代码混淆功能
             //对于API 10及以上版本，HAR模块默认开启混淆能力
             "files": [
-              "./obfuscation-rules.txt" // 混淆规则文件
+              "./obfuscation-rules.txt", // 混淆规则文件
+//              "./Hm-recommend-keep-list.txt"
             ]
-          },
+          }
+//          "consumerFiles": [              // 该模块被依赖时的混淆规则
+//            "./consumer-rules.txt"
+//          ]
         }
       }
     },
     {
       "name": "default",
+      "debuggable": true,
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": false
+          }
+        }
+      }
+    },
+    {
+      "name": "PRD",
       "debuggable": true,
       "arkOptions": {
         "obfuscation": {
@@ -41,9 +56,15 @@
       "name": "default" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
     },
     {
-      "name": "PRD",
+      "name": "release", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
       "output": {
-        "artifactName": "customizedTargetOutputName1-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
+        "artifactName": "release-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
+      }
+    },
+    {
+      "name": "PRD", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
+      "output": {
+        "artifactName": "PRD-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
       },
       "config": {
         "deviceType": [  //定义free支持的设备类型为phone

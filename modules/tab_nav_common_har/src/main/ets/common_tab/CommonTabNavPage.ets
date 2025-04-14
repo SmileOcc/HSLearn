@@ -1,4 +1,4 @@
-import { YWNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { TabInfo, TabViewIUState, ITabEventState, TabItemInfo } from "@learn/tab_nav_api_har"
 import { TabMainViewModel } from "../viewmodel/CommonTabViewModel"
@@ -10,7 +10,7 @@ const TAG = "CommonTabNavPage"
 @Component
 export struct CommonTabNavPage {
 
-  params?:YWNavParams
+  params?:YWRouterNavParams
   navName?:YWLocalNavType
   @State navigationMode: number = NavigationMode.Stack;
 
@@ -43,8 +43,8 @@ export struct CommonTabNavPage {
   aboutToAppear(): void {
 
     if (this.params) {
-      this.commonTabIUState = this.params.get("tabInfo") as TabViewIUState
-      this.navName = this.params.get("main_tab_nav") as YWLocalNavType
+      this.commonTabIUState = this.params.params.get("tabInfo") as TabViewIUState
+      this.navName = this.params.params.get("main_tab_nav") as YWLocalNavType
     }
 
 
@@ -62,7 +62,7 @@ export struct CommonTabNavPage {
   }
 
   @Builder
-  navDestPages(name: string, param: YWNavParams) {
+  navDestPages(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(this.navName!)(name)?.builder(name,param)
   }
 
@@ -105,12 +105,12 @@ export struct CommonTabNavPage {
 }
 
 @Builder
-export function commonTabBuilder(params:YWNavParams) {
+export function commonTabBuilder(params:YWRouterNavParams) {
   CommonTabNavPage({params:params})
 }
 
 @Builder
-export function commonTabNavBuilder(name:string, params:YWNavParams) {
+export function commonTabNavBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     CommonTabNavPage({params:params})
   }

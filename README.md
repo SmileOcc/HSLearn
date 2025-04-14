@@ -81,3 +81,25 @@ private callback = (eventData: emitter.EventData): void => {
 EventHub是线程内使用的时间广播工具，Emitter是线程间通信使用的工具
 EventHub的使用更简单，属于轻量级的广播工具，主要用于UIAbility和page之间，page和组件之间，组件和组件之间，UI和VM之间的通信，传递的数据内容形式多变且方便（…args: Object[]）。Emitter属于重量级的广播工具，封装了优先级和队列的逻辑。传递的数据内容，必须有包裹成进行约束（emitter.EventData）
 Emitter监听设置，在on基础上，额外提供了once一次性监听的API。触发之后不需要再手动off取消监听。EventHub则没有。
+
+混淆自定义选项名称
+功能简述
+混淆选项
+-disable-obfuscation 关闭混淆
+-enable-property-obfuscation 属性混淆
+-enable-toplevel-obfuscation 顶层作用域名称混淆
+-enable-filename-obfuscation 文件名混淆
+-enable-export-obfuscation export导出名称与属性混淆
+-compact 代码压缩
+-remove-log 删除console*方法
+-print-namecache filepath 指定路径输出namecachejson文件及内容
+-apply-namecache filepath 复用指定的名称缓存文件
+-remove-comments 删除注释
+保留选项
+-keep-property-name 保留属性白名单
+-keep-global-name 保留顶层作用域名称白名单
+-keep-file-name 保留文件名白名单
+-keep-comments 保留某个类的JsDoc注释
+-keep-dts filepath 读取指定dts文件中的名称作白名单
+
+![](/Users/oudongdong/Downloads/be9edae4773d4bafbcf10ff8e81dccb8.png)

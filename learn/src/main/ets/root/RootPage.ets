@@ -17,7 +17,7 @@ import { hsLog } from '@learn/logger_har';
 import { YWDarkManager } from '@learn/dark_har';
 // import { CatRouteUtils,RootPageBuilder } from '@learn/cat_har'
 import { SettingPage } from '../pages/setting/SettingPage';
-import { injectMainContext, ywNavManager, YWNavParams, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
+import { injectMainContext, ywNavManager, YWRouterNavParams, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { YWLocalNavType } from '@learn/nav_router_har/src/main/ets/components/YWNavType';
 import { DebuggerApi } from '@learn/debugger_api_har';
 
@@ -194,7 +194,7 @@ struct RootPage {
   }
 
   @Builder
-  PagesMap(name: string, param: YWNavParams) {
+  PagesMap(name: string, param: YWRouterNavParams) {
      ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_ROOT)(name)?.builder(name,param)
   }
 

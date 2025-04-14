@@ -1,10 +1,10 @@
-import { YWNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { HSLocalConfig } from "@learn/app_config_har"
 
 @Builder
-export function mainMineBuilder(name:string, params:YWNavParams) {
+export function mainMineBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     MainMinePage()
   }
@@ -22,7 +22,7 @@ export struct MainMinePage {
 
   minePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_MINE)
   @Builder
-  navPagesMap(name: string, param: YWNavParams) {
+  navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_MINE)(name)?.builder(name,param)
   }
 

@@ -1,5 +1,5 @@
 import { hsLog } from "@learn/logger_har";
-import { YWLocalNavType, YWNavParams, ywNavManager, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
+import { YWLocalNavType, YWRouterNavParams, ywNavManager, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
 import { YWResColor } from "@learn/res_har";
 import { asyncLocalStage, GlobalService, YWGlobalServiceManager, YWLazy } from "@learn/global_service_har"
 import { TabInfo, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har";
@@ -13,7 +13,7 @@ struct LionMainPage {
 
   @State navigationMode: number = NavigationMode.Stack;
 
-  private params:YWNavParams = new Map()
+  private params:YWRouterNavParams = new YWRouterNavParams()
 
   private tabState?:TabViewIUState
 
@@ -55,9 +55,9 @@ struct LionMainPage {
     this.tabState.currentIndex = 0
     this.tabState.tabInfo = tabInfo
 
-    this.params.set("main_nav",YWLocalNavType.NAV_LION_MAIN_NAV)
-    this.params.set("main_tab_nav",YWLocalNavType.NAV_LION_MAIN_TAB_NAV)
-    this.params.set("tabInfo",this.tabState!)
+    this.params.params.set("main_nav",YWLocalNavType.NAV_LION_MAIN_NAV)
+    this.params.params.set("main_tab_nav",YWLocalNavType.NAV_LION_MAIN_TAB_NAV)
+    this.params.params.set("tabInfo",this.tabState!)
 
 
     ywNavRouter.openRoute(this.getUniqueId())
@@ -110,7 +110,7 @@ struct LionMainPage {
 }
 
 @Builder
-export function lionMainBuilder(name:string, params:YWNavParams) {
+export function lionMainBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
     LionMainPage({},asyncLocalStage(()=>{
       return new LocalStorage()
