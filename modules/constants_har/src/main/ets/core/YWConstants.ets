@@ -7,6 +7,11 @@ export class YWConstants {
   //appstorage 主context
   static readonly kUI_RootContext = 'UI_RootContext'
 
+  //navbar
+  static readonly kMainNavSM = 44
+  static readonly kMainNavMD = 60
+  static readonly kMainLarge = 20
+
   static readonly kMainTabHeight = 49
 
   static readonly kStatusBarHeight = 'statusBarHeight'
@@ -16,6 +21,7 @@ export class YWConstants {
   static readonly kStorageWidth = "kStorageWidth"
   static readonly kStorageHeight = "kStorageHeight"
 
+  static readonly kCurrentBreakpoint = "kCurrentBreakpoint"
 
   static readonly kStorageLocalUser: string = 'kStorageLocalUser';
   static readonly kAppStorageStorageLocalUser: string = 'kAppStorageStorageLocalUser';

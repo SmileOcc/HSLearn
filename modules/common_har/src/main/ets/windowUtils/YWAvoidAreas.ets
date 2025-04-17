@@ -54,10 +54,10 @@ function getAvoidAreas(tWindow:window.Window):YWAvoidAreas {
 export function getAvoidPadding(avoidAreas:YWAvoidAreas):Padding {
 
   let bottom = 0
-  // let top = avoidAreas.system.topRect.top
+  let top = avoidAreas.system.topRect.top
 
   //TODO top值
-  let top = avoidAreas.cutout.topRect.top
+  // let top = avoidAreas.cutout.topRect.top
 
   if (avoidAreas.navigation_indicator.bottomRect.height > avoidAreas.keyboard.bottomRect.height) {
     bottom = avoidAreas.navigation_indicator.bottomRect.height
@@ -125,6 +125,15 @@ export async function initListerSafeWindow(windowObj: window.Window) {
 
     let newArea = getAvoidAreas(windowObj)
     AppStorage.setOrCreate(YWConstants.kStorageAreas,newArea)
+
+    // 顶部状态栏高度
+    let statusBarHeight = px2vp(newArea.system.topRect.height) //这个的单位是px  将单位转换为VP,这个方法是px转vp
+
+    // 底部安全高度
+    let indicatorHeight = px2vp(newArea.navigation_indicator.bottomRect.height);
+    //注意这是pv
+    AppStorage.setOrCreate(YWConstants.kStatusBarHeight,statusBarHeight)
+    AppStorage.setOrCreate(YWConstants.kSafeBottomHeight,indicatorHeight)
 
   })
 

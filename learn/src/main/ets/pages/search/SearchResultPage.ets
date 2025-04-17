@@ -204,7 +204,7 @@ struct SearchResultPage {
     //   this.onPortrait(result)
     // })
 
-    // this.toastBottom = (AppStorage.Get(CommonYWConstants.ScreenHeight) as number) / 2
+    // this.toastBottom = (AppStorage.Get(CommonConstants.ScreenHeight) as number) / 2
 
     dataPreferences.getPreferences(getContext(this), 'HistoryWord', (err, preferences) => {
       if (err) {

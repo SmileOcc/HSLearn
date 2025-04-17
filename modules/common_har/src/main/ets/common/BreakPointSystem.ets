@@ -1,4 +1,6 @@
 import { mediaquery } from "@kit.ArkUI";
+import { YWConstants } from "@learn/constants_har";
+import { hsLog } from "@learn/logger_har";
 
 export declare interface BreakpointTypeOption<T> {
   xs?: T
@@ -62,6 +64,8 @@ export function BreakpointTypeValue(type:BreakpointTypeEnum):number {
   return 320
 }
 
+const TAG = "BreakpointSystem"
+
 export class BreakpointSystem {
   private currentBreakpoint: string = "md";
   private breakpoints: Breakpoint[] = [
@@ -74,8 +78,8 @@ export class BreakpointSystem {
   private updateCurrentBreakpoint(breakpoint: string) {
     if (this.currentBreakpoint !== breakpoint) {
       this.currentBreakpoint = breakpoint;
-      AppStorage.setOrCreate<string>('currentBreakpoint', this.currentBreakpoint);
-      console.log('on current breakpoint: ' + this.currentBreakpoint);
+      AppStorage.setOrCreate<string>(YWConstants.kCurrentBreakpoint, this.currentBreakpoint);
+      hsLog.i(TAG,'on current breakpoint: ' + this.currentBreakpoint);
     }
   }
 
@@ -105,3 +109,5 @@ export class BreakpointSystem {
     })
   }
 }
+
+export const osBreakpointSystem = new BreakpointSystem();

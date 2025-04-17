@@ -14,9 +14,9 @@ export struct LogoAndVersionComponent {
       Text($r('app.string.icon_name'))
         .fontSize($r('app.float.name_text_size'))
         .fontColor($r('app.color.text'))
-        .fontWeight(CommonYWConstants.FONT_WEIGHT)
+        .fontWeight(CommonConstants.FONT_WEIGHT)
         .padding({ top: $r('app.float.name_text_padding_top') })
-      Text($r('app.string.version_label', CommonYWConstants.APP_VERSION))
+      Text($r('app.string.version_label', CommonConstants.APP_VERSION))
         .fontSize($r('app.float.version_text_size'))
         .fontColor($r('app.color.text_opacity'))
     }

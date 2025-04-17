@@ -7,6 +7,22 @@
     {
       "name": "app_name",
       "value": "HSLearn"
+    },
+    {
+      "name": "main_home",
+      "value": "Home"
+    },
+    {
+      "name": "main_category",
+      "value": "Category"
+    },
+    {
+      "name": "main_car",
+      "value": "Car"
+    },
+    {
+      "name": "main_mine",
+      "value": "Mine"
     }
   ]
 }

@@ -3,8 +3,10 @@ import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { ComponentContent, OverlayManager } from "@kit.ArkUI"
 import { YWConstants } from "@learn/constants_har"
+import { HomeIUState, HomeViewModel } from "./HomeViewModel"
+import { ITabPageConfig } from "@learn/tab_nav_api_har"
 
-// export const MainHomeBuilder = wrapBuilder(mainHomeBuilder)
+export const MainHomeBuilder = wrapBuilder(mainHomeBuilder)
 
 @Builder
 export function mainHomeBuilder(name: string, params: YWRouterNavParams) {
@@ -42,6 +44,10 @@ export struct MainHomePage {
   private uiContext = this.getUIContext()
   private overlayNode: OverlayManager = this.uiContext.getOverlayManager()
   private componentContentTest?: ComponentContent<ActivityParams>
+
+  viewModel: HomeViewModel = new HomeViewModel(this.uiContext)
+  homeUIState: HomeIUState = this.viewModel.homeState
+  // tabInfo:ITabPageConfig = yw
 
   @Builder
   navPagesMap(name: string, param: YWRouterNavParams) {
@@ -81,13 +87,6 @@ export struct MainHomePage {
     this.overlayNode.hideComponentContent(this.componentContentTest)
   }
 
-  onPageShow(): void {
-    let kk = ""
-  }
-
-  onPageHide(): void {
-    let kk = ""
-  }
 
   build() {
     Stack() {

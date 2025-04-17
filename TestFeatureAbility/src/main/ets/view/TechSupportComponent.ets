@@ -29,7 +29,7 @@ export struct TechSupportComponent {
         .fontSize($r('app.float.bottom_font_size'))
         .fontColor($r('app.color.text_opacity'))
     }
-    .width(CommonYWConstants.TECH_COLUMN_WIDTH_PERCENT)
+    .width(CommonConstants.TECH_COLUMN_WIDTH_PERCENT)
     .alignItems(HorizontalAlign.Center)
     .align(Alignment.Bottom)
     .margin({
@@ -40,13 +40,13 @@ export struct TechSupportComponent {
 
   openAgreementPage(): void {
     router.pushUrl({
-      url: CommonYWConstants.AGREEMENT_PAGE
+      url: CommonConstants.AGREEMENT_PAGE
     });
   }
 
   openPrivacyPage(): void {
     router.pushUrl({
-      url: CommonYWConstants.PRIVACY_PAGE
+      url: CommonConstants.PRIVACY_PAGE
     });
   }
 }

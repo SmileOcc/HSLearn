@@ -19,7 +19,8 @@ import {
   YWAppUtils,
   YWWindowUtils,
   initWindowSetting,
-  ENU_CONTEXT
+  ENU_CONTEXT,
+  osBreakpointSystem
 } from '@learn/common_har'
 import { hsLog } from '@learn/logger_har';
 
@@ -38,7 +39,6 @@ abstract class BaseAbility extends UIAbility {
 
   // 定义生命周期ID
   lifecycleId: number = -1;
-  private breakpointSystem: BreakpointSystem = new BreakpointSystem();
   private registerId?: number
   localStorage: LocalStorage = new LocalStorage();
 
@@ -71,7 +71,7 @@ abstract class BaseAbility extends UIAbility {
 
     // 开发者可以在适当的时机，如子窗口上点击关闭按钮等，销毁子窗口。并不一定需要在onWindowStageDestroy调用，这里仅作展示
     // this.destroySubWindow();
-    this.breakpointSystem.unregister();
+    osBreakpointSystem.unregister();
   }
 
   onForeground(): void {
@@ -125,7 +125,7 @@ abstract class BaseAbility extends UIAbility {
     // this.requestFullScreen(windowStage, this.context)
     //YWAppUtils.setStatusBar(true,true,"")
 
-    this.breakpointSystem.register();
+    osBreakpointSystem.register();
 
     this.loadContent(windowStage)
 

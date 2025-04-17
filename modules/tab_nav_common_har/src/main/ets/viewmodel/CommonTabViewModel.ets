@@ -29,14 +29,19 @@ export class TabMainViewModel {
   showFirstTab() {
 
     let fistItem = this.viewModelState.tabInfo.getFirstTab()
+    if (fistItem) {
+      this.bindTabAction(fistItem)
+      ywNavRouter.openRoute(this.componentId)
+        .onTargetUrl(fistItem!.navPath)
+          // .onNavWayCurrent()
+        .onNavWayNav(this.navName!)
+        .onRouteMoveToTop()
+        .onOpenAnimation(false)
+        .go()
+    } else {
 
-    ywNavRouter.openRoute(this.componentId)
-      .onTargetUrl(fistItem!.navPath)
-      // .onNavWayCurrent()
-      .onNavWayNav(this.navName!)
-      .onRouteMoveToTop()
-      .onOpenAnimation(false)
-      .go()
+    }
+
   }
 
   selectIndexTab(tabInfo:TabItemInfo) {
@@ -48,4 +53,8 @@ export class TabMainViewModel {
       .go()
   }
 
+
+  bindTabAction(tabInfo: TabItemInfo) {
+    tabInfo.itemImage()
+  }
 }

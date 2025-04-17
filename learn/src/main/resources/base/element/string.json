@@ -13,6 +13,14 @@
       "value": "LearnDemo"
     },
     {
+      "name": "EntryAbility_label_dev",
+      "value": "LearnDev"
+    },
+    {
+      "name": "EntryAbility_label_prd",
+      "value": "LearnPrd"
+    },
+    {
       "name": "DocAbility_desc",
       "value": "description"
     },

@@ -1,4 +1,5 @@
 import { YWResColor, YWResImage } from "@learn/res_har"
+import { ITabAction } from "../api/ITabAction"
 
 export class TabItemInfo {
   cid?:string
@@ -11,6 +12,8 @@ export class TabItemInfo {
   index:number = 0
   navType:string = ""
   navPath:string = ""
+
+  tabActionProxy?: ITabAction
 
   titleColor():ResourceColor {
     return this.isSelected ? YWResColor.themeColor() : YWResColor.tabNormalColor()

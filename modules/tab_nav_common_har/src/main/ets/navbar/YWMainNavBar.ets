@@ -65,9 +65,9 @@ export struct YWMainNavBar {
 
       }
     }
-    .height(60 + 30)
+    .height(60)//TODO 默认高 normal 44 large 60    pad 20
     .width('100%')
-    .padding({top:30 + 12, left:16, right:16})
+    .padding({top:12, bottom:12, left:16, right:16})
     .backgroundColor(YWResColor.themeDefault())
   }
 }

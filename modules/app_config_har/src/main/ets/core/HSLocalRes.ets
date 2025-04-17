@@ -3,6 +3,7 @@ import { hsLog } from "@learn/logger_har";
 
 const TAG = "LearnConfig"
 
+//方式一
 export class HSLocalConfig {
   private learnConfig?: ILearnConfig
 

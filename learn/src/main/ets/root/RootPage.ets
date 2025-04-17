@@ -20,11 +20,14 @@ import { SettingPage } from '../pages/setting/SettingPage';
 import { injectMainContext, ywNavManager, YWRouterNavParams, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { YWLocalNavType } from '@learn/nav_router_har/src/main/ets/components/YWNavType';
 import { DebuggerApi } from '@learn/debugger_api_har';
+import BuildProfile from 'BuildProfile';
 
 const TAG = "RootPage"
 @Entry
 @Component
 struct RootPage {
+
+  @State COMMON_TYPE: string = BuildProfile.COMMON_TYPE
 
   rootNav?:NavPathStack = ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT)
   //暗黑模式
@@ -109,6 +112,26 @@ struct RootPage {
   }
 
   aboutToAppear() {
+
+    //可以根据不同配置环境 或自定义参数 处理
+    //开发者可以在模块级的build-profile.json5文件中增加自定义参数
+    //默认参数 自定义参数最好放各自target中 如ENV
+    //注意：prd里 BUILD_TYPE 这里自定义的 取不到，总是取到default里的，感觉是bug , 优先放下面target中
+
+    let BUILD_TYPE =  BuildProfile.BUILD_TYPE
+    hsLog.i(TAG,`配置参数======注意 这个有问题 自定义 BUILD_TYPE: ${BuildProfile.BUILD_TYPE}`)
+    hsLog.i(TAG,`配置参数======自定义 COMMON_TYPE: ${BuildProfile.BUILD_TYPE}`)
+    hsLog.i(TAG,`配置参数======自定义环境标识 ENV: ${BuildProfile.ENV}`)
+
+    hsLog.i(TAG,`配置参数======自定义COMMON_TYPE: ${this.COMMON_TYPE}`)
+    hsLog.i(TAG,`配置参数======应用的Bundle名称 BUNDLE_NAME: ${BuildProfile.BUNDLE_NAME}`)
+    hsLog.i(TAG,`配置参数======应用的Bundle类型 BUNDLE_TYPE: ${BuildProfile.BUNDLE_TYPE}`)
+    hsLog.i(TAG,`配置参数======应用的版本号 VERSION_CODE: ${BuildProfile.VERSION_CODE}`)
+    hsLog.i(TAG,`配置参数======应用版本号的文字描述 VERSION_NAME: ${BuildProfile.VERSION_NAME}`)
+    hsLog.i(TAG,`配置参数======Target名称 TARGET_NAME: ${BuildProfile.TARGET_NAME}`)
+    hsLog.i(TAG,`配置参数======Product名称 PRODUCT_NAME: ${BuildProfile.PRODUCT_NAME}`)
+    hsLog.i(TAG,`配置参数======编译模式 BUILD_MODE_NAME: ${BuildProfile.BUILD_MODE_NAME}`)
+    hsLog.i(TAG,`配置参数======应用是否可调试 DEBUG: ${BuildProfile.DEBUG}`)
 
     injectMainContext(this.getUIContext())
     globalThis.setContext(ENU_CONTEXT.UI_Root,getContext(this) as common.UIAbilityContext)
@@ -254,7 +277,7 @@ struct RootPage {
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .alignContent(Alignment.BottomEnd)
     .backgroundColor($r('app.color.bg_base'))
-    .padding(getAvoidPadding(this.avoidAreas))
+    // .padding(getAvoidPadding(this.avoidAreas))
     .onClick(()=>{
       DebuggerApi.debuggerOpen()
     })

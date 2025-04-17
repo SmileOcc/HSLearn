@@ -1,6 +1,9 @@
 import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
+import { getAvoidPadding, getDefaultAvoidAreas, YWAvoidAreas } from "@learn/common_har"
+import { YWConstants } from "@learn/constants_har"
+import { YWBaseNavBar } from "@learn/baseui_har"
 
 @Builder export function learnSettingBuilder(name:string, params:YWRouterNavParams) {
   NavDestination(){
@@ -17,6 +20,11 @@ export struct LearnSettingPage {
   @State message: string = 'Hello setting';
 
   @State navigationMode: number = NavigationMode.Stack;
+  @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
+
+  @StorageProp(YWConstants.kSafeBottomHeight) safeBottomHeight: number = 0
+  @StorageProp(YWConstants.kStatusBarHeight) statusBarHeight: number = 0
+
 
   settingPageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT_LEARN_SETTING)
   @Builder
@@ -29,6 +37,10 @@ export struct LearnSettingPage {
       Navigation(this.settingPageNav) {
 
         Column(){
+          YWBaseNavBar({title:"设置", defaultGoBack:()=>{
+            ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT)?.pop(true)
+
+          }})
           Text("原学习Demo")
             .onClick(()=>{
 
@@ -43,13 +55,12 @@ export struct LearnSettingPage {
         }.width('100%')
         .height('100%')
         .alignItems(HorizontalAlign.Center)
-        .justifyContent(FlexAlign.Center)
-
+        .justifyContent(FlexAlign.Start)
       }
       .width('100%')
       .height('100%')
       // .hideTitleBar(true)
-      .navBarWidth('50%')
+      // .navBarWidth('50%')
       .navDestination(this.navPagesMap)
       // .hideNavBar(this.isFullScreen)
       .mode(this.navigationMode)
@@ -66,9 +77,9 @@ export struct LearnSettingPage {
       })
     }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-    .alignContent(Alignment.BottomEnd)
-    .backgroundColor(YWResColor.bgBase())
-    // .padding(getAvoidPadding(this.avoidAreas))
+    .alignContent(Alignment.TopStart)
+    // .backgroundColor(YWResColor.bgBase())
+    .backgroundColor(Color.Orange)
 
   }
 }

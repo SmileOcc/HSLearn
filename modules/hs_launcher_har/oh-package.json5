@@ -7,7 +7,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@learn/launcher_task_har": "file:../launcher_task_har",
-    "@learn/manager_task_har": "file:../manager_task_har"
+    "@learn/manager_task_har": "file:../manager_task_har",
+    "@learn/app_config_har": "file:../app_config_har"
 
   }
 }

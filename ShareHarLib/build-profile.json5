@@ -25,7 +25,7 @@
       "name": "release" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
     },
     {
-      "name": "PRD" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
+      "name": "prd" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
     }
   ]
 }

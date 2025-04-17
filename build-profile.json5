@@ -4,6 +4,7 @@
       {
         // 默认环境（开发环境）
         "name": "default",
+        "bundleName": "occ.com.learn.dev",
         "signingConfig": "default",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
@@ -28,6 +29,7 @@
       {
         // 生产环境
         "name": "release",
+        "bundleName": "occ.com.learn",
         "signingConfig": "release",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
@@ -51,8 +53,9 @@
       },
       {
         // 生产环境
-        "name": "PRD",
-        "signingConfig": "PRD",
+        "name": "prd",
+        "bundleName": "occ.com.learn.prd",
+        "signingConfig": "prd",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
         "runtimeOS": "HarmonyOS",
@@ -74,47 +77,47 @@
         "name": "release"
       },
       {
-        "name": "PRD"
+        "name": "prd"
       }
     ],
     "signingConfigs": [
-      {
-        "name": "default",
-        "type": "HarmonyOS",
-        "material": {
-          "certpath": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B9BB5A40A981F54C44AEB9890E61C5087BE3733FB706E89543D2ADAF666042F549EDE1027E136CF",
-          "profile": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
-          "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/oudongdong/.ohos/config/default_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001B49EDE76BA5E03DA9D4A781EF1BD1B7192C39A19693CED53D9ED5E6EE8F35DF7E040B49BAFF3430"
-        }
-      },
       {
         "name": "release",
         "type": "HarmonyOS",
         "material": {
           "certpath": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B27CA1DFB5C9FE7F88BE975199C0A1ADAF38B0EA6CC0D425DCC4879A5166F271FDB354A2B51DB5A",
+          "keyPassword": "0000001B4A225115D333356387A2CF50FC725FE0F12CC3EA1F4FB2FEEFAB2A09ACEE420A638110531399C4",
           "profile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001BC630E9E6DD60B84DE8548FE0A54AD75E5EF0294AC935CBC738CC5CAC6E685521877A9410265E50"
+          "storePassword": "0000001BB9AF27160FBDBAE0D460BCE149CC417A07094CE65BD15F77870AF630C6C005EB40605CF584F3E2"
         }
       },
       {
-        "name": "PRD",
+        "name": "dev",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/oudongdong/.ohos/config/PRD_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
+          "certpath": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B23812913CD69B5FD609D63F0C34E30B938460568814F653E8909A1FF35262FED301558D7831C4E",
-          "profile": "/Users/oudongdong/.ohos/config/PRD_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "keyPassword": "0000001BFB08402F0D00E6472BD4488022EA54FC13E63339B496F936AA64C2848AC2E223ED8C72D2FA72FD",
+          "profile": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/oudongdong/.ohos/config/PRD_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001B62FDA9712A7C21B1078958B43E242BE531770BE5FCA3DF66B68C5377533517C59FB5EBEF848F62"
+          "storeFile": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
+          "storePassword": "0000001B1EF611CCC293646FB5D89E601CB7FA69136922D2841BAED995FC1DB46B774A7838989197748788"
+        }
+      },
+      {
+        "name": "prd",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B8C048312932A813CB384518B82072706886FD7AD9B8352DEEA9E4BEF211557FEF3B79D94B631EC",
+          "profile": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
+          "storePassword": "0000001BEA4C078BBB04329F2C2DB79E92A2162082AE2A43FCBBFA274B16E9052D194838979F08357A4A76"
         }
       }
     ]
@@ -128,7 +131,7 @@
           "name": "default",
           "applyToProducts": [
             "default",
-            "PRD",
+            "prd",
             "release"
           ]
         },
@@ -139,9 +142,9 @@
           ]
         },
         {
-          "name": "PRD",
+          "name": "prd",
           "applyToProducts": [
-            "PRD"
+            "prd"
           ]
         }
       ]
@@ -163,9 +166,9 @@
           ]
         },
         {
-          "name": "PRD",
+          "name": "prd",
           "applyToProducts": [
-            "PRD"
+            "prd"
           ]
         }
       ]
@@ -187,9 +190,9 @@
           ]
         },
         {
-          "name": "PRD",
+          "name": "prd",
           "applyToProducts": [
-            "PRD"
+            "prd"
           ]
         }
       ]
@@ -231,9 +234,9 @@
           ]
         },
         {
-          "name": "PRD",
+          "name": "prd",
           "applyToProducts": [
-            "PRD"
+            "prd"
           ]
         }
       ]

@@ -5,6 +5,11 @@
       "workers": [
         './src/main/ets/workers/Worker.ets'
       ]
+    },
+    "arkOptions": {
+      "buildProfileFields": {
+        "COMMON_TYPE": "common_type"
+      }
     }
   },
   "buildOptionSet": [
@@ -12,6 +17,16 @@
       "name": "release",
       "debuggable": false,
       "arkOptions": {
+        /*
+        BuildProfile来实现，避免直接在代码中判断不同的环境来设置不同的值 。
+        下面以不随环境变化的COMMON_TYPE参数，区分debug和release环境的BUILD_TYPE参数,
+        区分开发环境和生产环境的KEY参数
+        */
+        "buildProfileFields": {
+          "BUILD_TYPE": "build_release",
+          "BUILD_TYPE_CC": "build_release_cc"
+
+        },
         "obfuscation": {
           "ruleOptions": {
             "enable": true, // 配置true，即可开启代码混淆功能
@@ -31,6 +46,11 @@
       "name": "default",
       "debuggable": true,
       "arkOptions": {
+        "buildProfileFields": {
+          "BUILD_TYPE": "build_dev",
+          "BUILD_TYPE_CC": "build_dev_cc"
+
+        },
         "obfuscation": {
           "ruleOptions": {
             "enable": false
@@ -39,9 +59,13 @@
       }
     },
     {
-      "name": "PRD",
+      "name": "prd",
       "debuggable": true,
       "arkOptions": {
+        "buildProfileFields": { //这里自定义的 取不到，总是取到default里的，感觉是bug , 优先放下面target中
+          "BUILD_TYPE": "build_prd",
+          "BUILD_TYPE_CC": "build_prd_cc"
+        },
         "obfuscation": {
           "ruleOptions": {
             "enable": false
@@ -51,26 +75,90 @@
     }
   ],
 
+  //各环境配置
   "targets": [
     {
-      "name": "default" //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
+      "name": "default", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
+      "source": {
+        "abilities": [
+          {
+            "name": "LearnEntryAbility",
+            "icon": "$media:app_icon",
+            "label": "$string:EntryAbility_label_dev", //区分名字 icon
+            "launchType": "singleton"
+          }
+        ]
+      },
+      "config": {
+        "deviceType": [  //定义free支持的设备类型为phone
+          "phone"
+        ],
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": { //自定义环境差异标识，这里最好
+              "ENV": "default"
+            }
+          }
+        }
+      }
+//      "resource": {
+//        "directories": [
+//          "./src/default/resources",
+//          "./src/main/resources"
+//        ]
+//      }
     },
     {
       "name": "release", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
       "output": {
         "artifactName": "release-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
+      },
+      "config": {
+        "deviceType": [  //定义free支持的设备类型为phone
+          "phone"
+        ],
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": {
+              "ENV": "release"
+            }
+          }
+        }
       }
     },
     {
-      "name": "PRD", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
+      "name": "prd", //未定义deviceType，默认支持config.json或module.json5中定义的设备类型
       "output": {
         "artifactName": "PRD-1.0.0"  //产物名称为customizedTargetOutputName1-1.0.0
       },
       "config": {
         "deviceType": [  //定义free支持的设备类型为phone
           "phone"
+        ],
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": {
+              "ENV": "prd"
+            }
+          }
+        }
+      },
+      "source": {
+        "abilities": [
+          {
+            "name": "LearnEntryAbility",
+            "icon": "$media:app_icon",
+            "label": "$string:EntryAbility_label_prd",
+            "launchType": "singleton"
+          }
         ]
-      }
+      },
+//      "resource": {
+//        "directories": [
+//          "./src/default/resources",
+//          "./src/main/resources"
+//        ]
+//      }
     }
   ]
 }

@@ -59,7 +59,6 @@ export struct MainNavPage {
 
       })
       .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-
     }
 
   }

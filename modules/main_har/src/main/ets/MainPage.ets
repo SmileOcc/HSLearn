@@ -3,11 +3,14 @@ import { YWLocalNavType, ywNavManager, YWRouterNavParams } from "@learn/nav_rout
 import { YWResColor } from "@learn/res_har";
 import { asyncLocalStage, GlobalService, YWGlobalServiceManager, YWLazy } from "@learn/global_service_har"
 import { tabMainBuilder, TabMainNavPage } from "@learn/tab_nav_har/src/main/ets/core/TabMainNavPage";
+import { YWConstants } from "@learn/constants_har";
+import { getAvoidPadding, getDefaultAvoidAreas, YWAvoidAreas } from "@learn/common_har";
 
 const TAG = "MainPage"
 @Component
 struct MainPage {
 
+  @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
 
   @State navigationMode: number = NavigationMode.Stack;
 
@@ -24,32 +27,37 @@ struct MainPage {
   build() {
     Stack() {
 
-      tabMainBuilder()
+      Stack(){
+        tabMainBuilder()
 
-      if(this.isShowLeft) {
-        Column(){
+        if(this.isShowLeft) {
+          Column(){
+
+          }
+          .width('100%')
+          .height('100%')
+          .backgroundColor(Color.Gray)
+          .onClick(()=>{
+            this.isShowLeft = false
+          })
+
+          Column(){
+
+
+          }
+          .width('70%')
+          .height('100%')
+          .backgroundColor(Color.White)
 
         }
-        .width('100%')
-        .height('100%')
-        .backgroundColor(Color.Gray)
-        .onClick(()=>{
-          this.isShowLeft = false
-        })
-
-        Column(){
-
-
-        }
-        .width('70%')
-        .height('100%')
-        .backgroundColor(Color.White)
-
       }
-
-
+      .width('100%')
+      .height('100%')
+      // .expandSafeArea()
+      //上下安全距离
+      // .padding(getAvoidPadding(this.avoidAreas))
     }
-    // .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .alignContent(Alignment.BottomEnd)
     .backgroundColor(YWResColor.bgBase())
   }

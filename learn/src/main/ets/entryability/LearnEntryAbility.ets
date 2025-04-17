@@ -8,6 +8,7 @@ import { RootSettingBuilder } from '../pages/setting/SettingPage';
 import { webview } from '@kit.ArkWeb';
 import { hsLog } from '@learn/logger_har';
 import { HSLocalConfig } from '@learn/app_config_har';
+import BuildProfile from 'BuildProfile';
 
 const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
@@ -21,6 +22,9 @@ export abstract  class LearnEntryAbility extends MainAbility {
 
     this.initGlobal()
     this.handWant(want)
+
+    //开发者可以在模块级的build-profile.json5文件中增加自定义参数
+    let BUILD_TYPE =  BuildProfile.BUILD_TYPE
 
 
     // 案例一：如果要提前对应用的首页进行操作，

@@ -18,6 +18,8 @@ import { TestEventHubEmitterBuilder } from "../pages/eventhub_emmiter/EventHubAn
 import { TestPromptAlertBuilder } from "../pages/popup_alert/PromptActionClass";
 import { TestPictureLibraryBuilder } from "../pages/popup_alert/PictureLibraryDemo";
 import { YWRouterNavParams } from "@learn/nav_router_har";
+import { SafeAreaExample1Builder } from "../pages/expand_safe_area/SafeAreaExample1";
+import { testNodeBuilder } from "../pages/node_controller/TestNodePage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -112,8 +114,9 @@ export struct DebugDemoPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web"],
+      ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web","测试NodeController"],
       ["调试Observed","TestEventHub_Emitter","新自定义弹窗","半弹窗选择图片"],
+      ["SafeAreaExample全区实现沉浸式效果"],
       ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
@@ -555,6 +558,13 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith("半弹窗选择图片")) {
           this.demoPageNav.pushPathByName("TestPictureLibraryBuilder",true)
         }
+        if (subModel.title.startsWith("SafeAreaExample全区实现沉浸式效果")) {
+          this.demoPageNav.pushPathByName("SafeAreaExample全区实现沉浸式效果",true)
+
+        }
+        if (subModel.title.startsWith("测试NodeController")) {
+          this.demoPageNav.pushPathByName("测试NodeController",true)
+        }
       })
 
     })
@@ -593,6 +603,10 @@ export struct DebugDemoPage {
       TestPromptAlertBuilder()
     } else if (name == "TestPictureLibraryBuilder") {
       TestPictureLibraryBuilder()
+    } else  if (name == "SafeAreaExample全区实现沉浸式效果") {
+      SafeAreaExample1Builder()
+    } else if (name == "测试NodeController") {
+      testNodeBuilder()
     }
 
 
@@ -679,8 +693,9 @@ export struct DebugDemoPage {
     }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
     .alignContent(Alignment.BottomEnd)
-    .backgroundColor(YWResColor.bgBase())
-    .padding(getAvoidPadding(this.avoidAreas))
+    // .backgroundColor(YWResColor.bgBase())
+    .backgroundColor(Color.Green)
+    // .padding({top:getAvoidPadding(this.avoidAreas).top})
     // .padding({ top:Number(AppStorage.get(YWConstants.kStatusBarHeight)) })
 
   }

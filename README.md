@@ -102,4 +102,7 @@ Emitter监听设置，在on基础上，额外提供了once一次性监听的API�
 -keep-comments 保留某个类的JsDoc注释
 -keep-dts filepath 读取指定dts文件中的名称作白名单
 
-![](/Users/oudongdong/Downloads/be9edae4773d4bafbcf10ff8e81dccb8.png)
+
+///// =============== NodeController 刷新，子组件每次都会触发 aboutToAppear （解决在aboutToAppear处理数据请求 一些异常) =========//
+
+//NodeController更新数据，不一定需要@state, 关联数据，需要更新的时候触发rebuild()、或makeNode即可

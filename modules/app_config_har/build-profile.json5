@@ -6,6 +6,9 @@
     {
       "name": "release",
       "arkOptions": {
+        "buildProfileFields": {
+          "BUILD_TYPEKK": "build_KKK"
+        },
         "obfuscation": {
           "ruleOptions": {
             "enable": true,
@@ -23,10 +26,40 @@
   ],
   "targets": [
     {
-      "name": "default"
+      "name": "default",
+      "config": {
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": { //自定义环境差异标识，这里最好
+              "APP_CONFIG": "app_config_dev.json"
+            }
+          }
+        }
+      }
     },
     {
-      "name": "ohosTest"
+      "name": "release",
+      "config": {
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": { //自定义环境差异标识，这里最好
+              "APP_CONFIG": "app_config_release.json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "prd",
+      "config": {
+        "buildOption": {
+          "arkOptions": {
+            "buildProfileFields": { //自定义环境差异标识，这里最好
+              "APP_CONFIG": "app_config_prd.json"
+            }
+          }
+        }
+      }
     }
   ]
 }

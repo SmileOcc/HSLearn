@@ -1,7 +1,7 @@
 import { YWNavPath } from "@learn/nav_router_har/src/main/ets/components/YWNavPath"
 import { YWLocalNavType } from "@learn/nav_router_har/src/main/ets/components/YWNavType"
 import { YWResImage } from "@learn/res_har"
-import { TabItemInfo } from "@learn/tab_nav_api_har"
+import { ITabAction, TabItemInfo } from "@learn/tab_nav_api_har"
 
 const MainTabList:Map<YWLocalNavType,YWNavPath> = new Map([
   [YWLocalNavType.NAV_MAIN_HOME,YWNavPath.main_tab_home],
@@ -64,6 +64,18 @@ export class MainTabManager {
       this.maintTabList.push(item)
     })
 
+  }
+
+  bindTabAction(navType: YWLocalNavType, tabAction: ITabAction) {
+    for (let item of this.maintTabList) {
+      if (item.navType === navType && !item.tabActionProxy) {
+        item.tabActionProxy = tabAction
+      }
+    }
+  }
+
+  getTabAction(navType: YWLocalNavType): TabItemInfo | undefined {
+    return this.maintTabList.find(item=>item.navType == navType)
   }
 }
 

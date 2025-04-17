@@ -7,6 +7,7 @@ export const DEBUG = true;
 export const TARGET_NAME = 'default';
 export const IS_PRODUCTION = false;
 export const URL_BASE = 'https://*';
+export const APP_CONFIG = 'app_config_dev.json';
 
 /**
  * BuildProfile Class is used only for compatibility purposes.
@@ -18,4 +19,5 @@ export default class BuildProfile {
 	static readonly TARGET_NAME = TARGET_NAME;
 	static readonly IS_PRODUCTION = IS_PRODUCTION;
 	static readonly URL_BASE = URL_BASE;
+	static readonly APP_CONFIG = APP_CONFIG;
 }
