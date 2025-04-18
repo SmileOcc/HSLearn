@@ -20,6 +20,11 @@ import { TestPictureLibraryBuilder } from "../pages/popup_alert/PictureLibraryDe
 import { YWRouterNavParams } from "@learn/nav_router_har";
 import { SafeAreaExample1Builder } from "../pages/expand_safe_area/SafeAreaExample1";
 import { testNodeBuilder } from "../pages/node_controller/TestNodePage";
+import { SafeAreaExample2Builder } from "../pages/expand_safe_area/SafeAreaExample2";
+import { SafeAreaExample3Builder } from "../pages/expand_safe_area/SafeAreaExample3";
+import { SafeAreaExample4Builder } from "../pages/expand_safe_area/SafeAreaExample4";
+import { SafeAreaExample5Builder } from "../pages/expand_safe_area/SafeAreaExample5";
+import { SafeAreaExample6Builder } from "../pages/expand_safe_area/SafeAreaExample6";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -116,7 +121,7 @@ export struct DebugDemoPage {
     let gropList: String[][] = [
       ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web","测试NodeController"],
       ["调试Observed","TestEventHub_Emitter","新自定义弹窗","半弹窗选择图片"],
-      ["SafeAreaExample全区实现沉浸式效果"],
+      ["SafeAreaExample全区实现沉浸式效果","SafeAreaExample1全区实现沉浸式效果","SafeArea滚动列表底部延伸场景","SafeArea重要信息被软键盘遮挡","SafeArea软键盘弹出导致布局错位","SafeArea自定义弹窗被键盘顶起"],
       ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
@@ -562,6 +567,21 @@ export struct DebugDemoPage {
           this.demoPageNav.pushPathByName("SafeAreaExample全区实现沉浸式效果",true)
 
         }
+        if (subModel.title.startsWith("SafeAreaExample1全区实现沉浸式效果")) {
+            this.demoPageNav.pushPathByName("SafeAreaExample1全区实现沉浸式效果",true)
+        }
+        if (subModel.title.startsWith("SafeArea滚动列表底部延伸场景")) {
+          this.demoPageNav.pushPathByName("SafeArea滚动列表底部延伸场景",true)
+        }
+        if (subModel.title.startsWith("SafeArea重要信息被软键盘遮挡")) {
+          this.demoPageNav.pushPathByName("SafeArea重要信息被软键盘遮挡",true)
+        }
+        if (subModel.title.startsWith("SafeArea软键盘弹出导致布局错位")) {
+          this.demoPageNav.pushPathByName("SafeArea软键盘弹出导致布局错位",true)
+        }
+        if (subModel.title.startsWith("SafeArea自定义弹窗被键盘顶起")) {
+          this.demoPageNav.pushPathByName("SafeArea自定义弹窗被键盘顶起",true)
+        }
         if (subModel.title.startsWith("测试NodeController")) {
           this.demoPageNav.pushPathByName("测试NodeController",true)
         }
@@ -605,7 +625,23 @@ export struct DebugDemoPage {
       TestPictureLibraryBuilder()
     } else  if (name == "SafeAreaExample全区实现沉浸式效果") {
       SafeAreaExample1Builder()
-    } else if (name == "测试NodeController") {
+    }
+    else if (name == "SafeAreaExample1全区实现沉浸式效果") {
+      SafeAreaExample2Builder()
+    }
+    else if (name == "SafeArea滚动列表底部延伸场景") {
+      SafeAreaExample3Builder()
+    }
+    else if (name == "SafeArea重要信息被软键盘遮挡") {
+      SafeAreaExample4Builder()
+    }
+    else if (name == "SafeArea软键盘弹出导致布局错位") {
+      SafeAreaExample5Builder()
+    }
+    else if (name == "SafeArea自定义弹窗被键盘顶起") {
+      SafeAreaExample6Builder()
+    }
+    else if (name == "测试NodeController") {
       testNodeBuilder()
     }
 

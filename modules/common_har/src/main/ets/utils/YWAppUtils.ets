@@ -36,6 +36,13 @@ export class YWAppUtils{
     YWAppUtils.windowStage = windowStage;
   }
 
+  static getWindowStage() {
+    if (YWAppUtils.windowStage === undefined) {
+      throw Error('YWAppUtils setWindowStage')
+    }
+    return YWAppUtils.windowStage
+  }
+
   /**
    * 获取上下文，common.UIAbilityContext
    * @returns
