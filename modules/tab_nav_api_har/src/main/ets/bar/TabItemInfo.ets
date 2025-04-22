@@ -1,13 +1,17 @@
 import { YWResColor, YWResImage } from "@learn/res_har"
 import { ITabAction } from "../api/ITabAction"
+import { ITabBottomBarConfig } from "../config/ITabBottomBarConfig"
 
-export class TabItemInfo {
-  cid?:string
+export class TabItemInfo implements ITabBottomBarConfig {
+  image?: ResourceStr
   selectImage?:ResourceStr
-  normalImage?:ResourceStr
+  selectColor?: ResourceColor | undefined
+  normalColor?: ResourceColor
+  badge?: number | undefined
+
+  cid:string = ""
   title:string = ""
   isSelected:boolean = false
-  badgeNum:number = 0
 
   index:number = 0
   navType:string = ""
@@ -20,6 +24,6 @@ export class TabItemInfo {
   }
 
   itemImage():ResourceStr {
-    return (this.isSelected ? this.selectImage : this.normalImage) ?? YWResImage.appIcon()
+    return (this.isSelected ? this.selectImage : this.image) ?? YWResImage.appIcon()
   }
 }

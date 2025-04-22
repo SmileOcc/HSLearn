@@ -17,6 +17,7 @@ export enum YWNavPath {
   main_tab_mine = "learn://root/main_tab_nav/MINE",
 
   vc_car = "learn://vc/car",
+  vc_car_goods_detail = "learn://vc/car/goods_detail",
 
   common_tab_nav = "learn://root/common_tab_nav",
 

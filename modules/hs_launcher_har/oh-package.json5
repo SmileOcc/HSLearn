@@ -8,7 +8,8 @@
   "dependencies": {
     "@learn/launcher_task_har": "file:../launcher_task_har",
     "@learn/manager_task_har": "file:../manager_task_har",
-    "@learn/app_config_har": "file:../app_config_har"
+    "@learn/app_config_har": "file:../app_config_har",
+    "@learn/car_har": "file:../../modules/feature/car_har"
 
   }
 }

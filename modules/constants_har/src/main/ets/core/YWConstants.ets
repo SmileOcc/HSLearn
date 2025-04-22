@@ -13,6 +13,8 @@ export class YWConstants {
   static readonly kMainLarge = 20
 
   static readonly kMainTabHeight = 49
+  static readonly kMainTabVerticalHeight = 39
+  static readonly kMainTabVerticalWidth = 120
 
   static readonly kStatusBarHeight = 'statusBarHeight'
   static readonly kSafeBottomHeight ='safeBottomHeight'
@@ -22,6 +24,7 @@ export class YWConstants {
   static readonly kStorageHeight = "kStorageHeight"
 
   static readonly kCurrentBreakpoint = "kCurrentBreakpoint"
+  static readonly kCurrentBreakpointValue = "kCurrentBreakpointValue"
 
   static readonly kStorageLocalUser: string = 'kStorageLocalUser';
   static readonly kAppStorageStorageLocalUser: string = 'kAppStorageStorageLocalUser';

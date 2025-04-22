@@ -2,6 +2,13 @@ import { mediaquery } from "@kit.ArkUI";
 import { YWConstants } from "@learn/constants_har";
 import { hsLog } from "@learn/logger_har";
 
+// 宽度类型	取值范围(vp)	设备描述
+// xs	[0,320)	最小宽度类型设备
+// sm	[320,520)	小宽度类型设备
+// md	[520,840)	中等宽度类型设备
+// lg	[840,+∞)	大宽度类型设备
+// xl‌：超大宽度设备，屏幕宽度在1200像素以上‌
+
 export declare interface BreakpointTypeOption<T> {
   xs?: T
   sm?: T
@@ -50,7 +57,14 @@ export enum BreakpointTypeEnum {
   XL = 'xl'
 }
 
-export function BreakpointTypeValue(type:BreakpointTypeEnum):number {
+export enum BreakpointTypeEnumValue {
+  SM = 320,
+  MD = 600,
+  LG = 840,
+  XL = 1500
+}
+
+export function BreakpointTypeValue(type:BreakpointTypeEnum | string):BreakpointTypeEnumValue {
   switch (type) {
     case BreakpointTypeEnum.SM:
       return 320
@@ -78,8 +92,11 @@ export class BreakpointSystem {
   private updateCurrentBreakpoint(breakpoint: string) {
     if (this.currentBreakpoint !== breakpoint) {
       this.currentBreakpoint = breakpoint;
+      let currentBreakpointValue:number = BreakpointTypeValue(this.currentBreakpoint)
       AppStorage.setOrCreate<string>(YWConstants.kCurrentBreakpoint, this.currentBreakpoint);
-      hsLog.i(TAG,'on current breakpoint: ' + this.currentBreakpoint);
+      AppStorage.setOrCreate<number>(YWConstants.kCurrentBreakpointValue, currentBreakpointValue);
+
+      hsLog.i(TAG,'on current breakpoint: ' + this.currentBreakpoint + ' --> ' + currentBreakpointValue);
     }
   }
 
@@ -111,3 +128,64 @@ export class BreakpointSystem {
 }
 
 export const osBreakpointSystem = new BreakpointSystem();
+
+
+
+
+// export class BreakpointSystem {
+//   private currentBreakpoint: string = 'sm';
+//   private xsListener: mediaQuery.MediaQueryListener;
+//   private smListener: mediaQuery.MediaQueryListener;
+//   private mdListener: mediaQuery.MediaQueryListener;
+//   private lgListener: mediaQuery.MediaQueryListener;
+//
+//   public register(): void {
+//     this.xsListener = mediaQuery.matchMediaSync('(width<320vp)');
+//     this.xsListener.on('change', this.isBreakpointXS);
+//     this.smListener = mediaQuery.matchMediaSync('(320vp<=width<600vp)');
+//     this.smListener.on('change', this.isBreakpointSM);
+//     this.mdListener = mediaQuery.matchMediaSync('(600vp<=width<840vp)');
+//     this.mdListener.on('change', this.isBreakpointMD);
+//     this.lgListener = mediaQuery.matchMediaSync('(840vp<=width)');
+//     this.lgListener.on('change', this.isBreakpointLG);
+//   }
+//
+//   public unregister(): void {
+//     this.xsListener.off('change', this.isBreakpointXS);
+//     this.smListener.off('change', this.isBreakpointSM);
+//     this.mdListener.off('change', this.isBreakpointMD);
+//     this.lgListener.off('change', this.isBreakpointLG);
+//   }
+//
+//   private isBreakpointXS = (mediaQueryResult: mediaQuery.MediaQueryResult): void => {
+//     if (mediaQueryResult.matches) {
+//       this.updateCurrentBreakpoint('xs');
+//     }
+//   }
+//
+//   private isBreakpointSM = (mediaQueryResult: mediaQuery.MediaQueryResult): void => {
+//     if (mediaQueryResult.matches) {
+//       this.updateCurrentBreakpoint('sm');
+//     }
+//   }
+//
+//   private isBreakpointMD = (mediaQueryResult: mediaQuery.MediaQueryResult): void => {
+//     if (mediaQueryResult.matches) {
+//       this.updateCurrentBreakpoint('md');
+//     }
+//   }
+//
+//   private isBreakpointLG = (mediaQueryResult: mediaQuery.MediaQueryResult): void => {
+//     if (mediaQueryResult.matches) {
+//       this.updateCurrentBreakpoint('lg');
+//     }
+//   }
+//
+//   private updateCurrentBreakpoint(breakpoint: string): void {
+//     if (this.currentBreakpoint !== breakpoint) {
+//       this.currentBreakpoint = breakpoint;
+//       AppStorage.SetOrCreate<string>('currentBreakpoint', this.currentBreakpoint);
+//     }
+//   }
+// }
+

@@ -1,9 +1,16 @@
 
 export interface ITabBottomBarConfig {
-  image: ResourceStr
-  selectImage: ResourceStr
+  cid: string
+  image?: ResourceStr
+  selectImage?: ResourceStr
   title: ResourceStr
   selectColor?: ResourceColor
-  normalColor: ResourceColor
+  normalColor?: ResourceColor
   badge?: number
+  navType:string
+  navPath:string
+
+  titleColor():ResourceColor
+
+  itemImage():ResourceStr
 }

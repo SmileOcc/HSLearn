@@ -1,4 +1,5 @@
 import { IUState } from "@learn/common_har"
+import { ITabBottomBarConfig } from "../../../../Index"
 import { TabItemInfo } from "./TabItemInfo"
 
 //TODO
@@ -40,7 +41,7 @@ export class TabInfo {
     return undefined
   }
 
-  updateSelectTab(tabInfo:TabItemInfo) {
+  updateSelectTab(tabInfo:ITabBottomBarConfig) {
     for (const item of this.mainNavList) {
       item.isSelected = false
       if (item.cid == tabInfo.cid) {

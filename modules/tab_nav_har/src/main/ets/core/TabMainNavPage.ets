@@ -9,12 +9,26 @@ import { TabItemInfo } from "@learn/tab_nav_api_har"
 import { ywMainTabManger } from "@learn/tab_nav_common_har"
 import { router } from "@kit.ArkUI"
 import { NavAvatarInfo } from "@learn/tab_nav_api_har"
+import { YWConstants } from "@learn/constants_har"
+import { BreakpointTypeEnumValue, BreakpointTypeValue } from "@learn/common_har"
+import { YWMainNavTabBar } from "./tabbar/YWMainNavTabBar"
 
 const TAG = "TabMainNavPage"
 @Component
 export struct TabMainNavPage {
 
   tabDelegate?:ITabComponentDelegate
+
+
+  @Watch('windowPointChange')
+  @StorageProp(YWConstants.kCurrentBreakpoint)
+  currentBreakpoint: string = 'sm'
+
+  @StorageProp(YWConstants.kCurrentBreakpointValue)
+  currentBreakValue:BreakpointTypeEnumValue = 320
+
+  @Provide('mainNavWidth')
+  mainNavWidth: number = 320
 
   @State navigationMode: number = NavigationMode.Stack;
 
@@ -56,6 +70,11 @@ export struct TabMainNavPage {
     }
   }
 
+  windowPointChange() {
+    // this.currentBreakValue = BreakpointTypeValue(this.currentBreakpoint)
+    hsLog.i(TAG,`currentBreakpoint: ${this.currentBreakpoint}  -- ${this.currentBreakValue}`)
+  }
+
   aboutToAppear(): void {
 
     let list = ywMainTabManger.maintTabList
@@ -78,37 +97,35 @@ export struct TabMainNavPage {
 
   build() {
     Row(){
-      if (false) {
-        Column(){
+      if (this.currentBreakValue >= BreakpointTypeEnumValue.LG) {//大型设备
 
-        }
-        .height('100%')
-        .width('60')
+        YWMainNavTabBar({isVertical: true})
+          .backgroundColor(YWConstants.RandomColor())
+          .height('100%')
       }
-      Stack() {
-        Navigation(ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT_MAIN_TAB)){
+      Navigation(ywNavManager.getNavStack(YWLocalNavType.NAV_ROOT_MAIN_TAB)){
 
 
 
-        }
-        .id(YWLocalNavType.NAV_ROOT_MAIN_TAB)
-        .hideTitleBar(true)
-        .navDestination(this.navDestPages)
-        .hideNavBar(true)
-        .mode(this.navigationMode)
-        .onAppear(()=>{
-          hsLog.i(TAG,'--onAppear')
-        })
-        .onDisAppear(()=>{
-          hsLog.i(TAG,'--onDisAppear')
-
-        })
-        .width('100%')
-        .height('100%')
       }
+      .id(YWLocalNavType.NAV_ROOT_MAIN_TAB)
+      .hideTitleBar(true)
+      .hideNavBar(true)
+      .navDestination(this.navDestPages)
+      .mode(this.navigationMode)
+      .onAppear(()=>{
+        hsLog.i(TAG,'--onAppear')
+      })
+      .onDisAppear(()=>{
+        hsLog.i(TAG,'--onDisAppear')
+
+      })
       .layoutWeight(1)
       .height('100%')
-
+      .onSizeChange((oldValue: SizeOptions, newValue: SizeOptions) => {
+        this.mainNavWidth = Number(newValue.width ?? 320)
+        hsLog.i(TAG,`Ace: on size change, oldValue is ${JSON.stringify(oldValue)} value is ${JSON.stringify(newValue)}`)
+      })
 
     }
     .width('100%')

@@ -91,7 +91,8 @@
       },
       "config": {
         "deviceType": [  //定义free支持的设备类型为phone
-          "phone"
+//          "phone",
+
         ],
         "buildOption": {
           "arkOptions": {
@@ -115,7 +116,7 @@
       },
       "config": {
         "deviceType": [  //定义free支持的设备类型为phone
-          "phone"
+//          "phone"
         ],
         "buildOption": {
           "arkOptions": {
@@ -133,7 +134,7 @@
       },
       "config": {
         "deviceType": [  //定义free支持的设备类型为phone
-          "phone"
+//          "phone"
         ],
         "buildOption": {
           "arkOptions": {

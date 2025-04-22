@@ -1,5 +1,5 @@
 import { YWLocalNavType, ywNavRouter } from "@learn/nav_router_har";
-import { TabItemInfo, TabViewIUState, ITabComponentDelegate } from "@learn/tab_nav_api_har";
+import { TabItemInfo, TabViewIUState, ITabComponentDelegate, ITabBottomBarConfig } from "@learn/tab_nav_api_har";
 
 export class TabMainViewModel {
   private viewModelState:TabViewIUState
@@ -44,7 +44,7 @@ export class TabMainViewModel {
 
   }
 
-  selectIndexTab(tabInfo:TabItemInfo) {
+  selectIndexTab(tabInfo:ITabBottomBarConfig) {
 
     ywNavRouter.openRoute(this.componentId)
       .onTargetUrl(tabInfo.navPath)

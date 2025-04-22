@@ -1,5 +1,5 @@
 {
-  "name": "car_har",
+  "name": "@learn/car_har",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
   "main": "Index.ets",
@@ -10,6 +10,7 @@
     "@learn/res_har": "file:../../res_har",
     "@learn/logger_har": "file:../../logger_har",
     "@learn/constants_har": "file:../../constants_har",
-    "@learn/common_har": "file:../../common_har"
+    "@learn/common_har": "file:../../common_har",
+    "@learn/learn_task_har": "file:../../learn_task_har"
   }
 }

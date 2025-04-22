@@ -35,23 +35,23 @@ export class MainTabManager {
 
       if (type === YWLocalNavType.NAV_MAIN_HOME) {
         item.title = "首页"
-        item.normalImage = YWResImage.tab_home()
+        item.image = YWResImage.tab_home()
         item.selectImage = YWResImage.tab_home_h()
         item.isSelected = true
         item.index = 0
       } else if (type === YWLocalNavType.NAV_MAIN_CATEGORY) {
         item.title = "分类"
-        item.normalImage = YWResImage.tab_category()
+        item.image = YWResImage.tab_category()
         item.selectImage = YWResImage.tab_category_h()
         item.index = 1
       } else if (type === YWLocalNavType.NAV_MAIN_CAR) {
         item.title = "购物车"
-        item.normalImage = YWResImage.tab_car()
+        item.image = YWResImage.tab_car()
         item.selectImage = YWResImage.tab_car_h()
         item.index = 2
       } else if (type === YWLocalNavType.NAV_MAIN_MINE) {
         item.title = "我的"
-        item.normalImage = YWResImage.tab_mine()
+        item.image = YWResImage.tab_mine()
         item.selectImage = YWResImage.tab_mine_h()
         item.index = 3
       }

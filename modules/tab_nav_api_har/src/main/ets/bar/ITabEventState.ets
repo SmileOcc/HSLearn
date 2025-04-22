@@ -1,6 +1,7 @@
+import { ITabBottomBarConfig } from "../config/ITabBottomBarConfig";
 import { TabItemInfo } from "./TabItemInfo";
 
 export interface ITabEventState{
-  onClickIndex:((oldTabInfo:TabItemInfo,selectTabInfo:TabItemInfo)=>void)
-  onDoubleClickIndex:((oldTabInfo:TabItemInfo,selectTabInfo:TabItemInfo)=>void)
+  onClickIndex:((oldTabInfo:ITabBottomBarConfig,selectTabInfo:ITabBottomBarConfig)=>void)
+  onDoubleClickIndex:((oldTabInfo:ITabBottomBarConfig,selectTabInfo:ITabBottomBarConfig)=>void)
 }
