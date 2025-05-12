@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "login_import_module_har",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

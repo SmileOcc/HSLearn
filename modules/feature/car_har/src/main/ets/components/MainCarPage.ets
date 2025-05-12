@@ -2,6 +2,7 @@ import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath
 import { hsLog } from "@learn/logger_har"
 import { YWResColor, YWResImage } from "@learn/res_har"
 import { CarPayInfo, CartGood, CarUIState, CarViewModel, goodList, GoodObj } from '../model/CarViewModel'
+import { promptAction } from "@kit.ArkUI"
 
 const TAG = "MainCarPage"
 
@@ -70,6 +71,50 @@ export default struct MainCarPage {
 struct ContentCom {
   @Prop iuState: CarUIState
 
+  @Builder
+  cellMoreDelete(itemInfo: CartGood) {
+    Row() {
+      Text('删除').fontColor("#ffffff").fontSize('40lpx')
+        .textAlign(TextAlign.Center)
+        .width('180lpx')
+    }
+    .height('100%')
+    .backgroundColor("#FFC107")
+    .justifyContent(FlexAlign.SpaceEvenly)
+    .borderRadius({ topLeft: 10, bottomLeft: 10 })
+    .onClick(() => {
+      promptAction.showToast({
+        message: '【' + itemInfo.good.wname + '】删除成功',
+        duration: 2000,
+        bottom: '400lpx'
+      });
+    })
+  }
+
+  @Builder
+  cellMoreCollect(itemInfo:CartGood) {
+    Row() {
+      Text('收藏').fontColor("#ffffff").fontSize('40lpx')
+        .textAlign(TextAlign.Center)
+        .width('180lpx')
+
+      Text('推荐').fontColor("#ffffff").fontSize('40lpx')
+        .textAlign(TextAlign.Center)
+        .width('180lpx')
+    }
+    .height('100%')
+    .backgroundColor("#FFC107")
+    .justifyContent(FlexAlign.SpaceEvenly)
+    .borderRadius({ topLeft: 10, bottomLeft: 10 })
+    .onClick(() => {
+      promptAction.showToast({
+        message: '【' + itemInfo.good.wname + '】收藏成功',
+        duration: 2000,
+        bottom: '400lpx'
+      });
+    })
+  }
+
   build() {
     Scroll() {
       Column() {
@@ -92,6 +137,7 @@ struct ContentCom {
                 ListItem() {
                   GoodsListItem({itemInfo: item})
                 }
+                .swipeAction({ start: this.cellMoreDelete(item), end: this.cellMoreCollect(item) })
               })
             }
             .divider({ strokeWidth: .5, startMargin: 10, endMargin: 10, color: DEEP_GRAY })

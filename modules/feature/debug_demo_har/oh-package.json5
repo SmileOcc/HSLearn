@@ -12,5 +12,6 @@
     "@learn/constants_har": "file:../../constants_har",
     "@learn/tiger_har": "file:../../../tiger_har",
     "@learn/nav_router_har": "file:../../nav_router_har",
+    "@learn/login_import_module_har": "file:../../feature/debugger/login_import_module_har"
   }
 }

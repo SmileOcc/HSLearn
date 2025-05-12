@@ -25,39 +25,43 @@ import { SafeAreaExample3Builder } from "../pages/expand_safe_area/SafeAreaExamp
 import { SafeAreaExample4Builder } from "../pages/expand_safe_area/SafeAreaExample4";
 import { SafeAreaExample5Builder } from "../pages/expand_safe_area/SafeAreaExample5";
 import { SafeAreaExample6Builder } from "../pages/expand_safe_area/SafeAreaExample6";
+import { TestScrollTwoGestureBuilder } from "../pages/gesture/ScrollTwoGesturePage";
+import { TestScrollWebGestureBuilder } from "../pages/gesture/ScrollWebGesturePage";
+import { TestIndicatorBuilder } from "../pages/indicator/TestIndicatorPage";
+import { TestAlertViewBuilder } from "../pages/popup_alert/TestAlertViewPage";
+import { TestListItemMoveBuilder } from "../pages/gesture/TestListItemMovePage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
 @Builder
-export function debugDemoBuilder(name:string,params:YWRouterNavParams) {
-  NavDestination(){
-    DebugDemoPage({navParams: params})
+export function debugDemoBuilder(name: string, params: YWRouterNavParams) {
+  NavDestination() {
+    DebugDemoPage({ navParams: params })
   }
   .hideTitleBar(true)
-  .onWillDisappear(()=>{
+  .onWillDisappear(() => {
     params.getPageLifecycle().pageOnDisappear?.()
   })
-  .onShown(()=>{
+  .onShown(() => {
     params.getPageLifecycle().pageOnShow?.()
   })
-  .onHidden(()=>{
+  .onHidden(() => {
     params.getPageLifecycle().pageOnHide?.()
   })
 }
 
 const TAG = "DebugDemoPage"
+
 @Component
 export struct DebugDemoPage {
   @State message: string = 'Hello World';
   @StorageProp(YWConstants.kStorageAreas) avoidAreas: YWAvoidAreas = getDefaultAvoidAreas()
-
   private context = getContext(this) as common.UIAbilityContext
   @State tempGroupList: SetItemModel[][] = new Array
   @State allGroupList: SetItemModel[] = new Array
   @State showLoading: boolean = false
-  navParams?:YWRouterNavParams
-
-  private tigerOpenApi:TigerOpenApi =  new TigerOpenImp()
+  navParams?: YWRouterNavParams
+  private tigerOpenApi: TigerOpenApi = new TigerOpenImp()
 
   onPageShow() {
     //全局数据获取
@@ -91,20 +95,19 @@ export struct DebugDemoPage {
     ywDebugGlobal.init(this.getUIContext())
 
 
-    this.navParams?.getPageLifecycleImp().setPageOnShow(()=>{
+    this.navParams?.getPageLifecycleImp().setPageOnShow(() => {
       hsLog.i(TAG, "--pageOnShow")
 
     })
-    this.navParams?.getPageLifecycleImp().setPageOnHide(()=>{
+    this.navParams?.getPageLifecycleImp().setPageOnHide(() => {
       hsLog.i(TAG, "--pageOnHide")
 
     })
 
     // 预先创建一个空的ArkWeb动态组件（需传入UIContext），拉起渲染进程
-    createPreWeb('about://blank',this.getUIContext())
+    createPreWeb('about://blank', this.getUIContext())
     // hsLog.d(DisplayUtil.getWidth() +' util11')//1260 util11
     // hsLog.d(DisplayUtil.getHeight() +' util11')//2720 util11
-
 
 
     // 创建ArkWeb动态组件（需传入UIContext），loadContent之后的任意时机均可创建
@@ -119,11 +122,15 @@ export struct DebugDemoPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
-      ["TestWeb","web同层组件","webPre预加载web","2webPre预加载web","3webPre预加载web","测试NodeController"],
-      ["调试Observed","TestEventHub_Emitter","新自定义弹窗","半弹窗选择图片"],
-      ["SafeAreaExample全区实现沉浸式效果","SafeAreaExample1全区实现沉浸式效果","SafeArea滚动列表底部延伸场景","SafeArea重要信息被软键盘遮挡","SafeArea软键盘弹出导致布局错位","SafeArea自定义弹窗被键盘顶起"],
-      ["基础数据","自定义tab","相对布局Relative","横竖屏旋转","测试NavDestination","测试弹窗WrapBuilder"],
-      ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore","首选项PreferencesUtil","共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
+      ["TestWeb", "web同层组件", "webPre预加载web", "2webPre预加载web", "3webPre预加载web", "测试NodeController"],
+      ["调试Observed", "TestEventHub_Emitter", "新自定义弹窗", "半弹窗选择图片", "push弹窗测试"],
+      ["SafeAreaExample全区实现沉浸式效果", "SafeAreaExample1全区实现沉浸式效果", "SafeArea滚动列表底部延伸场景",
+        "SafeArea重要信息被软键盘遮挡", "SafeArea软键盘弹出导致布局错位", "SafeArea自定义弹窗被键盘顶起"],
+      ["Scroller嵌套Scroller","Scroller嵌套Web","listItem上下移动"],
+      ["测试滑动指示器"],
+      ["基础数据", "自定义tab", "相对布局Relative", "横竖屏旋转", "测试NavDestination", "测试弹窗WrapBuilder"],
+      ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore", "首选项PreferencesUtil",
+        "共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
       ["docAbility-specified",
         "savedAbility-docAbility-multition",
         "TestHarPage 通过routerName跳转",
@@ -132,17 +139,19 @@ export struct DebugDemoPage {
         "网页打开",
         "浏览器打开",
         "登录页",
-        "登录注册页1","登录注册页2"],
+        "登录注册页1", "登录注册页2", "动态导入登录模块"],
       ["录音转文字"],
-      ["TaskPoolPage", "TaskPoolCpuPage", "TaskPoolSyncTaskPage","worker Test", "其他"],
-      ["消息列表 MessageListPage","list分组红点","scroll集合","自动缩放适配","layoutWeight","PullRefreshPage","PullRefreshLazyPage","PullRefreshListPage","SwiperStackPage","TopSlideMenuTestPage"],
-      ["图片相册PhotoCameraPage", "保存图片相册","图片上传", "window悬浮弹窗", "buildParams Page","ProvideConsumPage祖孙","showLoading全局"],
+      ["TaskPoolPage", "TaskPoolCpuPage", "TaskPoolSyncTaskPage", "worker Test", "其他"],
+      ["消息列表 MessageListPage", "list分组红点", "scroll集合", "自动缩放适配", "layoutWeight", "PullRefreshPage",
+        "PullRefreshLazyPage", "PullRefreshListPage", "SwiperStackPage", "TopSlideMenuTestPage"],
+      ["图片相册PhotoCameraPage", "保存图片相册", "图片上传", "window悬浮弹窗", "buildParams Page",
+        "ProvideConsumPage祖孙", "showLoading全局"],
       ["Emitter组件间的通信和数据传递", "通知NotificationPage"],
       ["文件路径FilePagePage"],
       ["MarginPaddingPage"],
       ["设备硬件信息：HardwareInfoPage"],
       ["支付首页全适配：PaymentHomePage"],
-      ["tiger_har_app","cat_har_app"],
+      ["tiger_har_app", "cat_har_app"],
 
       ["注销账号", "退出"]]
 
@@ -266,8 +275,8 @@ export struct DebugDemoPage {
         console.log(subModel.title + "ccc")
         if (subModel.title.includes("基础数据")) {
           router.pushUrl({
-            url:'pages/base/TestDataHandlePage',
-            params:{}
+            url: 'pages/base/TestDataHandlePage',
+            params: {}
           })
         }
         if (subModel.title.startsWith('请求调试')) {
@@ -361,12 +370,12 @@ export struct DebugDemoPage {
 
         }
 
-        if (subModel.title.startsWith('网页打开')){
+        if (subModel.title.startsWith('网页打开')) {
           RouterUtils.openWeb('https://www.baidu.com')
         }
 
         if (subModel.title.startsWith('浏览器')) {
-          RouterUtils.openBrowser(this.context,'https://www.baidu.com')
+          RouterUtils.openBrowser(this.context, 'https://www.baidu.com')
         }
 
         // if (subModel.title.includes('登录注册页1')) {
@@ -377,12 +386,15 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith('"登录注册页2"')) {
 
         }
+        if (subModel.title.startsWith('动态导入登录模块')) {
+          this.testAction('动态导入登录模块')
+        }
 
         if (subModel.title.startsWith('登录')) {
-          RouterUtils.openLogin().then(()=> {
+          RouterUtils.openLogin().then(() => {
             hsLog.d('进入登录页')
           })
-            .catch(()=> {
+            .catch(() => {
 
             })
         }
@@ -392,10 +404,10 @@ export struct DebugDemoPage {
         }
 
         if (subModel.title.startsWith('首选项PreferencesUtil')) {
-          console.info('====当前内存信息 1 ',JSON.stringify(PreferencesUtil.getInstance()))
+          console.info('====当前内存信息 1 ', JSON.stringify(PreferencesUtil.getInstance()))
           PreferencesUtil.getInstance().mUserInfo.userToken = "测试测试"
           PreferencesUtil.saveData(this.context)
-          console.info('====当前内存信息 2 ',JSON.stringify(PreferencesUtil.getInstance()))
+          console.info('====当前内存信息 2 ', JSON.stringify(PreferencesUtil.getInstance()))
 
         }
 
@@ -430,7 +442,7 @@ export struct DebugDemoPage {
           RouterUtils.jumpRouter('pages/base/TestBuilderParamPage')
         }
 
-        if (subModel.title.startsWith('showLoading')){
+        if (subModel.title.startsWith('showLoading')) {
           this.showLoading = true;
           setTimeout(() => {
             this.showLoading = false;
@@ -489,7 +501,7 @@ export struct DebugDemoPage {
 
         if (subModel.title.startsWith('tiger_har_app')) {
 
-          this.tigerOpenApi.openTigerApp("tiger_id","123")
+          this.tigerOpenApi.openTigerApp("tiger_id", "123")
         }
         if (subModel.title.startsWith('cat_har_app')) {
           // const catApi = new CatOpenImp()
@@ -535,55 +547,70 @@ export struct DebugDemoPage {
         }
 
         if (subModel.title.startsWith("TestWeb")) {
-          this.demoPageNav.pushPathByName("TestWeb",true)
+          this.demoPageNav.pushPathByName("TestWeb", true)
         }
         if (subModel.title.includes("web同层组件")) {
-          this.demoPageNav.pushPathByName("WebViewDemo",true)
+          this.demoPageNav.pushPathByName("WebViewDemo", true)
         }
 
         if (subModel.title.startsWith("webPre预加载web")) {
-          this.demoPageNav.pushPathByName("PreWebViewDemo",true)
+          this.demoPageNav.pushPathByName("PreWebViewDemo", true)
         }
 
         if (subModel.title.startsWith("2webPre预加载web")) {
-          this.demoPageNav.pushPathByName("aaPreWebView",true)
+          this.demoPageNav.pushPathByName("aaPreWebView", true)
         }
         if (subModel.title.startsWith("3webPre预加载web")) {
-          this.demoPageNav.pushPathByName("bbPreWebView",true)
+          this.demoPageNav.pushPathByName("bbPreWebView", true)
         }
         if (subModel.title.startsWith("调试Observed")) {
-          this.demoPageNav.pushPathByName("调试Observed",true)
+          this.demoPageNav.pushPathByName("调试Observed", true)
         }
         if (subModel.title.startsWith("TestEventHub_Emitter")) {
-          this.demoPageNav.pushPathByName("TestEventHub_Emitter",true)
+          this.demoPageNav.pushPathByName("TestEventHub_Emitter", true)
         }
         if (subModel.title.startsWith("新自定义弹窗")) {
-          this.demoPageNav.pushPathByName("TestPromptAlertBuilder",true)
+          this.demoPageNav.pushPathByName("TestPromptAlertBuilder", true)
         }
         if (subModel.title.startsWith("半弹窗选择图片")) {
-          this.demoPageNav.pushPathByName("TestPictureLibraryBuilder",true)
+          this.demoPageNav.pushPathByName("TestPictureLibraryBuilder", true)
         }
         if (subModel.title.startsWith("SafeAreaExample全区实现沉浸式效果")) {
-          this.demoPageNav.pushPathByName("SafeAreaExample全区实现沉浸式效果",true)
+          this.demoPageNav.pushPathByName("SafeAreaExample全区实现沉浸式效果", true)
 
         }
         if (subModel.title.startsWith("SafeAreaExample1全区实现沉浸式效果")) {
-            this.demoPageNav.pushPathByName("SafeAreaExample1全区实现沉浸式效果",true)
+          this.demoPageNav.pushPathByName("SafeAreaExample1全区实现沉浸式效果", true)
         }
         if (subModel.title.startsWith("SafeArea滚动列表底部延伸场景")) {
-          this.demoPageNav.pushPathByName("SafeArea滚动列表底部延伸场景",true)
+          this.demoPageNav.pushPathByName("SafeArea滚动列表底部延伸场景", true)
         }
         if (subModel.title.startsWith("SafeArea重要信息被软键盘遮挡")) {
-          this.demoPageNav.pushPathByName("SafeArea重要信息被软键盘遮挡",true)
+          this.demoPageNav.pushPathByName("SafeArea重要信息被软键盘遮挡", true)
         }
         if (subModel.title.startsWith("SafeArea软键盘弹出导致布局错位")) {
-          this.demoPageNav.pushPathByName("SafeArea软键盘弹出导致布局错位",true)
+          this.demoPageNav.pushPathByName("SafeArea软键盘弹出导致布局错位", true)
         }
         if (subModel.title.startsWith("SafeArea自定义弹窗被键盘顶起")) {
-          this.demoPageNav.pushPathByName("SafeArea自定义弹窗被键盘顶起",true)
+          this.demoPageNav.pushPathByName("SafeArea自定义弹窗被键盘顶起", true)
         }
         if (subModel.title.startsWith("测试NodeController")) {
-          this.demoPageNav.pushPathByName("测试NodeController",true)
+          this.demoPageNav.pushPathByName("测试NodeController", true)
+        }
+        if (subModel.title.startsWith("Scroller嵌套Scroller")) {
+          this.demoPageNav.pushPathByName("Scroller嵌套Scroller",true)
+        }
+        if (subModel.title.startsWith("Scroller嵌套Web")) {
+          this.demoPageNav.pushPathByName("Scroller嵌套Web",true)
+        }
+        if (subModel.title.startsWith("测试滑动指示器")) {
+          this.demoPageNav.pushPathByName("测试滑动指示器",true)
+        }
+        if (subModel.title.startsWith("push弹窗测试")) {
+          this.demoPageNav.pushPathByName("push弹窗测试",true)
+        }
+        if (subModel.title.startsWith("listItem上下移动")) {
+          this.demoPageNav.pushPathByName("listItem上下移动", true)
         }
       })
 
@@ -591,15 +618,26 @@ export struct DebugDemoPage {
 
   }
 
-
   @State navigationMode: number = NavigationMode.Stack;
-
   demoPageNav = ywDebugGlobal.getMainNav()
+
+  async testAction(name:string) {
+    if (name == '动态导入登录模块') {
+      await import("@learn/login_import_module_har").then((result: ESObject) => {
+        // 动态加载模块成功时，通过模块中的harInit接口加载页面
+        result.harInit("register"); //然后在harInit函数中进行，动态 registerPage 页面
+      }, (error: ESObject) => {
+        // 动态加载模块失败时，打印错误日志
+        hsLog.e(TAG,"error : " + JSON.stringify(error))
+      });
+    }
+  }
+
   @Builder
-  navPagesMap(name: string, param: Map<string,Object>) {
+  navPagesMap(name: string, param: Map<string, Object>) {
     if (name == "WebViewDemo") {
 
-      webViewDemoBuilder("aa",new Map)
+      webViewDemoBuilder("aa", new Map)
     } else if (name == "TestWeb") {
       TestWWebPageBuilder("xx")
     } else if (name == "PreWebViewDemo") {
@@ -623,28 +661,31 @@ export struct DebugDemoPage {
       TestPromptAlertBuilder()
     } else if (name == "TestPictureLibraryBuilder") {
       TestPictureLibraryBuilder()
-    } else  if (name == "SafeAreaExample全区实现沉浸式效果") {
+    } else if (name == "SafeAreaExample全区实现沉浸式效果") {
       SafeAreaExample1Builder()
-    }
-    else if (name == "SafeAreaExample1全区实现沉浸式效果") {
+    } else if (name == "SafeAreaExample1全区实现沉浸式效果") {
       SafeAreaExample2Builder()
-    }
-    else if (name == "SafeArea滚动列表底部延伸场景") {
+    } else if (name == "SafeArea滚动列表底部延伸场景") {
       SafeAreaExample3Builder()
-    }
-    else if (name == "SafeArea重要信息被软键盘遮挡") {
+    } else if (name == "SafeArea重要信息被软键盘遮挡") {
       SafeAreaExample4Builder()
-    }
-    else if (name == "SafeArea软键盘弹出导致布局错位") {
+    } else if (name == "SafeArea软键盘弹出导致布局错位") {
       SafeAreaExample5Builder()
-    }
-    else if (name == "SafeArea自定义弹窗被键盘顶起") {
+    } else if (name == "SafeArea自定义弹窗被键盘顶起") {
       SafeAreaExample6Builder()
-    }
-    else if (name == "测试NodeController") {
+    } else if (name == "测试NodeController") {
       testNodeBuilder()
+    } else if (name == "Scroller嵌套Scroller") {
+      TestScrollTwoGestureBuilder()
+    } else if (name == "Scroller嵌套Web") {
+      TestScrollWebGestureBuilder()
+    } else if (name == "测试滑动指示器") {
+      TestIndicatorBuilder()
+    } else if (name == "push弹窗测试") {
+      TestAlertViewBuilder()
+    } else if (name == "listItem上下移动") {
+      TestListItemMoveBuilder()
     }
-
 
 
     // 这种写法，不写else最后一个跳转进去空白
@@ -715,15 +756,15 @@ export struct DebugDemoPage {
       .navDestination(this.navPagesMap)
       // .hideNavBar(this.isFullScreen)
       .mode(this.navigationMode)
-      .onAppear(()=>{
-        hsLog.i(TAG,'--onAppear')
+      .onAppear(() => {
+        hsLog.i(TAG, '--onAppear')
       })
-      .onDisAppear(()=>{
-        hsLog.i(TAG,'--onDisAppear')
+      .onDisAppear(() => {
+        hsLog.i(TAG, '--onDisAppear')
 
       })
-      .onAreaChange((oldValue,newValue)=>{
-        hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+      .onAreaChange((oldValue, newValue) => {
+        hsLog.i(TAG, `--onAreaChange:${oldValue}  ${newValue}`)
 
       })
     }
@@ -731,6 +772,7 @@ export struct DebugDemoPage {
     .alignContent(Alignment.BottomEnd)
     // .backgroundColor(YWResColor.bgBase())
     .backgroundColor(Color.Green)
+
     // .padding({top:getAvoidPadding(this.avoidAreas).top})
     // .padding({ top:Number(AppStorage.get(YWConstants.kStatusBarHeight)) })
 

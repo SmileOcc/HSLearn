@@ -380,6 +380,10 @@
     {
       "name": "app_config_har",
       "srcPath": "./modules/app_config_har",
+    },
+    {
+      "name": "login_import_module_har",
+      "srcPath": "./modules/feature/debugger/login_import_module_har",
     }
   ]
 }

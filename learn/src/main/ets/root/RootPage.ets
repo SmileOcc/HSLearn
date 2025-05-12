@@ -133,6 +133,22 @@ struct RootPage {
     hsLog.i(TAG,`配置参数======编译模式 BUILD_MODE_NAME: ${BuildProfile.BUILD_MODE_NAME}`)
     hsLog.i(TAG,`配置参数======应用是否可调试 DEBUG: ${BuildProfile.DEBUG}`)
 
+
+    //最后不需要$  $表示结束位置
+    const testReg =  new RegExp('^(https?):\\/\\/aaaa\\.bbbb\\.cn\\/space\\/ddd\\/$')
+    const testRegb = "https://aaaa.bbbb.cn/space/ddd/mmmm=&aaa=bbb"
+    let isk = testReg.test(testRegb) //false
+
+    const testReg2 =  new RegExp('^(https?):\\/\\/aaaa.bbbb.cn\\/space\\/ddd\\/')
+    let iskk = testReg2.test(testRegb) //true
+
+    const testReg3 =  new RegExp('^(https?):\\/\\/aaaa\\.bbbb\\.cn\\/space\\/ddd\\/')
+    let iskkk = testReg3.test(testRegb) //true
+
+    const testRegbb = "https://aaaa.bbbb.cn/space/ddd/"
+    let iskkkkk = testReg.test(testRegbb)//true
+
+
     injectMainContext(this.getUIContext())
     globalThis.setContext(ENU_CONTEXT.UI_Root,getContext(this) as common.UIAbilityContext)
     this.breakpointSystem.register()
