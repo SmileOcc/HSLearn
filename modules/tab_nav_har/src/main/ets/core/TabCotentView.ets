@@ -1,12 +1,8 @@
-import { mainCarBuilder } from "@learn/car_har"
-import { mainCategoryBuilder } from "@learn/category_har"
 import { YWConstants } from "@learn/constants_har"
-import { mainHomeBuilder } from "@learn/home_har"
 import { hsLog } from "@learn/logger_har"
-import { mainMineBuilder } from "@learn/mine_har"
 import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
-import { ITabEventState, TabNavTitleConfig } from "@learn/tab_nav_api_har"
+import { ITabEventState, ITabPageConfig, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabInfo } from "@learn/tab_nav_api_har"
 import { TabItemInfo } from "@learn/tab_nav_api_har"
 import { TabViewIUState } from "@learn/tab_nav_api_har"
@@ -49,7 +45,7 @@ export struct TabContentView {
   @State isVisible: boolean = true
 
 
-  private currentTabInfo?:TabItemInfo
+  private currentTabInfo?:ITabPageConfig
 
 
   @Consume("ITabEventState")
@@ -71,7 +67,7 @@ export struct TabContentView {
     hsLog.i(TAG,"aboutToAppear")
 
     this.currentTabInfo = this.tabIUState.tabInfo.getCurrentTab()
-    this.navName = this.currentTabInfo?.navType ?? ""
+    this.navName = this.currentTabInfo?.getTabBottomBarConfig().navType ?? ""
 
     let localNavInfo = new TabNavTitleConfig()
     localNavInfo.title = "MM"
@@ -131,20 +127,22 @@ export struct TabContentView {
       Column(){
         //导航
         YWMainNavBar({navInfo:this.navInfo})
-          // .width('100%')
-          // .height('59')
           .backgroundColor(Color.Yellow)
         //内容显示
         Column(){
-          if (this.currentTabInfo?.index == 0) {
-            mainHomeBuilder(this.navName!,new YWRouterNavParams())
-          } else if (this.currentTabInfo?.index == 1) {
-            mainCategoryBuilder(this.navName!,new YWRouterNavParams())
-          } else if (this.currentTabInfo?.index == 2) {
-            mainCarBuilder(this.navName!,new YWRouterNavParams())
-          } else if (this.currentTabInfo?.index == 3) {
-            mainMineBuilder(this.navName!,new YWRouterNavParams())
+          if (this.currentTabInfo) {
+            this.currentTabInfo.getTabNavConfig().navBuilder.builder(this.navName!, new YWRouterNavParams())
+
           }
+          // if (this.currentTabInfo?.index == 0) {
+          //   mainHomeBuilder(this.navName!,new YWRouterNavParams())
+          // } else if (this.currentTabInfo?.index == 1) {
+          //   mainCategoryBuilder(this.navName!,new YWRouterNavParams())
+          // } else if (this.currentTabInfo?.index == 2) {
+          //   mainCarBuilder(this.navName!,new YWRouterNavParams())
+          // } else if (this.currentTabInfo?.index == 3) {
+          //   mainMineBuilder(this.navName!,new YWRouterNavParams())
+          // }
 
         }
         .layoutWeight(1)

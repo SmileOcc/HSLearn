@@ -24,16 +24,18 @@ export class TabMainViewModel {
   }
 
   load(){
-
+    let list = ywMainTabManger.maintTabList
+    this.viewModelState.tabInfo.mainNavList = list
     this.showFirstTab()
   }
 
   showFirstTab() {
 
     let fistItem = this.viewModelState.tabInfo.mainNavList[0]
+    fistItem.getTabBottomBarConfig().isSelected = true
 
     ywNavRouter.openRoute(this.componentId)
-      .onTargetUrl(fistItem.navPath)
+      .onTargetUrl(fistItem.getTabBottomBarConfig().navPath)
       // .onUrlKey(fistItem.navPath)
       .onRouteMoveToTop()
       .onOpenAnimation(false)

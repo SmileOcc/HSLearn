@@ -21,11 +21,11 @@ export struct YWMainNavTabBar {
   build() {
     if (this.isVertical) {
       Column() {
-        ForEach(this.tabIUState.tabInfo.mainNavList, (item: ITabBottomBarConfig, index) => {
-          TabMainItemView({ tabInfo: item, isVertical: !this.isVertical })
+        ForEach(this.tabIUState.tabInfo.mainNavList, (item: ITabPageConfig, index) => {
+          TabMainItemView({ tabInfo: item.getTabBottomBarConfig(), isVertical: !this.isVertical })
             .onClick(() => {
               if (this.tabEventState) {
-                this.tabEventState.onClickIndex(this.tabIUState.tabInfo.getCurrentTab()!, item)
+                this.tabEventState.onClickIndex(this.tabIUState.tabInfo.getCurrentTab()?.getTabBottomBarConfig()!, item.getTabBottomBarConfig())
               }
             })
             .width('100%')
@@ -39,11 +39,11 @@ export struct YWMainNavTabBar {
       .width(YWConstants.kMainTabVerticalWidth)
     } else {
       Row() {
-        ForEach(this.tabIUState.tabInfo.mainNavList, (item: ITabBottomBarConfig, index) => {
-          TabMainItemView({ tabInfo: item, isVertical: !this.isVertical })
+        ForEach(this.tabIUState.tabInfo.mainNavList, (item: ITabPageConfig, index) => {
+          TabMainItemView({ tabInfo: item.getTabBottomBarConfig(), isVertical: !this.isVertical })
             .onClick(() => {
               if (this.tabEventState) {
-                this.tabEventState.onClickIndex(this.tabIUState.tabInfo.getCurrentTab()!, item)
+                this.tabEventState.onClickIndex(this.tabIUState.tabInfo.getCurrentTab()?.getTabBottomBarConfig()!, item.getTabBottomBarConfig())
               }
             })
             .layoutWeight(1)

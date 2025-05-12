@@ -26,4 +26,5 @@ export class TabItemInfo implements ITabBottomBarConfig {
   itemImage():ResourceStr {
     return (this.isSelected ? this.selectImage : this.image) ?? YWResImage.appIcon()
   }
+
 }

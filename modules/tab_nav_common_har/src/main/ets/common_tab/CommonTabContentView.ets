@@ -1,7 +1,7 @@
 import { hsLog } from "@learn/logger_har"
 import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
-import { ITabEventState, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har"
+import { ITabEventState, ITabPageConfig, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har"
 import { CommonTabItemView } from "./CommonTabItemView"
 
 const TAG = "CommonTabContentView"
@@ -14,7 +14,7 @@ export struct CommonTabContentView {
 
   @Consume("CommonTabIUState") commonTabIUState:TabViewIUState
 
-  private currentTabInfo?:TabItemInfo
+  private currentTabInfo?:ITabPageConfig
 
 
   @Consume("CommonITabEventState")
@@ -24,7 +24,7 @@ export struct CommonTabContentView {
   aboutToAppear(): void {
     hsLog.i(TAG,"aboutToAppear")
     this.currentTabInfo = this.commonTabIUState.tabInfo.getCurrentTab()
-    this.navName = this.currentTabInfo?.navPath ?? ""
+    this.navName = this.currentTabInfo?.getTabBottomBarConfig().navPath ?? ""
 
   }
 
@@ -58,7 +58,7 @@ export struct CommonTabContentView {
           CommonTabItemView({tabInfo:item})
             .onClick(()=>{
               if (this.commonTabEventState) {
-                this.commonTabEventState.onClickIndex(this.commonTabIUState.tabInfo.getCurrentTab()!,item)
+                this.commonTabEventState.onClickIndex(this.commonTabIUState.tabInfo.getCurrentTab()?.getTabBottomBarConfig()!,item)
               }
             })
             .layoutWeight(1)

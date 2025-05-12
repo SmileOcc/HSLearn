@@ -5,15 +5,15 @@ import { ITabAction,
   ITabBottomBarConfig,
   ITabComponentDelegate,
   ITabNavConfig, ITabPageConfig } from "@learn/tab_nav_api_har";
-import { HomeTabAction } from "./HomeTabAction";
+import { CategoryTabAction } from "./CategoryTabAction";
 
-export class HomeTabImp implements ITabPageConfig {
+export class CategoryTabImp implements ITabPageConfig {
 
   badgeProxy?: ITabBadgeDelegate
   tabProxy?: ITabComponentDelegate
 
-  private tabAction: HomeTabAction = new HomeTabAction()
-  private bottomConfig?: HomeBottomImp
+  private tabAction: CategoryTabAction = new CategoryTabAction()
+  private bottomConfig?: CategoryBottomImp
 
   getTabKey(): string {
     throw new Error("Method not implemented.");
@@ -28,15 +28,15 @@ export class HomeTabImp implements ITabPageConfig {
 
   getTabBottomBarConfig(): ITabBottomBarConfig {
     if (!this.bottomConfig) {
-      let config:HomeBottomImp = new HomeBottomImp(
-        "home_tab",
-        YWResString.mainHome(),
-        YWLocalNavType.NAV_MAIN_HOME,
-        YWNavPath.main_tab_home)
+      let config:CategoryBottomImp = new CategoryBottomImp(
+        "category_tab",
+        YWResString.mainCategory(),
+        YWLocalNavType.NAV_MAIN_CATEGORY,
+        YWNavPath.main_tab_category)
       config.normalColor = YWResColor.themeUnselect()
       config.selectColor = YWResColor.themeColor()
-      config.selectImage = YWResImage.tab_home_h()
-      config.image = YWResImage.tab_home()
+      config.selectImage = YWResImage.tab_category_h()
+      config.image = YWResImage.tab_category()
       this.bottomConfig = config
     }
 
@@ -49,7 +49,7 @@ export class HomeTabImp implements ITabPageConfig {
 
 }
 
-export class HomeBottomImp implements ITabBottomBarConfig {
+export class CategoryBottomImp implements ITabBottomBarConfig {
   cid: string;
   image?: ResourceStr | undefined;
   selectImage?: ResourceStr | undefined;

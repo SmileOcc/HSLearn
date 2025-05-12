@@ -1,5 +1,5 @@
 import { IUState } from "@learn/common_har"
-import { ITabBottomBarConfig } from "../../../../Index"
+import { ITabBottomBarConfig, ITabPageConfig } from "../../../../Index"
 import { TabItemInfo } from "./TabItemInfo"
 
 //TODO
@@ -7,34 +7,40 @@ import { TabItemInfo } from "./TabItemInfo"
 
 @Observed
 export class TabInfo {
-  mainNavList:TabItemInfo[] = []
-  navList:TabItemInfo[] = []
+  mainNavList:ITabPageConfig[] = []
+  navList:ITabPageConfig[] = []
 
-  getNavList():TabItemInfo[] {
+  getNavList():ITabPageConfig[] {
     if (this.mainNavList.length>0) {
       return this.mainNavList
     }
     return this.navList
   }
 
-  getFirstTab():TabItemInfo | undefined {
+  getFirstTab():ITabPageConfig | undefined {
+    let pageConfig: ITabPageConfig | undefined = undefined
     if (this.mainNavList.length > 0) {
-      return this.mainNavList[0]
+      pageConfig = this.mainNavList[0]
     } else if (this.navList.length>0) {
-      return this.navList[0]
+      pageConfig = this.navList[0]
     }
-    return undefined
+    if (pageConfig) {
+      pageConfig.getTabBottomBarConfig().isSelected = true
+    }
+    return pageConfig
   }
 
-  getCurrentTab():TabItemInfo | undefined {
+  getCurrentTab():ITabPageConfig | undefined {
     for (const item of this.mainNavList) {
-      if (item.isSelected) {
+      let navBottom = item.getTabBottomBarConfig()
+      if (navBottom.isSelected) {
         return item
       }
     }
 
     for (const item of this.navList) {
-      if (item.isSelected) {
+      let navBottom = item.getTabBottomBarConfig()
+      if (navBottom.isSelected) {
         return item
       }
     }
@@ -43,16 +49,18 @@ export class TabInfo {
 
   updateSelectTab(tabInfo:ITabBottomBarConfig) {
     for (const item of this.mainNavList) {
-      item.isSelected = false
-      if (item.cid == tabInfo.cid) {
-        item.isSelected = true
+      let navBottom = item.getTabBottomBarConfig()
+      navBottom.isSelected = false
+      if (navBottom.cid == tabInfo.cid) {
+        navBottom.isSelected = true
       }
     }
 
     for (const item of this.navList) {
-      item.isSelected = false
-      if (item.cid == tabInfo.cid) {
-        item.isSelected = true
+      let navBottom = item.getTabBottomBarConfig()
+      navBottom.isSelected = false
+      if (navBottom.cid == tabInfo.cid) {
+        navBottom.isSelected = true
       }
     }
   }

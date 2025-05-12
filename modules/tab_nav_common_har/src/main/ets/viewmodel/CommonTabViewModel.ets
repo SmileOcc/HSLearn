@@ -28,7 +28,7 @@ export class TabMainViewModel {
 
   showFirstTab() {
 
-    let fistItem = this.viewModelState.tabInfo.getFirstTab()
+    let fistItem = this.viewModelState.tabInfo.getFirstTab()?.getTabBottomBarConfig()
     if (fistItem) {
       this.bindTabAction(fistItem)
       ywNavRouter.openRoute(this.componentId)
@@ -54,7 +54,7 @@ export class TabMainViewModel {
   }
 
 
-  bindTabAction(tabInfo: TabItemInfo) {
+  bindTabAction(tabInfo: ITabBottomBarConfig) {
     tabInfo.itemImage()
   }
 }

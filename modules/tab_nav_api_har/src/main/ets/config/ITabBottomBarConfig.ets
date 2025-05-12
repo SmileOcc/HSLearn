@@ -1,3 +1,4 @@
+import { ITabAction } from "../api/ITabAction"
 
 export interface ITabBottomBarConfig {
   cid: string
@@ -9,8 +10,10 @@ export interface ITabBottomBarConfig {
   badge?: number
   navType:string
   navPath:string
+  isSelected:boolean
+
+  tabActionProxy?: ITabAction
 
   titleColor():ResourceColor
-
   itemImage():ResourceStr
 }

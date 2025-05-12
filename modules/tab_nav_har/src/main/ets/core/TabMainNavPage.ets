@@ -76,14 +76,8 @@ export struct TabMainNavPage {
   }
 
   aboutToAppear(): void {
-
-    let list = ywMainTabManger.maintTabList
-    this.tabInfo.mainNavList = list
-    this.tabIUState.tabInfo = this.tabInfo
-
     this.viewModel.value.init(this.getUniqueId())
-
-
+    this.tabInfo = this.tabIUState.tabInfo
   }
 
   onBackPress(): boolean | void {

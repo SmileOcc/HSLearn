@@ -29,26 +29,26 @@ struct LionMainPage {
 
     let tabInfo = new TabInfo()
     tabInfo.navList = []
-    for (let i=0; i< 3; i++) {
-      let tabItem = new TabItemInfo()
-
-      if (i == 0) {
-        tabItem.cid = "id_" + `${i}`
-        tabItem.title = "首页"
-        tabItem.isSelected = true
-        tabItem.navPath = YWNavPath.lion_tab_home
-      } else if (i ==1) {
-        tabItem.cid = "id_" + `${i}`
-        tabItem.title = "消息"
-        tabItem.navPath = YWNavPath.lion_tab_news
-      } else if (i ==2) {
-        tabItem.cid = "id_" + `${i}`
-        tabItem.title = "我的"
-        tabItem.navPath = YWNavPath.lion_tab_me
-      }
-
-      tabInfo.navList.push(tabItem)
-    }
+    // for (let i=0; i< 3; i++) {
+    //   let tabItem = new TabItemInfo()
+    //
+    //   if (i == 0) {
+    //     tabItem.cid = "id_" + `${i}`
+    //     tabItem.title = "首页"
+    //     tabItem.isSelected = true
+    //     tabItem.navPath = YWNavPath.lion_tab_home
+    //   } else if (i ==1) {
+    //     tabItem.cid = "id_" + `${i}`
+    //     tabItem.title = "消息"
+    //     tabItem.navPath = YWNavPath.lion_tab_news
+    //   } else if (i ==2) {
+    //     tabItem.cid = "id_" + `${i}`
+    //     tabItem.title = "我的"
+    //     tabItem.navPath = YWNavPath.lion_tab_me
+    //   }
+    //
+    //   tabInfo.navList.push(tabItem)
+    // }
 
     this.tabState = new TabViewIUState()
 
