@@ -2,8 +2,8 @@
  * 数组工具类
  */
 export class YWArrayUtils {
-
-  private constructor() {}
+  private constructor() {
+  }
 
 
   /**
@@ -169,7 +169,25 @@ export class YWArrayUtils {
     return Array.from(new Set(arrays.flat()));
   }
 
+  /**
+   * arrayBuffer转Uint8Array
+   * @param buffer
+   * @returns
+   */
+  public arrayBufferToUint8Array(buffer: ArrayBuffer): Uint8Array {
+    let temp = new Uint8Array(buffer);
+    return temp;
+  }
 
+  /**
+   * uint8Array转ArrayBuffer
+   * @param buffer
+   * @returns
+   */
+  public uint8ArrayToArrayBuffer(array: Uint8Array): ArrayBuffer {
+    let temp = array.buffer as ArrayBuffer;
+    return temp;
+  }
 }
 
 

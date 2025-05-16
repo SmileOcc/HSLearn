@@ -1,6 +1,8 @@
 import { emitter } from '@kit.BasicServicesKit';
 import { common } from '@kit.AbilityKit';
-import { promptAction } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
+import { EventHubTestView } from './EventHubTestView';
+import { TestEventBuilder } from './EventHubAndEmitterTestTwoPage';
 
 @Builder
 export function TestEventHubEmitterBuilder() {
@@ -14,14 +16,18 @@ export function TestEventHubEmitterBuilder() {
 @Component
 struct EventHubAndEmitterTestPage {
 
+  @Provide('NavPathStack') pageStack: NavPathStack = new NavPathStack()
+
+  @State message: string = ""
   // --------------- EventHub
   private context = getContext(this) as common.UIAbilityContext;
   private eventHub: common.EventHub | null = null;
   private EVENT_TAG: string = "TEST";
+  private EVENT_TAG_CALL: string = "CALLAA";
+
 
   private emitByEventHub(){
-    this.eventHub = this.context.eventHub;
-    this.eventHub.emit(this.EVENT_TAG, "测试数据EventHub");
+    this.eventHub?.emit(this.EVENT_TAG, "测试数据EventHub");
   }
 
   /**
@@ -35,10 +41,16 @@ struct EventHubAndEmitterTestPage {
 
   private registerByEventHub = ()=>{
     this.eventHub?.on(this.EVENT_TAG, this.callbackByEventHub);
+    this.eventHub?.on(this.EVENT_TAG_CALL, (data:number | string) => {
+      //订阅事件,接收消息
+      this.message =  `接收数据： ${data}`
+    });
+
   }
 
   private unRegisterByEventHub = ()=>{
     this.eventHub?.off(this.EVENT_TAG, this.callbackByEventHub);
+    this.eventHub?.off(this.EVENT_TAG_CALL);
   }
 
   // --------------- Emitter
@@ -104,23 +116,53 @@ struct EventHubAndEmitterTestPage {
     .margin({ top: px2vp(66) })
   }
 
+  aboutToAppear(): void {
+    this.eventHub = this.context.eventHub;
+
+  }
+
+  aboutToDisappear(): void {
+    this.onUnRegisterEvent()
+  }
+
+
+  @Builder
+  PagesMap(name: string) {
+    if (name === 'aaaaa') {
+      TestEventBuilder()
+    }
+  }
+
   build() {
-    Column(){
-      Button("发送事件")
-        .ButtonStyle()
-        .onClick(this.onEmitEvent)
+    Navigation(this.pageStack) {
+      Column(){
 
-      Button("监听事件")
-        .ButtonStyle()
-        .onClick(this.onRegisterEvent)
+        Text(`数据变化： ${this.message}`)
+        Button("发送事件")
+          .ButtonStyle()
+          .onClick(this.onEmitEvent)
 
-      Button("取消事件")
-        .ButtonStyle()
-        .onClick(this.onUnRegisterEvent)
+        Button("请先点击 - 监听事件")
+          .ButtonStyle()
+          .onClick(this.onRegisterEvent)
 
-    }.size({
-      width: "100%",
-      height: "100%"
-    })
+        Button("取消事件")
+          .ButtonStyle()
+          .onClick(this.onUnRegisterEvent)
+
+        EventHubTestView()
+
+        Button("下个页面回传数据")
+          .ButtonStyle()
+          .onClick(()=>{
+            this.pageStack.pushPathByName("aaaaa",true)
+          })
+      }.size({
+        width: "100%",
+        height: "100%"
+      })
+    }
+    .mode(NavigationMode.Stack)
+    .navDestination(this.PagesMap)
   }
 }

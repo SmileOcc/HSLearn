@@ -30,6 +30,9 @@ import { TestScrollWebGestureBuilder } from "../pages/gesture/ScrollWebGesturePa
 import { TestIndicatorBuilder } from "../pages/indicator/TestIndicatorPage";
 import { TestAlertViewBuilder } from "../pages/popup_alert/TestAlertViewPage";
 import { TestListItemMoveBuilder } from "../pages/gesture/TestListItemMovePage";
+import { SafeAreaExample7Builder } from "../pages/expand_safe_area/SafeAreaExample7";
+import { TestZipFileBuilder } from "../pages/file/ZipTestPage";
+import { TestListItemDragMoveBuilder } from "../pages/gesture/TestListItemDragMovePage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -125,8 +128,8 @@ export struct DebugDemoPage {
       ["TestWeb", "web同层组件", "webPre预加载web", "2webPre预加载web", "3webPre预加载web", "测试NodeController"],
       ["调试Observed", "TestEventHub_Emitter", "新自定义弹窗", "半弹窗选择图片", "push弹窗测试"],
       ["SafeAreaExample全区实现沉浸式效果", "SafeAreaExample1全区实现沉浸式效果", "SafeArea滚动列表底部延伸场景",
-        "SafeArea重要信息被软键盘遮挡", "SafeArea软键盘弹出导致布局错位", "SafeArea自定义弹窗被键盘顶起"],
-      ["Scroller嵌套Scroller","Scroller嵌套Web","listItem上下移动"],
+        "SafeArea重要信息被软键盘遮挡", "SafeArea软键盘弹出导致布局错位", "SafeArea自定义弹窗被键盘顶起","SafeArea标题组件不避让"],
+      ["Scroller嵌套Scroller","Scroller嵌套Web","listItem上下移动","listItem拖动移动位置"],
       ["测试滑动指示器"],
       ["基础数据", "自定义tab", "相对布局Relative", "横竖屏旋转", "测试NavDestination", "测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore", "首选项PreferencesUtil",
@@ -147,7 +150,7 @@ export struct DebugDemoPage {
       ["图片相册PhotoCameraPage", "保存图片相册", "图片上传", "window悬浮弹窗", "buildParams Page",
         "ProvideConsumPage祖孙", "showLoading全局"],
       ["Emitter组件间的通信和数据传递", "通知NotificationPage"],
-      ["文件路径FilePagePage"],
+      ["文件路径FilePagePage","解压zip文件"],
       ["MarginPaddingPage"],
       ["设备硬件信息：HardwareInfoPage"],
       ["支付首页全适配：PaymentHomePage"],
@@ -594,6 +597,10 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith("SafeArea自定义弹窗被键盘顶起")) {
           this.demoPageNav.pushPathByName("SafeArea自定义弹窗被键盘顶起", true)
         }
+        if (subModel.title.startsWith("SafeArea标题组件不避让")) {
+          this.demoPageNav.pushPathByName("SafeArea标题组件不避让",true)
+        }
+
         if (subModel.title.startsWith("测试NodeController")) {
           this.demoPageNav.pushPathByName("测试NodeController", true)
         }
@@ -611,6 +618,12 @@ export struct DebugDemoPage {
         }
         if (subModel.title.startsWith("listItem上下移动")) {
           this.demoPageNav.pushPathByName("listItem上下移动", true)
+        }
+        if (subModel.title.startsWith("listItem拖动移动位置")) {
+          this.demoPageNav.pushPathByName("listItem拖动移动位置", true)
+        }
+        if (subModel.title.startsWith('解压zip文件')) {
+          this.demoPageNav.pushPathByName('解压zip文件', true)
         }
       })
 
@@ -673,7 +686,10 @@ export struct DebugDemoPage {
       SafeAreaExample5Builder()
     } else if (name == "SafeArea自定义弹窗被键盘顶起") {
       SafeAreaExample6Builder()
-    } else if (name == "测试NodeController") {
+    } else if (name == "SafeArea标题组件不避让") {
+      SafeAreaExample7Builder()
+    }
+    else if (name == "测试NodeController") {
       testNodeBuilder()
     } else if (name == "Scroller嵌套Scroller") {
       TestScrollTwoGestureBuilder()
@@ -685,6 +701,11 @@ export struct DebugDemoPage {
       TestAlertViewBuilder()
     } else if (name == "listItem上下移动") {
       TestListItemMoveBuilder()
+    } else if (name == "listItem拖动移动位置") {
+      TestListItemDragMoveBuilder()
+    }
+    else if (name == '解压zip文件') {
+      TestZipFileBuilder()
     }
 
 

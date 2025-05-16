@@ -106,3 +106,16 @@ Emitter监听设置，在on基础上，额外提供了once一次性监听的API�
 ///// =============== NodeController 刷新，子组件每次都会触发 aboutToAppear （解决在aboutToAppear处理数据请求 一些异常) =========//
 
 //NodeController更新数据，不一定需要@state, 关联数据，需要更新的时候触发rebuild()、或makeNode即可
+
+
+自定义弹框OpenCustomDialog、CustomDialog与DialogHub的区别详解
+CustomDialog 因为CustomDialogController强耦合于UI，
+需要在UI界面或者自定义View中使用CustomDialogController控制弹框显示隐藏。
+无法在纯逻辑类中处理弹框时机的显示。
+（这种情况下只能想办法发送通知给UI，UI再处理回调显示，处理起来麻烦。）
+=====致命的问题是，弹框内的UI无法动态刷新。需要重新创建渲染======
+
+
+对标CustomDialog 的CustomDialogController。官方通过将弹框对象实例，放到上下文中，实现在纯逻辑类中也可以调用弹框的显示和隐藏。
+
+将@CustomDialog弹框布局内容，放到ComponentContent节点对象中，实现弹框UI的解耦。
