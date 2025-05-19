@@ -13,7 +13,7 @@ export function TestListItemMoveBuilder() {
 @Entry
 @Component
 struct TestListItemMovePage {
-  @State private arr: number[] = [0, 1, 2]
+  @State private arr: number[] = [0, 1, 2,3,4,5]
   @State dragItem: number = -1
   @State scaleItem: number = -1
   @State neighborItem: number = -1

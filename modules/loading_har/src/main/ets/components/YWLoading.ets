@@ -3,11 +3,11 @@
  */
 import { YWLoadingStyle } from './YWLoadingStyle';
 import { YWLottieLoading } from './YWLottieLoading';
-import { globalThis, YWNavRouterUtils } from '@learn/common_har';
+import { hsGlobalThis, YWNavRouterUtils } from '@learn/common_har';
 
 @Component
 export struct YWLoading {
-  private gStyle: YWLoadingStyle | undefined = globalThis.getObject<YWLoadingStyle>('YWLoadingStyle');
+  private gStyle: YWLoadingStyle | undefined = hsGlobalThis.getObject<YWLoadingStyle>('YWLoadingStyle');
   private style: YWLoadingStyle = this.gStyle ? this.gStyle : {};
   private pathStack: NavPathStack = new NavPathStack()
   @State backCancel: boolean = true;
@@ -94,7 +94,7 @@ export struct YWLoading {
    * 全局初始化样式
    */
   static initDefaultStyle(YWLoadingStyle: YWLoadingStyle) {
-    globalThis.setObject('YWLoadingStyle', YWLoadingStyle)
+    hsGlobalThis.setObject('YWLoadingStyle', YWLoadingStyle)
   }
 
   public static open(parm: YWLoadingStyle = {}) {

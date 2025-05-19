@@ -33,7 +33,9 @@ export { YWWindowUtils } from './src/main/ets/utils/YWWindowUtils'
 export { initWindowSetting } from './src/main//ets//windowUtils/YWWindow'
 export { YWAvoidAreas } from './src/main//ets//windowUtils/YWAvoidAreas'
 
-export { globalThis, ENU_PREFS, ENU_CONTEXT } from './src/main/ets/global/YWGlobalThis'
+// export { hsGlobalThis as globalThis, ENU_PREFS, ENU_CONTEXT } from './src/main/ets/global/YWGlobalThis'
+export { hsGlobalThis, ENU_PREFS, ENU_CONTEXT } from './src/main/ets/global/YWGlobalThis'
+
 export { OsRouterUrls } from './src/main/ets/route/OsRouterURL'
 export { osRouter, OsRouter } from './src/main/ets/route/OsRouter'
 export { YWNavRouterUtils } from './src/main/ets/utils/YWNavRouterUtils'

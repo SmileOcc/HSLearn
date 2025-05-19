@@ -4,9 +4,15 @@ import { ITabAction,
   ITabBadgeDelegate,
   ITabBottomBarConfig,
   ITabComponentDelegate,
-  ITabNavConfig, ITabPageConfig } from "@learn/tab_nav_api_har";
+  ITabNavConfig,
+  ITabNavTitleConfig,
+  ITabPageConfig } from "@learn/tab_nav_api_har";
+import { MineNavTitleImp } from "./MineNavTitleImp";
 import { MineTabAction } from "./MineTabAction";
 
+
+//如果有动态网络数据，可以获取后存全局，在这里单独取 （推荐）
+//或者 在全局使用 这些数据是，与网络本地数据比较，替换
 export class MineTabImp implements ITabPageConfig {
 
   badgeProxy?: ITabBadgeDelegate
@@ -21,6 +27,7 @@ export class MineTabImp implements ITabPageConfig {
 
   getTabNavConfig(): ITabNavConfig {
     return {
+      hideNavBar: true,
       navPath:YWNavPath.main_tab_home,
       navBuilder:this.tabAction.getTabBuilder()
     }
@@ -45,6 +52,12 @@ export class MineTabImp implements ITabPageConfig {
 
   getTabAction(): ITabAction {
     return this.tabAction
+  }
+
+  getNavTitleConfig(): ITabNavTitleConfig {
+    let titleConfig: MineNavTitleImp = new MineNavTitleImp(
+      true)
+    return titleConfig
   }
 
 }

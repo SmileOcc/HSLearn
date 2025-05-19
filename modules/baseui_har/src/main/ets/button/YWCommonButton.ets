@@ -2,7 +2,7 @@
  * @Desc: 统一样式的按钮样式
  */
 
-import { globalThis } from '@learn/common_har';
+import { hsGlobalThis } from '@learn/common_har';
 import { YWResColor,YWResFloat } from '@learn/res_har';
 
 @Component
@@ -33,7 +33,7 @@ export struct YWCommonButton {
     .constraintSize({ minHeight: 40, maxWidth: 448 })
     .height(40)
     .width('100%')
-    .onClick(globalThis.blockQuickClick(() => {
+    .onClick(hsGlobalThis.blockQuickClick(() => {
       if (this.click !== undefined) {
         this.click()
       }

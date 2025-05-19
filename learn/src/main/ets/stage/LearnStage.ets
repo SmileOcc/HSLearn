@@ -3,7 +3,7 @@ import { kyStoreManger, PreferencesUtil, YWAppEvent, YWDeviceUtils } from "@lear
 import { distributedKVStore } from "@kit.ArkData";
 import { axiosAddHeader } from "@learn/request_har/src/main/ets/AxiosRequest/AxiosRequest";
 import { hsLog } from '@learn/logger_har';
-import { YWAppUtils, globalThis, ENU_PREFS } from '@learn/common_har'
+import { YWAppUtils, hsGlobalThis, ENU_PREFS } from '@learn/common_har'
 import { YWConstants } from "@learn/constants_har";
 import { ywManagerTask } from "@learn/manager_task_har";
 import { LauncherStage } from "@learn/hs_launcher_har";
@@ -38,7 +38,7 @@ export default class LearnStage extends LauncherStage {
       const statusBarHeight = Number(AppStorage.get(YWConstants.kStatusBarHeight))
 
       // const noiseValue = await pref.get<number>(Const.NOISE_VALUE, Const.DEF_NOISE_VALUE);
-      // globalThis.setObject(Const.NOISE_VALUE, noiseValue);
+      // hsGlobalThis.setObject(Const.NOISE_VALUE, noiseValue);
     })
   }
 

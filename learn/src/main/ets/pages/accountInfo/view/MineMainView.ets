@@ -4,7 +4,7 @@ import { MineNavBarView } from './MineNavBarView'
 import { router } from '@kit.ArkUI'
 import { YWConstants } from '@learn/constants_har';
 import { UserInfoModel } from '../model/UserInfoModel'
-import { kyStoreManger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
+import { kyStoreManger, QDImageCompressionUtils, hsGlobalThis,   } from '@learn/common_har';
 import { loginService } from '@learn/login_har'
 import { API, netReq } from '@learn/request_har';
 import { YWResImage } from '@learn/res_har'

@@ -7,7 +7,7 @@
  */
 import { YWTipDialog, TipParm } from '@learn/alert_har';
 import { IAdvModel } from '../../../data/IAdvModel';
-import { ENU_CONTEXT, ENU_PREFS, globalThis, YWAppUtils, YWNavRouterUtils } from '@learn/common_har';
+import { ENU_CONTEXT, ENU_PREFS, hsGlobalThis, YWAppUtils, YWNavRouterUtils } from '@learn/common_har';
 // import { pref } from '@common/utils';
 // import { Const } from '../common/constants/Const';
 import { common } from '@kit.AbilityKit';
@@ -33,25 +33,25 @@ export class YWAdvBanner {
     if (now < start || now > end) {
       return;
     }
-    const lastId: number = await globalThis.getPrefValue(LAST_ID, -1,ENU_PREFS.Global);
+    const lastId: number = await hsGlobalThis.getPrefValue(LAST_ID, -1,ENU_PREFS.Global);
     const dayCount = data.id !== undefined ? data.id : COUNT_DAY_1;
 
     while (true) {
       if (dayCount === COUNT_EVERY_TIME) { //这个ID每次都弹
-        globalThis.setPrefValue(LAST_ID, data.id);
+        hsGlobalThis.setPrefValue(LAST_ID, data.id);
         break;
       }
 
       if (data.id !== lastId) { //这个ID 是首次弹窗，更新缓存初始化
-        globalThis.setPrefValue(LAST_ID, data.id);
-        globalThis.setPrefValue(LAST_TIME, now);
-        globalThis.setPrefValue(LAST_COUNT, 1);
+        hsGlobalThis.setPrefValue(LAST_ID, data.id);
+        hsGlobalThis.setPrefValue(LAST_TIME, now);
+        hsGlobalThis.setPrefValue(LAST_COUNT, 1);
         break;
       }
 
       //下面是该ID非首次弹窗处理
-      const lastTime = await globalThis.getPrefValue<number>(LAST_TIME, 0);
-      const lastCount = await globalThis.getPrefValue<number>(LAST_COUNT, 1);
+      const lastTime = await hsGlobalThis.getPrefValue<number>(LAST_TIME, 0);
+      const lastCount = await hsGlobalThis.getPrefValue<number>(LAST_COUNT, 1);
       if (dayCount === COUNT_ALL_1) { //这个ID只弹出一次
         return;
       }
@@ -64,8 +64,8 @@ export class YWAdvBanner {
       if (nowDate.getFullYear() !== lastDate.getFullYear()
         || nowDate.getMonth() !== lastDate.getMonth()
         || nowDate.getDate() !== lastDate.getDate()) { //上次弹不是同一天了。
-        globalThis.setPrefValue(LAST_TIME, now);
-        globalThis.setPrefValue(LAST_COUNT, 1);
+        hsGlobalThis.setPrefValue(LAST_TIME, now);
+        hsGlobalThis.setPrefValue(LAST_COUNT, 1);
         break;
       }
 
@@ -73,7 +73,7 @@ export class YWAdvBanner {
       if (dayCount <= lastCount) { //已经弹够了次数了
         return
       }
-      globalThis.setPrefValue(LAST_COUNT, lastCount + 1); //更新这一次
+      hsGlobalThis.setPrefValue(LAST_COUNT, lastCount + 1); //更新这一次
       break;
     }
 
@@ -89,7 +89,7 @@ export class YWAdvBanner {
       parm.noMsg = data.cancel;
       if (data.cancel.includes('退出')) {
         parm.onNo = () => {
-          globalThis.getObject<common.UIAbilityContext>(ENU_CONTEXT.UI_Root).terminateSelf();
+          hsGlobalThis.getObject<common.UIAbilityContext>(ENU_CONTEXT.UI_Root).terminateSelf();
         }
       }
       parm.outsideCancel = false;

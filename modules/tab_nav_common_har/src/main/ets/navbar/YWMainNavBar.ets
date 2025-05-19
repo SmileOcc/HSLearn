@@ -1,11 +1,11 @@
 import { YWConstants } from "@learn/constants_har";
 import { YWResColor, YWResImage } from "@learn/res_har";
-import { TabNavTitleConfig } from "@learn/tab_nav_api_har";
+import { ITabNavTitleConfig, TabNavTitleConfig } from "@learn/tab_nav_api_har";
 
 @Component
 export struct YWMainNavBar {
 
-  @Prop navInfo?:TabNavTitleConfig
+  @Prop navInfo?:ITabNavTitleConfig
   aboutToAppear(): void {
     let a = this.navInfo
   }

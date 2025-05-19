@@ -1,5 +1,5 @@
 
-import { globalThis, YWNavRouterUtils } from '@learn/common_har';
+import { hsGlobalThis, YWNavRouterUtils } from '@learn/common_har';
 import { YWLoading } from '@learn/loading_har';
 import { YWTipDialog } from '@learn/alert_har';
 import { YWCommonButton, YWNavBar, YWSpringLayout } from '@learn/baseui_har';
@@ -47,7 +47,7 @@ export struct YWLoginPassPage {
       Column() {
         YWNavBar({
           title: '',
-          onKeyBack: globalThis.blockQuickClick(() => {
+          onKeyBack: hsGlobalThis.blockQuickClick(() => {
             YWNavRouterUtils.pop();
           })
         })

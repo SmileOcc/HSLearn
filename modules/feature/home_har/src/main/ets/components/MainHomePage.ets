@@ -1,10 +1,15 @@
-import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath } from "@learn/nav_router_har"
+import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath,
+  YWNavMode } from "@learn/nav_router_har"
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { ComponentContent, OverlayManager } from "@kit.ArkUI"
 import { YWConstants } from "@learn/constants_har"
 import { HomeIUState, HomeViewModel } from "./HomeViewModel"
 import { ITabPageConfig } from "@learn/tab_nav_api_har"
+import { BreakpointSystem, YWAppUtils } from "@learn/common_har"
+import { emitter } from "@kit.BasicServicesKit"
+import { HomeTopSwiper } from "./view/HomeTopSwiper"
+import { HomeWaterView } from "./view/HomeWaterView"
 
 export const MainHomeBuilder = wrapBuilder(mainHomeBuilder)
 
@@ -15,13 +20,37 @@ export function mainHomeBuilder(name: string, params: YWRouterNavParams) {
   }
   .hideTitleBar(true)
   .onWillDisappear(()=>{
+
+    //TODO 可以添加一个通用类 集中处理
+    // 设置了全屏的在退出时取消全屏
+    if (ywNavManager.getNeedWindowFullScreenRouters().includes(name)) {
+      YWAppUtils.setStatusBar(false, true)
+    }
+
     params.getPageLifecycle().pageOnDisappear?.()
   })
   .onShown(()=>{
+    // 设置是否需要全屏
+    if (ywNavManager.getFullScreenRouters().includes(name)) {
+      YWAppUtils.setStatusBar(true, true)
+    }
     params.getPageLifecycle().pageOnShow?.()
   })
   .onHidden(()=>{
     params.getPageLifecycle().pageOnHide?.()
+  })
+  .onBackPressed(()=>{
+
+    //可以根据 name 添加不同的广播事件
+    let innerEvent: emitter.InnerEvent = { eventId: 2 };
+    let eventData: emitter.EventData = {
+      data: {
+        'backPressed': true
+      }
+    }
+    emitter.emit(innerEvent, eventData);
+
+    return true
   })
 
   // MainHomePage()
@@ -39,6 +68,11 @@ export struct MainHomePage {
   @StorageProp(YWConstants.kStorageWidth) screenWidth: number = 0; //屏幕宽度（单位：vp）
   @StorageProp(YWConstants.kStorageHeight) screenHeight: number = 0; //屏幕宽度（单位：vp）
   @StorageProp(YWConstants.kSafeBottomHeight) safeBottomHeight: number = 0; //屏幕宽度（单位：vp）
+
+  @State @Watch('onModeChange') navMode: YWNavMode = YWNavMode.DefaultMode;
+  @Provide('swiperDisplayCount') swiperDisplayCount: number = 1; // 首页swiper展示item数量
+  @StorageLink('currentBreakpoint') @Watch('onWindowSizeChange') currentBreakpoint: string = '';
+  private breakpointSystem: BreakpointSystem = new BreakpointSystem()
 
   navParams?:YWRouterNavParams
   private uiContext = this.getUIContext()
@@ -87,21 +121,104 @@ export struct MainHomePage {
     this.overlayNode.hideComponentContent(this.componentContentTest)
   }
 
+  // 屏幕尺寸发生改变时触发navMode改变
+  onWindowSizeChange() {
+    // 屏幕变化 ，路由模式，应该在最外层路由时，获取状态改变
+    // if (DynamicsRouter.appRouterStack.length > 1 &&
+    //   !FULL_SCREEN_COMPONENT.includes(DynamicsRouter.appRouterStack[1].name)) {
+    //   if (this.currentBreakpoint === BreakpointConstants.BREAKPOINT_SM) {
+    //     this.navMode = NavMode.HomePageMode;
+    //   } else {
+    //     this.navMode = NavMode.FoldMode;
+    //   }
+    // }
+  }
+
+  onModeChange() {
+    // 获取路由栈最后一个路由的名称
+    // let lastRouteName = DynamicsRouter.appRouterStack.slice(-1)[0].name;
+    // switch (this.navMode) {
+    //   // 当设备折叠态发生改变或屏幕旋转时响应以下逻辑
+    //   case YWNavMode.FoldMode:
+    //     // 全屏案例在折叠态变化时不需要切换NavigationMode
+    //     if (ywNavManager.getFullScreenRouters().includes(lastRouteName)) {
+    //       this.navigationMode = NavigationMode.Stack;
+    //       break;
+    //     }
+    //     if (this.currentBreakpoint !== BreakpointConstants.BREAKPOINT_SM) {
+    //       if (this.pageStack.size() > 0) {
+    //         // 宽屏条件下且展示了子路由，NavigationMode为Split
+    //         this.navigationMode = NavigationMode.Split;
+    //         this.swiperDisplayCount = 1;
+    //       } else {
+    //         // 宽屏条件下且未展示子路由，NavigationMode为Stack
+    //         this.navigationMode = NavigationMode.Stack;
+    //         this.swiperDisplayCount = 2;
+    //       }
+    //     } else {
+    //       this.navigationMode = NavigationMode.Stack;
+    //       this.swiperDisplayCount = 1;
+    //     }
+    //     break;
+    // // 当应用进入子路由时响应以下逻辑
+    //   case NavMode.ChildPageMode:
+    //     // 进入全屏案例需切换为Stack
+    //     if (FULL_SCREEN_ROUTE.includes(this.enterRouteName)) {
+    //       this.navigationMode = NavigationMode.Stack;
+    //       break;
+    //     }
+    //     // 根据屏幕宽度决定NavigationMode
+    //     if (this.currentBreakpoint !== BreakpointConstants.BREAKPOINT_SM) {
+    //       this.navigationMode = NavigationMode.Split;
+    //     } else {
+    //       this.navigationMode = NavigationMode.Stack;
+    //     }
+    //     this.swiperDisplayCount = 1;
+    //     break;
+    // // 当应用返回首页时响应以下逻辑
+    //   case NavMode.HomePageMode:
+    //     if (this.currentBreakpoint !== BreakpointConstants.BREAKPOINT_SM) {
+    //       this.navigationMode = NavigationMode.Stack;
+    //       this.swiperDisplayCount = 2;
+    //     } else {
+    //       this.navigationMode = NavigationMode.Stack;
+    //       this.swiperDisplayCount = 1;
+    //       this.isFullScreen = false;
+    //     }
+    //     this.pageStack.disableAnimation(false);
+    //     break;
+    //   default:
+    //     break;
+    // }
+    // // 重置NavMode
+    // if (this.navMode !== NavMode.DefaultMode) {
+    //   this.navMode = NavMode.DefaultMode;
+    // }
+  }
+
 
   build() {
     Stack() {
       // Navigation(this.homePageNav) {
 
         Column() {
-          Text("home")
-          Text("go-car")
-            .onClick(()=>{
-              ywNavRouter.openRoute(this.getUniqueId())
-                .onTargetUrl(YWNavPath.vc_car)
-                .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)//跨路由跳转
-                .onRouteMode()
-                .go()
-            })
+          Scroll(){
+            Column() {
+              // 首页轮播图组件
+              HomeTopSwiper()
+              // 首页列表组件
+              HomeWaterView()
+            }
+          }
+          // Text("home")
+          // Text("go-car")
+          //   .onClick(()=>{
+          //     ywNavRouter.openRoute(this.getUniqueId())
+          //       .onTargetUrl(YWNavPath.vc_car)
+          //       .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)//跨路由跳转
+          //       .onRouteMode()
+          //       .go()
+          //   })
         }
         .backgroundColor(Color.Yellow)
         .width('100%')

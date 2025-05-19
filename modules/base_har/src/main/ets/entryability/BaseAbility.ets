@@ -27,6 +27,7 @@ import { hsLog } from '@learn/logger_har';
 import { display, window } from '@kit.ArkUI';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { YWDarkManager } from '@learn/dark_har';
+import { YWConstants } from '@learn/constants_har';
 
 
 const permissions: Array<Permissions> = ['ohos.permission.SYSTEM_FLOAT_WINDOW'];
@@ -44,6 +45,9 @@ abstract class BaseAbility extends UIAbility {
 
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     hilog.info(0x0000, 'testTag', '%{public}s', 'Ability onCreate');
+
+    hsLog.i(TAG,`----isFoldable:${display.isFoldable()}`)
+    AppStorage.setOrCreate(YWConstants.kIsFoldable, display.isFoldable());
 
     //在应用入口存储当前上下文，通过get方法拿到当前上下文
     AppStorage.setOrCreate<Context>(ENU_CONTEXT.UI_Root, this.context)

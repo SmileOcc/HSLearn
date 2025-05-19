@@ -5,7 +5,7 @@ import { Account } from '../pages/Account'
 import { UserInfoModel } from '../pages/accountInfo/model/UserInfoModel'
 import requestModelAxios from '../model/RequestModelAxios'
 import MinePage from '../pages/MinePage';
-import { BreakpointTypeEnum, ENU_CONTEXT, globalThis, YWDeviceUtils, YWNavRouterUtils,
+import { BreakpointTypeEnum, ENU_CONTEXT, hsGlobalThis, YWDeviceUtils, YWNavRouterUtils,
   YWShowToast,BreakpointSystem, BreakPointType, ThemeManager, YWAvoidAreas, getDefaultAvoidAreas, getAvoidPadding } from '@learn/common_har';
 import { oldMainBuilder, YWMainPage } from '../pages/main/YWMainPage';
 import { display } from '@kit.ArkUI';
@@ -150,7 +150,7 @@ struct RootPage {
 
 
     injectMainContext(this.getUIContext())
-    globalThis.setContext(ENU_CONTEXT.UI_Root,getContext(this) as common.UIAbilityContext)
+    hsGlobalThis.setContext(ENU_CONTEXT.UI_Root,getContext(this) as common.UIAbilityContext)
     this.breakpointSystem.register()
     console.log("====aboutToAppear 组件即将出现时回调该接口，具体时机为在创建自定义组件的新实例后，在执行其build()函数之前执行")
 

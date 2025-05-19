@@ -2,7 +2,7 @@ import { YWConstants } from "@learn/constants_har"
 import { hsLog } from "@learn/logger_har"
 import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
-import { ITabEventState, ITabPageConfig, TabNavTitleConfig } from "@learn/tab_nav_api_har"
+import { ITabEventState, ITabNavTitleConfig, ITabPageConfig, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabInfo } from "@learn/tab_nav_api_har"
 import { TabItemInfo } from "@learn/tab_nav_api_har"
 import { TabViewIUState } from "@learn/tab_nav_api_har"
@@ -24,7 +24,7 @@ export struct TabContentView {
   @State navigationMode: number = NavigationMode.Stack;
   navigationMode_valueList =  ["Stack", "Split", "Auto"]
 
-  @State navInfo:TabNavTitleConfig = new TabNavTitleConfig()
+  @State navInfo?:ITabNavTitleConfig = new TabNavTitleConfig()
 
   @Consume("tabIUState") tabIUState:TabViewIUState
 
@@ -67,6 +67,7 @@ export struct TabContentView {
     hsLog.i(TAG,"aboutToAppear")
 
     this.currentTabInfo = this.tabIUState.tabInfo.getCurrentTab()
+    this.navInfo = this.currentTabInfo?.getNavTitleConfig()
     this.navName = this.currentTabInfo?.getTabBottomBarConfig().navType ?? ""
 
     let localNavInfo = new TabNavTitleConfig()
@@ -97,11 +98,11 @@ export struct TabContentView {
     //   wrapItemBuilder:[]
     // }
 
-    setTimeout(()=>{
-      this.navInfo.titleInfo!.title = "ggg"
-    },2000)
-
-    this.navInfo = localNavInfo
+    // setTimeout(()=>{
+    //   this.navInfo.titleInfo!.title = "ggg"
+    // },2000)
+    //
+    // this.navInfo = localNavInfo
 
     this.windowPointChange()
   }
@@ -126,8 +127,16 @@ export struct TabContentView {
 
       Column(){
         //导航
-        YWMainNavBar({navInfo:this.navInfo})
-          .backgroundColor(Color.Yellow)
+        if (!this.navInfo?.hideNavBar)  {
+          if (this.navInfo?.customNavBuilder) {
+            this.navInfo.customNavBuilder.builder({})
+          } else {
+            YWMainNavBar({navInfo:this.navInfo})
+              .backgroundColor(Color.Yellow)
+          }
+
+        }
+
         //内容显示
         Column(){
           if (this.currentTabInfo) {

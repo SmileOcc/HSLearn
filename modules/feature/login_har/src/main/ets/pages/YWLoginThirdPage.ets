@@ -4,7 +4,7 @@
 import { loginComponentManager, LoginWithHuaweiIDButton } from '@kit.AccountKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
-import { globalThis, YWNavRouterUtils } from '@learn/common_har';
+import { hsGlobalThis, YWNavRouterUtils } from '@learn/common_har';
 import { API, netReq } from '@learn/request_har';
 
 import { YWCommonButton, YWNavBar, YWSpringLayout } from '@learn/baseui_har'
@@ -180,7 +180,7 @@ export struct YWLoginThirdPage {
       Column() {
         YWNavBar({
           title: '',
-          onKeyBack: globalThis.blockQuickClick(() => {
+          onKeyBack: hsGlobalThis.blockQuickClick(() => {
             YWNavRouterUtils.pop();
           })
         })

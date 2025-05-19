@@ -10,7 +10,7 @@ import { PhoneLayoutFactor, TabletLayoutFactor, TestLayoutFactory } from '../bas
 // import { CacheUtil, OutDTO, IdCardUtil, ToastUtil, ActionUtil, DialogUtil,LoadingUtil} from '@yunkss/eftool'
 import { rcp } from "@kit.RemoteCommunicationKit";
 import { TigerOpenApi, TigerOpenImp } from '@learn/tiger_har/Index'
-import { ENU_PREFS, globalThis, YWNavRouterUtils } from '@learn/common_har'
+import { ENU_PREFS, hsGlobalThis, YWNavRouterUtils } from '@learn/common_har'
 import dataPreferences from '@ohos.data.preferences';
 import { BusinessError } from '@kit.BasicServicesKit'
 import { YWConstants } from '@learn/constants_har'
@@ -70,8 +70,8 @@ export struct SettingPage {
     let kkk2233 = AppStorage.get("isLoginGG") as string
 
 
-    let author = globalThis.getAttribute("author");
-    let org = globalThis.getAttribute("org");
+    let author = hsGlobalThis.getAttribute("author");
+    let org = hsGlobalThis.getAttribute("org");
 
     let context: common.UIAbilityContext | undefined = globalThis.getMainAbilityContext();
     if (context != undefined) {

@@ -4,9 +4,18 @@ import { ITabAction,
   ITabBadgeDelegate,
   ITabBottomBarConfig,
   ITabComponentDelegate,
-  ITabNavConfig, ITabPageConfig } from "@learn/tab_nav_api_har";
+  ITabNavConfig,
+  ITabNavTitleConfig,
+  ITabPageConfig,
+  NavAvatarInfo,
+  NavBackInfo,
+  NavTitleInfo} from "@learn/tab_nav_api_har";
+import { HomeNavBarBuilder } from "../components/view/HomeNavBar/HomeNavBar";
+import { HomeNavTitleImp } from "./HomeNavTitleImp";
 import { HomeTabAction } from "./HomeTabAction";
 
+//如果有动态网络数据，可以获取后存全局，在这里单独取 （推荐）
+//或者 在全局使用 这些数据是，与网络本地数据比较，替换
 export class HomeTabImp implements ITabPageConfig {
 
   badgeProxy?: ITabBadgeDelegate
@@ -47,6 +56,18 @@ export class HomeTabImp implements ITabPageConfig {
     return this.tabAction
   }
 
+
+  getNavTitleConfig(): ITabNavTitleConfig {
+    let titleConfig: HomeNavTitleImp = new HomeNavTitleImp(
+      false,"home",
+      new NavBackInfo(),
+      new NavAvatarInfo(false,undefined),
+      new NavTitleInfo(""),
+      undefined,
+      undefined)
+    titleConfig.customNavBuilder = HomeNavBarBuilder
+    return titleConfig
+  }
 }
 
 export class HomeBottomImp implements ITabBottomBarConfig {

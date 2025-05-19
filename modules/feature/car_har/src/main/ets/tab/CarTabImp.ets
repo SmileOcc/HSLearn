@@ -4,7 +4,13 @@ import { ITabAction,
   ITabBadgeDelegate,
   ITabBottomBarConfig,
   ITabComponentDelegate,
-  ITabNavConfig, ITabPageConfig } from "@learn/tab_nav_api_har";
+  ITabNavConfig,
+  ITabNavTitleConfig,
+  ITabPageConfig,
+  NavAvatarInfo,
+  NavBackInfo,
+  NavTitleInfo} from "@learn/tab_nav_api_har";
+import { CarNavTitleImp } from "./CarNavTitleImp";
 import { CarTabAction } from "./CarTabAction";
 
 export class CarTabImp implements ITabPageConfig {
@@ -47,6 +53,16 @@ export class CarTabImp implements ITabPageConfig {
     return this.tabAction
   }
 
+  getNavTitleConfig(): ITabNavTitleConfig {
+    let titleConfig: CarNavTitleImp = new CarNavTitleImp(
+      false,"home",
+      new NavBackInfo(),
+      new NavAvatarInfo(false,undefined),
+      new NavTitleInfo(""),
+      undefined,
+      undefined)
+    return titleConfig
+  }
 }
 
 export class CarBottomImp implements ITabBottomBarConfig {

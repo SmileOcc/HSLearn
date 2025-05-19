@@ -5,6 +5,16 @@ export type YWNavCustomIDType = string
 export type CustomerNavAnimation = (from: NavContentInfo, to: NavContentInfo,
   operation: NavigationOperation) => NavigationAnimatedTransition | undefined
 
+/*
+ * 设置导航栏显示改变模式枚举值
+ */
+export enum YWNavMode {
+  DefaultMode, // 默认模式
+  FoldMode, // 折叠模式
+  ChildPageMode, // 进入子页面模式
+  HomePageMode // 返回首页模式
+}
+
 export enum YWNavParamsKey {
   SESSION = "session",
   NAV_ULR_KEY = "navUrlKey"

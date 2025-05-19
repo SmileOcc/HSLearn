@@ -9,13 +9,13 @@ import { CenterWebParm } from './config/CenterWebParm';
 import { BottomBtnParm } from './config/BottomBtnParm';
 import { CoreDialog } from './dialog/CoreDialog';
 // import { global, log, RouterUtil } from '@common/utils';
-import { globalThis, YWNavRouterUtils } from '@learn/common_har'
+import { hsGlobalThis, YWNavRouterUtils } from '@learn/common_har'
 import { curves } from '@kit.ArkUI';
 import { hsLog } from '@learn/logger_har';
 
 @Component
 export struct YWTipDialog {
-  private gStyle: TipStyle | undefined = globalThis.getObject<TipStyle>('TipStyle');
+  private gStyle: TipStyle | undefined = hsGlobalThis.getObject<TipStyle>('TipStyle');
   private TipStyle: TipStyle = this.gStyle ? this.gStyle : {};
   @State result: string = "";
   @State backCancel: boolean = true;
@@ -193,7 +193,7 @@ export struct YWTipDialog {
    * 全局初始化样式
    */
   static initDefaultStyle(TipStyle: TipStyle) {
-    globalThis.setObject('TipStyle', TipStyle);
+    hsGlobalThis.setObject('TipStyle', TipStyle);
   }
 
   static open(parm: TipParm) {

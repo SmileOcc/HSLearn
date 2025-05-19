@@ -1,7 +1,7 @@
 import { AbilityConstant, Want } from '@kit.AbilityKit'
 import { window } from '@kit.ArkUI'
 import { MainAbility } from '@learn/main_har'
-import { YWAppUtils, globalThis, YWDeviceUtils } from '@learn/common_har'
+import { YWAppUtils, hsGlobalThis, YWDeviceUtils } from '@learn/common_har'
 import { MMKV } from '@tencent/mmkv';
 import { YWLocalNavType, YWNavPath, ywNavRouter } from '@learn/nav_router_har';
 import { RootSettingBuilder } from '../pages/setting/SettingPage';
@@ -76,6 +76,6 @@ export abstract  class LearnEntryAbility extends MainAbility {
     hsLog.i(TAG,'mmkv rootDir: ', mmkvRootDir);
 
     //初始化
-    globalThis.init(this.context)
+    hsGlobalThis.init(this.context)
   }
 }

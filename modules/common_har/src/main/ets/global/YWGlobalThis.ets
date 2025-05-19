@@ -59,12 +59,12 @@ class YWGlobalThis {
     //   let preferences: Promise<dataPreferences.Preferences> = dataPreferences.getPreferences(context, PrefKeys.kGlobal_Pref);
     //   return preferences;
     // });
-    // globalThis.setObject(PREF_OBJ_KEY, preferencesFunc);
+    // hsGlobalThis.setObject(PREF_OBJ_KEY, preferencesFunc);
   }
 
 
   private getFunc() {
-    const func = globalThis.getObject<Function>(PREF_OBJ_KEY)
+    const func = hsGlobalThis.getObject<Function>(PREF_OBJ_KEY)
     if (func === undefined) {
       throw Error('请先调用init()！')
     }
@@ -73,12 +73,12 @@ class YWGlobalThis {
 
 
   public getMainContext():Context | undefined {
-    let context: Context  = globalThis.getContext(this.kMainContextKey) as Context;
+    let context: Context  = hsGlobalThis.getContext(this.kMainContextKey) as Context;
     return context
   }
 
   public getMainAbilityContext():common.UIAbilityContext | undefined {
-    let context: common.UIAbilityContext = globalThis.getContext(this.kMainContextKey) as common.UIAbilityContext;
+    let context: common.UIAbilityContext = hsGlobalThis.getContext(this.kMainContextKey) as common.UIAbilityContext;
     return context
   }
 
@@ -265,4 +265,4 @@ class YWGlobalThis {
   }
 }
 
-export let globalThis = YWGlobalThis.getInstance();
+export let hsGlobalThis = YWGlobalThis.getInstance();

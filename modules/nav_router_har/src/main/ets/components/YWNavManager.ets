@@ -20,6 +20,12 @@ export class YWNavManager {
 
   private static readonly animationNavMap:Map<YWNavIDType,CustomerNavAnimation> = new Map()
 
+  private static readonly cancelNavTitle:string[] = []
+  private static readonly fullScreenRouter:string[] = []
+  private static readonly needWindowFullScreen:string[] = []
+
+  static timer: number = -1;
+
   constructor() {
     //1
     this.registerLocalNav(YWLocalNavType.NAV_ROOT,undefined,"xxx",new YWRouterNavParams())
@@ -56,6 +62,17 @@ export class YWNavManager {
     // this.registerLocalNav(YWLocalNavType.NAV_LION_ME_NAV, YWLocalNavType.NAV_COMMON_TAB, YWNavPath.lion_tab_me, new Map())
 
 
+  }
+
+  getCancelNavTitleRoutes():string[] {
+    return YWNavManager.cancelNavTitle
+  }
+  getFullScreenRouters():string[] {
+    return YWNavManager.fullScreenRouter
+  }
+
+  getNeedWindowFullScreenRouters():string[] {
+    return YWNavManager.needWindowFullScreen
   }
 
   registerLocalNav(

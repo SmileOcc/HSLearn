@@ -4,7 +4,13 @@ import { ITabAction,
   ITabBadgeDelegate,
   ITabBottomBarConfig,
   ITabComponentDelegate,
-  ITabNavConfig, ITabPageConfig } from "@learn/tab_nav_api_har";
+  ITabNavConfig,
+  ITabNavTitleConfig,
+  ITabPageConfig,
+  NavAvatarInfo,
+  NavBackInfo,
+  NavTitleInfo} from "@learn/tab_nav_api_har";
+import { CategoryNavTitleImp } from "./CategoryNavTitleImp";
 import { CategoryTabAction } from "./CategoryTabAction";
 
 export class CategoryTabImp implements ITabPageConfig {
@@ -47,6 +53,16 @@ export class CategoryTabImp implements ITabPageConfig {
     return this.tabAction
   }
 
+  getNavTitleConfig(): ITabNavTitleConfig {
+    let titleConfig: CategoryNavTitleImp = new CategoryNavTitleImp(
+      false,"home",
+      new NavBackInfo(),
+      new NavAvatarInfo(false,undefined),
+      new NavTitleInfo(""),
+      undefined,
+      undefined)
+    return titleConfig
+  }
 }
 
 export class CategoryBottomImp implements ITabBottomBarConfig {

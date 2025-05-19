@@ -1,5 +1,8 @@
+import { ITabNavTitleConfig } from "./ITabNavTitleConfig"
+
 @Observed
-export class TabNavTitleConfig {
+export class TabNavTitleConfig implements ITabNavTitleConfig {
+  hideNavBar?: boolean
   title?:string
   backInfo: NavBackInfo = new NavBackInfo()
   userAvatarInfo:NavAvatarInfo = new NavAvatarInfo(false,undefined)

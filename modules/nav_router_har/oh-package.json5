@@ -6,6 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@learn/logger_har": "file:../logger_har"
+    "@learn/logger_har": "file:../logger_har",
+    "@learn/common_har": "file:../common_har"
   }
 }

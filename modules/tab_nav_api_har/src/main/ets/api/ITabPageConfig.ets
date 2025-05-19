@@ -1,5 +1,6 @@
 import { ITabBottomBarConfig } from "../config/ITabBottomBarConfig"
 import { ITabNavConfig } from "../config/ITabNavConfig"
+import { ITabNavTitleConfig } from "../config/ITabNavTitleConfig"
 import { ITabAction } from "./ITabAction"
 
 export interface ITabPageConfig {
@@ -10,4 +11,6 @@ export interface ITabPageConfig {
   getTabBottomBarConfig():ITabBottomBarConfig
 
   getTabAction():ITabAction
+
+  getNavTitleConfig(): ITabNavTitleConfig
 }

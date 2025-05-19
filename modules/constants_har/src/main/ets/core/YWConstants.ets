@@ -7,6 +7,7 @@ export class YWConstants {
   //appstorage 主context
   static readonly kUI_RootContext = 'UI_RootContext'
 
+  static readonly kIsFoldable = 'kIsFoldable'
   //navbar
   static readonly kMainNavSM = 44
   static readonly kMainNavMD = 60
@@ -31,6 +32,12 @@ export class YWConstants {
   static readonly kAppStorageStorageLocalThreeUser: string = 'kAppStorageStorageLocalThreeUser';
 
   static readonly kRadius_80 = 80
+
+  // 普通面板
+  static readonly kORDINARY_MENU: number = 1;
+  // 折叠面板
+  static readonly kCOLLAPSE_MENU: number = 2;
+
   /**
    * Larger font weight.
    */

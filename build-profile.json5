@@ -384,6 +384,18 @@
     {
       "name": "login_import_module_har",
       "srcPath": "./modules/feature/debugger/login_import_module_har",
+    },
+    {
+      "name": "search_har",
+      "srcPath": "./modules/feature/search_har",
+    },
+    {
+      "name": "adv_har",
+      "srcPath": "./modules/feature/adv_har",
+    },
+    {
+      "name": "base_model_har",
+      "srcPath": "./modules/base_model_har",
     }
   ]
 }

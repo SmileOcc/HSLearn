@@ -24,5 +24,6 @@ export {
   CustomerNavAnimation,
   YWLocalNavType,
   YWNavParamsKey,
+  YWNavMode
 } from "./src/main/ets/components/YWNavType"
 

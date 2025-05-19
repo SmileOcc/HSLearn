@@ -14,7 +14,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { HMItemInfo } from '../pages/login/model/HMItemInfo'
 import { preferences } from '@kit.ArkData';
 import { UserInfoManager } from '../model/UserInfoManager';
-import { kyStoreManger, QDImageCompressionUtils, globalThis,   } from '@learn/common_har';
+import { kyStoreManger, QDImageCompressionUtils, hsGlobalThis,   } from '@learn/common_har';
 import { loginService } from '@learn/login_har'
 import { API, netReq } from '@learn/request_har';
 import { YWResImage } from '@learn/res_har'
@@ -253,7 +253,7 @@ export struct Account {
           // .onClick(() => {
           //   router.pushUrl({ url: 'pages/message/MessageListPage' })
           // })
-          .onClick(globalThis.blockQuickClick(() => {
+          .onClick(hsGlobalThis.blockQuickClick(() => {
             if (this.isLogin) {
               this.openPickImgDialog()
             } else {

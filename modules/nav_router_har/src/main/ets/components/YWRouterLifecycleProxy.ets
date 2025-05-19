@@ -1,3 +1,4 @@
+import { ywNavManager } from "./YWNavManager"
 
 
 export class YWRouterLifecycleImp implements YWRouterLifeCycleProxy {
@@ -12,6 +13,7 @@ export class YWRouterLifecycleImp implements YWRouterLifeCycleProxy {
     this.onHide?.()
   }
   pageOnDisappear() {
+    // if (ywNavManager.getFullScreenRouters())
     this.onDisappear?.()
   }
   pageOnDestroy() {
