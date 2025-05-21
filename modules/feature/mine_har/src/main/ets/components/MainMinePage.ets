@@ -2,6 +2,11 @@ import { YWRouterNavParams, ywNavManager, YWLocalNavType, ywNavRouter, YWNavPath
 import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 import { HSLocalConfig } from "@learn/app_config_har"
+import { HomeUIState, HomeViewModel } from "./viewmodel/MineViewModel"
+import { MineHeaderView } from "./view/MineHeaderView"
+import { MineUserInfoView } from "./view/MineUserInfoView"
+import { MineMenuView } from "./view/MineMenuView"
+import { MineListView } from "./view/MineListView"
 
 @Builder
 export function mainMineBuilder(name:string, params:YWRouterNavParams) {
@@ -21,6 +26,10 @@ export struct MainMinePage {
   @State envName: string = ""
 
   minePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_MINE)
+
+  viewModel:HomeViewModel = new HomeViewModel(this.getUIContext())
+  @State mineUIState:HomeUIState = this.viewModel.iuState
+
   @Builder
   navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_MINE)(name)?.builder(name,param)
@@ -31,28 +40,59 @@ export struct MainMinePage {
 
   }
 
+  @Builder
+  topBlackBgView() {
+    Column(){
+
+    }
+    .width('100%')
+    .height('200vp')
+  }
+  @Builder
+  bottomBgColorView() {
+    Column(){
+
+    }
+    .width('100%')
+    .height('200vp')
+  }
+
   build() {
     Stack() {
       Navigation(this.minePageNav) {
-        Column(){
-          Text(`配置：${this.envName}`)
-          Button("设置")
-            .onClick(()=>{
-              ywNavRouter.openRoute(this.getUniqueId())
-                .onTargetUrl(YWNavPath.root_setting)
-                .onRouteMode()
-                .go()
-            })
+        Stack(){
 
-          Button("通用tab")
-            .onClick(()=>{
-              ywNavRouter.openRoute(this.getUniqueId())
-                .onTargetUrl(YWNavPath.root_lion_nav)
-                .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)
-                .onRouteMode()
-                .go()
-            })
+          Scroll(){
+            Column(){
+              MineHeaderView()
+              MineUserInfoView()
+              MineMenuView()
+              MineListView()
+
+              Text(`配置：${this.envName}`)
+              Button("设置")
+                .onClick(()=>{
+                  ywNavRouter.openRoute(this.getUniqueId())
+                    .onTargetUrl(YWNavPath.root_setting)
+                    .onRouteMode()
+                    .go()
+                })
+
+              Button("通用tab")
+                .onClick(()=>{
+                  ywNavRouter.openRoute(this.getUniqueId())
+                    .onTargetUrl(YWNavPath.root_lion_nav)
+                    .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)
+                    .onRouteMode()
+                    .go()
+                })
+            }
+          }
+
+
+
         }
+
       }
       .width('100%')
       .height('100%')

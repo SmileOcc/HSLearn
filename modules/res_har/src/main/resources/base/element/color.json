@@ -85,6 +85,14 @@
       "value": "#E53935"
     },
     {
+      "name": "col_ffffff",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "col_00000",
+      "value": "#000000"
+    },
+    {
       "name": "col_262626",
       "value": "#262626"
     },
@@ -103,20 +111,338 @@
     {
       "name": "col_454545",
       "value": "#454545"
-    },{
+    },
+    {
+      "name": "col_131313",
+      "value": "#13131313"
+    },
+    {
+      "name": "col_F5F5F5",
+      "value": "#F5F5F5"
+    },
+    {
+      "name": "col_B3B3B3B3",
+      "value": "#B3B3B3"
+    },
+    {
+      "name": "col_FFF5DF",
+      "value": "#FFF5DF"
+    },
+    {
+      "name": "col_FF6734",
+      "value": "#FF6734"
+    },
+    {
+      "name": "col_FF624f",
+      "value": "#FF624f"
+    },
+    {
+      "name": "col_FDF1F0",
+      "value": "#FDF1F0"
+    },
+    {
+      "name": "col_FF4E6A",
+      "value": "#FF4E6A"
+    },
+    {
+      "name": "col_FFE9ED",
+      "value": "#FFE9ED"
+    },
+    {
+      "name": "col_E6E6E6",
+      "value": "#E6E6E6"
+    },
+    {
       "name": "col_CCCCCC",
       "value": "#CCCCCC"
     },
     {
+      "name": "col_B33B30",
+      "value": "#B33B30"
+    },
+    {
       "name": "col_7D7D7D",
       "value": "#7D7D7D"
-    },{
+    },
+    {
+      "name": "col_C63D3D",
+      "value": "#C63D3D"
+    },
+    {
+      "name": "col_CC4337",
+      "value": "#CC4337"
+    },
+    {
+      "name": "col_60CD8E",
+      "value": "#60CD8E"
+    },
+    {
       "name": "col_EEEEEE",
       "value": "#EEEEEE"
     },
     {
       "name": "col_0D0D0D",
       "value": "#0D0D0D"
+    },
+    {
+      "name": "col_FF5875",
+      "value": "#FF5875"
+    },
+    {
+      "name": "col_F8F8F8",
+      "value": "#F8F8F8"
+    },
+    {
+      "name": "col_FFCF60",
+      "value": "#FFCF60"
+    },
+    {
+      "name": "col_E63D2E",
+      "value": "#E63D2E"
+    },
+    {
+      "name": "col_FAFAFA",
+      "value": "#FAFAFA"
+    },
+    {
+      "name": "col_FFF0CC",
+      "value": "#FFF0CC"
+    },
+    {
+      "name": "col_FF9318",
+      "value": "#FF9318"
+    },
+    {
+      "name": "col_6C6C6C",
+      "value": "#6C6C6C"
+    },
+    {
+      "name": "col_B2B2B2",
+      "value": "#B2B2B2"
+    },
+    {
+      "name": "col_FFFAEA",
+      "value": "#FFFAEA"
+    },
+    {
+      "name": "col_B62B21",
+      "value": "#B62B21"
+    },
+    {
+      "name": "col_FBE9E9",
+      "value": "#FBE9E9"
+    },
+    {
+      "name": "col_FFF3E4",
+      "value": "#FFF3E4"
+    },
+    {
+      "name": "col_3FE35C",
+      "value": "#3FE35C"
+    },
+    {
+      "name": "col_FDC845",
+      "value": "#FDC845"
+    },
+    {
+      "name": "col_9F5123",
+      "value": "#9F5123"
+    },
+    {
+      "name": "col_F5EEE9",
+      "value": "#F5EEE9"
+    },
+    {
+      "name": "col_FF9522",
+      "value": "#FF9522"
+    },
+    {
+      "name": "col_FFFFFF",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "col_24A600",
+      "value": "#24A600"
+    },
+    {
+      "name": "col_E1F2DA",
+      "value": "#E1F2DA"
+    },
+    {
+      "name": "col_FF9900",
+      "value": "#FF9900"
+    },
+    {
+      "name": "col_F1F1F1",
+      "value": "#F1F1F1"
+    },
+    {
+      "name": "col_D1D1D1",
+      "value": "#D1D1D1"
+    },
+    {
+      "name": "col_E1E1E1",
+      "value": "#E1E1E1"
+    },
+    {
+      "name": "col_EDEDED",
+      "value": "#EDEDED"
+    },
+    {
+      "name": "col_FE6902",
+      "value": "#FE6902"
+    },
+    {
+      "name": "col_FDD835",
+      "value": "#FDD835"
+    },
+    {
+      "name": "col_F6F6F6",
+      "value": "#F6F6F6"
+    },
+    {
+      "name": "col_D0D1D1",
+      "value": "#D0D1D1"
+    },
+    {
+      "name": "col_2D2D2D",
+      "value": "#2D2D2D"
+    },
+    {
+      "name": "col_212121",
+      "value": "#212121"
+    },
+    {
+      "name": "col_EFEFEF",
+      "value": "#EFEFEF"
+    },
+    {
+      "name": "col_DDDDDD",
+      "value": "#DDDDDD"
+    },
+    {
+      "name": "col_F67160",
+      "value": "#F67160"
+    },
+    {
+      "name": "col_FEA235",
+      "value": "#FEA235"
+    },
+    {
+      "name": "col_F7F7F7",
+      "value": "#F7F7F7"
+    },
+    {
+      "name": "col_C5C5C5",
+      "value": "#C5C5C5"
+    },
+    {
+      "name": "col_E5E5E5",
+      "value": "#E5E5E5"
+    },
+    {
+      "name": "col_2E536B",
+      "value": "#2E536B"
+    },
+    {
+      "name": "col_FDF135",
+      "value": "#FDF135"
+    },
+    {
+      "name": "col_FF6F00",
+      "value": "#FF6F00"
+    },
+    {
+      "name": "col_B56B23",
+      "value": "#B56B23"
+    },
+    {
+      "name": "col_CC00FF",
+      "value": "#CC00FF"
+    },
+    {
+      "name": "col_EE4D4D",
+      "value": "#EE4D4D"
+    },
+    {
+      "name": "col_515151",
+      "value": "#515151"
+    },
+    {
+      "name": "col_FE5269",
+      "value": "#FE5269"
+    },
+    {
+      "name": "col_248334",
+      "value": "#248334"
+    },
+    {
+      "name": "col_FFCC33",
+      "value": "#FFCC33"
+    },
+    {
+      "name": "col_EB4D3D",
+      "value": "#EB4D3D"
+    },
+    {
+      "name": "col_FA6730",
+      "value": "#FA6730"
+    },
+    {
+      "name": "col_7AD06D",
+      "value": "#7AD06D"
+    },
+    {
+      "name": "col_0B0B0B",
+      "value": "#0B0B0B"
+    },
+    {
+      "name": "col_EC5E4F",
+      "value": "#EC5E4F"
+    },
+    {
+      "name": "col_FFFF6F",
+      "value": "#FFFF6F"
+    },
+    {
+      "name": "col_EBEBEB",
+      "value": "#EBEBEB"
+    },
+    {
+      "name": "col_C4C4C4",
+      "value": "#C4C4C4"
+    },
+    {
+      "name": "col_E0E0E0",
+      "value": "#E0E0E0"
+    },
+    {
+      "name": "col_EEBA00",
+      "value": "#EEBA00"
+    },
+    {
+      "name": "col_26652C",
+      "value": "#26652C"
+    },
+    {
+      "name": "col_484848",
+      "value": "#484848"
+    },
+    {
+      "name": "col_696969",
+      "value": "#696969"
+    },
+    {
+      "name": "col_E34E4E",
+      "value": "#E34E4E"
+    },
+    {
+      "name": "col_F2F2F2",
+      "value": "#F2F2F2"
+    },
+    {
+      "name": "col_9d9d9d",
+      "value": "#9d9d9d"
     },
     {
       "name": "helper_bindsheet_bgc",
