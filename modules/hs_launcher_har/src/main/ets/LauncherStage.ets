@@ -4,6 +4,7 @@ import { AbilityConstant, AbilityStage } from "@kit.AbilityKit";
 // import { hsLog } from '@learn/logger_har';
 import { ywManagerTask } from "@learn/manager_task_har";
 import {
+  AccountUserTask,
   AppExceptionTask,
   AppLifeCycleTask,
   AppLinkTask,
@@ -32,7 +33,8 @@ export class LauncherStage extends AbilityStage {
         () => new AppLinkTask(),
         () => new NavigationRouteTask(),
         () => new CarTask(),
-        () => new AppNetworkTask()
+        () => new AppNetworkTask(),
+        () => new AccountUserTask(context)
       ],
       abilityTask: (context) => []
     })

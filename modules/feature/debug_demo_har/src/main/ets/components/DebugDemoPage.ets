@@ -36,6 +36,7 @@ import { TestListItemDragMoveBuilder } from "../pages/gesture/TestListItemDragMo
 import { TestListExchangeBuilder } from "../pages/listexchange/list_one/ListExchangeView";
 import { TestListDragViewBuilder } from "../pages/listexchange/list_two_drage/ListDragViewPage";
 import { TestListDragViewTwoBuilder } from "../pages/listexchange/list_two_drage/ListDragViewPageTwo";
+import { TestDrawPathPageBuilder } from "../pages/draw_path/TestDrawPathPage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -136,6 +137,7 @@ export struct DebugDemoPage {
       ["消息列表 MessageListPage", "list分组红点","list移动交换cell","list、gard拖拽交换位置", "scroll集合", "自动缩放适配", "layoutWeight", "PullRefreshPage",
         "PullRefreshLazyPage", "PullRefreshListPage", "SwiperStackPage", "TopSlideMenuTestPage"],
       ["测试滑动指示器"],
+      ['图形绘制'],
       ["基础数据", "自定义tab", "相对布局Relative", "横竖屏旋转", "测试NavDestination", "测试弹窗WrapBuilder"],
       ["请求调试", "数据库DBUtils", "分布式键值数据库distributedKVStore", "首选项PreferencesUtil",
         "共享LocalStoragePage", "LocalStorageAppStoragePage", "调试preferences", "调试Axios请求"],
@@ -638,6 +640,9 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith('解压zip文件')) {
           this.demoPageNav.pushPathByName('解压zip文件', true)
         }
+        if (subModel.title.startsWith('图形绘制')) {
+          this.demoPageNav.pushPathByName('图形绘制',true)
+        }
       })
 
     })
@@ -727,6 +732,9 @@ export struct DebugDemoPage {
     }
     else if (name == 'list、gard拖拽交换位置') {
       TestListDragViewBuilder()
+    }
+    else if (name == '图形绘制') {
+      TestDrawPathPageBuilder()
     }
 
 

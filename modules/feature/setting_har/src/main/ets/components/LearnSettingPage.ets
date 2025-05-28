@@ -10,6 +10,15 @@ import { YWBaseNavBar } from "@learn/baseui_har"
     LearnSettingPage()
   }
   .hideTitleBar(true)
+  .onWillDisappear(() => {
+    params.getPageLifecycle().pageOnDisappear?.()
+  })
+  .onShown(() => {
+    params.getPageLifecycle().pageOnShow?.()
+  })
+  .onHidden(() => {
+    params.getPageLifecycle().pageOnHide?.()
+  })
 }
 
 
@@ -30,6 +39,13 @@ export struct LearnSettingPage {
   @Builder
   navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_ROOT_LEARN_SETTING)(name)?.builder(name,param)
+  }
+
+  aboutToAppear(): void {
+    let kk = ""
+  }
+  aboutToDisappear(): void {
+    let yy = ""
   }
 
   build() {

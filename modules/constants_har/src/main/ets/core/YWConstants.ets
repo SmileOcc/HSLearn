@@ -1,5 +1,11 @@
 import display from '@ohos.display';
 
+export class YWStorageConstants {
+  static readonly kIsLogin = 'kIsLogin'
+  static readonly kAccountInfo = 'kAccountInfo'
+  static readonly kAccountToken = 'kAccountToken'
+}
+
 export class YWConstants {
 
   //appstorage 暗黑模式

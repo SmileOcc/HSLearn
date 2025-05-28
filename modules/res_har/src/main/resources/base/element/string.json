@@ -23,6 +23,22 @@
     {
       "name": "main_mine",
       "value": "Mine"
+    },
+    {
+      "name": "Unpaid",
+      "value": "Unpaid"
+    },
+    {
+      "name": "Processing",
+      "value": "Processing"
+    },
+    {
+      "name": "Shipped",
+      "value": "Shipped"
+    },
+    {
+      "name": "Reviewed",
+      "value": "Reviewed"
     }
   ]
 }

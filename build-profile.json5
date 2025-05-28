@@ -396,6 +396,10 @@
     {
       "name": "base_model_har",
       "srcPath": "./modules/base_model_har",
+    },
+    {
+      "name": "userinfo_har",
+      "srcPath": "./modules/feature/userinfo_har",
     }
   ]
 }

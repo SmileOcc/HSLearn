@@ -36,7 +36,7 @@ export class TabMainViewModel {
 
     ywNavRouter.openRoute(this.componentId)
       .onTargetUrl(fistItem.getTabBottomBarConfig().navPath)
-      // .onUrlKey(fistItem.navPath)
+      .onUrlKey(fistItem.getTabBottomBarConfig().navPath)
       .onRouteMoveToTop()
       .onOpenAnimation(false)
       .go()

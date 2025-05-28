@@ -24,7 +24,8 @@
     "@learn/applink_har": "file:../feature/applink_har",
     "@learn/appcontext_har": "file:../feature/appcontext_har",
     "@learn/network_har": "file:../network_har",
-    "@learn/logger_har": "file:../logger_har"
+    "@learn/logger_har": "file:../logger_har",
+    "@learn/userinfo_har": "file:../feature/userinfo_har"
 
   }
 }

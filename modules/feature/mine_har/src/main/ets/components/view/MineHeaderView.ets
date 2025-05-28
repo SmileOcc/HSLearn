@@ -4,24 +4,28 @@ import { YWResColor } from "@learn/res_har";
 @ComponentV2
 export struct MineHeaderView {
 
+  @Event homeClick?:()=>void
+  @Event messageClick?:()=>void
+  @Event settingClick?:()=>void
+
   @Builder
-  leftView() {
+  leftView(click?:()=>void) {
     Row(){
-      this.itemView($r('app.media.tab_home_select'),0)
+      this.itemView($r('app.media.tab_home_select'),0,click)
     }
   }
 
   @Builder
-  rightView() {
+  rightView(messageClick?:()=>void, click?:()=>void) {
     Row(){
-      this.itemView($r('app.media.account_message'),1)
+      this.itemView($r('app.media.account_message'),1,messageClick)
       Blank().width('8vp')
-      this.itemView($r('app.media.account_setting'),0)
+      this.itemView($r('app.media.account_setting'),0,click)
     }
   }
 
   @Builder
-  itemView(imageUrl: ResourceStr, badgeCount:number) {
+  itemView(imageUrl: ResourceStr, badgeCount:number, click?:()=>void) {
     Column(){
       Badge({
         count: badgeCount,
@@ -34,18 +38,22 @@ export struct MineHeaderView {
       }
       .margin('4vp')
     }
+    // .onClick(()=>{
+    //   click?.()
+    // })
+    .onClick(click)
   }
 
   build() {
     Row()
     {
-      this.leftView()
-      this.rightView()
+      this.leftView(this.homeClick)
+      this.rightView(this.messageClick, this.settingClick)
     }
     .width('100%')
     .height(YWConstants.kMainNavSM)
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
-    .padding({left:'16vp',right:'16vp'})
+    .backgroundColor(YWConstants.RandomColor())
   }
 }
