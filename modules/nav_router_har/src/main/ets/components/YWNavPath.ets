@@ -33,5 +33,15 @@ export enum YWNavPath {
   //
   root_demo_tab_nav = "learn://root/demo_tab_nav",
 
+  //mine
+  mine_file_record = "learn://mine/vc/file_record",
+
+  //hotel
+  root_hotel_nav = "learn://root/hotel_nav",
+  vc_hotel_list = "learn://hotel/vc/hotel_list",
+  vc_hotel_room_list = "learn://hotel/vc/hotel_room_list",
+  vc_hotel_room_detail = "learn://hotel/vc/hotel_room_detail",
+  vc_hotel_review_list = "learn://hotel/vc/hotel_review_list",
+  vc_hotel_review_edit = "learn://hotel/vc/hotel_review_edit"
 
 }

@@ -1,4 +1,4 @@
-import { YWLocalNavType, YWNavPath } from "@learn/nav_router_har";
+import { YWLocalNavType, YWNavPath, YWRouterNavParams } from "@learn/nav_router_har";
 import { YWResColor, YWResImage, YWResString } from "@learn/res_har";
 import { ITabAction,
   ITabBadgeDelegate,
@@ -20,6 +20,9 @@ export class MineTabImp implements ITabPageConfig {
 
   private tabAction: MineTabAction = new MineTabAction()
   private bottomConfig?: MineBottomImp
+  private titleConfig: MineNavTitleImp = new MineNavTitleImp(
+    true)
+  private navParams:YWRouterNavParams = new YWRouterNavParams()
 
   getTabKey(): string {
     throw new Error("Method not implemented.");
@@ -44,6 +47,7 @@ export class MineTabImp implements ITabPageConfig {
       config.selectColor = YWResColor.themeColor()
       config.selectImage = YWResImage.tab_mine_h()
       config.image = YWResImage.tab_mine()
+      config.badge = 1
       this.bottomConfig = config
     }
 
@@ -55,9 +59,13 @@ export class MineTabImp implements ITabPageConfig {
   }
 
   getNavTitleConfig(): ITabNavTitleConfig {
-    let titleConfig: MineNavTitleImp = new MineNavTitleImp(
-      true)
-    return titleConfig
+
+    return this.titleConfig
+  }
+
+  getTabNavParams(): YWRouterNavParams {
+
+    return this.navParams
   }
 
 }

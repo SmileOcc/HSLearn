@@ -57,8 +57,6 @@ export { BreakpointConstants } from './src/main/ets/common/BreakpointConstants'
 export { BreakpointTypeOption, BreakPointType, BreakpointSystem, BreakpointTypeEnum, osBreakpointSystem, BreakpointTypeValue, BreakpointTypeEnumValue } from './src/main/ets/common/BreakPointSystem'
 export { reqPermissions, strToUtf8Bytes, strToArrayBuffer, learnSleep, randomString, bufferToString, stringToBuffer } from './src/main/ets/common/Common'
 
-export { DateUtil } from './src/main/ets/common/DateUtil'
-
 
 export { FileConstants } from './src/main/ets/common/FileConstants'
 

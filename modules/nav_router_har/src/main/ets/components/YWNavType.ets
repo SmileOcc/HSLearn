@@ -62,6 +62,8 @@ export enum YWLocalNavType {
   NAV_LION_NEWS_NAV = "NAV_LION_NEWS_NAV",
   NAV_LION_ME_NAV = "NAV_LION_ME_NAV",
 
+  //hotel
+  NAV_HOTEL_NAV = "NAV_HOTEL_NAV",
 
   //demo
   NAV_DEMO_MAIN_NAV = "NAV_DEMO_MAIN_NAV",

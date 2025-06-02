@@ -140,7 +140,7 @@ export struct TabContentView {
         //内容显示
         Column(){
           if (this.currentTabInfo) {
-            this.currentTabInfo.getTabNavConfig().navBuilder.builder(this.navName!, new YWRouterNavParams())
+            this.currentTabInfo.getTabNavConfig().navBuilder.builder(this.navName!, this.currentTabInfo.getTabNavParams())
 
           }
           // if (this.currentTabInfo?.index == 0) {

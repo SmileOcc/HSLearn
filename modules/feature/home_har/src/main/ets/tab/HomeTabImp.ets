@@ -1,4 +1,4 @@
-import { YWLocalNavType, YWNavPath } from "@learn/nav_router_har";
+import { YWLocalNavType, YWNavPath, YWRouterNavParams } from "@learn/nav_router_har";
 import { YWResColor, YWResImage, YWResString } from "@learn/res_har";
 import { ITabAction,
   ITabBadgeDelegate,
@@ -23,6 +23,7 @@ export class HomeTabImp implements ITabPageConfig {
 
   private tabAction: HomeTabAction = new HomeTabAction()
   private bottomConfig?: HomeBottomImp
+  private navParams:YWRouterNavParams = new YWRouterNavParams()
 
   getTabKey(): string {
     throw new Error("Method not implemented.");
@@ -67,6 +68,11 @@ export class HomeTabImp implements ITabPageConfig {
       undefined)
     titleConfig.customNavBuilder = HomeNavBarBuilder
     return titleConfig
+  }
+
+  getTabNavParams(): YWRouterNavParams {
+
+    return this.navParams
   }
 }
 

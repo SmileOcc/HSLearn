@@ -30,6 +30,24 @@ export class TabInfo {
     return pageConfig
   }
 
+  getTabWithConfigID(configId: string): ITabPageConfig | undefined {
+    for (const item of this.mainNavList) {
+      let navBottom = item.getTabBottomBarConfig()
+      if (navBottom.cid == configId) {
+        return item
+      }
+    }
+
+    for (const item of this.navList) {
+      let navBottom = item.getTabBottomBarConfig()
+      if (navBottom.cid == configId) {
+        return item
+      }
+    }
+
+    return undefined
+  }
+
   getCurrentTab():ITabPageConfig | undefined {
     for (const item of this.mainNavList) {
       let navBottom = item.getTabBottomBarConfig()

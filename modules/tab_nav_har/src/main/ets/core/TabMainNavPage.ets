@@ -51,7 +51,7 @@ export struct TabMainNavPage {
       this.tabIUState.tabInfo.updateSelectTab(selectTabInfo)
       this.tabInfo = this.tabIUState.tabInfo
 
-      this.viewModel.value.selectIndexTab(selectTabInfo)
+      this.viewModel.value.selectIndexTab(oldTabInfo, selectTabInfo)
     },
     onDoubleClickIndex:(oldTabInfo,selectTabInfo) => {
 
@@ -140,6 +140,21 @@ export function tabMainNavBuilder(name:string, params:YWRouterNavParams) {
  NavDestination(){
    TabMainNavPage()
  }
+ .onShown(()=>{
+   hsLog.d(TAG,'main onShown')
+ })
+ .onHidden(()=>{
+   hsLog.d(TAG,'main onHidden')
+
+ })
+ .onWillDisappear(()=>{
+   hsLog.d(TAG,'main onWillDisappear')
+
+ })
+ .onDisAppear(()=>{
+   hsLog.d(TAG,'main onDisAppear')
+
+ })
  .onBackPressed(()=>{
    router.back()
    return true

@@ -22,6 +22,11 @@ export class YWNavRouterInfo {
     return this
   }
 
+  onItemInfo(itemInfo: object): YWNavRouterInfo {
+    this.config.targetParams.itemInfo = itemInfo
+    return this
+  }
+
   onParams(key:string, params:Object):YWNavRouterInfo {
     this.config.targetParams.params.set(key,params)
     return this

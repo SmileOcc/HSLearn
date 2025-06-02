@@ -22,10 +22,9 @@
     "@learn/debug_demo_har": "file:../feature/debug_demo_har",
     "@learn/appcontext_har": "file:../feature/appcontext_har",
     "@learn/applink_har": "file:../feature/applink_har",
-    "@learn/appcontext_har": "file:../feature/appcontext_har",
     "@learn/network_har": "file:../network_har",
     "@learn/logger_har": "file:../logger_har",
-    "@learn/userinfo_har": "file:../feature/userinfo_har"
-
+    "@learn/userinfo_har": "file:../feature/userinfo_har",
+    "@learn/hotel_har": "file:../feature/hotel_har"
   }
 }

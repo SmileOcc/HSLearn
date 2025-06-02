@@ -9,6 +9,7 @@ import { webview } from '@kit.ArkWeb';
 import { hsLog } from '@learn/logger_har';
 import { HSLocalConfig } from '@learn/app_config_har';
 import BuildProfile from 'BuildProfile';
+import { hsMockManager } from '@learn/res_har';
 
 const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
@@ -49,6 +50,8 @@ export abstract  class LearnEntryAbility extends MainAbility {
       }
     });
 
+    //本地mock数据
+    hsMockManager.setContext(this.context)
  }
 
 

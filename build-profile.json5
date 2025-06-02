@@ -400,6 +400,10 @@
     {
       "name": "userinfo_har",
       "srcPath": "./modules/feature/userinfo_har",
+    },
+    {
+      "name": "hotel_har",
+      "srcPath": "./modules/feature/hotel_har",
     }
   ]
 }

@@ -54,7 +54,7 @@ export class HSUserInfoManager {
     this.account = account
     this.isSignIn = true
     this.saveUserToken(account.token)
-    PersistentStorage.persistProp(YWStorageConstants.kAccountInfo,account);
+    // PersistentStorage.persistProp(YWStorageConstants.kAccountInfo,account);
     // PersistenceV2.save("account");
 
   }

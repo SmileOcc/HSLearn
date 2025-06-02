@@ -11,7 +11,7 @@ export struct MineHeaderView {
   @Builder
   leftView(click?:()=>void) {
     Row(){
-      this.itemView($r('app.media.tab_home_select'),0,click)
+      this.itemView($r('app.media.tab_bag_select'),0,click)
     }
   }
 

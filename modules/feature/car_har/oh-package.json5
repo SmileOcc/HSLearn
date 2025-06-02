@@ -13,6 +13,5 @@
     "@learn/common_har": "file:../../common_har",
     "@learn/learn_task_har": "file:../../learn_task_har",
     "@learn/tab_nav_api_har": "file:../../tab_nav_api_har",
-    "@learn/common_har": "file:../../common_har"
   }
 }

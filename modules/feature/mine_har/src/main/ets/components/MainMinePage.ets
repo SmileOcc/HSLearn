@@ -39,9 +39,13 @@ export struct MainMinePage {
 
   @Provider(YWStorageConstants.kAccountInfo) localUseInfo?:HSAccountModel = HSUserInfoManager.getInstance().account
 
-  minePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_MINE)
+  // minePageNav = ywNavManager.getNavStack(YWLocalNavType.NAV_MAIN_MINE)
 
-  viewModel:MineViewModel = new MineViewModel(this.getUIContext())
+  getComponentUniqueId:()=>number = ()=>{
+    return this.getUniqueId()
+  }
+
+  viewModel:MineViewModel = new MineViewModel(this.getUIContext(),this.getComponentUniqueId)
   @Local mineUIState:MineUIState = this.viewModel.iuState
 
   private childRecognizer: GestureRecognizer = new GestureRecognizer()
@@ -53,20 +57,45 @@ export struct MainMinePage {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_MINE)(name)?.builder(name,param)
   }
 
+
   aboutToAppear(): void {
+    let kkkSet: Set<string> = new Set()
+    kkkSet.add("1")
+    kkkSet.add('2')
+    //这个才可以输出set
+    let kkkm = Array.from(kkkSet)
+    let mmm = Array.of(kkkSet)
+    hsLog.d(TAG,  "mm+ " + JSON.stringify(Array.from(kkkSet)))
+    hsLog.d(TAG, JSON.stringify(mmm))
+
+    hsLog.d(TAG, JSON.stringify(kkkSet.entries()))
+    hsLog.d(TAG, JSON.stringify(kkkSet.keys()))
+    if (kkkSet.has("2")) {
+      hsLog.d(TAG, 'JSON.stringify(kkkSet.entries())')
+
+    }
+
+
+
+    this.navParams?.getPageLifecycleImp().setPageOnShow(()=>{
+      hsLog.d(TAG,"PageOnShow")
+    })
+    this.navParams?.getPageLifecycleImp().setPageOnHide(()=>{
+      hsLog.d(TAG,"PageOnHide")
+    })
     this.envName = HSLocalConfig.getEnv()
     hsLog.d(TAG,'userInfo:' + `${JSON.stringify(this.localUseInfo)}`)
 
-    if (this.navParams && this.navParams.pageLifecycle) {
-      this.navParams.pageLifecycle.onShow = ()=> {
-        hsLog.d(TAG,'onShow:' + `${JSON.stringify(this.localUseInfo)}`)
-
-      }
-      this.navParams.pageLifecycle.onHide = ()=> {
-        hsLog.d(TAG,'onHide:' + `${JSON.stringify(this.localUseInfo)}`)
-
-      }
-    }
+    // if (this.navParams && this.navParams.pageLifecycle) {
+    //   this.navParams.pageLifecycle.onShow = ()=> {
+    //     hsLog.d(TAG,'onShow:' + `${JSON.stringify(this.localUseInfo)}`)
+    //
+    //   }
+    //   this.navParams.pageLifecycle.onHide = ()=> {
+    //     hsLog.d(TAG,'onHide:' + `${JSON.stringify(this.localUseInfo)}`)
+    //
+    //   }
+    // }
 
     let ttt: string[] = ["a", "b", "c", "d"]
     let i =  ttt.findIndex((item) => {
@@ -109,7 +138,11 @@ export struct MainMinePage {
   topHeader() {
     Column(){
       MineHeaderView({homeClick:()=>{
-
+        ywNavRouter.openRoute(this.getUniqueId())
+          .onTargetUrl(YWNavPath.vc_car)
+          .onNavWayNav(YWLocalNavType.NAV_MAIN_MINE)
+          .onRouteMode()
+          .go()
       },messageClick:()=>{
 
       },settingClick:()=>{
@@ -129,55 +162,58 @@ export struct MainMinePage {
 
   build() {
     Stack({alignContent:Alignment.TopStart}) {
-      Navigation(this.minePageNav) {
-        // Stack(){
 
-        Column(){
-          List({space:'20vp', scroller:this.scroller}){
-            ListItemGroup({header: this.topHeader()})
-            ForEach(this.mineUIState.services,(value:MineServiceGroup,index)=>{
-              MineListGroupView({groupInfo:value})
-            })
+      Column(){
 
-          }
-          .padding({left:'16vp',right:'16vp'})
+        List({space:'20vp', scroller:this.scroller}){
+          ListItemGroup({header: this.topHeader()})
+          ForEach(this.mineUIState.services,(value:MineServiceGroup,index)=>{
+            MineListGroupView({groupInfo:value})
+          })
 
-
-
-
-          Button("通用tab")
-            .onClick(()=>{
-              ywNavRouter.openRoute(this.getUniqueId())
-                .onTargetUrl(YWNavPath.root_lion_nav)
-                .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)
-                .onRouteMode()
-                .go()
-            })
         }
-
-
-
-        // }
-
+        .layoutWeight(1)
+        .padding({left:'16vp',right:'16vp'})
+        // Button("通用tab")
+        //   .onClick(()=>{
+        //     ywNavRouter.openRoute(this.getUniqueId())
+        //       .onTargetUrl(YWNavPath.root_lion_nav)
+        //       .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)
+        //       .onRouteMode()
+        //       .go()
+        //   })
       }
       .width('100%')
       .height('100%')
-      .hideTitleBar(true)
-      .navBarWidth('50%')
-      .navDestination(this.navPagesMap)
-      // .hideNavBar(this.isFullScreen)
-      .mode(this.navigationMode)
-      .onAppear(()=>{
-        hsLog.i(TAG,'--onAppear')
-      })
-      .onDisAppear(()=>{
-        hsLog.i(TAG,'--onDisAppear')
 
-      })
-      .onAreaChange((oldValue,newValue)=>{
-        hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
-
-      })
+      // Navigation(this.minePageNav) {
+      //   // Stack(){
+      //
+      //
+      //
+      //
+      //
+      //   // }
+      //
+      // }
+      // .width('100%')
+      // .height('100%')
+      // .hideTitleBar(true)
+      // .navBarWidth('50%')
+      // .navDestination(this.navPagesMap)
+      // // .hideNavBar(this.isFullScreen)
+      // .mode(this.navigationMode)
+      // .onAppear(()=>{
+      //   hsLog.i(TAG,'--onAppear')
+      // })
+      // .onDisAppear(()=>{
+      //   hsLog.i(TAG,'--onDisAppear')
+      //
+      // })
+      // .onAreaChange((oldValue,newValue)=>{
+      //   hsLog.i(TAG,`--onAreaChange:${oldValue}  ${newValue}`)
+      //
+      // })
       Text(`配置：${this.envName}`)
     }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])

@@ -1,7 +1,8 @@
-import { mainCarBuilder } from "@learn/car_har";
+import { carListBuilder, goodsDetailBuilder, mainCarBuilder } from "@learn/car_har";
 import { mainCategoryBuilder } from "@learn/category_har";
 import { debugDemoBuilder } from "@learn/debug_demo_har";
 import { mainHomeBuilder } from "@learn/home_har";
+import { hotelBuilder } from "@learn/hotel_har";
 import { TaskType } from "@learn/learn_task_har";
 import { lionAppBuilder,
   lionMainBuilder,
@@ -47,6 +48,8 @@ export class NavigationRouteTask implements ILaunchTask {
 
     this.registerDemoNav()
 
+    this.registerMainMineNav()
+
     return Promise.resolve()
   }
 
@@ -89,9 +92,11 @@ export class NavigationRouteTask implements ILaunchTask {
       {name:YWNavPath.main_tab_car,builder:wrapBuilder(maintTabContentViewBuilder)},
       {name:YWNavPath.main_tab_mine,builder:wrapBuilder(maintTabContentViewBuilder)},
 
-      {name:YWNavPath.vc_car,builder:wrapBuilder(mainCarBuilder)},
+      // {name:YWNavPath.vc_car,builder:wrapBuilder(mainCarBuilder)},
 
-      {name:YWNavPath.root_lion_nav,builder:wrapBuilder(lionAppBuilder)}
+      {name:YWNavPath.root_lion_nav,builder:wrapBuilder(lionAppBuilder)},
+      {name:YWNavPath.root_hotel_nav,builder:wrapBuilder(hotelBuilder)}
+
 
     ])
   }
@@ -122,6 +127,18 @@ export class NavigationRouteTask implements ILaunchTask {
       {name:YWNavPath.lion_tab_me,builder:wrapBuilder(commonTabContentBuilder)},
     ])
   }
+
+  private registerMainMineNav() {
+    ywNavRouter.boundRouteName(YWLocalNavType.NAV_MAIN_MINE,[
+
+      {name:YWNavPath.vc_car,builder:wrapBuilder(mainCarBuilder)},
+    // {name:YWNavPath.vc_car,builder:wrapBuilder(carListBuilder)},
+
+      {name:YWNavPath.vc_car_goods_detail,builder:wrapBuilder(goodsDetailBuilder)},
+
+    ])
+  }
+
 
   private registerDemoNav() {
     //内部自己独立路由管理

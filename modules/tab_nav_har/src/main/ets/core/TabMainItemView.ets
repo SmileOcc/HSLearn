@@ -12,10 +12,25 @@ export struct TabMainItemView {
 
   build() {
     if (this.isVertical) {
+
       Column(){
-        Image( this.tabInfo.itemImage())
-          .width("24")
-          .height("24")
+        if (this.tabInfo.badge && this.tabInfo.badge > 0) {
+          Badge({
+            count: 2,
+            position: BadgePosition.RightTop,
+            style: {fontSize:'9vp', badgeSize:'12vp'}
+          }) {
+            Image( this.tabInfo.itemImage())
+              .width("24")
+              .height("24")
+          }
+          .padding({left:'3vp'})
+        } else {
+          Image( this.tabInfo.itemImage())
+            .width("24")
+            .height("24")
+        }
+
         Text(this.tabInfo.title)
           .fontSize(13)
           .fontColor(this.tabInfo.titleColor())

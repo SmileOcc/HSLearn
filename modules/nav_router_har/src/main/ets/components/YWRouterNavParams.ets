@@ -8,6 +8,7 @@ export class YWRouterNavParams {
   userUniqueid?: string
   pageLifecycle?: YWRouterLifecycleImp
   params:YWNavParams = new Map()
+  itemInfo?: object | undefined
 
   getPageLifecycleImp(): YWRouterLifecycleImp {
     if (!this.pageLifecycle) {

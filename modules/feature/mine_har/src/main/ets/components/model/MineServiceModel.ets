@@ -1,3 +1,4 @@
+import { YWNavPath } from "@learn/nav_router_har"
 
 @ObservedV2
 export class MineServiceGroup {
@@ -17,5 +18,6 @@ export class MineServiceModel {
   desc?: string
   @Trace
   tips?: string
-  itemClick?:()=>void
+  navPath?: YWNavPath
+  itemClick?:(item:MineServiceModel)=>void
 }

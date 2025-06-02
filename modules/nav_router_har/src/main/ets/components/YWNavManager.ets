@@ -27,6 +27,16 @@ export class YWNavManager {
   static timer: number = -1;
 
   constructor() {
+    //分三层
+    //1、NAV_ROOT
+    //相关 全局弹窗跳转
+
+    //2、NAV_ROOT_MAIN_NAV
+
+    //3、NAV_ROOT_MAIN_TAB
+    //其他业务。。。
+
+    //
     //1
     this.registerLocalNav(YWLocalNavType.NAV_ROOT,undefined,"xxx",new YWRouterNavParams())
 
@@ -49,6 +59,9 @@ export class YWNavManager {
     this.registerLocalNav(YWLocalNavType.NAV_MAIN_CATEGORY, YWLocalNavType.NAV_ROOT_MAIN_TAB, YWNavPath.main_tab_category, new YWRouterNavParams())
     this.registerLocalNav(YWLocalNavType.NAV_MAIN_CAR, YWLocalNavType.NAV_ROOT_MAIN_TAB, YWNavPath.main_tab_car, new YWRouterNavParams())
     this.registerLocalNav(YWLocalNavType.NAV_MAIN_MINE, YWLocalNavType.NAV_ROOT_MAIN_TAB, YWNavPath.main_tab_mine, new YWRouterNavParams())
+
+    //hotel
+    this.registerLocalNav(YWLocalNavType.NAV_HOTEL_NAV, YWLocalNavType.NAV_ROOT_MAIN_TAB, YWNavPath.root_hotel_nav, new YWRouterNavParams())
 
     //lion
     this.registerLocalNav(YWLocalNavType.NAV_LION_MAIN_NAV, YWLocalNavType.NAV_ROOT_MAIN_TAB, YWNavPath.root_lion_nav, new YWRouterNavParams())
@@ -275,7 +288,6 @@ export class YWNavManager {
       },config.openAnimate)
 
     } else  {
-      navConfig.navPathStack
       navConfig.navPathStack.pushPathByName(config.targetUrl,navParams,config.openAnimate)
     }
   }

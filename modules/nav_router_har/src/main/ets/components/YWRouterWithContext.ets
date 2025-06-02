@@ -27,7 +27,7 @@ export class YWRouterWithContext {
 
     let navInfo = this.uiContext.getNavigationInfoByUniqueId(this.uniqueId)
     if (navInfo) {
-      this.navInfo = navInfo
+      return this.navInfo = navInfo
     } else {
       //输出提示
     }
@@ -64,7 +64,7 @@ export class YWRouterWithContext {
     }
     let navStack = this.getNavInfo()?.pathStack
     if (navStack) {
-      this.navStack = navStack
+      return this.navStack = navStack
     } else {
 
     }

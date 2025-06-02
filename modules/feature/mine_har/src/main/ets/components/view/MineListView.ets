@@ -38,6 +38,9 @@ export struct MineListGroupView {
           .height('45vp')
           .padding({left:'8vp',right:'8vp'})
         }
+        .onClick(()=>{
+          item.itemClick?.(item)
+        })
         .backgroundColor(YWConstants.RandomColor())
       })
     }

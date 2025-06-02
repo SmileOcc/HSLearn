@@ -45,6 +45,10 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "bg_gray_base",
+      "value": "#F1F3F5"
+    },
+    {
       "name": "shadow",
       "value": "#E8E8E8"
     },
