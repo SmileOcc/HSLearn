@@ -54,6 +54,5 @@ export struct MineHeaderView {
     .height(YWConstants.kMainNavSM)
     .justifyContent(FlexAlign.SpaceBetween)
     .alignItems(VerticalAlign.Center)
-    .backgroundColor(YWConstants.RandomColor())
   }
 }

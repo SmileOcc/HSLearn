@@ -1,7 +1,9 @@
 import { IAppTask, TaskType } from "@learn/learn_task_har"
 import { YWLocalNavType, YWNavPath, ywNavRouter } from "@learn/nav_router_har"
 import { hotelBuilder } from "../../../../Index"
+import { delicacyGroupBuilder } from "../components/hotellist/DelicacyGroupListPage"
 import { hotelListBuilder } from "../components/hotellist/HotelListPage"
+import { myOrderBuilder } from "../components/order/MyOrderPage"
 import { hotelReviewEditBuilder } from "../components/review/HotelReviewEditPage"
 import { reviewListBuilder } from "../components/review/ReviewListPage"
 import { hotelRoomDetailBuilder } from "../components/roomdetail/RoomDetailPage"
@@ -30,10 +32,14 @@ export class HotelTask implements IAppTask {
     ywNavRouter.boundRouteName(YWLocalNavType.NAV_HOTEL_NAV,[
 
       {name:YWNavPath.vc_hotel_list,builder:wrapBuilder(hotelListBuilder)},
+      {name:YWNavPath.vc_hotel_delicacy_list,builder:wrapBuilder(delicacyGroupBuilder)},
+
       {name:YWNavPath.vc_hotel_room_list,builder:wrapBuilder(hotelRoomListBuilder)},
       {name:YWNavPath.vc_hotel_room_detail,builder:wrapBuilder(hotelRoomDetailBuilder)},
       {name:YWNavPath.vc_hotel_review_list,builder:wrapBuilder(reviewListBuilder)},
       {name:YWNavPath.vc_hotel_review_edit,builder:wrapBuilder(hotelReviewEditBuilder)},
+
+      {name:YWNavPath.vc_hotel_my_order,builder:wrapBuilder(myOrderBuilder)},
 
     ])
     return Promise.resolve()

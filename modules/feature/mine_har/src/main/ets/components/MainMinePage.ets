@@ -215,11 +215,13 @@ export struct MainMinePage {
       //
       // })
       Text(`配置：${this.envName}`)
+        .fontSize(11)
+        .fontColor($r('app.color.level_red'))
     }
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
-    .alignContent(Alignment.TopStart)
-    .backgroundColor(YWResColor.bgBase())
-    .backgroundColor(Color.Green)
+    .alignContent(Alignment.Top)
+
+    .backgroundColor($r('app.color.bg_gray_base'))
     // .padding(getAvoidPadding(this.avoidAreas))
 
   }

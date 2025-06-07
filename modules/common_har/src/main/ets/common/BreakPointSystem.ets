@@ -1,6 +1,7 @@
-import { mediaquery } from "@kit.ArkUI";
+import { AppStorageV2, mediaquery } from "@kit.ArkUI";
 import { YWConstants } from "@learn/constants_har";
 import { hsLog } from "@learn/logger_har";
+import YWValueWrapperV2 from "./YWValueWrapperV2";
 
 // 宽度类型	取值范围(vp)	设备描述
 // xs	[0,320)	最小宽度类型设备
@@ -95,6 +96,9 @@ export class BreakpointSystem {
       let currentBreakpointValue:number = BreakpointTypeValue(this.currentBreakpoint)
       AppStorage.setOrCreate<string>(YWConstants.kCurrentBreakpoint, this.currentBreakpoint);
       AppStorage.setOrCreate<number>(YWConstants.kCurrentBreakpointValue, currentBreakpointValue);
+
+      AppStorageV2.connect(YWValueWrapperV2, YWConstants.kCurrentBreakpoint, ()=> new YWValueWrapperV2(this.currentBreakpoint))
+      AppStorageV2.connect(YWValueWrapperV2, YWConstants.kCurrentBreakpointValue, ()=> new YWValueWrapperV2(currentBreakpointValue))
 
       hsLog.i(TAG,'on current breakpoint: ' + this.currentBreakpoint + ' --> ' + currentBreakpointValue);
     }

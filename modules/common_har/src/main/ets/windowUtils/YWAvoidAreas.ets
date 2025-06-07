@@ -1,6 +1,7 @@
-import { Size, window } from '@kit.ArkUI'
+import { AppStorageV2, Size, window } from '@kit.ArkUI'
 import { YWConstants } from '@learn/constants_har';
 import { Rect } from '@ohos.UiTest';
+import YWValueWrapperV2 from '../common/YWValueWrapperV2';
 
 
 export interface YWAvoidAreas {
@@ -84,6 +85,9 @@ export async function initListerWindow(windowObj: window.Window) {
 
   AppStorage.setOrCreate(YWConstants.kStorageWidth,size_w)
   AppStorage.setOrCreate(YWConstants.kStorageHeight,size_h)
+  AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStorageWidth,()=>new YWValueWrapperV2(size_w))
+  AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStorageHeight,()=>new YWValueWrapperV2(size_h))
+
   windowObj.on("windowSizeChange", (value)=>{
 
     let rect = windowObj.getWindowProperties().windowRect
@@ -91,6 +95,10 @@ export async function initListerWindow(windowObj: window.Window) {
     let size_h = px2vp(rect.height)
     AppStorage.setOrCreate(YWConstants.kStorageWidth,size_w)
     AppStorage.setOrCreate(YWConstants.kStorageHeight,size_h)
+
+    AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStorageWidth,()=>new YWValueWrapperV2(size_w))
+    AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStorageHeight,()=>new YWValueWrapperV2(size_h))
+
 
   })
 
@@ -121,6 +129,10 @@ export async function initListerSafeWindow(windowObj: window.Window) {
   AppStorage.setOrCreate(YWConstants.kStatusBarHeight,statusBarHeight)
   AppStorage.setOrCreate(YWConstants.kSafeBottomHeight,indicatorHeight)
 
+  AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStatusBarHeight,()=>new YWValueWrapperV2(statusBarHeight))
+  AppStorageV2.connect(YWValueWrapperV2,YWConstants.kSafeBottomHeight,()=>new YWValueWrapperV2(indicatorHeight))
+
+
   windowObj.on("windowSizeChange", (value)=>{
 
     let newArea = getAvoidAreas(windowObj)
@@ -134,6 +146,10 @@ export async function initListerSafeWindow(windowObj: window.Window) {
     //注意这是pv
     AppStorage.setOrCreate(YWConstants.kStatusBarHeight,statusBarHeight)
     AppStorage.setOrCreate(YWConstants.kSafeBottomHeight,indicatorHeight)
+
+    AppStorageV2.connect(YWValueWrapperV2,YWConstants.kStatusBarHeight,()=>new YWValueWrapperV2(statusBarHeight))
+    AppStorageV2.connect(YWValueWrapperV2,YWConstants.kSafeBottomHeight,()=>new YWValueWrapperV2(indicatorHeight))
+
 
   })
 

@@ -10,20 +10,18 @@ export struct MineMenuView {
   itemView(item:MineMenuModel) {
     Column(){
       Image(item.itemImage)
-        .width('32vp')
-        .height('32vp')
-        .backgroundColor(YWConstants.RandomColor())
+        .width('24vp')
+        .height('24vp')
       Blank().height('8vp')
       Text(item.itemTitle)
         .fontSize(12)
         .maxLines(1)
-        .backgroundColor(YWConstants.RandomColor())
     }
     .width('22%')
     .padding({top:'8vp',bottom:'8vp'})
     .justifyContent(FlexAlign.Center)
     .alignItems(HorizontalAlign.Center)
-    .backgroundColor(YWConstants.RandomColor())
+    .backgroundColor($r('app.color.col_FFFFFF'))
 
   }
 
@@ -36,7 +34,6 @@ export struct MineMenuView {
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
-      .backgroundColor(Color.Red)
       .padding({left:'8vp',right:'8vp'})
     }
     .width('100%')
@@ -44,6 +41,6 @@ export struct MineMenuView {
     .borderRadius('16vp')
     .clip(true)
     .justifyContent(FlexAlign.Center)
-    .backgroundColor(YWConstants.RandomColor())
+    .backgroundColor($r('app.color.col_FFFFFF'))
   }
 }

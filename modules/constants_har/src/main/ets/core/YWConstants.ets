@@ -381,6 +381,12 @@ export class YWConstants {
   //   hsLog.d(`==== 当前线程tid: ${mainTid}`)
   //   return mainTid
   // }
+
+
+  // 相机选择器处理成功
+  static readonly CAMERA_PICKER_RESULT_CODE_SUCCESS: number = 0;
+  // 相机选择器处理失败
+  static readonly CAMERA_PICKER_RESULT_CODE_FAILURE: number = -1;
 }
 
 /**

@@ -10,6 +10,31 @@ export class BasicDataSource<T> implements IDataSource {
     return this.originDataArray[index];
   }
 
+  public addData(index: number, data: T): void {
+    this.originDataArray.splice(index, 0, data);
+  }
+
+  public pushData(data: T): void {
+    this.originDataArray.push(data);
+  }
+
+  public spliceData(start: number, deleteCount: number) {
+    this.originDataArray.splice(start, deleteCount);
+  }
+
+  public unshift(data: T) {
+    this.originDataArray.unshift(data);
+  }
+
+  public updateData(index: number, data: T): void {
+    this.originDataArray.splice(index, 1, data);
+    this.notifyDataChange(index);
+  }
+
+  public clearAll() {
+    this.originDataArray = [];
+  }
+
   registerDataChangeListener(listener: DataChangeListener): void {
     if (this.listeners.indexOf(listener) < 0) {
       console.info('add listener');

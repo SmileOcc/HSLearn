@@ -51,6 +51,20 @@ class HSTestMockManager {
     return []
   }
 
+  reqStateOrderList(status?: string | undefined):object[] {
+    let list = this.mockJsonObj?.['orderList'] ?? []
+    if (list && list instanceof Array) {
+      return list
+    }
+    return []
+  }
+  reqDelicacyGroupList(): object[] {
+    let list = this.mockJsonObj?.['delicacyList']
+    if (list && list instanceof Array) {
+      return list
+    }
+    return []
+  }
 }
 
 export let hsMockManager = new HSTestMockManager()

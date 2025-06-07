@@ -127,6 +127,33 @@ export class YWWindowUtils {
   }
 
 
+  /**
+   * 获取当前窗口
+   * @param context
+   * @returns
+   */
+  static getCurrentWindow(context: Context) {
+    return window.getLastWindow(context);
+  }
+
+  /**
+   * 获取窗口对象
+   * @returns
+   */
+  static getScreenWidth(): number{
+    let displayClass: display.Display | null = display.getDefaultDisplaySync();
+    return px2vp(displayClass.width);
+  }
+
+  /**
+   * 获取窗口对象
+   * @returns
+   */
+  static getScreenHeight(): number{
+    let displayClass: display.Display | null = display.getDefaultDisplaySync();
+    return px2vp(displayClass.height);
+  }
+
 }
 
 

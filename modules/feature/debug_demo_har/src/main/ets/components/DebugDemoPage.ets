@@ -37,6 +37,9 @@ import { TestListExchangeBuilder } from "../pages/listexchange/list_one/ListExch
 import { TestListDragViewBuilder } from "../pages/listexchange/list_two_drage/ListDragViewPage";
 import { TestListDragViewTwoBuilder } from "../pages/listexchange/list_two_drage/ListDragViewPageTwo";
 import { TestDrawPathPageBuilder } from "../pages/draw_path/TestDrawPathPage";
+import { listerScrollMoreBuilder } from "../pages/list_scroller/ListScrollerMutl";
+import { scrollWebListBuilder } from "../pages/list_scroller/ScrollWebListPage";
+import { scrollWebListCommentBuilder } from "../pages/list_scroller/scrollweblistcomment/ScrollWebListCommentPage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -133,7 +136,7 @@ export struct DebugDemoPage {
       ["调试Observed", "TestEventHub_Emitter", "新自定义弹窗", "半弹窗选择图片", "push弹窗测试+移动cell"],
       ["SafeAreaExample全区实现沉浸式效果", "SafeAreaExample1全区实现沉浸式效果", "SafeArea滚动列表底部延伸场景",
         "SafeArea重要信息被软键盘遮挡", "SafeArea软键盘弹出导致布局错位", "SafeArea自定义弹窗被键盘顶起","SafeArea标题组件不避让"],
-      ["Scroller嵌套Scroller","Scroller嵌套Web","listItem上下移动","listItem拖动移动位置","list移动交换cell","list、gard拖拽交换位置","list two拖拽交换位置",],
+      ["Scroller嵌套Scroller","Scroller嵌套Web","listItem上下移动","listItem拖动移动位置","list移动交换cell","list、gard拖拽交换位置","list two拖拽交换位置",'多层嵌套滑动ScrollWebList', '多层滑动嵌套',"list横向滚动固定头部"],
       ["消息列表 MessageListPage", "list分组红点","list移动交换cell","list、gard拖拽交换位置", "scroll集合", "自动缩放适配", "layoutWeight", "PullRefreshPage",
         "PullRefreshLazyPage", "PullRefreshListPage", "SwiperStackPage", "TopSlideMenuTestPage"],
       ["测试滑动指示器"],
@@ -643,6 +646,15 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith('图形绘制')) {
           this.demoPageNav.pushPathByName('图形绘制',true)
         }
+        if (subModel.title.startsWith('list横向滚动固定头部')) {
+          this.demoPageNav.pushPathByName('list横向滚动固定头部', true)
+        }
+        if (subModel.title.startsWith('多层滑动嵌套')) {
+          this.demoPageNav.pushPathByName('多层滑动嵌套',true)
+        }
+        if (subModel.title.startsWith('多层嵌套滑动ScrollWebList')) {
+          this.demoPageNav.pushPathByName('多层嵌套滑动ScrollWebList',true)
+        }
       })
 
     })
@@ -735,6 +747,12 @@ export struct DebugDemoPage {
     }
     else if (name == '图形绘制') {
       TestDrawPathPageBuilder()
+    } else if (name == 'list横向滚动固定头部') {
+      listerScrollMoreBuilder()
+    } else if (name == '多层滑动嵌套') {
+      scrollWebListBuilder()
+    } else if (name == '多层嵌套滑动ScrollWebList') {
+      scrollWebListCommentBuilder()
     }
 
 

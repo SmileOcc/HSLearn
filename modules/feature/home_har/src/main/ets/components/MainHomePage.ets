@@ -93,11 +93,12 @@ export struct MainHomePage {
 
     this.navParams?.getPageLifecycleImp().setPageOnShow(()=>{
       hsLog.i(TAG, "--pageOnShow")
+      this.overlayNode.showComponentContent(this.componentContentTest)
 
     })
     this.navParams?.getPageLifecycleImp().setPageOnHide(()=>{
       hsLog.i(TAG, "--pageOnHide")
-
+      this.overlayNode.hideComponentContent(this.componentContentTest)
     })
 
 

@@ -65,6 +65,11 @@ struct HotelPage {
                 // router.pushUrl({
                 //   url: 'pages/home/ctrl/DelicacyGroupListPage'
                 // });
+                ywNavRouter.openRoute(this.getUniqueId())
+                  .onTargetUrl(YWNavPath.vc_hotel_delicacy_list)
+                  .onRouteMode()
+                  .go()
+
               })
             }.columnsTemplate('1fr 1fr')
 
@@ -85,9 +90,11 @@ struct HotelPage {
               }.margin(5)
               .onClick(()=>{
                 console.log("跳转到'我的订单")
-                // router.push({
-                //   url: 'pages/home/ctrl/MyOrderPage'
-                // });
+
+                ywNavRouter.openRoute(this.getUniqueId())
+                  .onTargetUrl(YWNavPath.vc_hotel_my_order)
+                  .onRouteMode()
+                  .go()
               })
 
               GridItem() {

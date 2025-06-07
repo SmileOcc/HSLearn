@@ -65,7 +65,7 @@ export class MineViewModel extends YWBaseModel<MineUIState> {
         let serviceItem = new MineServiceModel()
 
         if (j == 0) {
-          serviceItem.itemImage = $r("app.media.account_message")
+          serviceItem.itemImage = $r("app.media.category_select")
           serviceItem.itemTitle = "消息"
         }
         else if (j == 1) {
@@ -79,7 +79,7 @@ export class MineViewModel extends YWBaseModel<MineUIState> {
 
         if ( index ==  0) {
           if (j == 0) {
-            serviceItem.itemImage = $r("app.media.account_setting")
+            serviceItem.itemImage = $r("app.media.tab_home_select")
             serviceItem.itemTitle = "文件"
             serviceItem.navPath = YWNavPath.mine_file_record
           }

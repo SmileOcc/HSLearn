@@ -20,19 +20,16 @@ export struct MineListGroupView {
             Image(item.itemImage)
               .width('24vp')
               .height('24vp')
-              .backgroundColor(YWConstants.RandomColor())
 
             Text(item.itemTitle)
               .fontSize(13)
               .maxLines(2)
               .margin({left:'5vp'})
-              .backgroundColor(YWConstants.RandomColor())
 
             Blank().layoutWeight(1)
             Image($r("app.media.arrow_right"))
               .width('15vp')
               .height('15vp')
-              .backgroundColor(YWConstants.RandomColor())
           }
           .width('100%')
           .height('45vp')
@@ -41,9 +38,10 @@ export struct MineListGroupView {
         .onClick(()=>{
           item.itemClick?.(item)
         })
-        .backgroundColor(YWConstants.RandomColor())
       })
     }
+    .borderRadius('12vp')
+    .backgroundColor($r('app.color.col_ffffff'))
 
 
   }

@@ -1,3 +1,12 @@
+import { ComponentContent, PromptAction, promptAction } from "@kit.ArkUI";
+import { dateSlideSelectorBuilder } from "./builder/CustomDialogBuilder";
+import { DialogBuilder } from "./builder/DialogBuilder";
+import { DateSlideSelector } from "./component/DateSlideSelector";
+import { DateSlideSelectorParam } from "./dto/DateSlideSelectorParam";
+import { DialogParam } from "./dto/DialogParam";
+import { LvDialogBuilderParam } from "./dto/LvDialogBuilderParam";
+import { DialogTypeEnum } from "./enum/DialogTypeEnum";
+import { YWDialogOptionsFactory } from "./util/YWDialogOptionsFactory";
 
 const DIALOG_TITLE: string = '温馨提示'; //标题
 const DIALOG_CONFIRM: string = '确定'; //确定文字
@@ -8,9 +17,139 @@ const DIALOG_BUTTON_COLOR: string = '#666666' //按钮颜色
  * 弹窗工具类（AlertDialog）
  */
 
+
 export class YWDialogUtils {
+  private static uiContext?: UIContext;
+  private static compContMap: Map<string, ComponentContent<object>> = new Map();
+
+  public static init(uiContext: UIContext) {
+    YWDialogUtils.uiContext = uiContext;
+  }
 
   private constructor() {}
+
+  /**
+   * 弹出自定义弹窗
+   *
+   * @param param
+   */
+  public static showCustomDialog(param: DialogParam): void {
+    if (!YWDialogUtils.uiContext) {
+      return;
+    }
+    let promptAction = YWDialogUtils.uiContext.getPromptAction();
+    let lvParam: LvDialogBuilderParam = YWDialogUtils.transformDialogParamToLvDialogBuilderParam(param)
+    let compCont = new ComponentContent(YWDialogUtils.uiContext, wrapBuilder(DialogBuilder), lvParam);
+    // 设置了弹窗id即可将其与弹窗关联起来，后续可凭据弹窗id关闭弹窗
+    if (param.dialogId) {
+      YWDialogUtils.compContMap.set(param.dialogId, compCont);
+    }
+    YWDialogUtils.fillCancelMethod(lvParam, promptAction, compCont, param.dialogId);
+    YWDialogUtils.fillConfirmMethod(lvParam, promptAction, compCont, param.dialogId);
+    compCont.update(lvParam);
+    let options: promptAction.BaseDialogOptions = YWDialogUtils.dealSlideToClose(param);
+    promptAction.openCustomDialog(compCont, options);
+  }
+
+  /**
+   * 根据弹窗id关闭弹窗
+   * @param dialogId
+   */
+  public static closeCustomDialogById(dialogId: string) {
+    if (!YWDialogUtils.uiContext) {
+      return;
+    }
+    let promptAction = YWDialogUtils.uiContext.getPromptAction();
+    let compCont = YWDialogUtils.compContMap.get(dialogId);
+    if (compCont) {
+      YWDialogUtils.compContMap.delete(dialogId);
+      promptAction.closeCustomDialog(compCont);
+      // 关闭弹框之后释放对应的ComponentContent
+      compCont.dispose();
+    }
+  }
+
+  private static dealSlideToClose(param: DialogParam) {
+    param.isSlideToClose = param.isSlideToClose ?? true;
+    let options: promptAction.BaseDialogOptions = YWDialogOptionsFactory.getOptionsByDialogType(param.dialogType);
+    options.onWillDismiss = (action: DismissDialogAction) => {
+      if (action.reason == DismissReason.PRESS_BACK) {
+        if (param.slideCallback) {
+          param.slideCallback();
+        }
+        if (param.isSlideToClose) {
+          action.dismiss();
+        }
+      }
+    };
+    return options;
+  }
+
+  private static transformDialogParamToLvDialogBuilderParam(param: DialogParam): LvDialogBuilderParam {
+    return {
+      dialogType: param.dialogType,
+      builder: param.builder,
+      closeDialog: param.dialogBuilderParam?.closeDialog,
+      onConfirm: param.dialogBuilderParam?.onConfirm,
+      data: param.dialogBuilderParam?.data,
+      isModalClosedByOverlayClick: param.isModalClosedByOverlayClick ?? true
+    };
+  }
+
+  private static fillConfirmMethod(param: LvDialogBuilderParam, promptAction: PromptAction,
+    compCont: ComponentContent<DialogParam>, dialogId: string | undefined) {
+    let confirm = param.onConfirm;
+    let confirmDialog = (isCloseDialog?: boolean, data?: ESObject) => {
+      if (confirm) {
+        confirm(isCloseDialog, data);
+      }
+      if (isCloseDialog) {
+        if (dialogId) {
+          YWDialogUtils.compContMap.delete(dialogId);
+        }
+        promptAction.closeCustomDialog(compCont);
+        compCont.dispose();
+      }
+    };
+    param.onConfirm = confirmDialog;
+  }
+
+  private static fillCancelMethod(param: LvDialogBuilderParam, promptAction: PromptAction,
+    compCont: ComponentContent<DialogParam>, dialogId: string | undefined) {
+    let customCancel = param.closeDialog;
+    let cancelDialog = () => {
+      if (customCancel) {
+        customCancel();
+      }
+      if (dialogId) {
+        YWDialogUtils.compContMap.delete(dialogId);
+      }
+      promptAction.closeCustomDialog(compCont);
+      // 关闭弹框之后释放对应的ComponentContent
+      compCont.dispose();
+    };
+    param.closeDialog = cancelDialog;
+  }
+
+  /**
+   * 时间滑动选择弹窗
+   *
+   * @param getSelectTime 获取选择时间的回调函数
+   * @param param         定义时间滑动选择弹窗的当前选择时间以及最大时间最小时间，非必填，不填则默认
+   */
+  public static showDateSlideSelector(getSelectTime: (selectTime: number) => void,
+    param?: DateSlideSelectorParam): void {
+    YWDialogUtils.showCustomDialog({
+      builder: wrapBuilder(dateSlideSelectorBuilder),
+      dialogType: DialogTypeEnum.BOTTOM,
+      dialogBuilderParam: {
+        onConfirm: (isCloseDialog?: boolean, data?: ESObject) => {
+          getSelectTime(data);
+        },
+        data: param
+      }
+    });
+  }
 
 
   /**

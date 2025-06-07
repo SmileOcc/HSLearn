@@ -4,6 +4,7 @@ import ToastUtils from './src/main/ets/utils/ToastUtils'
 import UserAgentUtils from './src/main/ets/utils/UserAgentUtils'
 import YWBaseModel from './src/main/ets/model/YWBaseModel'
 import YWShowToast from './src/main/ets/alert/YWToastUtils'
+import YWValueWrapperV2 from './src/main/ets/common/YWValueWrapperV2'
 
 export { YWAlertConfirm } from  './src/main/ets/alert/YWAlertConfirm'
 export { getDefaultAvoidAreas, getAvoidPadding } from './src/main/ets/windowUtils/YWAvoidAreas'
@@ -42,9 +43,10 @@ export { YWNavRouterUtils } from './src/main/ets/utils/YWNavRouterUtils'
 export { YWTipsUtil } from  './src/main/ets/alert/YWTipsUtils'
 export { YWToastUtils } from  './src/main/ets/alert/YWToastUtils'
 export { YWDialogUtils } from  './src/main/ets/alert/YWDialogUtils'
+export { DialogBuilderParam } from './src/main/ets/alert/dto/DialogBuilderParam'
+export { DialogTypeEnum } from './src/main/ets/alert/enum/DialogTypeEnum'
 export { YWAlertControlDialog } from  './src/main/ets/alert/YWAlertControlDialog'
 export { YWActionUtils } from  './src/main/ets/alert/YWActionUtils'
-
 
 
 
@@ -88,3 +90,4 @@ export { ThemeManager } from './src/main/ets/utils/ThemeManager'
 export { ToastUtils }
 export { UserAgentUtils }
 export { YWShowToast }
+export {YWValueWrapperV2}

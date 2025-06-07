@@ -1,6 +1,7 @@
 import { YWConstants, YWStorageConstants } from "@learn/constants_har";
 import { HSAccountModel, HSUserInfoManager } from "@learn/userinfo_har";
 import { App, AppStorageV2 } from "@kit.ArkUI";
+import { YWLocalNavType, YWNavPath, ywNavRouter } from "@learn/nav_router_har";
 
 @ComponentV2
 export struct MineUserInfoView {
@@ -70,6 +71,11 @@ export struct MineUserInfoView {
                 this.localUseInfo.nickName = this.localUseInfo.nickName === "odd" ? "occ" : "odd"
                 HSUserInfoManager.getInstance().updateUserInfo(this.localUseInfo)
               }
+              ywNavRouter.openRoute(this.getUniqueId())
+                // .onNavWayNav(YWLocalNavType.NAV_MAIN_MINE)
+                .onTargetUrl(YWNavPath.mine_user_info)
+                .onItemInfo(this.localUseInfo)
+                .go()
             })
           Blank().width('4vp')
         }
@@ -98,6 +104,7 @@ export struct MineUserInfoView {
           Blank().width(4)
           Row(){
             Text("社区详情")
+              .fontSize(13)
               .maxLines(1)
               .textOverflow({overflow:TextOverflow.Ellipsis})
               .fontColor($r('app.color.col_666666'))
@@ -112,7 +119,6 @@ export struct MineUserInfoView {
           .alignItems(VerticalAlign.Center)
           .justifyContent(FlexAlign.End)
           .constraintSize({maxWidth:'100vp'})
-          .backgroundColor(YWConstants.RandomColor())
 
           //图片区域大小是 16 + 上下， 无语
           Image($r("app.media.arrow_right"))
@@ -120,7 +126,6 @@ export struct MineUserInfoView {
             .objectFit(ImageFit.Contain)
             .fillColor($r('app.color.col_666666'))
             .padding({top:'8vp',bottom:'8vp',right:'4vp'})
-            .backgroundColor(YWConstants.RandomColor())
         }
         .onClick(()=>{
 
@@ -129,9 +134,8 @@ export struct MineUserInfoView {
       // .width('100%')
       .alignItems(VerticalAlign.Center)
       .justifyContent(FlexAlign.Start)
-      .backgroundColor(Color.Yellow)
+      .backgroundColor($r('app.color.bg_gray_base'))
     }
-    .backgroundColor(Color.Red)
     .width('100%')
   }
 
@@ -247,6 +251,7 @@ export struct MineUserInfoView {
       }
     }
     .width('100%')
+    .backgroundColor($r('app.color.bg_gray_base'))
     // .padding({left:'16vp',right:'16vp', top:'12vp'})
     // .margin({left:'16vp',right:'16vp', top:'12vp'})//这里 左右没有效果
 

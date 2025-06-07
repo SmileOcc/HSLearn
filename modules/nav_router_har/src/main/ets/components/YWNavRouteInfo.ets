@@ -22,7 +22,7 @@ export class YWNavRouterInfo {
     return this
   }
 
-  onItemInfo(itemInfo: object): YWNavRouterInfo {
+  onItemInfo(itemInfo: object | undefined): YWNavRouterInfo {
     this.config.targetParams.itemInfo = itemInfo
     return this
   }
