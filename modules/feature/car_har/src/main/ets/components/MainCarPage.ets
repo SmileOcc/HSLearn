@@ -537,11 +537,11 @@ struct GoodsListItem {
       //
 
       // 可以注册到一二三级路由 或其他，需要指定
-      ywNavRouter.openRoute(this.getUniqueId())
-        .onTargetUrl(YWNavPath.vc_car_goods_detail)
-        .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)//跨路由跳转
-        .onRouteMode()
-        .go()
+      // ywNavRouter.openRoute(this.getUniqueId())
+      //   .onTargetUrl(YWNavPath.vc_car_goods_detail)
+      //   .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)//跨路由跳转
+      //   .onRouteMode()
+      //   .go()
 
       //默认是在当前NAV_MAIN_CAR 跳转
       // ywNavRouter.openRoute(this.getUniqueId())
@@ -556,6 +556,11 @@ struct GoodsListItem {
       //   .onNavWayCurrent()
       //   .onRouteMode()
       //   .go()
+
+      ywNavRouter.openRoute(this.getUniqueId())
+        .onTargetUrl(YWNavPath.root_goods_detail_nav)
+        .onRouteMode()
+        .go()
     })
 
   }

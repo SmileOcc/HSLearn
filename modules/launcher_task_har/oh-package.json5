@@ -25,6 +25,8 @@
     "@learn/network_har": "file:../network_har",
     "@learn/logger_har": "file:../logger_har",
     "@learn/userinfo_har": "file:../feature/userinfo_har",
-    "@learn/hotel_har": "file:../feature/hotel_har"
+    "@learn/hotel_har": "file:../feature/hotel_har",
+    "@learn/goods_detail_har": "file:../feature/goods_detail_har",
+    "@learn/community_home_har": "file:../feature/community/community_home_har"
   }
 }

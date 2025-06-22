@@ -1,2 +1,2 @@
 export { HSRegisterNetworkListener } from './src/main/ets/HSNetworkService';
-export { NetworkType } from './src/main/ets/core/NetworkConstants'
+export { NetEventData, NetworkData, NetworkEventName } from './src/main/ets/core/NetEventData'

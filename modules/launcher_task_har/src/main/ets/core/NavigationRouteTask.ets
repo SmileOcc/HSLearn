@@ -1,6 +1,8 @@
 import { carListBuilder, goodsDetailBuilder, mainCarBuilder } from "@learn/car_har";
 import { mainCategoryBuilder } from "@learn/category_har";
+import { communityHomeBuilder } from "@learn/community_home_har";
 import { debugDemoBuilder } from "@learn/debug_demo_har";
+import { goodsDetailNavBuilder } from "@learn/goods_detail_har";
 import { mainHomeBuilder } from "@learn/home_har";
 import { hotelBuilder } from "@learn/hotel_har";
 import { TaskType } from "@learn/learn_task_har";
@@ -95,8 +97,9 @@ export class NavigationRouteTask implements ILaunchTask {
       // {name:YWNavPath.vc_car,builder:wrapBuilder(mainCarBuilder)},
 
       {name:YWNavPath.root_lion_nav,builder:wrapBuilder(lionAppBuilder)},
-      {name:YWNavPath.root_hotel_nav,builder:wrapBuilder(hotelBuilder)}
-
+      {name:YWNavPath.root_hotel_nav,builder:wrapBuilder(hotelBuilder)},
+      {name:YWNavPath.root_goods_detail_nav, builder: wrapBuilder(goodsDetailNavBuilder)},
+      {name:YWNavPath.root_community_nav, builder: wrapBuilder(communityHomeBuilder)}
 
     ])
   }

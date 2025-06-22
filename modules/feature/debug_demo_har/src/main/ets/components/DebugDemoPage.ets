@@ -40,6 +40,7 @@ import { TestDrawPathPageBuilder } from "../pages/draw_path/TestDrawPathPage";
 import { listerScrollMoreBuilder } from "../pages/list_scroller/ListScrollerMutl";
 import { scrollWebListBuilder } from "../pages/list_scroller/ScrollWebListPage";
 import { scrollWebListCommentBuilder } from "../pages/list_scroller/scrollweblistcomment/ScrollWebListCommentPage";
+import { TestGradientPageBuilder } from "../pages/gradient/TestGradientPage";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -132,6 +133,7 @@ export struct DebugDemoPage {
 
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
+      ["渐变色"],
       ["TestWeb", "web同层组件", "webPre预加载web", "2webPre预加载web", "3webPre预加载web", "测试NodeController"],
       ["调试Observed", "TestEventHub_Emitter", "新自定义弹窗", "半弹窗选择图片", "push弹窗测试+移动cell"],
       ["SafeAreaExample全区实现沉浸式效果", "SafeAreaExample1全区实现沉浸式效果", "SafeArea滚动列表底部延伸场景",
@@ -655,6 +657,9 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith('多层嵌套滑动ScrollWebList')) {
           this.demoPageNav.pushPathByName('多层嵌套滑动ScrollWebList',true)
         }
+        if (subModel.title.startsWith('渐变色')) {
+          this.demoPageNav.pushPathByName('渐变色', true)
+        }
       })
 
     })
@@ -753,6 +758,8 @@ export struct DebugDemoPage {
       scrollWebListBuilder()
     } else if (name == '多层嵌套滑动ScrollWebList') {
       scrollWebListCommentBuilder()
+    } else if (name == '渐变色') {
+      TestGradientPageBuilder()
     }
 
 

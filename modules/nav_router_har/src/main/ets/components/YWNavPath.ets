@@ -21,6 +21,8 @@ export enum YWNavPath {
   vc_car = "learn://vc/car",
   vc_car_goods_detail = "learn://vc/car/goods_detail",
 
+  root_goods_detail_nav = "learn://root/goods_detail",
+
   common_tab_nav = "learn://root/common_tab_nav",
 
   root_lion_nav = "learn://root/lion_nav",
@@ -46,6 +48,13 @@ export enum YWNavPath {
   vc_hotel_review_list = "learn://hotel/vc/hotel_review_list",
   vc_hotel_review_edit = "learn://hotel/vc/hotel_review_edit",
 
-  vc_hotel_my_order = "learn://hotel/vc/hotel_my_order"
+  vc_hotel_my_order = "learn://hotel/vc/hotel_my_order",
 
+  //address
+  root_address_nav = "learn://root/address_nav",
+  root_address_detail_nav = "learn://root/address_detail_nav",
+
+
+  //
+  root_community_nav = "learn://root/community_nav"
 }

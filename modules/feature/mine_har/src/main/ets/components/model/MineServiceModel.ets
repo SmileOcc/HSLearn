@@ -20,4 +20,5 @@ export class MineServiceModel {
   tips?: string
   navPath?: YWNavPath
   itemClick?:(item:MineServiceModel)=>void
+  borderRadius: number = 0 //1 上 2 下
 }

@@ -1,0 +1,11 @@
+{
+  "module": {
+    "name": "community_home_har",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet",
+      "2in1"
+    ]
+  }
+}

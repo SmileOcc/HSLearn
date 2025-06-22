@@ -1,10 +1,11 @@
 import bundleManager from '@ohos.bundle.bundleManager';
 import { BusinessError } from '@ohos.base';
-import { KeyboardAvoidMode, window } from '@kit.ArkUI';
+import { KeyboardAvoidMode, promptAction, window } from '@kit.ArkUI';
 import { resourceManager } from '@kit.LocalizationKit';
 import { common, Want } from '@kit.AbilityKit';
 import { hsLog } from '@learn/logger_har';
 import { YWDeviceUtils } from './YWDeviceUtils';
+import { emitter } from '@kit.BasicServicesKit';
 
 
 /**
@@ -26,6 +27,10 @@ export class YWAppUtils{
   private static context: common.UIAbilityContext; //common.UIAbilityContext，上下文
   private static windowStage: window.WindowStage;
 
+  // 默认的顶部导航栏高度
+  public static readonly STATUS_BAR_HEIGHT = 38.8;
+  // 默认的底部导航条高度
+  public static readonly BOTTOM_AVOID_HEIGHT = 10;
 
   /**
    * 初始化方法,缓存全局变量，在UIAbility的onWindowStageCreate方法中初始化该方法。
@@ -247,6 +252,59 @@ export class YWAppUtils{
     return avoidArea.bottomRect.height;
   }
 
+  /**
+   * 获取主窗口顶部导航栏高度
+   * @returns {callback((statusBarHeight: number) => void))}
+   */
+  static getNavStatusBarHeight(callback: ((statusBarHeight: number) => void)): void {
+    if (!YWAppUtils.windowStage) {
+      hsLog.e("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
+      return;
+    }
+    YWAppUtils.windowStage.getMainWindow((err, windowClass: window.Window) => {
+      if (err.code) {
+        hsLog.e(`Failed to obtain the main window. Code:${err.code}, message:${err.message}`);
+        return;
+      }
+      try {
+        const type = window.AvoidAreaType.TYPE_SYSTEM;
+        const avoidArea = windowClass.getWindowAvoidArea(type);
+        const height = avoidArea.topRect.height;
+        hsLog.i("Successful get statusHeight" + height);
+        callback(height);
+      } catch (err) {
+        callback(YWAppUtils.STATUS_BAR_HEIGHT);
+        hsLog.e("Failed to get statusHeight");
+      }
+    });
+  }
+
+  /**
+   * 获取主窗口底部导航条高度
+   * @returns {callback: ((bottomAvoidHeight: number) => void)}
+   */
+  static getBottomAvoidHeight(callback: ((bottomAvoidHeight: number) => void)): void {
+    if (!YWAppUtils.windowStage) {
+      hsLog.e('windowStage is undefined.');
+      return;
+    }
+    YWAppUtils.windowStage.getMainWindow((err, windowClass: window.Window) => {
+      if (err.code) {
+        hsLog.e(`Failed to obtain the main window. Code:${err.code}, message:${err.message}`);
+        return;
+      }
+      try {
+        const type = window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR;
+        const avoidArea = windowClass.getWindowAvoidArea(type);
+        const height = avoidArea.bottomRect.height;
+        hsLog.i('Successful get bottomAvoidHeight ==' + height);
+        callback(height);
+      } catch (err) {
+        callback(YWAppUtils.BOTTOM_AVOID_HEIGHT);
+        hsLog.e("Failed to get bottomAvoidHeight");
+      }
+    });
+  }
 
   /**
    * 设置沉浸式状态栏
@@ -283,6 +341,91 @@ export class YWAppUtils{
       });
     }
   }
+
+  static setSystemBarContentColor(color: string) {
+    if (!YWAppUtils.windowStage) {
+      hsLog.e("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
+      return;
+    }
+    YWAppUtils.windowStage.getMainWindow((err, windowClass: window.Window) => {
+      if (err.code) {
+        hsLog.e(`Failed to obtain the main window. Code:${err.code}, message:${err.message}`);
+        return;
+      }
+      try {
+        // 设置导航栏，状态栏内容颜色
+        windowClass.setWindowSystemBarProperties({
+          statusBarContentColor: color
+        });
+        hsLog.i('Successful to set windowLayoutFullScreen');
+      } catch (err) {
+        hsLog.e("Failed to set windowLayoutFullScreen");
+      }
+    });
+  }
+
+  /**
+   * 当前主窗口是否开启沉浸模式
+   * @returns {void}
+   */
+  static setImmersive(popPage?: () => void) {
+    if (!YWAppUtils.windowStage) {
+      hsLog.e("windowStage为空，请在UIAbility的onWindowStageCreate方法中调用YWAppUtils的init方法初始化！");
+      return;
+    }
+    YWAppUtils.windowStage.getMainWindow((err, windowClass: window.Window) => {
+      if (err.code) {
+        hsLog.e(`Failed to obtain the main window. Code:${err.code}, message:${err.message}`);
+        return;
+      }
+      try {
+        // 设置沉浸式全屏
+        windowClass.setWindowLayoutFullScreen(true)
+          .then(() => {
+            YWAppUtils.registerEmitter(windowClass, popPage);
+          })
+        hsLog.i('Successful to set windowLayoutFullScreen');
+      } catch (err) {
+        hsLog.e("Failed to set windowLayoutFullScreen");
+      }
+    });
+  }
+
+  /*
+   * 添加事件订阅
+   */
+  // TODO: 知识点：通过emitter.on监听的方式来改变沉浸式适配和状态栏的变化。
+  static registerEmitter(windowClass: window.Window, popPage?: () => void) {
+    // 定义返回主页时发送的事件id
+    let innerEvent: emitter.InnerEvent = {
+      eventId: 2
+    };
+    emitter.on(innerEvent, (data: emitter.EventData) => {
+      // 收到返回事件，显示状态栏和导航栏，退出全屏模式，再返回主页
+      if (data?.data?.backPressed) {
+        // 设置导航栏，状态栏内容为白色
+        windowClass.setWindowSystemBarProperties({
+          statusBarContentColor: '#000000'
+        })
+          .then(() => {
+            if (popPage) {
+              popPage();
+            } else {
+
+            }
+          });
+      }
+    })
+  }
+
+  /*
+   * 取消事件订阅
+   */
+  static deleteEmitter() {
+    emitter.off(2);
+  }
+
+
 
 
   /**

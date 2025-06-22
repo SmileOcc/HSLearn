@@ -2,6 +2,7 @@ import { YWBaseNavBar } from "@learn/baseui_har"
 import { YWConstants } from "@learn/constants_har"
 import { hsLog } from "@learn/logger_har"
 import { ywDebugGlobal } from "../../core/DebugGlobal"
+import { HSDataSource, HSLazyDataSource } from "@learn/base_model_har";
 
 const TAG = "ListScrollerMore"
 
@@ -29,12 +30,16 @@ class SubItem {
 
 @ComponentV2
 export struct ListScrollerMore {
-  @Local fileDatas: FileItem[] = []
-  @Local fileWidth: number = 200
+  private fileDatas: FileItem[] = []
+  @Local fileWidth: number = 150
   private fileScroll: Scroller = new Scroller()
 
   private outScroller: Scroller = new Scroller()
+  private moveDistance: number = 0.0
+  private appearCell: Set<Scroller> = new Set()
 
+  // 懒加载数据
+  @Local fileSource: HSDataSource<FileItem> = new HSDataSource([]);
 
   handMove(moveY: number): boolean {
     if (this.fileWidth - moveY > 100 || this.fileWidth - moveY < 250) {
@@ -47,7 +52,7 @@ export struct ListScrollerMore {
   }
 
   aboutToAppear(): void {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 20; i++) {
       const tempFile: FileItem = new FileItem()
       tempFile.name = "file_name_" + i
       tempFile.id = "cid_" + i
@@ -62,6 +67,8 @@ export struct ListScrollerMore {
       tempFile.childs = subs
       this.fileDatas.push(tempFile)
     }
+
+    this.fileSource.pushData(this.fileDatas)
   }
 
   @Builder
@@ -85,7 +92,8 @@ export struct ListScrollerMore {
 
   @Builder
   scrollItemView(item: FileItem) {
-    Scroll(this.outScroller) {
+    // Scroll(this.outScroller) {
+    Scroll() {
       Row() {
         Text("======aa======")
           .maxLines(1)
@@ -126,6 +134,7 @@ export struct ListScrollerMore {
           }, (subItem: string) => subItem)
         }
         .id("inner")
+        .flingSpeedLimit(100)
         .listDirection(Axis.Horizontal)
         .edgeEffect(EdgeEffect.None)
         .layoutWeight(1)
@@ -142,35 +151,39 @@ export struct ListScrollerMore {
     .id('outer')
     .scrollable(ScrollDirection.Horizontal)
     .width('100%')
+    .onAppear(()=>{
+      this.appearCell.add(item.subScroll)
+      this.scrollAllVisAppear()
+    })
+    .onDisAppear(()=>{
+      this.appearCell.delete(item.subScroll)
+    })
     // TODO：知识点：通过调用Scroll.onScrollFrameBegin()，在每帧开始滚动时触发时将Scroll返回的实际滚动量的offset，通过scrollBy(0, offset)方法，将Scroll的偏移量派发给Web、List。
     .onScrollFrameBegin((offset: number, state: ScrollState) => {
 
-      if (offset > 0) { //左滑
+      if (offset >= 0) { //左滑
         if (this.fileWidth > 100) {
-          this.fileWidth -= 2
-          hsLog.d(TAG, `==左滑 减少宽度：fileWidth:${this.fileWidth}}`)
+          this.fileWidth -= offset
+          hsLog.d(TAG, `==左滑 减少宽度 ${offset} ：fileWidth:${this.fileWidth}}`)
           return { offsetRemain: 0 }
         }
       } else if (offset < 0) { //右滑
         if (item.subScroll.currentOffset().xOffset <= 0) {
           if (this.fileWidth <= 150) {
-            this.fileWidth += 2
-            hsLog.d(TAG, `==右滑 增加宽度：fileWidth:${this.fileWidth}}`)
+            this.fileWidth -= offset
+            hsLog.d(TAG, `==右滑 增加宽度 ${offset}：fileWidth:${this.fileWidth}}`)
             return { offsetRemain: 0 }
-
           }
         }
       }
       if (offset > 0) { // 手指左滑
         this.scrollAllBy(offset)
         hsLog.d(TAG, `==左滑 liseter offset:${offset}==:${this.fileWidth}}`)
-
         return { offsetRemain: 0 }
         // }
       } else if (offset < 0) { // 手指右滑
         this.scrollAllBy(offset)
         hsLog.d(TAG, `==右滑 liseter offset:${offset}==:${this.fileWidth}}`)
-
         return { offsetRemain: 0 }
       }
 
@@ -181,9 +194,36 @@ export struct ListScrollerMore {
   }
 
   scrollAllBy(offsetX: number) {
+    if (this.moveDistance + offsetX <= 0) {
+      this.moveDistance = 0
+    } else {
+      this.moveDistance += offsetX
+    }
+    hsLog.d(TAG, `==内部滚动 距离:${this.moveDistance}==:${this.fileWidth}}`)
 
-    for (let item of this.fileDatas) {
-      item.subScroll.scrollBy(offsetX, 0)
+    // for (let item of this.fileDatas) {
+    //   item.subScroll.scrollBy(offsetX, 0)
+    // }
+    for (let itemScroll of this.appearCell) {
+      itemScroll.scrollBy(offsetX, 0)
+    }
+  }
+
+  scrollAllVisAppear() {
+    // for (let item of this.fileDatas) {
+    //   item.subScroll.scrollTo({
+    //     xOffset: this.moveDistance,
+    //     yOffset: 0,
+    //     animation: false
+    //   })
+    // }
+
+    for (let itemScroll of this.appearCell) {
+      itemScroll.scrollTo({
+        xOffset: this.moveDistance,
+        yOffset: 0,
+        animation: false
+      })
     }
   }
 
@@ -211,12 +251,14 @@ export struct ListScrollerMore {
     Column() {
       //数据列表
       List({ space: 20, scroller: this.fileScroll }) {
-        ForEach(this.fileDatas, (item: FileItem, index: number) => {
+        LazyForEach(this.fileSource, (item: FileItem, index: number) => {
           ListItem() {
             this.scrollItemView(item)
           }
         }, (item: string) => item)
       }
+      .flingSpeedLimit(100)
+      .cachedCount(3)
 
     }
     .width('100%')

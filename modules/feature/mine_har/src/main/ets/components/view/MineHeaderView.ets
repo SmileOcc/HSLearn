@@ -7,20 +7,21 @@ export struct MineHeaderView {
   @Event homeClick?:()=>void
   @Event messageClick?:()=>void
   @Event settingClick?:()=>void
+  @Param isBlack: boolean = false
 
   @Builder
   leftView(click?:()=>void) {
     Row(){
-      this.itemView($r('app.media.tab_bag_select'),0,click)
+      this.itemView(this.isBlack ? $r('app.media.status_bar_animation_scan_black') : $r('app.media.status_bar_animation_scan_white'),0,click)
     }
   }
 
   @Builder
   rightView(messageClick?:()=>void, click?:()=>void) {
     Row(){
-      this.itemView($r('app.media.account_message'),1,messageClick)
+      this.itemView(this.isBlack ? $r('app.media.status_bar_animation_share_black') : $r('app.media.status_bar_animation_share_white'),1,messageClick)
       Blank().width('8vp')
-      this.itemView($r('app.media.account_setting'),0,click)
+      this.itemView(this.isBlack ? $r('app.media.status_bar_animation_setting_black') : $r('app.media.account_setting'),0,click)
     }
   }
 
@@ -50,6 +51,7 @@ export struct MineHeaderView {
       this.leftView(this.homeClick)
       this.rightView(this.messageClick, this.settingClick)
     }
+    .padding({left:12,right:12})
     .width('100%')
     .height(YWConstants.kMainNavSM)
     .justifyContent(FlexAlign.SpaceBetween)

@@ -10,6 +10,7 @@ import { hsLog } from '@learn/logger_har';
 import { HSLocalConfig } from '@learn/app_config_har';
 import BuildProfile from 'BuildProfile';
 import { hsMockManager } from '@learn/res_har';
+import { ImageKnife } from '@ohos/imageknife';
 
 const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
@@ -52,6 +53,9 @@ export abstract  class LearnEntryAbility extends MainAbility {
 
     //本地mock数据
     hsMockManager.setContext(this.context)
+
+    // 如果需要用文件缓存，需要提前初始化文件缓存
+    ImageKnife.getInstance().initFileCache(this.context, 256, 256 * 1024 * 1024)
  }
 
 

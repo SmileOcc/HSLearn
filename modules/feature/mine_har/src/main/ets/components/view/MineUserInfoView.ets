@@ -82,7 +82,7 @@ export struct MineUserInfoView {
         Column(){
           Text(this.localUseInfo?.nickName ?? "aaa")
             .fontSize(16)
-            .fontColor($r('app.color.col_0D0D0D'))
+            .fontColor($r('app.color.col_FFFFFF'))
             .fontWeight(FontWeight.Medium)
             .textAlign(TextAlign.Start)
             .maxLines(1)
@@ -107,7 +107,7 @@ export struct MineUserInfoView {
               .fontSize(13)
               .maxLines(1)
               .textOverflow({overflow:TextOverflow.Ellipsis})
-              .fontColor($r('app.color.col_666666'))
+              .fontColor($r('app.color.col_ffffff'))
 
             //这个不能放这里，会把箭头 挤出去，奇怪
             // Image($r("app.media.arrow_right"))
@@ -129,12 +129,17 @@ export struct MineUserInfoView {
         }
         .onClick(()=>{
 
+          ywNavRouter.openRoute(this.getUniqueId())
+            .onTargetUrl(YWNavPath.root_community_nav)
+            .onNavWayNav(YWLocalNavType.NAV_ROOT_MAIN_TAB)
+            .go()
+
         })
       }
       // .width('100%')
       .alignItems(VerticalAlign.Center)
       .justifyContent(FlexAlign.Start)
-      .backgroundColor($r('app.color.bg_gray_base'))
+      // .backgroundColor($r('app.color.bg_gray_base'))
     }
     .width('100%')
   }
@@ -171,16 +176,19 @@ export struct MineUserInfoView {
             Text('VIP')
               .fontSize(24)
               .fontWeight(400)
-              .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+              .fontColor(YWConstants.HexColorA('000000',1))
+            // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
             Button(){
               Text('5项权益 >')
-                .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+                .fontColor(YWConstants.HexColorA('0d0d0d',1))
+                  // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
                 .fontSize(13)
             }
             .height(24)
             .margin({left:12})
             .padding({left:8,top:3,right:8,bottom:3})
-            .backgroundColor(YWConstants.HexColorA('ffcc33',0.5))
+            .backgroundColor(YWConstants.HexColorA('0d0d0d',0.5))
+            // .backgroundColor(YWConstants.HexColorA('ffcc33',0.5))
             .borderRadius(12)
           }
           Button('升级攻略')
@@ -188,8 +196,10 @@ export struct MineUserInfoView {
             .width(80)
             .height(24)
             .borderWidth(1)
-            .fontColor(YWConstants.HexColorA('ffcc33',0.9))
-            .borderColor(YWConstants.HexColorA('ffcc33',0.9))
+            .fontColor(YWConstants.HexColorA('0d0d0d',1))
+            .borderColor(YWConstants.HexColorA('0d0d0d',1))
+              // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+            // .borderColor(YWConstants.HexColorA('ffcc33',0.9))
             .padding({left:10,bottom:3,right:10,top:3})
         }
         .justifyContent(FlexAlign.SpaceBetween)
@@ -198,7 +208,8 @@ export struct MineUserInfoView {
 
         //中
         Text('当前积分： 0')
-          .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+          .fontColor(YWConstants.HexColorA('0d0d0d',1))
+            // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
           .fontSize(16)
           .fontWeight(Color.White)
           .margin({top:12})
@@ -210,17 +221,20 @@ export struct MineUserInfoView {
               .width('90%')
               .height(4)
               .backgroundColor(Color.White)
-              .color(YWConstants.HexColorA('ffcc33',0.9))
+              .color(YWConstants.HexColorA('0d0d0d',0.9))
+            // .color(YWConstants.HexColorA('ffcc33',0.9))
             Text('恭喜您已达到VIP级会员')
               .fontSize(13)
-              .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+              .fontColor(YWConstants.HexColorA('0d0d0d',1))
+                // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
               .margin({top:12})
           }
           .alignItems(HorizontalAlign.Start)
           .width('60%')
 
           Text('NO:C000307')
-            .fontColor(YWConstants.HexColorA('ffcc33',0.9))
+            .fontColor(YWConstants.HexColorA('0d0d0d',1))
+              // .fontColor(YWConstants.HexColorA('ffcc33',0.9))
             .fontSize(13)
             .margin({top:12})
         }
@@ -234,7 +248,7 @@ export struct MineUserInfoView {
 
       .borderRadius(16)
       .clip(true)
-      .backgroundColor(YWConstants.HexColorA('663300',1))
+      .backgroundColor(YWConstants.HexColorA('ffffff',0.99))
       .justifyContent(FlexAlign.SpaceBetween)
       .alignItems(HorizontalAlign.Start)
     }
@@ -251,7 +265,7 @@ export struct MineUserInfoView {
       }
     }
     .width('100%')
-    .backgroundColor($r('app.color.bg_gray_base'))
+    // .backgroundColor($r('app.color.bg_gray_base'))
     // .padding({left:'16vp',right:'16vp', top:'12vp'})
     // .margin({left:'16vp',right:'16vp', top:'12vp'})//这里 左右没有效果
 

@@ -1,5 +1,5 @@
 {
-  "name": "global_service_har",
+  "name": "@learn/global_service_har",
   "version": "1.0.0",
   "description": "Please describe the basic information.",
   "main": "Index.ets",

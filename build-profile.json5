@@ -404,6 +404,22 @@
     {
       "name": "hotel_har",
       "srcPath": "./modules/feature/hotel_har",
+    },
+    {
+      "name": "address_har",
+      "srcPath": "./modules/feature/address_har",
+    },
+    {
+      "name": "goods_detail_har",
+      "srcPath": "./modules/feature/goods_detail_har",
+    },
+    {
+      "name": "community_home_har",
+      "srcPath": "./modules/feature/community/community_home_har",
+    },
+    {
+      "name": "base_image_har",
+      "srcPath": "./modules/base_image_har",
     }
   ]
 }

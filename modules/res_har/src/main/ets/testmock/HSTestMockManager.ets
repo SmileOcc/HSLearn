@@ -58,8 +58,31 @@ class HSTestMockManager {
     }
     return []
   }
+
   reqDelicacyGroupList(): object[] {
     let list = this.mockJsonObj?.['delicacyList']
+    if (list && list instanceof Array) {
+      return list
+    }
+    return []
+  }
+
+  reqAddressList(): object[] {
+    let list = this.mockJsonObj?.['addressList']
+    if (list && list instanceof Array) {
+      return list
+    }
+    return []
+  }
+
+  reqCommunityHome(): object {
+    let communityInfo = this.mockJsonObj?.['communityHome']
+    return communityInfo ?? new Object()
+
+  }
+
+  reqCommunityArticleList(): object[] {
+    let list = this.mockJsonObj?.['communityArticleList']
     if (list && list instanceof Array) {
       return list
     }

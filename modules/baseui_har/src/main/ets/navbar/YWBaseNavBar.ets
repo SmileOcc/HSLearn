@@ -7,6 +7,10 @@ export struct YWBaseNavBar {
 
   @State title: string | undefined = undefined
 
+  @State navBarColor?: string = undefined
+
+  @State isExpandSafeArea: boolean = false
+
   @Watch('windowPointChange')
   @StorageProp(YWConstants.kCurrentBreakpoint) currentBreakpoint: string = 'sm'
 
@@ -25,6 +29,7 @@ export struct YWBaseNavBar {
   }
 
 
+  //外部传入这个，方法内部能使用self,因为这个已经是navbar了
   @BuilderParam
   leftLayout:()=>void = this.defaultBack
 
@@ -62,15 +67,30 @@ export struct YWBaseNavBar {
   }
 
   build() {
-    Row(){
-      this.leftLayout()
-      this.centerLayout()
-      this.rightLayout?.()
+    if (this.isExpandSafeArea) {
+      Stack({alignContent: Alignment.BottomStart}){
+        Row(){
+          this.leftLayout()
+          this.centerLayout()
+          this.rightLayout?.()
+        }
+        .height(this.navHeight)
+        .alignItems(VerticalAlign.Center)
+        .padding({left:16, right: 16})
+      }
+      .backgroundColor(this.navBarColor ?? Color.White)
+      .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
+    } else  {
+      Row(){
+        this.leftLayout()
+        this.centerLayout()
+        this.rightLayout?.()
+      }
+      .backgroundColor(this.navBarColor ?? Color.White)
+      .height(this.navHeight)
+      .alignItems(VerticalAlign.Center)
+      .padding({left:16, right: 16})
     }
-    .backgroundColor(Color.White)
-    .height(this.navHeight)
-    .alignItems(VerticalAlign.Center)
-    .padding({left:16, right: 16})
   }
 
 }

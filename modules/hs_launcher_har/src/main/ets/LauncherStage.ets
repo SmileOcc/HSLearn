@@ -15,6 +15,7 @@ import { AppConfig } from "@learn/app_config_har";
 import { CarTask } from "@learn/car_har";
 import { MineTask } from "@learn/mine_har";
 import { HotelTask } from "@learn/hotel_har";
+import { AddressTask } from "@learn/address_har";
 
 /*
  * @Desc: 应用入口，初始化一些库和SDK，在module.json5配置路径。
@@ -37,6 +38,7 @@ export class LauncherStage extends AbilityStage {
         () => new CarTask(),
         () => new MineTask(),
         () => new HotelTask(),
+        () => new AddressTask(),
         () => new AppNetworkTask(),
         () => new AccountUserTask(context)
       ],

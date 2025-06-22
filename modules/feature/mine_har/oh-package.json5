@@ -15,7 +15,9 @@
     "@learn/common_har": "file:../../common_har",
     "@learn/userinfo_har": "file:../userinfo_har",
     "@learn/learn_task_har": "file:../../learn_task_har",
-    "@learn/baseui_har": "file:../../baseui_har"
+    "@learn/baseui_har": "file:../../baseui_har",
+    "@learn/base_image_har": 'file:../../base_image_har',
+    "@learn/network_har": 'file:../../network_har'
 
   }
 }
