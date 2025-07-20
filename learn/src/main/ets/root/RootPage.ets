@@ -22,6 +22,7 @@ import { injectMainContext, ywNavManager, YWRouterNavParams, YWNavPath, ywNavRou
 import { YWLocalNavType } from '@learn/nav_router_har/src/main/ets/components/YWNavType';
 import { DebuggerApi } from '@learn/debugger_api_har';
 import BuildProfile from 'BuildProfile';
+import { hsNotificationManager } from '@learn/notification_har';
 
 const TAG = "RootPage"
 @Entry
@@ -156,6 +157,15 @@ struct RootPage {
     this.breakpointSystem.register()
     console.log("====aboutToAppear 组件即将出现时回调该接口，具体时机为在创建自定义组件的新实例后，在执行其build()函数之前执行")
 
+    // hsNotificationManager.checkNotificationEnabled(true)
+    //hsNotificationManager.getNotifyCount()
+    hsNotificationManager.authorizeNotification((grant)=>{
+      hsLog.i("ROOT PAGE",`===推送通知：是否授权 ${grant}`)
+    })
+    //发送本地通知
+    if (hsNotificationManager.isNotificationEnabledSync()) {
+      hsNotificationManager.testLocalNotify()
+    }
     //注册debugger调试窗
     DebuggerApi.registerDebugger()
     //注册原项目的demo tab

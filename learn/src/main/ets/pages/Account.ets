@@ -5,7 +5,7 @@ import { window } from '@kit.ArkUI';
 
 import { HWAlertView, CreateAlertMsgView, HWConstants, TEST_WIDTH, TEST_HEIGHT, HWTTLogger } from 'STHarLib'
 
-import { HWSuccessPage, ShareTipView, ShareResManager } from 'ShareHarLibs'
+// import { HWSuccessPage, ShareTipView, ShareResManager } from 'ShareHarLibs'
 
 import { StorageUtils, StorageKeys } from '../../../../../modules/common_har/src/main/ets/utils/PreferenceStorageUtils'
 
@@ -435,10 +435,10 @@ export struct Account {
           .onClick(() => {
             hsLog.d("======= share page 听说 测试版 这个还没有授权")
             //'@bundle:包名（bundleName）/模块名（moduleName）/路径/页面所在的文件名(不加.ets后缀)'
-            router.pushUrl({ url: '@bundle:com.example.hmos_learn/ShareHarLibs/src/main/ets/pages/HWSuccessPage' })
+            // router.pushUrl({ url: '@bundle:com.example.hmos_learn/ShareHarLibs/src/main/ets/pages/HWSuccessPage' })
           })
 
-        ShareTipView()
+        // ShareTipView()
         Text("nnnnnn")
       }
 

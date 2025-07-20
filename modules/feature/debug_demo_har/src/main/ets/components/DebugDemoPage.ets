@@ -41,6 +41,8 @@ import { listerScrollMoreBuilder } from "../pages/list_scroller/ListScrollerMutl
 import { scrollWebListBuilder } from "../pages/list_scroller/ScrollWebListPage";
 import { scrollWebListCommentBuilder } from "../pages/list_scroller/scrollweblistcomment/ScrollWebListCommentPage";
 import { TestGradientPageBuilder } from "../pages/gradient/TestGradientPage";
+import {
+  testNodeExtendBuilder } from "../pages/node_controller/node_ext_alert/TestNodeExtendExample";
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
@@ -134,7 +136,7 @@ export struct DebugDemoPage {
     let list: String[] = Array(5).fill(Math.random().toString().slice(2, 2 + 4))
     let gropList: String[][] = [
       ["渐变色"],
-      ["TestWeb", "web同层组件", "webPre预加载web", "2webPre预加载web", "3webPre预加载web", "测试NodeController"],
+      ["TestWeb", "web同层组件", "webPre预加载web", "2webPre预加载web", "3webPre预加载web", "测试NodeController","测试Node扩展弹窗"],
       ["调试Observed", "TestEventHub_Emitter", "新自定义弹窗", "半弹窗选择图片", "push弹窗测试+移动cell"],
       ["SafeAreaExample全区实现沉浸式效果", "SafeAreaExample1全区实现沉浸式效果", "SafeArea滚动列表底部延伸场景",
         "SafeArea重要信息被软键盘遮挡", "SafeArea软键盘弹出导致布局错位", "SafeArea自定义弹窗被键盘顶起","SafeArea标题组件不避让"],
@@ -357,7 +359,7 @@ export struct DebugDemoPage {
 
         if (subModel.title.startsWith('Share_Har')) {
           //'@bundle:包名（bundleName）/模块名（moduleName）/路径/页面所在的文件名(不加.ets后缀)'
-          router.pushUrl({ url: '@bundle:com.example.hmos_learn/ShareHarLibs/src/main/ets/pages/HWSuccessPage' })
+          // router.pushUrl({ url: '@bundle:com.example.hmos_learn/ShareHarLibs/src/main/ets/pages/HWSuccessPage' })
 
         }
 
@@ -621,6 +623,9 @@ export struct DebugDemoPage {
         if (subModel.title.startsWith("测试NodeController")) {
           this.demoPageNav.pushPathByName("测试NodeController", true)
         }
+        if (subModel.title.startsWith("测试Node扩展弹窗")) {
+          this.demoPageNav.pushPathByName("测试Node扩展弹窗", true)
+        }
         if (subModel.title.startsWith("Scroller嵌套Scroller")) {
           this.demoPageNav.pushPathByName("Scroller嵌套Scroller",true)
         }
@@ -726,7 +731,10 @@ export struct DebugDemoPage {
     }
     else if (name == "测试NodeController") {
       testNodeBuilder()
-    } else if (name == "Scroller嵌套Scroller") {
+    } else if (name == "测试Node扩展弹窗") {
+      testNodeExtendBuilder()
+    }
+    else if (name == "Scroller嵌套Scroller") {
       TestScrollTwoGestureBuilder()
     } else if (name == "Scroller嵌套Web") {
       TestScrollWebGestureBuilder()

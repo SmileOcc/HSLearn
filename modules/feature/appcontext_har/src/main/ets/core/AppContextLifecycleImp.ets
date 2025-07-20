@@ -5,6 +5,7 @@ import { IAbilityLifecycleObserver, IAppAbilityObservers, IAppLifecycleObservers
   IAppLifecycleStateChangeObserver } from "../service";
 import window from "@ohos.window";
 import { hsLog } from "@learn/logger_har";
+import { hsNotificationManager } from "@learn/notification_har";
 
 const TAG = "AppContextLifecycleImp"
 export class AppContextLifecycleImp implements IAppLifecycleObservers, IAbilityLifecycleObserver {
@@ -67,6 +68,8 @@ export class AppContextLifecycleImp implements IAppLifecycleObservers, IAbilityL
       this.onNotifyBackground()
       //可以上报一个埋点
     }
+
+    hsNotificationManager.getNotifyCount()
 
   }
 

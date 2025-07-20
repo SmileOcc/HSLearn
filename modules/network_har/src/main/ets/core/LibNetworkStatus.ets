@@ -69,7 +69,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
    * @param netType   网络类型（WI-FI、蜂窝数据等）
    * @param priority  emitter事件权重
    */
-  private postEvent(eventName: NetworkEventName, status: NetworkData, netType: connection.NetBearType,
+  private postEvent(eventName: NetworkEventName, status: NetworkData, netType: connection.NetBearType, netId:number,
     priority?: emitter.EventPriority) {
     this.emitterEvent.priority = priority;
     const netData = new NetEventData(eventName, status, netType)
@@ -354,7 +354,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       } else {
         hsLog.i(TAG, ' networkConnection.register success')
       }
-      this.postEvent(NetworkEventName.NetObserverRegister, result, netType);
+      this.postEvent(NetworkEventName.NetObserverRegister, result, netType, -1);
 
     })
 
@@ -363,7 +363,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
     // 网络能力改变监听，当网络能力变化时，如网络从无网络到有网络、从4G切换到5G时，会触发该事件。
     netConnection.on('netCapabilitiesChange', (data: connection.NetCapabilityInfo) => {
       hsLog.i(TAG, "NetType :" + netType + ", network netCapabilitiesChange: " + JSON.stringify(data));
-      this.postEvent(NetworkEventName.NetCapabilitiesChange, data, netType);
+      this.postEvent(NetworkEventName.NetCapabilitiesChange, data, data.netHandle.netId, netType);
     })
 
     netConnection.on('netAvailable', (data: connection.NetHandle) => {
@@ -373,19 +373,19 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       //获得默认网络类型
       this.getDefaultNetSync()
       // 检查默认数据网络是否被激活，使用同步方式返回接口，如果被激活则返回true，否则返回false。
-      this.postEvent(NetworkEventName.NetAvailable, connection.hasDefaultNetSync(), netType);
+      this.postEvent(NetworkEventName.NetAvailable, connection.hasDefaultNetSync(), data.netId, netType);
     })
 
     // 订阅网络阻塞状态事件，当网络阻塞时，如网络性能下降、数据传输出现延迟等情况时，会触发该事件
     netConnection.on('netBlockStatusChange', (data: connection.NetBlockStatusInfo) => {
       hsLog.i(TAG, "NetType :" + netType + ", network netBlockStatusChange " + JSON.stringify(data));
-      this.postEvent(NetworkEventName.NetBlock, data, netType)
+      this.postEvent(NetworkEventName.NetBlock, data, data.netHandle.netId, netType)
     });
     // 网络连接信息变化监听，当网络连接信息变化时，如从无网络到有网络、从Wi-Fi切换到蜂窝时，会触发该事件。
     netConnection.on('netConnectionPropertiesChange', (data: connection.NetConnectionPropertyInfo) => {
       hsLog.i(TAG,
         "NetType :" + netType + ", network netConnectionPropertiesChange " + JSON.stringify(data));
-      this.postEvent(NetworkEventName.NetConnectionPropertiesChange, data, netType);
+      this.postEvent(NetworkEventName.NetConnectionPropertiesChange, data, data.netHandle.netId, netType);
     });
 
     //订阅网络丢失事件
@@ -394,7 +394,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       hsLog.i(TAG, 'netLost：' + JSON.stringify(data))
       this.isNetworkAvailable = false
       this.currentNetType = netType
-      this.postEvent(NetworkEventName.NetLost, true, netType)
+      this.postEvent(NetworkEventName.NetLost, true, netType, data.netId)
 
     })
 
@@ -404,7 +404,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       hsLog.i(TAG, 'netUnavailable')
       this.isNetworkAvailable = false
       this.currentNetType = netType
-      this.postEvent(NetworkEventName.NetUnavailable, true, netType);
+      this.postEvent(NetworkEventName.NetUnavailable, true, netType, -1);
     })
 
     //检查默认数据网络是否已激活
@@ -429,7 +429,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       hsLog.i(TAG, "wifiStateChange: " + result);
       this.isNetworkAvailable = false
       this.currentNetType = connection.NetBearType.BEARER_WIFI
-      this.postEvent(NetworkEventName.WifiStateChange, result,connection.NetBearType.BEARER_WIFI);
+      this.postEvent(NetworkEventName.WifiStateChange, result,connection.NetBearType.BEARER_WIFI, -1);
     });
     // 注册WLAN连接状态改变事件
     // 0，已断开；1，已连接
@@ -437,7 +437,7 @@ export class LibNetworkStatus implements HSLibNetworkStatusProxy {
       hsLog.i(TAG,  "wifiConnectionChange: " + result);
       this.isNetworkAvailable = result ? true : false
       this.currentNetType = connection.NetBearType.BEARER_WIFI
-      this.postEvent(NetworkEventName.WifiConnectionChange, result,connection.NetBearType.BEARER_WIFI);
+      this.postEvent(NetworkEventName.WifiConnectionChange, result,connection.NetBearType.BEARER_WIFI, -1);
     });
   }
 

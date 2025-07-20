@@ -11,10 +11,12 @@ import { HSLocalConfig } from '@learn/app_config_har';
 import BuildProfile from 'BuildProfile';
 import { hsMockManager } from '@learn/res_har';
 import { ImageKnife } from '@ohos/imageknife';
+import { hsNotificationManager } from '@learn/notification_har';
 
 const TAG = "LearnEntryAbility"
 export abstract  class LearnEntryAbility extends MainAbility {
 
+  // 冷启动时进入该生命周期回调
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onCreate(want, launchParam)
     //ability 的context 与UI中取得Context一致 与stage不一致
@@ -56,6 +58,9 @@ export abstract  class LearnEntryAbility extends MainAbility {
 
     // 如果需要用文件缓存，需要提前初始化文件缓存
     ImageKnife.getInstance().initFileCache(this.context, 256, 256 * 1024 * 1024)
+
+    hsNotificationManager.initContext(this.context, this)
+
  }
 
 
@@ -63,6 +68,7 @@ export abstract  class LearnEntryAbility extends MainAbility {
     super.onWindowStageCreate(windowStage)
   }
 
+  //热启动时进入该生命周期回调
   onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     super.onNewWant(want,launchParam)
     this.handWant(want)
@@ -72,7 +78,9 @@ export abstract  class LearnEntryAbility extends MainAbility {
   }
 
   handWant(want: Want) {
-
+    // 获取消息中传递的data数据
+    hsLog.i(TAG, `onNewWant: Get message data successfully: ${JSON.stringify(want.parameters)}`);
+    // 根据实际业务场景对data进行处理
   }
 
   initGlobal() {
@@ -85,4 +93,6 @@ export abstract  class LearnEntryAbility extends MainAbility {
     //初始化
     hsGlobalThis.init(this.context)
   }
+
+
 }

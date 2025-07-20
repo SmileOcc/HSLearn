@@ -14,6 +14,12 @@
     "deliveryWithInstall": true,
     "installationFree": false,
     "pages": "$profile:main_pages",
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "5765880207854648353"  // 替换为实际的Client ID
+      }
+    ],
     "requestPermissions": [
       {
         "name": "ohos.permission.INTERNET"
@@ -109,7 +115,15 @@
               "entity.system.home"
             ],
             "actions": [
-              "action.system.home"
+              "action.system.home",
+              "action.test11.msg", //自定义通知的action
+              "action.ohos.push.listener"
+            ]
+          },
+          // 新增一个独立的skill对象，配置actions参数
+          {
+            "actions": [
+              "com.test.action"
             ]
           }
         ]

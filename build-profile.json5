@@ -4,7 +4,7 @@
       {
         // 默认环境（开发环境）
         "name": "default",
-        "bundleName": "occ.com.learn.dev",
+        "bundleName": "com.example.hmos_learn",
         "signingConfig": "default",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
@@ -29,7 +29,7 @@
       {
         // 生产环境
         "name": "release",
-        "bundleName": "occ.com.learn",
+        "bundleName": "com.example.hmos_learn",
         "signingConfig": "release",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
@@ -55,6 +55,7 @@
         // 生产环境
         "name": "prd",
         "bundleName": "occ.com.learn.prd",
+        //        "bundleName": "com.example.hmos_learn",
         "signingConfig": "prd",
         "compatibleSdkVersion": "5.0.0(12)",
         "targetSdkVersion": "5.0.0(12)",
@@ -82,42 +83,42 @@
     ],
     "signingConfigs": [
       {
-        "name": "release",
+        "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B4A225115D333356387A2CF50FC725FE0F12CC3EA1F4FB2FEEFAB2A09ACEE420A638110531399C4",
-          "profile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "storeFile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev.p12",
+          "storePassword": "000000188524A989918E0FA3BBC5D545AE4AD627EF575325762708C4BB0BE63EB037DA9EABEE3E34",
+          "keyAlias": "hslearn_dev",
+          "keyPassword": "000000185E2911E48209B7F5B56F606F34237D7E2F8DB91099CDCE77A297696B757433EE720DF9BD",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/oudongdong/.ohos/config/release_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001BB9AF27160FBDBAE0D460BCE149CC417A07094CE65BD15F77870AF630C6C005EB40605CF584F3E2"
+          "profile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev_proDebug.p7b",
+          "certpath": "/Users/oudongdong/Documents/odd/git/HSLearn/pus_dev.cer"
         }
       },
       {
-        "name": "dev",
+        "name": "release",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001BFB08402F0D00E6472BD4488022EA54FC13E63339B496F936AA64C2848AC2E223ED8C72D2FA72FD",
-          "profile": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "storeFile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev.p12",
+          "storePassword": "000000188524A989918E0FA3BBC5D545AE4AD627EF575325762708C4BB0BE63EB037DA9EABEE3E34",
+          "keyAlias": "hslearn_dev",
+          "keyPassword": "000000185E2911E48209B7F5B56F606F34237D7E2F8DB91099CDCE77A297696B757433EE720DF9BD",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/oudongdong/.ohos/config/dev_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001B1EF611CCC293646FB5D89E601CB7FA69136922D2841BAED995FC1DB46B774A7838989197748788"
+          "profile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev_proDebug.p7b",
+          "certpath": "/Users/oudongdong/Documents/odd/git/HSLearn/pus_dev.cer"
         }
       },
       {
         "name": "prd",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.cer",
-          "keyAlias": "debugKey",
-          "keyPassword": "0000001B8C048312932A813CB384518B82072706886FD7AD9B8352DEEA9E4BEF211557FEF3B79D94B631EC",
-          "profile": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p7b",
+          "storeFile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev.p12",
+          "storePassword": "000000188524A989918E0FA3BBC5D545AE4AD627EF575325762708C4BB0BE63EB037DA9EABEE3E34",
+          "keyAlias": "hslearn_dev",
+          "keyPassword": "000000185E2911E48209B7F5B56F606F34237D7E2F8DB91099CDCE77A297696B757433EE720DF9BD",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/oudongdong/.ohos/config/prd_HSLearn_5_1JzKTFguWAvJsi3cK7zDyI7NRRK87yFJ4trn3QrTs=.p12",
-          "storePassword": "0000001BEA4C078BBB04329F2C2DB79E92A2162082AE2A43FCBBFA274B16E9052D194838979F08357A4A76"
+          "profile": "/Users/oudongdong/Documents/odd/git/HSLearn/hslearn_dev_proDebug.p7b",
+          "certpath": "/Users/oudongdong/Documents/odd/git/HSLearn/pus_dev.cer"
         }
       }
     ]
@@ -420,6 +421,10 @@
     {
       "name": "base_image_har",
       "srcPath": "./modules/base_image_har",
+    },
+    {
+      "name": "notification_har",
+      "srcPath": "./modules/notification_har",
     }
   ]
 }

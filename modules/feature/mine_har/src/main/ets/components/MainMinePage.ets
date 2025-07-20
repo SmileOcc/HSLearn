@@ -70,9 +70,14 @@ export struct MainMinePage {
 
     this.viewModel.loadMineInfo()
 
+    //判断网络
+    const hasNet = HSRegisterNetworkListener.isCheckNetworkAvailable()
+    hsLog.i(TAG,`是否有网络 ： ${hasNet}`)
     //方式一：
     HSRegisterNetworkListener.addCallback((netData)=>{
       hsLog.i(TAG,`---mine network: ${JSON.stringify(netData)}`)
+      //简单判断
+      const commonHasNet = netData.hasConnect()
       this.handleNetData(netData);
     },false)
 
@@ -350,6 +355,8 @@ export struct MainMinePage {
       }})
         .zIndex(1000)
         .backgroundColor(Color.White)
+        .padding({left:16,right:16})
+
         .opacity(this.mineUIState.navBarAlpha)
         .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])
 

@@ -26,7 +26,7 @@ export class YWNavManager {
 
   static timer: number = -1;
 
-  constructor() {
+   constructor() {
     //分三层
     //1、NAV_ROOT
     //相关 全局弹窗跳转

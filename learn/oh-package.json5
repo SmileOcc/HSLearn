@@ -9,7 +9,7 @@
     "@learn/app_config_har": "file:../modules/app_config_har",
     "@learn/hs_launcher_har": "file:../modules/hs_launcher_har",
     "STHarLib": "file:../learn/libs/STHarLib.har",
-    "ShareHarLibs": "file:../ShareHarLib",
+//    "ShareHarLibs": "file:../ShareHarLib",
     "@learn/common_har": "file:../modules/common_har",
     "@learn/base_har": "file:../modules/base_har",
     "@learn/main_har": "file:../modules/main_har",
@@ -26,10 +26,11 @@
     "@learn/dark_har": 'file:../modules/dark_har',
     "@learn/taskpool_har": 'file:../modules/taskpool_har',
     "@learn/manager_task_har": 'file:../modules/manager_task_har',
+    "@learn/notification_har": 'file:../modules/notification_har',
 
     "@abner/refresh": "^1.1.7",
     "@tencent/mmkv": "^2.0.1",
-    "@learn/debugger_api_har": "file:../modules/debugger_api_har"
+    "@learn/debugger_api_har": "file:../modules/debugger_api_har",
 
   }
 }

@@ -34,8 +34,8 @@ export struct MineHeaderView {
         style: { badgeSize: 16, badgeColor: '#FA2A2D' }
       }) {
         Image(imageUrl)
-          .width(32)
-          .height(32)
+          .width(24)
+          .height(24)
       }
       .margin('4vp')
     }
@@ -51,7 +51,7 @@ export struct MineHeaderView {
       this.leftView(this.homeClick)
       this.rightView(this.messageClick, this.settingClick)
     }
-    .padding({left:12,right:12})
+    // .padding({left:12,right:12})
     .width('100%')
     .height(YWConstants.kMainNavSM)
     .justifyContent(FlexAlign.SpaceBetween)

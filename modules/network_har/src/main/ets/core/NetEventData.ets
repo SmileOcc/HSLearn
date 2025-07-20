@@ -37,4 +37,11 @@ export class NetEventData {
     this.status = status;
     this.netType = netType;
   }
+
+  hasConnect(): boolean {
+    if (this.eventName == NetworkEventName.NetLost || this.eventName == NetworkEventName.NetUnavailable) {
+      return false
+    }
+    return true
+  }
 }
