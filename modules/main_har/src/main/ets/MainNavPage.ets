@@ -75,3 +75,8 @@ export function mainNavBuilder(name:string, params:YWRouterNavParams) {
     return true
   })
 }
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT,[
+  {name:YWNavPath.root_main_nav,builder:wrapBuilder(mainNavBuilder)},
+
+])

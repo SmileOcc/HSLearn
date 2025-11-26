@@ -119,3 +119,91 @@ CustomDialog 因为CustomDialogController强耦合于UI，
 对标CustomDialog 的CustomDialogController。官方通过将弹框对象实例，放到上下文中，实现在纯逻辑类中也可以调用弹框的显示和隐藏。
 
 将@CustomDialog弹框布局内容，放到ComponentContent节点对象中，实现弹框UI的解耦。
+
+###
+使用Function.bind()所引发的问题
+问题：组件内成员方法 bind() 作为回调函数保存了引用，出现了调用失效、内存泄漏等问题；
+1、性能问题：每次渲染都创建新函数；
+2、内存泄漏风险：
+Button('Risk')
+.onClick(this.handler.handleEvent.bind(this.handler)) // ❌ 可能内存泄漏
+3、调试困难：
+.onChange((value: string) => {
+// ❌ 调试时难以追踪
+this.processInput.bind(this)(value);
+})
+4、类型安全问题：
+class MyService implements ApiService {
+private baseUrl: string = 'https://api.example.com';
+
+async fetchData(id: number) {
+// bind 可能掩盖类型错误
+const response = await fetch(`${this.baseUrl}/data/${id}`);
+return response.json();
+}
+}
+
+Button('Fetch')
+// ❌ bind 可能隐藏类型不匹配
+.onClick(this.service.fetchData.bind(this.service, 'string')) // 应该报错但可能不会
+
+解决思路：
+解决方案：
+
+避免使用 func().bind(this) 的情况：
+在渲染方法中频繁调用的地方
+需要严格类型检查的场景
+需要良好调试体验的情况
+关注内存使用的性能敏感应用
+推荐使用：
+箭头函数 () => func()
+类属性箭头函数 func = () => {}
+提前绑定（在构造函数或初始化时）
+记忆化处理对于重复使用的回调
+
+1、使用箭头函数：
+.onClick(() => this.increment()) // ✅ 推荐
+2、使用类属性箭头函数：
+// 类属性箭头函数
+handleClick = (): void => {
+this.count++;
+}
+.onClick(this.handleClick) // ✅ 直接引用
+3、在构造函数中提前绑定：
+increment:()=>void
+constructor() {
+// 提前绑定，避免重复创建
+this.increment = this.incrementAction.bind(this);
+}
+
+incrementAction() {
+this.count++;
+}
+--
+private handler = new MyHandler();
+build() {
+Column() {
+Button('Pre-bound')
+.onClick(this.handler.increment) // ✅ 已提前绑定
+}
+}
+
+4、使用 useMemo 模式（如果适用）：
+// 模拟 useMemo 行为
+private memoizedHandlers = new Map<string, () => void>();
+
+getHandler(key: string): () => void {
+if (!this.memoizedHandlers.has(key)) {
+this.memoizedHandlers.set(key, () => {
+this.count++;
+});
+}
+return this.memoizedHandlers.get(key)!;
+}
+
+build() {
+Column() {
+Button('Memoized')
+.onClick(this.getHandler('increment')) // ✅ 记忆化处理
+}
+}

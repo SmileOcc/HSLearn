@@ -1,3 +1,4 @@
+import { YWStrUtils } from "@learn/common_har"
 import { hsLog } from "@learn/logger_har/src/main/ets/core/YWLogger"
 import { ywInterManager } from "./intercept/YWInterManager"
 import { YWNavConfig } from "./YWNavConfig"
@@ -17,6 +18,8 @@ export class YWNavManager {
   private static readonly routePathWithRouteType:Map<string,YWNavIDType> = new Map()
   private static readonly routeNameBuilderTable:Map<YWNavIDType,WrappedBuilder<[string,YWRouterNavParams]>> = new Map()
   // private static readonly routeNameBuilderTable:Map<YWNavIDType,WrappedBuilder<[YWNavParams]>> = new Map()
+
+  private static readonly routePathTable:Map<string, ()=>Promise<Object>> = new Map()
 
   private static readonly animationNavMap:Map<YWNavIDType,CustomerNavAnimation> = new Map()
 
@@ -142,7 +145,6 @@ export class YWNavManager {
       return navConfig.navPathStack
     }
     return undefined
-
   }
 
 
@@ -194,8 +196,10 @@ export class YWNavManager {
     YWNavManager.routePathWithRouteType.set(path,nav)
     // YWNavManager.routeNameBuilderTable.set(nav,builder)
     YWNavManager.routeNameBuilderTable.set(path,builder)
+  }
 
-
+  boundPath(name:string, navPath: ()=>Promise<Object>) {
+     YWNavManager.routePathTable.set(name, navPath)
   }
 
   back(ezConfig:YWNavRouterInfoConfig) {
@@ -204,10 +208,12 @@ export class YWNavManager {
     })
   }
 
-  go(config:YWNavRouterInfoConfig) {
+  async go(config:YWNavRouterInfoConfig) {
     if (config.uniqueId == -1 || config.targetUrl === undefined) {
       return
     }
+
+    await this.initPathRouteOnce(config)
 
     let ezConfig = ywInterManager.transformGeneral(config)
     let jumpInter = ywInterManager.findTransformJump(config)
@@ -257,6 +263,46 @@ export class YWNavManager {
     }
 
     return YWNavResult.SUCCEED
+  }
+
+  getRouteNavPath(name: string) {
+     return YWNavManager.routePathTable.get(name)
+  }
+
+  //odd测试数据 ToDo
+  async initPathRouteOnce(config:YWNavRouterInfoConfig) {
+     let visitedMap:Set<string> = new Set();
+     let inner = async (url: string) =>{
+       if (YWStrUtils.isEmpty(url)) {
+         return
+       }
+       let path = this.getRouteNavPath(url)
+       if (path) {
+         await path()
+       }
+     }
+
+     let superNavConfi = async (url: string, config?: YWNavConfig) => {
+       if (visitedMap.has(url)) {
+         hsLog.e(`has route: ${url}`)
+       }
+       visitedMap.add(url)
+       await inner(url)
+       if (config) {
+         await inner(config.path)
+         let superNavConfig = this.getNavConfigWithPath(config.path)
+         if (superNavConfig?.superNav) {
+           await superNavConfi(superNavConfig.path, superNavConfig)
+         }
+       }
+     }
+
+     await inner(config.targetUrl)
+    let navConfig = this.getTargetRouteNavConfig(config)
+    if (navConfig) {
+      await superNavConfi(navConfig.path, navConfig)
+    }
+
   }
 
   pushNavWithMode(config:YWNavRouterInfoConfig, navConfig:YWNavConfig) {

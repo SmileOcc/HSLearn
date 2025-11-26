@@ -14,6 +14,10 @@ export interface NavRouterBuilder {
 
 export class YWNavRouter {
 
+  boundRoutePath(name: string, navPath: ()=>Promise<Object>) {
+    ywNavManager.boundPath(name, navPath)
+  }
+
   boundRouteName(nav:YWNavIDType, builder:NavRouterBuilder[]) {
     builder.forEach((item)=>{
       ywNavManager.boundName(nav,item.name,item.builder)

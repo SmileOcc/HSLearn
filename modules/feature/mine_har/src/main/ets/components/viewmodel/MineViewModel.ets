@@ -31,6 +31,18 @@ export class MineViewModel extends YWBaseModel<MineUIState> {
     'https://preview.qiantucdn.com/58pic/20240516/00C58PICR66UPNbQu15b4_PIC2018_PIC2018.jpg%21qt_h320']
 
   private imagePlugin?: MineColorImagePlugin
+
+  incrementAction() {
+  }
+
+  increment:()=>void
+
+  constructor() {
+    super()
+    // 提前绑定，避免重复创建
+    this.increment = this.incrementAction.bind(this);
+  }
+
   init(uiContext:UIContext, context: Context,getUniqueId: ()=>number) {
     this.imagePlugin =  new MineColorImagePlugin(context)
     this.getUiUniqueId = () =>{

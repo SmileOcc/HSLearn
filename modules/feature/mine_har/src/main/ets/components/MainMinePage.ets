@@ -58,6 +58,12 @@ export struct MainMinePage {
   private currentRecognizer: GestureRecognizer = new GestureRecognizer()
   private lastOffset: number = 0
   private scroller: Scroller = new Scroller();
+
+  // 类属性箭头函数
+  handleClick = (): void => {
+
+  }
+
   @Builder
   navPagesMap(name: string, param: YWRouterNavParams) {
     ywNavManager.getBuilderWithPageID(YWLocalNavType.NAV_MAIN_MINE)(name)?.builder(name,param)
@@ -200,7 +206,8 @@ export struct MainMinePage {
   @Builder
   topBlackBgView() {
     Column(){
-
+      Button('Class Property')
+        .onClick(this.viewModel.increment) // ✅ 已提前绑定
     }
     .width('100%')
     .height('200vp')
@@ -208,7 +215,8 @@ export struct MainMinePage {
   @Builder
   bottomBgColorView() {
     Column(){
-
+      Button('Class Property')
+        .onClick(this.handleClick) // ✅ 直接引用
     }
     .width('100%')
     .height('200vp')
@@ -368,6 +376,8 @@ export struct MainMinePage {
     .alignContent(Alignment.Top)
     // .backgroundColor($r('app.color.bg_gray_base'))
     // .padding(getAvoidPadding(this.avoidAreas))
-
+    .onDetach(()=>{
+      // 组件从组件树卸载时触发此回调。建议使用onDisAppear替代此接口
+    })
   }
 }

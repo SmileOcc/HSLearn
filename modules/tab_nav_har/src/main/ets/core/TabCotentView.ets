@@ -1,6 +1,6 @@
 import { YWConstants } from "@learn/constants_har"
 import { hsLog } from "@learn/logger_har"
-import { ywNavManager, YWRouterNavParams } from "@learn/nav_router_har"
+import { YWLocalNavType, ywNavManager, YWNavPath, ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har"
 import { YWResColor } from "@learn/res_har/src/main/ets/res/YWResColor"
 import { ITabEventState, ITabNavTitleConfig, ITabPageConfig, TabNavTitleConfig } from "@learn/tab_nav_api_har"
 import { TabInfo } from "@learn/tab_nav_api_har"
@@ -242,3 +242,12 @@ export function maintTabContentViewBuilder(name:string, params:YWRouterNavParams
   })
   .hideTitleBar(true)
 }
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_TAB,[
+
+  {name:YWNavPath.main_tab_home,builder:wrapBuilder(maintTabContentViewBuilder)},
+  {name:YWNavPath.main_tab_category,builder:wrapBuilder(maintTabContentViewBuilder)},
+  {name:YWNavPath.main_tab_car,builder:wrapBuilder(maintTabContentViewBuilder)},
+  {name:YWNavPath.main_tab_mine,builder:wrapBuilder(maintTabContentViewBuilder)},
+
+])

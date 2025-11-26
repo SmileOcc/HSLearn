@@ -5,15 +5,6 @@ import { TabInfo, TabItemInfo, TabViewIUState } from "@learn/tab_nav_api_har";
 import { commonTabBuilder } from "@learn/tab_nav_common_har"
 import { lionMainBuilder } from "../../../../Index";
 
-export const LionRootBuilder = wrapBuilder(lionAppBuilder)
-
-@Builder export function lionAppBuilder(name:string, params:YWRouterNavParams) {
-  NavDestination(){
-    LionAppPage()
-  }
-  .hideTitleBar(true)
-}
-
 const TAG = "LionAppPage"
 @Entry
 @Component
@@ -142,3 +133,16 @@ struct LionAppPage {
     .backgroundColor(Color.Pink)
   }
 }
+
+export const LionRootBuilder = wrapBuilder(lionAppBuilder)
+
+@Builder export function lionAppBuilder(name:string, params:YWRouterNavParams) {
+  NavDestination(){
+    LionAppPage()
+  }
+  .hideTitleBar(true)
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_TAB,[
+  {name:YWNavPath.root_lion_nav,builder:wrapBuilder(lionAppBuilder)},
+])

@@ -3,21 +3,13 @@ import { ListView, RefreshController, RefreshDataSource } from "@abner/refresh_v
 import { YWBaseNavBar, YWNavBar } from "@learn/baseui_har";
 import { YWConstants } from "@learn/constants_har";
 import { YWLazy } from "@learn/global_service_har";
-import { ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har";
+import { YWLocalNavType, YWNavPath, ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har";
 import { CommunityArticleInfo } from "./model/CommunityModel";
 import { ArticleListView, ItemView } from "./view/ArticleListView";
 import { SwiperData, SwiperItemViewType } from "./view/SwiperView";
 import { SwiperItemView, TopBannerView } from "./view/TopBannerView";
 import { CommunityUIState, CommunityViewModel } from "./viewmodel/CommunityViewModel";
 
-@Builder
-export function communityHomeBuilder(name?: string, params?:YWRouterNavParams) {
-  NavDestination(){
-    CommunityHomePage()
-  }
-  .hideTitleBar(true)
-
-}
 
 @ComponentV2
 export struct CommunityHomePage {
@@ -156,3 +148,17 @@ export struct CommunityHomePage {
     .layoutWeight(1)
   }
 }
+
+@Builder
+export function communityHomeBuilder(name?: string, params?:YWRouterNavParams) {
+  NavDestination(){
+    CommunityHomePage()
+  }
+  .hideTitleBar(true)
+
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_TAB,[
+  {name:YWNavPath.root_community_nav, builder: wrapBuilder(communityHomeBuilder)}
+])
+

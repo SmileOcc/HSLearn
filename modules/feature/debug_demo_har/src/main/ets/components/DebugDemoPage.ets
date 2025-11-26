@@ -17,7 +17,7 @@ import { TestObservedBuilder } from "../pages/observed/TestBaseObserved";
 import { TestEventHubEmitterBuilder } from "../pages/eventhub_emmiter/EventHubAndEmitterTestPage";
 import { TestPromptAlertBuilder } from "../pages/popup_alert/PromptActionClass";
 import { TestPictureLibraryBuilder } from "../pages/popup_alert/PictureLibraryDemo";
-import { YWRouterNavParams } from "@learn/nav_router_har";
+import { YWLocalNavType, YWNavPath, ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har";
 import { SafeAreaExample1Builder } from "../pages/expand_safe_area/SafeAreaExample1";
 import { testNodeBuilder } from "../pages/node_controller/TestNodePage";
 import { SafeAreaExample2Builder } from "../pages/expand_safe_area/SafeAreaExample2";
@@ -46,22 +46,7 @@ import {
 
 // import { TestWWebPageBuilder } from "../pages/web/web/TestWWebPage";
 
-@Builder
-export function debugDemoBuilder(name: string, params: YWRouterNavParams) {
-  NavDestination() {
-    DebugDemoPage({ navParams: params })
-  }
-  .hideTitleBar(true)
-  .onWillDisappear(() => {
-    params.getPageLifecycle().pageOnDisappear?.()
-  })
-  .onShown(() => {
-    params.getPageLifecycle().pageOnShow?.()
-  })
-  .onHidden(() => {
-    params.getPageLifecycle().pageOnHide?.()
-  })
-}
+
 
 const TAG = "DebugDemoPage"
 
@@ -861,3 +846,26 @@ export struct DebugDemoPage {
 
   }
 }
+
+
+@Builder
+export function debugDemoBuilder(name: string, params: YWRouterNavParams) {
+  NavDestination() {
+    DebugDemoPage({ navParams: params })
+  }
+  .hideTitleBar(true)
+  .onWillDisappear(() => {
+    params.getPageLifecycle().pageOnDisappear?.()
+  })
+  .onShown(() => {
+    params.getPageLifecycle().pageOnShow?.()
+  })
+  .onHidden(() => {
+    params.getPageLifecycle().pageOnHide?.()
+  })
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_LEARN_SETTING,[
+  {name:YWNavPath.root_demo_tab_nav,builder:wrapBuilder(debugDemoBuilder)},
+
+])

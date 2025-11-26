@@ -90,16 +90,7 @@ export struct SettingPage {
     }
   }
 
-  async testBBB() {
 
-    hsLog.i(TAG,'====taskPool 1')
-
-
-    //这个有问题
-    taskpool.Task.sendData("action","aaa",true)
-    hsLog.i(TAG,'====taskPool 2')
-
-  }
 
   async testAAA() {
 
@@ -112,7 +103,7 @@ export struct SettingPage {
     }, 3000)
 
 
-    let taskk = new taskpool.Task(this.testBBB)
+    let taskk = new taskpool.Task(testBBB)
     taskk.onReceiveData((action:string,arg1:string,arg2:boolean) =>{
       hsLog.i(TAG,'====taskPool 3')
 
@@ -623,4 +614,16 @@ export struct SettingPage {
     .backgroundColor(YWConstants.COLOR_PAGE_BGC)
 
   }
+}
+
+@Concurrent
+async function testBBB() {
+
+  hsLog.i("dd",'====taskPool 1')
+
+
+  //这个有问题
+  taskpool.Task.sendData("action","aaa",true)
+  hsLog.i("dd",'====taskPool 2')
+
 }

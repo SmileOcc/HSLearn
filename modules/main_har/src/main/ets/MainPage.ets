@@ -1,5 +1,5 @@
 import { hsLog } from "@learn/logger_har";
-import { YWLocalNavType, ywNavManager, YWRouterNavParams } from "@learn/nav_router_har";
+import { YWLocalNavType, ywNavManager, YWNavPath, ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har";
 import { YWResColor } from "@learn/res_har";
 import { asyncLocalStage, GlobalService, YWGlobalServiceManager, YWLazy } from "@learn/global_service_har"
 import { tabMainBuilder, TabMainNavPage } from "@learn/tab_nav_har/src/main/ets/core/TabMainNavPage";
@@ -76,3 +76,8 @@ export function learnMainBuilder(name:string, params:YWRouterNavParams) {
     return true
   })
 }
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_NAV,[
+  {name:YWNavPath.main_tab_nav,builder:wrapBuilder(learnMainBuilder)},
+
+])

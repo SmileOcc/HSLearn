@@ -70,30 +70,30 @@ struct TaskPoolSyncTaskPage {
 
   multRequest() {
     hsLog.d('===== taskpool taskpool')
-    let task: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserInfoTwo);
-    let task2: taskpool.Task = new taskpool.Task(requestModelAxios.reqCommentsList);
-    let task3: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserOrderList);
+    // let task: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserInfoTwo);
+    // let task2: taskpool.Task = new taskpool.Task(requestModelAxios.reqCommentsList);
+    // let task3: taskpool.Task = new taskpool.Task(requestModelAxios.reqUserOrderList);
 
-    taskpool.execute(task).then((ret) =>{
-      console.log(`========= 1:`)
-      console.log(`========= 1 ${JSON.stringify(ret)}`)
-    }).catch((error:Error) =>{
-      AlertDialog.show({message:JSON.stringify(error)})
-    });
-    hsLog.d('===== taskpool res1')
-
-    taskpool.execute(task2).then((ret) =>{
-      console.log(`========= 2:`)
-      console.log(`========= 2 ${JSON.stringify(ret)}`)
-    });
-    hsLog.d('===== taskpool res2')
-
-
-    taskpool.execute(task3).then((ret) =>{
-      console.log(`========= 3:`)
-      console.log(`========= 3 ${JSON.stringify(ret)}`)
-    });
-    hsLog.d('===== taskpool res3')
+    // taskpool.execute(task).then((ret) =>{
+    //   console.log(`========= 1:`)
+    //   console.log(`========= 1 ${JSON.stringify(ret)}`)
+    // }).catch((error:Error) =>{
+    //   AlertDialog.show({message:JSON.stringify(error)})
+    // });
+    // hsLog.d('===== taskpool res1')
+    //
+    // taskpool.execute(task2).then((ret) =>{
+    //   console.log(`========= 2:`)
+    //   console.log(`========= 2 ${JSON.stringify(ret)}`)
+    // });
+    // hsLog.d('===== taskpool res2')
+    //
+    //
+    // taskpool.execute(task3).then((ret) =>{
+    //   console.log(`========= 3:`)
+    //   console.log(`========= 3 ${JSON.stringify(ret)}`)
+    // });
+    // hsLog.d('===== taskpool res3')
 
 
   }

@@ -1,5 +1,5 @@
 import { HSDataSource, HSLazyDataSource } from "@learn/base_model_har";
-import { YWRouterNavParams } from "@learn/nav_router_har";
+import { YWLocalNavType, YWNavPath, ywNavRouter, YWRouterNavParams } from "@learn/nav_router_har";
 import { GoodsItemModel } from "./model/GoodsItemModel";
 import { common } from "@kit.AbilityKit";
 import { AppStorageV2, promptAction, window } from "@kit.ArkUI";
@@ -11,20 +11,6 @@ import { ArticlesList } from "./view/ArticlesList";
 import { LIST_DATA } from "./model/GoodsMock";
 import { YWAppUtils, YWValueWrapperV2 } from "@learn/common_har";
 import { YWConstants } from "@learn/constants_har";
-
-@Builder
-export function goodsDetailNavBuilder(name?: string, params?:YWRouterNavParams) {
-  NavDestination(){
-    GoodsDetailPage({params})
-  }
-  .hideTitleBar(true)
-  .onWillDisappear(()=>{
-    params?.getPageLifecycle().pageOnWillDisappear?.()
-  })
-  .onBackPressed(()=>{
-    return params?.getPageLifecycle().onBackPressed?.() ?? false
-  })
-}
 
 const TAG = "GoodsDetailPage"
 
@@ -422,3 +408,26 @@ export struct GoodsDetailPage {
     .width(Constants.FULL_PERCENT)
   }
 }
+
+//odd测试数据 ToDo 调试
+export function goodsDetailBuilder(name?: string, params?:YWRouterNavParams) {
+  GoodsDetailPage({params})
+}
+
+@Builder
+export function goodsDetailNavBuilder(name?: string, params?:YWRouterNavParams) {
+  NavDestination(){
+    GoodsDetailPage({params})
+  }
+  .hideTitleBar(true)
+  .onWillDisappear(()=>{
+    params?.getPageLifecycle().pageOnWillDisappear?.()
+  })
+  .onBackPressed(()=>{
+    return params?.getPageLifecycle().onBackPressed?.() ?? false
+  })
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_TAB,[
+  {name:YWNavPath.root_goods_detail_nav, builder: wrapBuilder(goodsDetailNavBuilder)},
+])

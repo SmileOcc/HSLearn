@@ -5,22 +5,6 @@ import { getAvoidPadding, getDefaultAvoidAreas, YWAvoidAreas } from "@learn/comm
 import { YWConstants } from "@learn/constants_har"
 import { YWBaseNavBar } from "@learn/baseui_har"
 
-@Builder export function learnSettingBuilder(name:string, params:YWRouterNavParams) {
-  NavDestination(){
-    LearnSettingPage()
-  }
-  .hideTitleBar(true)
-  .onWillDisappear(() => {
-    params.getPageLifecycle().pageOnDisappear?.()
-  })
-  .onShown(() => {
-    params.getPageLifecycle().pageOnShow?.()
-  })
-  .onHidden(() => {
-    params.getPageLifecycle().pageOnHide?.()
-  })
-}
-
 
 const TAG = "LearnSettingPage"
 
@@ -99,3 +83,24 @@ export struct LearnSettingPage {
 
   }
 }
+
+
+@Builder export function learnSettingBuilder(name:string, params:YWRouterNavParams) {
+  NavDestination(){
+    LearnSettingPage()
+  }
+  .hideTitleBar(true)
+  .onWillDisappear(() => {
+    params.getPageLifecycle().pageOnDisappear?.()
+  })
+  .onShown(() => {
+    params.getPageLifecycle().pageOnShow?.()
+  })
+  .onHidden(() => {
+    params.getPageLifecycle().pageOnHide?.()
+  })
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT,[
+  {name:YWNavPath.root_setting,builder:wrapBuilder(learnSettingBuilder)},
+])

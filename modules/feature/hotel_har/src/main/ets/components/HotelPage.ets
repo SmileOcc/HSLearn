@@ -5,22 +5,6 @@ import { hsLog } from "@learn/logger_har"
 import { YWResColor } from "@learn/res_har"
 
 const TAG = "HotelPage"
-@Builder
-export function hotelBuilder(name: string, params: YWRouterNavParams) {
-  NavDestination() {
-    HotelPage({ navParams: params })
-  }
-  .hideTitleBar(true)
-  .onWillDisappear(() => {
-    params.getPageLifecycle().pageOnDisappear?.()
-  })
-  .onShown(() => {
-    params.getPageLifecycle().pageOnShow?.()
-  })
-  .onHidden(() => {
-    params.getPageLifecycle().pageOnHide?.()
-  })
-}
 
 @ComponentV2
 struct HotelPage {
@@ -200,3 +184,24 @@ struct HotelPage {
   }
 
 }
+
+@Builder
+export function hotelBuilder(name: string, params: YWRouterNavParams) {
+  NavDestination() {
+    HotelPage({ navParams: params })
+  }
+  .hideTitleBar(true)
+  .onWillDisappear(() => {
+    params.getPageLifecycle().pageOnDisappear?.()
+  })
+  .onShown(() => {
+    params.getPageLifecycle().pageOnShow?.()
+  })
+  .onHidden(() => {
+    params.getPageLifecycle().pageOnHide?.()
+  })
+}
+
+ywNavRouter.boundRouteName(YWLocalNavType.NAV_ROOT_MAIN_TAB,[
+  {name:YWNavPath.root_hotel_nav,builder:wrapBuilder(hotelBuilder)},
+])
